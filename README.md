@@ -9,7 +9,7 @@ Flexible parser is a multi-purpose C# parsing library based upon the following:
 Part 1 - Units (UnitParser)
 To be released within the first week of August 2016 (small delay, sorry about that :)).
 
-## AUTHORSHIP & COPYRIGHT
+## Authorship & Copyright
 
 I, Alvaro Carballo Garcia (= varocarbas), am the sole author of each single bit of this code.
 
