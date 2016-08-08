@@ -1,3 +1,5 @@
+
+[![Build Status](https://travis-ci.org/varocarbas/FlexibleParser.svg?branch=master)](https://travis-ci.org/varocarbas/FlexibleParser)
 ## Flexible Parser
 
 Flexible parser is a multi-purpose C# parsing library based upon the following ideas:
