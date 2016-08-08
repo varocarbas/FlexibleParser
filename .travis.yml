@@ -1,4 +1,3 @@
 language: csharp
 solution: FlexibleParser.sln
 before_script: cd all_code
-before_install: cd all_code
