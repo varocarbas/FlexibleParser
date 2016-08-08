@@ -122,7 +122,6 @@ namespace FlexibleParser
             {
                 UnitPart part = unitInfo.Parts[i];
                 UnitTypes type = GetTypeFromUnitPart(part);
-                UnitSystems system = GetSystemFromUnit(part.Unit, true);
                 if (PartNeedsConversion(GetSystemFromUnit(part.Unit, true), basicSystem, type))
                 {
                     UnitPart targetPart = GetBasicUnitPartForTypeSystem
