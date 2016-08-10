@@ -167,7 +167,7 @@ namespace FlexibleParser
             (
                 BigNumberExponent != 0 ? "*10^" + BigNumberExponent.ToString() : ""
             );
-            ValueAndUnitString = ValueAndUnitString + " [" + UnitString + "]";
+            ValueAndUnitString = ValueAndUnitString + " " + UnitString;
 
             Error =
             (
