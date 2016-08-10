@@ -128,6 +128,7 @@ namespace FlexibleParser
         private static void PopulateAllUnitStrings()
         {
             Units unit = Units.Metre;
+            AddToAllUnitStrings("meter", unit);
             AddToAllUnitStrings("mtr", unit);
 
             unit = Units.AstronomicalUnit;
@@ -228,6 +229,7 @@ namespace FlexibleParser
             AddSqCuToAllUnitStrings(new string[] { "in" }, unit, false);
 
             unit = Units.Litre;
+            AddToAllUnitStrings("liter", unit);
             AddToAllUnitStrings("ltr", unit);
 
             unit = Units.ImperialFluidOunce;
