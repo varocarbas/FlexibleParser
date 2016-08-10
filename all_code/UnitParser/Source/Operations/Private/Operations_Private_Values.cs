@@ -74,7 +74,7 @@ namespace FlexibleParser
                     outInfo, secondInfo, operation
                 );
 
-                if (outInfo.Error.Type == ErrorTypes.None && operation == Operations.Division)
+                if (secondInfo.Unit != Units.None && outInfo.Error.Type == ErrorTypes.None && operation == Operations.Division)
                 {
                     if (outInfo.Parts.Count > 0)
                     {
