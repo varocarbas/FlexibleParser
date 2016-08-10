@@ -74,9 +74,9 @@ namespace FlexibleParser
                     outInfo, secondInfo, operation
                 );
 
-                if (outInfo.Error.Type == ErrorTypes.None && secondInfo.Unit != Units.None && secondInfo.Unit != Units.Unitless)
+                if (operation == Operations.Division && secondInfo.Unit != Units.None && secondInfo.Unit != Units.Unitless)
                 {
-                    if (operation == Operations.Division && outInfo.Parts.Count > 0)
+                    if (outInfo.Parts.Count > 0)
                     {
                         //value/unit is the only scenario value-unit operation where the unit
                         //information needs further analysis.
