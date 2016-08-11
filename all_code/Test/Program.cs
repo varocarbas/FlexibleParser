@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using FlexibleParser;
 
 namespace Test
@@ -41,7 +42,15 @@ namespace Test
             varN5 = varN5 / 7.891011m;
 
             //--- Dividing a number by a UnitP variable does affect the given unit.
-            varN5 = 7.891011m / varN5; //Error because 1/N doesn't represent a supported type.
+            try
+            {
+                varN5 = 7.891011m / varN5; 
+            }
+            catch
+            {
+                //Error because 1/N doesn't represent a supported type.
+                //The reasons for the exception are explained below.
+            }
 
 
             //------ Compounds, unit parts and individual units.
@@ -59,12 +68,63 @@ namespace Test
                 //This condition is true.
             }
 
-            //------ MORE RELEVANT SAMPLES TO BE WRITTEN SOON!
+            //--- The unit parts are automatically populated when instantiating a valid UnitP variable.
+            if (varNamedComp1.UnitParts.FirstOrDefault(x => !varNamedComp1V2.UnitParts.Contains(x)) == null)
+            {
+                //This condition is true.
+            }
+
+            //------ Errors and exceptions.
+
+            //--- All the error information is stored in the readonly variable Error.
+            if (varComp1.Error.Type == UnitP.ErrorTypes.None)
+            {
+                //This condition is true.
+            }
+            if (varError1.Error.Type != UnitP.ErrorTypes.None)
+            {
+                //This condition is true.
+            }
+
+            //--- By default, errors don't trigger exceptions.
+            UnitP varError2 = new UnitP("1 wrong"); //No exception is triggered.
+
+            //--- This default behaviour can be modified when instantiating the variable.
+            try
+            {
+                varError2 = new UnitP("1 wrong", UnitP.ExceptionHandlingTypes.AlwaysTriggerException);
+            }
+            catch //An exception is triggered.
+            { }
+
+            //--- In case of incompatibility, the configuration of the first operand is applied.
+            UnitP varNoException1 = new UnitP("1 wrong");
+            UnitP varException1 = new UnitP("1 m", UnitP.ExceptionHandlingTypes.AlwaysTriggerException);
+
+            UnitP wrongOperation1 = varNoException1 * varException1; //No exception is triggered.
+
+            try
+            {
+                UnitP wrongOperation2 = varException1 * varNoException1;
+            }
+            catch //An exception is triggered.
+            { }
 
 
-            //----- Printing all the supported named units.            
+            //--- When the first operand is a number, an exception is always triggered.
+            try
+            {
+                UnitP wrongOperation2V2 = 5.0 * varNoException1;
+            }
+            catch //An exception is triggered.
+            { }
+
+
+            //------ MORE TO BE WRITTEN SOON!
+
+
+            //----- Printing all the supported named units.
             PrintAllNamedUnits();
-
         }
 
         private static void PrintAllNamedUnits()
