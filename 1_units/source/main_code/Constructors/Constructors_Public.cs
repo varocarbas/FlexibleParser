@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -49,14 +49,8 @@ namespace FlexibleParser
             UnitParts = unitP2.UnitInfo.Parts.AsReadOnly();
             UnitString = unitP2.UnitString;
             ValueAndUnitString = unitP2.ValueAndUnitString;
-
-            Error =
-            (
-                unitP2.ErrorType != ErrorTypes.None ?
-                //If applicable, this instantiation would trigger an exception right away.
-                new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling) :
-                new ErrorInfo()
-            );
+            //If applicable, this instantiation would trigger an exception right away.
+            Error = new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling);
         }
         
         ///<summary>
@@ -96,17 +90,11 @@ namespace FlexibleParser
             UnitParts = unitP2.UnitInfo.Parts.AsReadOnly();
             UnitString = unitP2.UnitString;
             ValueAndUnitString = unitP2.ValueAndUnitString;
-
-            Error =
+            //If applicable, this instantiation would trigger an exception right away.
+            Error = new ErrorInfo
             (
-                parsingError != ErrorTypes.None || unitP2.ErrorType != ErrorTypes.None ?
-                new ErrorInfo
-                (
-                    //If applicable, this instantiation would trigger an exception right away.
-                    (parsingError != ErrorTypes.None ? parsingError : unitP2.ErrorType),
-                    unitP2.ExceptionHandling
-                ) 
-                : new ErrorInfo()
+                (parsingError != ErrorTypes.None ? parsingError : unitP2.ErrorType),
+                unitP2.ExceptionHandling
             );
         }
 
@@ -169,12 +157,14 @@ namespace FlexibleParser
             );
             ValueAndUnitString = ValueAndUnitString + " " + UnitString;
 
-            Error =
+            //If applicable, this instantiation would trigger an exception right away.
+            Error = new ErrorInfo
             (
-                unit == Units.None || unit == Units.Unitless || AllUnnamedUnits.ContainsValue(unit) ?
-                //If applicable, this instantiation would trigger an exception right away.
-                new ErrorInfo(ErrorTypes.InvalidUnit, exceptionHandling) :
-                new ErrorInfo()
+                (
+                    unit == Units.None || unit == Units.Unitless || AllUnnamedUnits.ContainsValue(unit) ?
+                    ErrorTypes.InvalidUnit : ErrorTypes.None
+                ),
+                exceptionHandling
             );
         }
 
