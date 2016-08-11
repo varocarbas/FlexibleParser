@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace FlexibleParser
@@ -53,19 +53,13 @@ namespace FlexibleParser
                 Parts = new List<UnitPart>(unitP.UnitParts)
             };
 
-            ErrorTypes errorType = GetOperationError
+            outInfo.Error = new ErrorInfo
             (
-                new UnitInfo[] { firstInfo, secondInfo }, operation
+                GetUnitValueOperationError
+                (
+                    unitP, firstInfo, secondInfo, operation
+                )
             );
-
-            if (errorType == ErrorTypes.None && unitP.Unit == Units.None)
-            {
-                outInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
-            }
-            else if (operation == Operations.Division && secondInfo.Value == 0m)
-            {
-                outInfo.Error = new ErrorInfo(ErrorTypes.NumericError);
-            }
 
             if (outInfo.Error.Type == ErrorTypes.None)
             {
@@ -103,6 +97,25 @@ namespace FlexibleParser
                 outInfo.Error.Type != ErrorTypes.None ? new UnitP(unitP, outInfo.Error.Type) :
                 new UnitP(outInfo, unitP, operationString)
             );
+        }
+
+        private static ErrorTypes GetUnitValueOperationError(UnitP unitP, UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
+        {
+            ErrorTypes outError = GetOperationError
+            (
+                new UnitInfo[] { firstInfo, secondInfo }, operation
+            );
+
+            if (outError == ErrorTypes.None && unitP.Unit == Units.None)
+            {
+                outError = ErrorTypes.InvalidUnit;
+            }
+            else if (operation == Operations.Division && secondInfo.Value == 0m)
+            {
+                outError = ErrorTypes.NumericError;
+            }
+
+            return outError;
         }
 
         private static UnitInfo InversePrefix(UnitInfo outInfo)
@@ -155,6 +168,13 @@ namespace FlexibleParser
             }
 
             outInfo.Value = Convert.ToDecimal(doubleVal);
+
+            //By default, numbers have a AlwaysTriggerException configuration.
+            outInfo.Error = new ErrorInfo
+            (
+                ErrorTypes.None,
+                ExceptionHandlingTypes.AlwaysTriggerException
+            );
 
             return outInfo;
         }
