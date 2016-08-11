@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,14 +34,8 @@ namespace FlexibleParser
             UnitParts = unitP2.UnitInfo.Parts.AsReadOnly();
             UnitString = unitP2.UnitString;
             ValueAndUnitString = unitP2.ValueAndUnitString;
-
-            Error =
-            (
-                unitP2.ErrorType != ErrorTypes.None ?
-                //If applicable, this instantiation would trigger an exception right away.
-                new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling) :
-                new ErrorInfo()
-            );
+            //If applicable, this instantiation would trigger an exception right away.
+            Error = new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling);
         }
 
         private UnitP
@@ -51,7 +45,7 @@ namespace FlexibleParser
         : this
         (
             new ParsedUnit(unitInfo), "", UnitSystems.None,
-            ExceptionHandlingTypes.NeverTriggerException, PrefixUsageTypes.DefaultUsage,
+            ExceptionHandlingTypes.NeverTriggerException, unitInfo.Prefix.PrefixUsage,
             noPrefixImprovement
         )
         { }
@@ -64,7 +58,7 @@ namespace FlexibleParser
         : this
         (
             new ParsedUnit(unitInfo), originalUnitString, system,
-            ExceptionHandlingTypes.NeverTriggerException, PrefixUsageTypes.DefaultUsage,
+            unitP.Error.ExceptionHandling, unitInfo.Prefix.PrefixUsage,
             noPrefixImprovement
         )
         { }
@@ -87,7 +81,11 @@ namespace FlexibleParser
             UnitPConstructor unitP2 = new UnitPConstructor
             (
                 unitP.OriginalUnitString, new UnitInfo(unitP),
-                UnitTypes.None, UnitSystems.None, errorType
+                UnitTypes.None, UnitSystems.None, errorType,
+                (
+                    exceptionHandling != ExceptionHandlingTypes.NeverTriggerException ?
+                    exceptionHandling : unitP.Error.ExceptionHandling
+                )
             );
 
             if (unitP2.ErrorType != ErrorTypes.None)
@@ -96,8 +94,6 @@ namespace FlexibleParser
                 BigNumberExponent = 0;
                 UnitPrefix = new Prefix();
                 UnitParts = new List<UnitPart>().AsReadOnly();
-                //If applicable, this instantiation would trigger an exception right away.
-                Error = new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling);
             }
             else
             {
@@ -111,8 +107,10 @@ namespace FlexibleParser
                 UnitParts = unitP2.UnitInfo.Parts.AsReadOnly();
                 UnitString = unitP2.UnitString;
                 ValueAndUnitString = unitP2.ValueAndUnitString;
-                Error = new ErrorInfo();
             }
+
+            //If applicable, this instantiation would trigger an exception right away.
+            Error = new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling);
         }
 
         private UnitP(UnitP unitP, ExceptionHandlingTypes exceptionHandling) : this
