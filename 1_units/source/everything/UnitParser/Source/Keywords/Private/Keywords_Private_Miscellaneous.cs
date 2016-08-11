@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,8 +51,7 @@ namespace FlexibleParser
                 PopulateVariables
                 (
                     value, unit, prefix, (getParts ? null : new List<UnitPart>()),
-                    new Dictionary<UnitPart, int>(), 0, 
-                    UnitTypes.None, UnitSystems.None, ErrorTypes.None
+                    new Dictionary<UnitPart, int>(), 0, UnitTypes.None, UnitSystems.None, null
                 );
             }
 
@@ -64,7 +63,8 @@ namespace FlexibleParser
                 (
                     unitInfo.Value, unitInfo.Unit, unitInfo.Prefix, 
                     unitInfo.Parts, GetInitialPositions(unitInfo.Parts),
-                    unitInfo.BigNumberExponent, unitInfo.Type, unitInfo.System
+                    unitInfo.BigNumberExponent, unitInfo.Type, unitInfo.System,
+                    unitInfo.Error
                 );
             }
 
@@ -74,6 +74,7 @@ namespace FlexibleParser
                 {
                     Prefix = new Prefix();
                     Parts = new List<UnitPart>();
+                    Error = new ErrorInfo();
                     return;
                 }
 
@@ -86,7 +87,7 @@ namespace FlexibleParser
                 (
                     unitP.Value, unitP.Unit, unitP.UnitPrefix, unitParts,
                     GetInitialPositions(unitParts), unitP.BigNumberExponent,
-                    unitP.UnitType, unitP.UnitSystem
+                    unitP.UnitType, unitP.UnitSystem, unitP.Error
                 );
             }
 
@@ -103,7 +104,7 @@ namespace FlexibleParser
                 decimal value, Units unit, Prefix prefix, List<UnitPart> parts,
                 Dictionary<UnitPart, int> initialPositions, int bigNumberExponent = 0,
                 UnitTypes type = UnitTypes.None, UnitSystems system = UnitSystems.None, 
-                ErrorTypes errorType = ErrorTypes.None
+                ErrorInfo errorInfo = null
             )
             {
                 Value = value;
@@ -126,7 +127,7 @@ namespace FlexibleParser
                 }
                 System = system;
                 Type = type;
-                Error = new ErrorInfo(errorType);
+                Error = new ErrorInfo(errorInfo);
             }
 
             public static UnitInfo operator +(UnitInfo first, UnitInfo second)
