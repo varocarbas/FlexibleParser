@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +15,7 @@ namespace FlexibleParser
         {
             UnitPConstructor unitP2 = new UnitPConstructor
             (
-                originalUnitString, parsedUnit.UnitInfo, parsedUnit.Type, parsedUnit.System,
+                originalUnitString, parsedUnit.UnitInfo, parsedUnit.UnitInfo.Type, parsedUnit.UnitInfo.System,
                 ErrorTypes.None, exceptionHandling, noPrefixImprovement
             );
 
@@ -133,7 +133,7 @@ namespace FlexibleParser
 
             return new UnitPConstructor
             (
-                unitString, parsedUnit.UnitInfo, parsedUnit.Type, parsedUnit.System,
+                unitString, parsedUnit.UnitInfo, parsedUnit.UnitInfo.Type, parsedUnit.UnitInfo.System,
                 (
                     parsedUnit.UnitInfo.Unit == Units.None ?
                     ErrorTypes.InvalidUnit : ErrorTypes.None 
@@ -284,22 +284,40 @@ namespace FlexibleParser
 
             private static UnitInfo ImprovePrefixes(UnitInfo unitInfo)
             {
-                PrefixTypes prefixType = unitInfo.Prefix.Type;
-                unitInfo = NormaliseUnitInfo(unitInfo);
+                decimal absValue = Math.Abs(unitInfo.Value);
+                bool valueIsOK = (absValue >= 0.001m && absValue <= 1000m);                     
 
-                if (prefixType == PrefixTypes.None)
+                if (valueIsOK && unitInfo.BigNumberExponent == 0 && unitInfo.Prefix.Factor == 1m)
                 {
-                    if (PrefixCanBeUsedBasic(unitInfo.Unit, PrefixTypes.SI, unitInfo.Prefix.PrefixUsage))
-                    {
-                        prefixType = PrefixTypes.SI;
-                    }
+                    return unitInfo;
                 }
 
-                return 
+                PrefixTypes prefixType = 
                 (
-                    prefixType == PrefixTypes.None || PrefixCanBeUsedCompound(unitInfo) ?
-                    GetBestPrefixForTarget(unitInfo, unitInfo.BigNumberExponent, prefixType, true) :
-                    unitInfo
+                    unitInfo.Prefix.Type != PrefixTypes.None ? 
+                    unitInfo.Prefix.Type : PrefixTypes.SI   
+                );
+
+                bool prefixIsOK =
+                (
+                    !PrefixCanBeUsedBasic(unitInfo.Unit, prefixType, unitInfo.Prefix.PrefixUsage) ?
+                    false : PrefixCanBeUsedCompound(unitInfo)
+                );
+
+                if (prefixIsOK && valueIsOK) return unitInfo;
+
+                //All the prefixes are removed.
+                unitInfo = NormaliseUnitInfo(unitInfo);
+
+                return
+                (
+                    !prefixIsOK ? unitInfo :
+                    GetBestPrefixForTarget
+                    (
+                        unitInfo, 
+                        unitInfo.BigNumberExponent, 
+                        prefixType, true
+                    )
                 );
             }
         }
