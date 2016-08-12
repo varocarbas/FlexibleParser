@@ -102,14 +102,15 @@ namespace FlexibleParser
             string remString = "";
             foreach (var prefix in allPrefixes)
             {
-                if (parsedUnit.InputToParse.ToLower().StartsWith(allPrefixNames[prefix.Key]))
-                {
-                    remString = parsedUnit.InputToParse.Substring(allPrefixNames[prefix.Key].Length);
-                }
-                else if (parsedUnit.InputToParse.StartsWith(prefix.Key))
+                if (parsedUnit.InputToParse.StartsWith(prefix.Key))
                 {
                     remString = parsedUnit.InputToParse.Substring(prefix.Key.Length);
                 }
+                else if (parsedUnit.InputToParse.ToLower().StartsWith(allPrefixNames[prefix.Key]))
+                {
+                    remString = parsedUnit.InputToParse.Substring(allPrefixNames[prefix.Key].Length);
+                }
+                
                 if (remString != "")
                 {
                     return AnalysePrefix
