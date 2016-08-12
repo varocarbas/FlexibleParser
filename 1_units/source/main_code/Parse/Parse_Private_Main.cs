@@ -65,11 +65,8 @@ namespace FlexibleParser
         //parsing actions.
         private class ParsedUnit
         {
-            public UnitInfo UnitInfo { get; set; }
-            public UnitSystems System { get; set; }
-            public UnitTypes Type { get; set; }        
+            public UnitInfo UnitInfo { get; set; }   
             public string InputToParse { get; set; }
-            public int Exponent { get; set; }
             //This ValidCompound isn't used when parsing individual units.
             public StringBuilder ValidCompound { get; set; }
 
@@ -83,8 +80,6 @@ namespace FlexibleParser
             public ParsedUnit(ParsedUnit parsedUnit, string inputToParse = "")
             {
                 UnitInfo = new UnitInfo(parsedUnit.UnitInfo);
-                System = parsedUnit.System;
-                Exponent = parsedUnit.Exponent;
                 InputToParse = 
                 (
                     inputToParse != "" ? 
@@ -105,7 +100,6 @@ namespace FlexibleParser
                     value, Units.None, new Prefix(1, prefixUsage)
                 );
                 InputToParse = inputToParse;
-                Exponent = exponent;
             }
         }
     }

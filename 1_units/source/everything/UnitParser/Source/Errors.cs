@@ -71,7 +71,7 @@ namespace FlexibleParser
                 ExceptionHandling = exceptionHandling;
                 Message = GetMessage(type);
 
-                if (ExceptionHandling == ExceptionHandlingTypes.AlwaysTriggerException)
+                if (type != ErrorTypes.None && ExceptionHandling == ExceptionHandlingTypes.AlwaysTriggerException)
                 {
                     throw new Exception(Message);
                 }  
