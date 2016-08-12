@@ -154,14 +154,12 @@ namespace Test
 
             //--- The unit parts can also have prefixes, which might be compensated with the main prefix.
             UnitP varPrefix11 = new UnitP(1m, SIPrefixSymbols.Kilo + UnitSymbols.Newton); //SI prefix kilo affecting the compound newton.
-            UnitP varPrefix12 = new UnitP("1 Mg*m/s2"); //Parts of the compound newton (kg*m/s2) + SI prefix kilo (kilo-kg = mg).
-
+            UnitP varPrefix12 = new UnitP("1 Mg*m/s2"); //Parts of the compound newton (kg*m/s2) + SI prefix kilo (kilo-kg = Mg).
             if (varPrefix11 == varPrefix12)
             {
                 //This condition is true.
                 //Note that both UnitP variables being equal implies identical prefixes.
             }
-
 
             //------ MORE TO BE WRITTEN SOON!
 
