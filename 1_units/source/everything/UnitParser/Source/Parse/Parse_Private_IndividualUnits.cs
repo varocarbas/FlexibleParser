@@ -176,7 +176,7 @@ namespace FlexibleParser
         {
             string unitString = "None";
             
-            if (unitInfo.Unit != Units.None && unitInfo.Unit != Units.Unitless && !AllUnnamedUnits.ContainsValue(unitInfo.Unit))
+            if (unitInfo.Unit != Units.None && unitInfo.Unit != Units.Unitless && !IsUnnamedUnit(unitInfo.Unit))
             {
                 if (AllUnitSymbols.ContainsValue(unitInfo.Unit))
                 {

@@ -16,7 +16,7 @@ namespace Test
             UnitP varN3 = new UnitP(1m, "nEwTon"); //Unit secondary string representation. Caps doesn't matter.  
             UnitP varN4 = new UnitP(1m, Units.Newton);
 
-            //--- All the public classes support (un)equality checks.
+            //--- All the public classes support (un)equality comparisons accounting for their peculiaries.
             if (varN1 == varN2 && varN2 == varN3 && varN2 == varN4)
             {
                 //This condition is true.
@@ -76,7 +76,7 @@ namespace Test
 
             //------ Errors and exceptions.
 
-            //--- All the error information is stored in the readonly variable Error.
+            //--- All the error information is stored under UnitPVariable.Error.
             if (varComp1.Error.Type == UnitP.ErrorTypes.None)
             {
                 //This condition is true.
@@ -123,7 +123,7 @@ namespace Test
             UnitP varPrefix1 = new UnitP(1m, "km"); //SI prefix kilo + metre.
             UnitP varPrefix2 = new UnitP("1 Kibit"); //Binary prefix Kibi + bit.
 
-            //--- All the prefix-related information is stored in the UnitPrefix variable.
+            //--- All the prefix-related information is stored under UnitPVariable.UnitPrefix.
             UnitP varPrefix1OtherUnit = new UnitP(1m, "ks");
             if (varPrefix1.UnitPrefix == varPrefix1OtherUnit.UnitPrefix)
             {
@@ -160,6 +160,27 @@ namespace Test
                 //This condition is true.
                 //Note that both UnitP variables being equal implies identical prefixes.
             }
+
+            //------ System of units.
+
+            //--- The system is automatically determined at variable instantiation. Each unit can belong to just one system.
+            UnitP varSystem1 = new UnitP("1 m/s2"); //SI acceleration unit (m/s2).
+            UnitP varSystem2 = new UnitP("1 cm/s2"); //CGS acceleration unit (Gal).
+            UnitP varSystem3 = new UnitP(1m, UnitSymbols.ImperialCable + "/h2"); //Imperial acceleration unit (impcbl/s2). 
+            UnitP varSystem4 = new UnitP(1m, UnitSymbols.USCSCable + "/s2"); //USCS acceleration unit (usccbl/s2). 
+            UnitP varSystem5 = new UnitP(1m, "AU/min2"); //Acceleration unit not belonging to any system (AU/min2). 
+
+
+            //------ Automatic unit conversions.
+
+            //--- Automatic conversions (to the system of the first operand) happen in operations between many different-system units.
+            UnitP varAuto1 = new UnitP(1m, Units.Metre) * new UnitP("1 ft"); //SI area unit m2.
+            UnitP varAuto2 = new UnitP("1 lbf") + new UnitP(5m, "N"); //Imperial/USCS force unit lbf.
+
+            //--- Same rules apply to compounds instantiated via string-parsing.
+            UnitP varAuto3 = new UnitP(1m, "m*lb/s2"); //SI force unit N.
+            UnitP varAuto4 = new UnitP(1m, "surin3/in"); //USCS area unit.
+
 
             //------ MORE TO BE WRITTEN SOON!
 

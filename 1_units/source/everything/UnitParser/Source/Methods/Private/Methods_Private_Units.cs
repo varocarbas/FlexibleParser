@@ -45,6 +45,15 @@ namespace FlexibleParser
             );
         }
 
+        private static bool IsUnnamedUnit(Units unit)
+        {
+            return
+            (
+                unit == Units.ValidImperialUnit || 
+                DefaultUnnamedUnits.ContainsValue(unit)
+            );
+        }
+
         private static Dictionary<UnitPart, UnitPart> GetUnitPartsToConvert(UnitInfo unitInfo)
         {
             Dictionary<UnitPart, UnitPart> outDict = new Dictionary<UnitPart, UnitPart>();
@@ -208,7 +217,7 @@ namespace FlexibleParser
 
         private static UnitInfo GetPartsFromUnit(UnitInfo unitInfo)
         {
-            if (unitInfo.Unit == Units.None || unitInfo.Unit == Units.Unitless || AllUnnamedUnits.ContainsValue(unitInfo.Unit))
+            if (unitInfo.Unit == Units.None || unitInfo.Unit == Units.Unitless || IsUnnamedUnit(unitInfo.Unit))
             {
                 return unitInfo;
             }
@@ -276,10 +285,11 @@ namespace FlexibleParser
             .Value;
         }
 
-        private static UnitTypes GetTypeFromUnitPart(UnitPart unitPart)
+        private static UnitTypes GetTypeFromUnitPart(UnitPart unitPart, bool ignoreExponents = false)
         {
             UnitPart unitPart2 = new UnitPart(unitPart);
-            
+            if (ignoreExponents) unitPart2.Exponent = 1;
+
             //Negative exponent do not affect type determination. For example, a unit consisting
             //in just the part m-1 is wavenumber (negative exponent being relevant), but this part
             //is actually length (-1 doesn't matter).
@@ -316,7 +326,7 @@ namespace FlexibleParser
         {
             return
             (
-                unit == Units.None || unit == Units.Unitless || AllUnnamedUnits.ContainsValue(unit) ?
+                unit == Units.None || unit == Units.Unitless || IsUnnamedUnit(unit) ?
                 UnitTypes.None : AllUnitTypes[unit]
             );
         }

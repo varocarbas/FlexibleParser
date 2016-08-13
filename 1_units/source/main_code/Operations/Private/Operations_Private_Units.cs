@@ -63,7 +63,7 @@ namespace FlexibleParser
             {
                 outInfos[0].Error = new ErrorInfo(ErrorTypes.InvalidUnit);
             }
-            else if (outInfo.Unit != secondInfo.Unit || AllUnnamedUnits.ContainsValue(outInfo.Unit))
+            else if (outInfo.Unit != secondInfo.Unit || IsUnnamedUnit(outInfo.Unit))
             {
                 outInfos[1] = ConvertUnit(secondInfo, outInfo);
             }
@@ -186,8 +186,8 @@ namespace FlexibleParser
             (
                 outInfo.Unit != targetInfo2.Unit ||
                 (
-                    AllUnnamedUnits.ContainsValue(originalInfo.Unit) &&
-                    AllUnnamedUnits.ContainsValue(targetInfo.Unit)
+                    IsUnnamedUnit(originalInfo.Unit) &&
+                    IsUnnamedUnit(targetInfo.Unit)
                 )
             );
 
@@ -264,9 +264,9 @@ namespace FlexibleParser
         //Checks whether the conversion might be performed directly (i.e., without parts analysis).
         private static bool UnitsCanBeConvertedDirectly(UnitInfo original, UnitInfo target)
         {
-            if (original.Unit != Units.None && original.Unit != Units.Unitless && !AllUnnamedUnits.ContainsValue(original.Unit))
+            if (original.Unit != Units.None && original.Unit != Units.Unitless && !IsUnnamedUnit(original.Unit))
             {
-                if (target.Unit != Units.None && target.Unit != Units.Unitless && !AllUnnamedUnits.ContainsValue(target.Unit))
+                if (target.Unit != Units.None && target.Unit != Units.Unitless && !IsUnnamedUnit(target.Unit))
                 {
                     return true;
                 }
@@ -332,7 +332,7 @@ namespace FlexibleParser
             {
                 outError = ErrorTypes.InvalidUnitConversion;
             }
-            else if (AllUnnamedUnits.ContainsValue(originalPart.Unit) || AllUnnamedUnits.ContainsValue(targetPart.Unit))
+            else if (IsUnnamedUnit(originalPart.Unit) || IsUnnamedUnit(targetPart.Unit))
             {
                 //Finding a compound here would be certainly an error.
                 outError = ErrorTypes.InvalidUnitConversion;

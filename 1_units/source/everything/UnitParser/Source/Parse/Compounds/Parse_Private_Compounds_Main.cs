@@ -117,18 +117,22 @@ namespace FlexibleParser
         {
             UnitSystems basicSystem = AllMetricEnglish[unitInfo.System];
             UnitInfo convertInfo = new UnitInfo(1m);
+            unitInfo.Parts = unitInfo.Parts.OrderBy(x => unitInfo.InitialPositions[x]).ToList();
 
-            for (int i = 0; i < unitInfo.Parts.Count; i++)
+            for (int i = 1; i < unitInfo.Parts.Count; i++)
             {
                 UnitPart part = unitInfo.Parts[i];
                 UnitTypes type = GetTypeFromUnitPart(part);
                 UnitSystems system = GetSystemFromUnit(part.Unit, true);
-                if (PartNeedsConversion(GetSystemFromUnit(part.Unit, true), basicSystem, type))
+                bool englishConversion = false;
+
+                if (ConvertPart(system, basicSystem, type) || (englishConversion = ConvertPartEnglish(unitInfo.System, GetSystemFromUnit(part.Unit))))
                 {
-                    UnitPart targetPart = GetBasicUnitPartForTypeSystem
+                    UnitPart targetPart = GetTargetUnitPart
                     (
-                        type, basicSystem, part.Exponent
+                        unitInfo, i, type, (englishConversion ? unitInfo.System : basicSystem)
                     );
+
                     if (targetPart == null || targetPart.Unit == part.Unit || GetTypeFromUnitPart(targetPart) != type)
                     {
                         continue;
@@ -160,7 +164,35 @@ namespace FlexibleParser
             );
         }
 
-        private static bool PartNeedsConversion(UnitSystems partSystem, UnitSystems basicSystem, UnitTypes partType)
+        private static UnitPart GetTargetUnitPart(UnitInfo unitInfo, int i, UnitTypes type, UnitSystems system)
+        {
+            for (int i2 = 0; i2 < i; i2++)
+            {
+                if (GetTypeFromUnitPart(unitInfo.Parts[i2], true) == type)
+                {
+                    //This part certainly belongs to the target system.
+                    return new UnitPart(unitInfo.Parts[i2])
+                    { 
+                        Exponent = unitInfo.Parts[i].Exponent 
+                    };
+                }
+            }
+
+            return GetBasicUnitPartForTypeSystem
+            (
+                type, system, unitInfo.Parts[i].Exponent
+            );
+        }
+
+        private static bool ConvertPartEnglish(UnitSystems system1, UnitSystems system2)
+        {
+            return 
+            (
+                (system1 == UnitSystems.USCS || system2 == UnitSystems.USCS) && system1 != system2
+            );
+        }
+
+        private static bool ConvertPart(UnitSystems partSystem, UnitSystems basicSystem, UnitTypes partType)
         {
             if (NeutralTypes.Contains(partType)) return false;
 

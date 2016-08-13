@@ -215,9 +215,13 @@ namespace FlexibleParser
                     );
                     UnitSystem = 
                     (
-                        UnitInfo.System != UnitSystems.None ? UnitInfo.System :
-                        GetSystemFromUnit(UnitInfo.Unit)
+                        UnitInfo.System != UnitSystems.None && UnitInfo.System != UnitSystems.Imperial ?
+                        UnitInfo.System : GetSystemFromUnit(UnitInfo.Unit, false, true)
                     );
+                    if (UnitSystem == UnitSystems.Imperial && UnitInfo.Unit == Units.ValidImperialUSCSUnit)
+                    {
+                        UnitInfo.Unit = Units.ValidImperialUnit;
+                    }
                     UnitString = GetUnitString(UnitInfo);
 
                     Value = UnitInfo.Value;
@@ -304,20 +308,53 @@ namespace FlexibleParser
                     false : PrefixCanBeUsedCompound(unitInfo)
                 );
 
-                if (prefixIsOK && valueIsOK) return unitInfo;
+                if (!prefixIsOK || !valueIsOK)
+                {
+                    //All the prefixes are removed.
+                    unitInfo = NormaliseUnitInfo(unitInfo);
 
-                //All the prefixes are removed.
-                unitInfo = NormaliseUnitInfo(unitInfo);
+                    if (prefixIsOK)
+                    {
+                        unitInfo = GetBestPrefixForTarget
+                        (
+                            unitInfo, unitInfo.BigNumberExponent, 
+                            prefixType, true
+                        );
+                    }
+                }
 
-                return
+                return CompensateBigNumberExponentWithPrefix(unitInfo);
+            }
+
+            private static UnitInfo CompensateBigNumberExponentWithPrefix(UnitInfo unitInfo)
+            {
+                if (unitInfo.BigNumberExponent == 0 || unitInfo.Prefix.Factor == 1m) return unitInfo;
+
+                UnitInfo tempInfo = NormaliseUnitInfo
                 (
-                    !prefixIsOK ? unitInfo :
-                    GetBestPrefixForTarget
-                    (
-                        unitInfo, 
-                        unitInfo.BigNumberExponent, 
-                        prefixType, true
-                    )
+                    new UnitInfo(unitInfo) { Value = 1m }
+                );
+
+                tempInfo = GetBestPrefixForTarget
+                (
+                    tempInfo, tempInfo.BigNumberExponent,
+                    unitInfo.Prefix.Type, true
+                );
+
+                unitInfo = new UnitInfo(unitInfo)
+                {
+                    BigNumberExponent = tempInfo.BigNumberExponent,
+                    Prefix = new Prefix(tempInfo.Prefix),
+                    Value = unitInfo.Value
+                };
+
+                return PerformManagedOperationValues
+                (
+                    unitInfo, tempInfo = new UnitInfo(tempInfo) 
+                    { 
+                        BigNumberExponent = 0, Prefix = new Prefix() 
+                    },
+                    Operations.Multiplication
                 );
             }
         }

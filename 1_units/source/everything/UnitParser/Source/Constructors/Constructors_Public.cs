@@ -161,7 +161,7 @@ namespace FlexibleParser
             Error = new ErrorInfo
             (
                 (
-                    unit == Units.None || unit == Units.Unitless || AllUnnamedUnits.ContainsValue(unit) ?
+                    unit == Units.None || unit == Units.Unitless || IsUnnamedUnit(unit) ?
                     ErrorTypes.InvalidUnit : ErrorTypes.None
                 ),
                 exceptionHandling

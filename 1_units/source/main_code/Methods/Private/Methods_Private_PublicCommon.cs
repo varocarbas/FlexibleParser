@@ -52,7 +52,7 @@ namespace FlexibleParser
         {
             return
             (
-                unit == Units.None || unit == Units.Unitless || AllUnnamedUnits.ContainsValue(unit) ?
+                unit == Units.None || unit == Units.Unitless || IsUnnamedUnit(unit) ?
                 new List<string>() :
                 GetUnitStringsCommon
                 (
