@@ -17,7 +17,11 @@ namespace FlexibleParser
                 new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
                 {
                     { UnitSystems.SI, new Dictionary<Units, decimal>() { { Units.ValidSIUnit, 1m } } },
-                    { UnitSystems.Imperial, new Dictionary<Units, decimal>() { { Units.ValidImperialUSCSUnit, 1m } } },
+                    { UnitSystems.Imperial, new Dictionary<Units, decimal>() 
+                      { 
+                        { Units.ValidImperialUSCSUnit, 1m }, { Units.ValidImperialUnit, 1m } 
+                      } 
+                    },
                     { UnitSystems.USCS, new Dictionary<Units, decimal>() { { Units.ValidUSCSUnit, 1m } } }, 
                     { UnitSystems.CGS, new Dictionary<Units, decimal>() { { Units.ValidCGSUnit, 1m } } },
                     { UnitSystems.None, new Dictionary<Units, decimal>() { { Units.ValidUnit, 1m }, { Units.Unitless, 1m} } },
@@ -1510,7 +1514,7 @@ namespace FlexibleParser
         //Relates all the unnamed units with their associated systems.
         //There are many units which don't fit any Units enum case; this is what this unnamed category addresses.
         //That is: placeholders avoiding a huge (and not too logical) hardcoding effort.
-        private static Dictionary<UnitSystems, Units> AllUnnamedUnits = 
+        private static Dictionary<UnitSystems, Units> DefaultUnnamedUnits = 
         AllUnits[UnitTypes.None].ToDictionary(x => x.Key, x => x.Value.First().Key);    
 
         //Relates all the units with their respective types.

@@ -23,6 +23,11 @@ namespace FlexibleParser
         ///</summary>   
         ValidImperialUSCSUnit,
         ///<summary>
+        ///<para>Valid Imperial unit not included elsewhere.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>                       
+        ///</summary>   
+        ValidImperialUnit,
+        ///<summary>
         ///<para>Valid USCS unit not included elsewhere.</para>
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>                       
         ///</summary>   

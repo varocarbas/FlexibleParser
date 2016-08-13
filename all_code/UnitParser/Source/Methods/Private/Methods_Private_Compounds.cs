@@ -330,7 +330,7 @@ namespace FlexibleParser
 
         private static UnitInfo GetBasicCompoundUnit(UnitInfo unitInfo)
         {
-            unitInfo.Unit = AllUnnamedUnits[unitInfo.System];
+            unitInfo.Unit = DefaultUnnamedUnits[unitInfo.System];
             if (unitInfo.System == UnitSystems.None) return unitInfo;
 
             Units basicCompound =
@@ -355,20 +355,8 @@ namespace FlexibleParser
                     unitInfo = AdaptPrefixesToMatchBasicCompound(unitInfo, basicUnitParts);
                 }
             }
-            else ConvertUnmatchedUnitPartsCompound(unitInfo, basicUnitParts);
 
             return unitInfo;
-        }
-
-        private static UnitInfo ConvertUnmatchedUnitPartsCompound(UnitInfo unitInfo, List<UnitPart> basicUnitParts)
-        {
-            return PerformUnitPartConversion
-            (
-                unitInfo, new UnitInfo()
-                { 
-                    Parts = new List<UnitPart>(basicUnitParts) 
-                }
-            );
         }
 
         private static UnitInfo AdaptPrefixesToMatchBasicCompound(UnitInfo unitInfo, List<UnitPart> basicUnitParts)
@@ -401,24 +389,10 @@ namespace FlexibleParser
 
             if (allPrefixes.Value != 1.0m)
             {
-                allPrefixes = NormaliseUnitInfo(allPrefixes);
-
-                if (allPrefixes.BigNumberExponent == 0)
-                {
-                    unitInfo = PerformManagedOperationValues
-                    (
-                        unitInfo, allPrefixes, Operations.Multiplication
-                    );
-                }
-                else
-                {
-                    unitInfo = GetBestPrefixForTarget
-                    (
-                        unitInfo, allPrefixes.BigNumberExponent,
-                        //There is no basic compound relying on binary prefixes.
-                        PrefixTypes.SI
-                    ); 
-                }
+                unitInfo = PerformManagedOperationUnits
+                (
+                    unitInfo, allPrefixes, Operations.Multiplication
+                );
             }
 
             return unitInfo;
@@ -563,7 +537,26 @@ namespace FlexibleParser
 
                 for (int i2 = i - 1; i2 >= 0; i2--)
                 {
+                    bool remove = false;
                     if (unitInfo.Parts[i].Unit == unitInfo.Parts[i2].Unit)
+                    {
+                        remove = true;
+                    }
+                    else if (GetTypeFromUnitPart(unitInfo.Parts[i], true) == GetTypeFromUnitPart(unitInfo.Parts[i2], true))
+                    {
+                        unitInfo = ConvertUnitPartToTarget
+                        (
+                            unitInfo, unitInfo.Parts[i], new UnitPart(unitInfo.Parts[i2]) 
+                            {
+                                //All the value variations will be accounted for the main unit.
+                                Exponent = 1 
+                            }
+                        );
+                        unitInfo.Parts[i].Unit = unitInfo.Parts[i2].Unit;
+                        remove = true;
+                    }
+
+                    if (remove)
                     {
                         if (unitInfo.Parts[i].Prefix.Factor == unitInfo.Parts[i2].Prefix.Factor)
                         {
@@ -596,8 +589,8 @@ namespace FlexibleParser
         {
             return AddExpandedUnitPart
             (
-                unitInfo, i, 
-                AllNonBasicCompounds[unitInfo.Unit].ToList()
+                unitInfo, i,
+                AllNonBasicCompounds[partInfo.Unit].ToList()
             );
         }
         private static UnitInfo ExpandBasicCompoundToUnitPart(UnitInfo unitInfo, UnitInfo partInfo, int i)
@@ -661,17 +654,19 @@ namespace FlexibleParser
                         )
                     );
 
-                    newPrefixInfo = GetBestPrefixForTarget
+                    newPrefixInfo = NormaliseUnitInfo
                     (
-                        newPrefixInfo, newPrefixInfo.BigNumberExponent, prefixType
+                        GetBestPrefixForTarget
+                        (
+                            newPrefixInfo, newPrefixInfo.BigNumberExponent, prefixType, true
+                        )
                     );
 
                     if (newPrefixInfo.Value != 1 || newPrefixInfo.BigNumberExponent != 0)
                     {
                         unitInfo = PerformManagedOperationValues
                         (
-                            unitInfo, new UnitInfo(newPrefixInfo) { Prefix = new Prefix() }, 
-                            Operations.Multiplication
+                            unitInfo, new UnitInfo(newPrefixInfo), Operations.Multiplication
                         );
                     }
                 }

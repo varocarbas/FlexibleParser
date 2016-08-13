@@ -25,7 +25,7 @@ namespace FlexibleParser
                         AllUnitSystems.Add(item3.Key, item2.Key);
                         AllUnitConversionFactors.Add(item3.Key, item3.Value);
 
-                        if (!AllUnnamedUnits.ContainsValue(item3.Key) && StoreUnitNameIsOK(item3.Key))
+                        if (!IsUnnamedUnit(item3.Key) && StoreUnitNameIsOK(item3.Key))
                         {
                             string unitName = item3.Key.ToString().ToLower();
                             if (!AllUnitStrings.ContainsKey(unitName))
