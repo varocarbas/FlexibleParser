@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlexibleParser;
@@ -161,7 +161,7 @@ namespace Test
                 //Note that both UnitP variables being equal implies identical prefixes.
             }
 
-            //------ System of units.
+            //------ Systems of units.
 
             //--- The system is automatically determined at variable instantiation. Each unit can belong to just one system.
             UnitP varSystem1 = new UnitP("1 m/s2"); //SI acceleration unit (m/s2).
@@ -174,12 +174,12 @@ namespace Test
             //------ Automatic unit conversions.
 
             //--- Automatic conversions (to the system of the first operand) happen in operations between many different-system units.
-            UnitP varAuto1 = new UnitP(1m, Units.Metre) * new UnitP("1 ft"); //SI area unit m2.
-            UnitP varAuto2 = new UnitP("1 lbf") + new UnitP(5m, "N"); //Imperial/USCS force unit lbf.
+            UnitP varAuto1 = new UnitP(1m, Units.Metre) * new UnitP("1 ft"); //After converting ft to metre, SI area unit m2.
+            UnitP varAuto2 = new UnitP("1 lbf") + new UnitP(5m, "N"); //After converting N to lbf, Imperial/USCS force unit lbf.
 
             //--- Same rules apply to compounds instantiated via string-parsing.
-            UnitP varAuto3 = new UnitP(1m, "m*lb/s2"); //SI force unit N.
-            UnitP varAuto4 = new UnitP(1m, "surin3/in"); //USCS area unit.
+            UnitP varAuto3 = new UnitP(1m, "m*lb/s2"); //After converting lb to kg, SI force unit N.
+            UnitP varAuto4 = new UnitP(1m, "surin3/in"); //After converting in to surin, USCS area unit surin2.
 
 
             //------ MORE TO BE WRITTEN SOON!
