@@ -166,7 +166,7 @@ namespace Test
             //--- The system is automatically determined at variable instantiation. Each unit can belong to just one system.
             UnitP varSystem1 = new UnitP("1 m/s2"); //SI acceleration unit (m/s2).
             UnitP varSystem2 = new UnitP("1 cm/s2"); //CGS acceleration unit (Gal).
-            UnitP varSystem3 = new UnitP(1m, UnitSymbols.ImperialCable + "/h2"); //Imperial acceleration unit (impcbl/s2). 
+            UnitP varSystem3 = new UnitP(1m, UnitSymbols.ImperialCable + "/h2"); //Imperial acceleration unit (impcbl/h2). 
             UnitP varSystem4 = new UnitP(1m, UnitSymbols.USCSCable + "/s2"); //USCS acceleration unit (usccbl/s2). 
             UnitP varSystem5 = new UnitP(1m, "AU/min2"); //Acceleration unit not belonging to any system (AU/min2). 
 
