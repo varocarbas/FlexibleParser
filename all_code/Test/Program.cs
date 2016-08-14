@@ -1,4 +1,4 @@
-using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlexibleParser;
@@ -182,6 +182,18 @@ namespace Test
             UnitP varAuto4 = new UnitP(1m, "surin3/in"); //After converting in to surin, USCS area unit surin2.
 
 
+            //------ Numeric support.
+
+            //--- UnitP variables support two different numeric types: decimal and double. 
+            UnitP varDec1 = new UnitP(1.23456m, "m"); //The UnitP constructor overloads only support decimal type.
+            UnitP varDec2 = varDec1 * 7.891011m; //Decimal variables can be used in multiplications/divisions.
+            UnitP varDoub = varDec2 * 1213141516.0; //Double variables can be used in multiplications/divisions.
+
+            //--- All the numeric inputs are converted into decimal type. UnitPVariable.BaseTenExponent avoids eventual type-conversion overflow problems.          
+            UnitP varBigVal = new UnitP(9999999999999999m, "YAU2", PrefixUsageTypes.AllUnits) / new UnitP("0.000000000000001 yf", PrefixUsageTypes.AllUnits);
+            UnitP varSmallVal = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000000000000000001m, "ym2") / new UnitP("999999999999999999999 ym");
+            
+            
             //------ MORE TO BE WRITTEN SOON!
 
 

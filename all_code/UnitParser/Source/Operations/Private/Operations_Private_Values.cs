@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace FlexibleParser
 {
@@ -132,7 +133,7 @@ namespace FlexibleParser
 
             newPrefix = GetBestPrefixForTarget
             (
-                newPrefix, newPrefix.BigNumberExponent,
+                newPrefix, newPrefix.BaseTenExponent,
                 (
                     outInfo.Prefix.Type != PrefixTypes.None ?
                     outInfo.Prefix.Type : PrefixTypes.SI
@@ -145,35 +146,59 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo ConvertDoubleToDecimal(double doubleVal)
+        private static UnitInfo ParseDecimal(string stringToParse)
         {
-            if (doubleVal == 0.0) return new UnitInfo();
+            decimal value = 0m;
+            
+            if (decimal.TryParse(stringToParse, NumberStyles.Any, CultureInfo.InvariantCulture, out value))
+            {
+                //In some cases, decimal.TryParse might consider valid numbers beyond the actual scope of
+                //decimal type. For example: 0.00000000000000000000000000000001m assumed to be zero.
+                if (value != 0m) return new UnitInfo(value);
+            }
+
+            return ParseDouble(stringToParse);
+        }
+
+        private static UnitInfo ParseDouble(string stringToParse)
+        {
+            double valueDouble = 0.0;
+
+            return
+            (
+                double.TryParse(stringToParse, NumberStyles.Any, CultureInfo.InvariantCulture, out valueDouble) ?
+                ConvertDoubleToDecimal(valueDouble) : new UnitInfo(null, ErrorTypes.NumericParsingError)
+            );
+        }
+
+        private static UnitInfo ConvertDoubleToDecimal(double valueDouble)
+        {
+            if (valueDouble == 0.0) return new UnitInfo();
 
             UnitInfo outInfo = new UnitInfo();
-            if (Math.Abs(doubleVal) < MinValue)
+            if (Math.Abs(valueDouble) < MinValue)
             {
-                while (Math.Abs(doubleVal) < MinValue)
+                while (Math.Abs(valueDouble) < MinValue)
                 {
-                    outInfo.BigNumberExponent = outInfo.BigNumberExponent - 1;
-                    doubleVal = doubleVal * 10.0;
+                    outInfo.BaseTenExponent = outInfo.BaseTenExponent - 1;
+                    valueDouble = valueDouble * 10.0;
                 }
             }
-            else if (Math.Abs(doubleVal) > MaxValue)
+            else if (Math.Abs(valueDouble) > MaxValue)
             {
-                while (Math.Abs(doubleVal) > MaxValue)
+                while (Math.Abs(valueDouble) > MaxValue)
                 {
-                    outInfo.BigNumberExponent = outInfo.BigNumberExponent + 1;
-                    doubleVal = doubleVal / 10.0;
+                    outInfo.BaseTenExponent = outInfo.BaseTenExponent + 1;
+                    valueDouble = valueDouble / 10.0;
                 }
             }
 
-            outInfo.Value = Convert.ToDecimal(doubleVal);
+            outInfo.Value = Convert.ToDecimal(valueDouble);
 
             //By default, numbers have a AlwaysTriggerException configuration.
             outInfo.Error = new ErrorInfo
             (
-                ErrorTypes.None,
-                ExceptionHandlingTypes.AlwaysTriggerException
+                ErrorTypes.None, ExceptionHandlingTypes.AlwaysTriggerException
             );
 
             return outInfo;

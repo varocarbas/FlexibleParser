@@ -93,7 +93,7 @@ namespace FlexibleParser
         {
             return 
             (
-                firstInfo.BigNumberExponent == secondInfo.BigNumberExponent &&
+                firstInfo.BaseTenExponent == secondInfo.BaseTenExponent &&
                 firstInfo.Value == secondInfo.Value
             );
         }
