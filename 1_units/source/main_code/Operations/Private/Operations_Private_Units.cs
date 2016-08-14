@@ -227,7 +227,7 @@ namespace FlexibleParser
             UnitInfo outInfo = new UnitInfo(targetInfo)
             {
                 Value = 1,
-                BigNumberExponent = 0
+                BaseTenExponent = 0
             };
 
             return NormaliseUnitInfo(outInfo);
@@ -236,29 +236,29 @@ namespace FlexibleParser
         //NOTE: targetInfo2 is assumed be normalised.
         private static UnitInfo AccountForTargetUnitPrefixes(UnitInfo originalInfo, UnitInfo targetInfo2)
         {
-            int newExponent = GetBigNumberExponentIncreasePrefixes
+            int newExponent = GetBaseTenExponentIncreasePrefixes
             (
-                originalInfo, targetInfo2.BigNumberExponent
+                originalInfo, targetInfo2.BaseTenExponent
             );
 
             return NormaliseUnitInfo
             (
                 new UnitInfo(originalInfo) 
                 { 
-                    BigNumberExponent = newExponent,
+                    BaseTenExponent = newExponent,
                     Prefix = new Prefix(originalInfo.Prefix.PrefixUsage) //Already included in the newExponent.
                 }
             );
         }
 
-        private static int GetBigNumberExponentIncreasePrefixes(UnitInfo originalInfo, int targetInfo2Exp)
+        private static int GetBaseTenExponentIncreasePrefixes(UnitInfo originalInfo, int targetInfo2Exp)
         {
             //targetInfo2 is already normalised by only accounting for the value information which is 
             //relevant for the conversion (i.e., the prefix).
-            UnitInfo originalTemp = new UnitInfo(originalInfo) { Value = 1m, BigNumberExponent = 0 };
+            UnitInfo originalTemp = new UnitInfo(originalInfo) { Value = 1m, BaseTenExponent = 0 };
             originalTemp = NormaliseUnitInfo(originalTemp);
 
-            return originalTemp.BigNumberExponent - targetInfo2Exp;
+            return originalTemp.BaseTenExponent - targetInfo2Exp;
         }
 
         //Checks whether the conversion might be performed directly (i.e., without parts analysis).

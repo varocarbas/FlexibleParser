@@ -21,7 +21,7 @@ namespace FlexibleParser
 
             OriginalUnitString = unitP2.OriginalUnitString;
             Value = unitP2.Value;
-            BigNumberExponent = unitP2.UnitInfo.BigNumberExponent;
+            BaseTenExponent = unitP2.UnitInfo.BaseTenExponent;
             Unit = unitP2.UnitInfo.Unit;
             UnitType = unitP2.UnitType;
             UnitSystem =
@@ -91,7 +91,7 @@ namespace FlexibleParser
             if (unitP2.ErrorType != ErrorTypes.None)
             {
                 Value = 0m;
-                BigNumberExponent = 0;
+                BaseTenExponent = 0;
                 UnitPrefix = new Prefix();
                 UnitParts = new List<UnitPart>().AsReadOnly();
             }
@@ -99,7 +99,7 @@ namespace FlexibleParser
             {
                 OriginalUnitString = unitP2.OriginalUnitString;
                 Value = unitP2.Value;
-                BigNumberExponent = unitP2.UnitInfo.BigNumberExponent;
+                BaseTenExponent = unitP2.UnitInfo.BaseTenExponent;
                 Unit = unitP2.UnitInfo.Unit;
                 UnitType = unitP2.UnitType;
                 UnitSystem = unitP2.UnitSystem;
@@ -228,8 +228,8 @@ namespace FlexibleParser
 
                     ValueAndUnitString = Value +
                     (
-                        UnitInfo.BigNumberExponent != 0 ?
-                        "*10^" + UnitInfo.BigNumberExponent.ToString() : ""
+                        UnitInfo.BaseTenExponent != 0 ?
+                        "*10^" + UnitInfo.BaseTenExponent.ToString() : ""
                     )
                     + " " + UnitString;
                 }
@@ -261,24 +261,24 @@ namespace FlexibleParser
 
             private static UnitInfo ReduceBigValueExp(UnitInfo unitInfo)
             {
-                if (unitInfo.BigNumberExponent == 0) return unitInfo;
+                if (unitInfo.BaseTenExponent == 0) return unitInfo;
 
                 decimal maxVal = 1000000m;
                 decimal minVal = 0.0001m;
 
-                if (unitInfo.BigNumberExponent > 0)
+                if (unitInfo.BaseTenExponent > 0)
                 {
-                    while (unitInfo.BigNumberExponent > 0 && unitInfo.Value <= maxVal / 10)
+                    while (unitInfo.BaseTenExponent > 0 && unitInfo.Value <= maxVal / 10)
                     {
-                        unitInfo.BigNumberExponent -= 1;
+                        unitInfo.BaseTenExponent -= 1;
                         unitInfo.Value *= 10;
                     }
                 }
                 else
                 {
-                    while (unitInfo.BigNumberExponent < 0 && unitInfo.Value >= minVal * 10)
+                    while (unitInfo.BaseTenExponent < 0 && unitInfo.Value >= minVal * 10)
                     {
-                        unitInfo.BigNumberExponent += 1;
+                        unitInfo.BaseTenExponent += 1;
                         unitInfo.Value /= 10;
                     }
                 }
@@ -291,7 +291,7 @@ namespace FlexibleParser
                 decimal absValue = Math.Abs(unitInfo.Value);
                 bool valueIsOK = (absValue >= 0.001m && absValue <= 1000m);                     
 
-                if (valueIsOK && unitInfo.BigNumberExponent == 0 && unitInfo.Prefix.Factor == 1m)
+                if (valueIsOK && unitInfo.BaseTenExponent == 0 && unitInfo.Prefix.Factor == 1m)
                 {
                     return unitInfo;
                 }
@@ -308,7 +308,7 @@ namespace FlexibleParser
                     false : PrefixCanBeUsedCompound(unitInfo)
                 );
 
-                if (!prefixIsOK || !valueIsOK)
+                if (!prefixIsOK || !valueIsOK || unitInfo.BaseTenExponent != 0)
                 {
                     //All the prefixes are removed.
                     unitInfo = NormaliseUnitInfo(unitInfo);
@@ -317,18 +317,18 @@ namespace FlexibleParser
                     {
                         unitInfo = GetBestPrefixForTarget
                         (
-                            unitInfo, unitInfo.BigNumberExponent, 
+                            unitInfo, unitInfo.BaseTenExponent, 
                             prefixType, true
                         );
                     }
                 }
 
-                return CompensateBigNumberExponentWithPrefix(unitInfo);
+                return CompensateBaseTenExponentWithPrefix(unitInfo);
             }
 
-            private static UnitInfo CompensateBigNumberExponentWithPrefix(UnitInfo unitInfo)
+            private static UnitInfo CompensateBaseTenExponentWithPrefix(UnitInfo unitInfo)
             {
-                if (unitInfo.BigNumberExponent == 0 || unitInfo.Prefix.Factor == 1m) return unitInfo;
+                if (unitInfo.BaseTenExponent == 0 || unitInfo.Prefix.Factor == 1m) return unitInfo;
 
                 UnitInfo tempInfo = NormaliseUnitInfo
                 (
@@ -337,13 +337,13 @@ namespace FlexibleParser
 
                 tempInfo = GetBestPrefixForTarget
                 (
-                    tempInfo, tempInfo.BigNumberExponent,
+                    tempInfo, tempInfo.BaseTenExponent,
                     unitInfo.Prefix.Type, true
                 );
 
                 unitInfo = new UnitInfo(unitInfo)
                 {
-                    BigNumberExponent = tempInfo.BigNumberExponent,
+                    BaseTenExponent = tempInfo.BaseTenExponent,
                     Prefix = new Prefix(tempInfo.Prefix),
                     Value = unitInfo.Value
                 };
@@ -352,7 +352,7 @@ namespace FlexibleParser
                 (
                     unitInfo, tempInfo = new UnitInfo(tempInfo) 
                     { 
-                        BigNumberExponent = 0, Prefix = new Prefix() 
+                        BaseTenExponent = 0, Prefix = new Prefix() 
                     },
                     Operations.Multiplication
                 );

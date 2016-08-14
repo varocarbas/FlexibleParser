@@ -76,8 +76,8 @@ namespace FlexibleParser
             (
                 new UnitP
                 (
-                    //Normalising means converting prefix and value into BigNumberExponent.
-                    //In the final output, the BigNumberExponent will be minimal (within the
+                    //Normalising means converting prefix and value into BaseTenExponent.
+                    //In the final output, the BaseTenExponent will be minimal (within the
                     //value capabilities) because of the subsequent improvements.
                     NormaliseUnitInfo(new UnitInfo(this)), this, true
                 )

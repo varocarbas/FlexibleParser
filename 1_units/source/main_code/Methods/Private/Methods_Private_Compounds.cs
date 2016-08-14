@@ -658,11 +658,11 @@ namespace FlexibleParser
                     (
                         GetBestPrefixForTarget
                         (
-                            newPrefixInfo, newPrefixInfo.BigNumberExponent, prefixType, true
+                            newPrefixInfo, newPrefixInfo.BaseTenExponent, prefixType, true
                         )
                     );
 
-                    if (newPrefixInfo.Value != 1 || newPrefixInfo.BigNumberExponent != 0)
+                    if (newPrefixInfo.Value != 1 || newPrefixInfo.BaseTenExponent != 0)
                     {
                         unitInfo = PerformManagedOperationValues
                         (

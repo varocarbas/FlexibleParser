@@ -56,7 +56,7 @@ namespace FlexibleParser
                 UnitConversionFactors.Barn, new UnitInfo()
                 {
                     Value = 1, 
-                    BigNumberExponent = -28
+                    BaseTenExponent = -28
                 }
             );
 
@@ -66,7 +66,7 @@ namespace FlexibleParser
                 UnitConversionFactors.Debye, new UnitInfo()
                 {
                     Value = 3.33564095m,
-                    BigNumberExponent = -30
+                    BaseTenExponent = -30
                 }
             );
         }

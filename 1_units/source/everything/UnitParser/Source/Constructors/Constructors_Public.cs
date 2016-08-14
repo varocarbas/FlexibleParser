@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 
 namespace FlexibleParser
 {
@@ -24,7 +23,7 @@ namespace FlexibleParser
         ///<summary><para>Unit and value in string format.</para></summary>
         public readonly string ValueAndUnitString;
         ///<summary><para>Base-10 exponent helping to deal with too small/big numbers.</para></summary>
-        public readonly int BigNumberExponent;
+        public readonly int BaseTenExponent;
         ///<summary><para>Error management.</para></summary>
         public readonly ErrorInfo Error;
         ///<summary><para>Main value associated with the unit.</para></summary>
@@ -41,7 +40,7 @@ namespace FlexibleParser
             
             OriginalUnitString = unitP2.OriginalUnitString;
             Value = unitP2.Value;
-            BigNumberExponent = unitP2.UnitInfo.BigNumberExponent;
+            BaseTenExponent = unitP2.UnitInfo.BaseTenExponent;
             Unit = unitP2.UnitInfo.Unit;
             UnitType = unitP2.UnitType;
             UnitSystem = unitP2.UnitSystem;
@@ -73,16 +72,20 @@ namespace FlexibleParser
             if (parsingError == ErrorTypes.None)
             {
                 UnitInfo tempInfo = ParseValueAndUnit(valueAndUnit);
-                value = tempInfo.Value;
-                unit = tempInfo.TempString;
-                bigNumberExponent = tempInfo.BigNumberExponent;
+                if (tempInfo.Error.Type == ErrorTypes.None)
+                {
+                    value = tempInfo.Value;
+                    unit = tempInfo.TempString;
+                    bigNumberExponent = tempInfo.BaseTenExponent;
+                }
+                else parsingError = tempInfo.Error.Type;
             }
 
             UnitPConstructor unitP2 = GetUnitP2(value, unit, exceptionHandling, prefixUsage);
 
             OriginalUnitString = unitP2.OriginalUnitString;
             Value = unitP2.Value;
-            BigNumberExponent = unitP2.UnitInfo.BigNumberExponent + bigNumberExponent;
+            BaseTenExponent = unitP2.UnitInfo.BaseTenExponent + bigNumberExponent;
             Unit = unitP2.UnitInfo.Unit;
             UnitType = unitP2.UnitType;
             UnitSystem = unitP2.UnitSystem;
@@ -105,21 +108,10 @@ namespace FlexibleParser
 
             if (parts.Length >= 2)
             {
-                decimal value = 0m;
-                double valueDouble = 0.0;
-                bool isOK = false;
-                if (decimal.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out value))
-                {
-                    isOK = true;
-                    unitInfo.Value = value;
-                }
-                else if (double.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out valueDouble))
-                {
-                    isOK = true;
-                    unitInfo = ConvertDoubleToDecimal(valueDouble);
-                }
+                //It also takes care of double-type parsing.
+                unitInfo = ParseDecimal(parts[0]);
 
-                if (isOK)
+                if (unitInfo.Error.Type == ErrorTypes.None)
                 {
                     unitInfo.TempString = String.Join(" ", parts, 1, parts.Length - 1);
                 }
@@ -153,7 +145,7 @@ namespace FlexibleParser
             OriginalUnitString = UnitString;
             ValueAndUnitString = Value.ToString() + 
             (
-                BigNumberExponent != 0 ? "*10^" + BigNumberExponent.ToString() : ""
+                BaseTenExponent != 0 ? "*10^" + BaseTenExponent.ToString() : ""
             );
             ValueAndUnitString = ValueAndUnitString + " " + UnitString;
 

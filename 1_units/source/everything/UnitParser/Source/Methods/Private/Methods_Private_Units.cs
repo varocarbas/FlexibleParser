@@ -10,7 +10,7 @@ namespace FlexibleParser
         private static UnitInfo RemoveAllValueInformation(UnitInfo unitInfo)
         {
             unitInfo.Value = 0m;
-            unitInfo.BigNumberExponent = 0;
+            unitInfo.BaseTenExponent = 0;
             unitInfo.Prefix = new Prefix(unitInfo.Prefix.PrefixUsage);
 
             return unitInfo;
@@ -132,7 +132,7 @@ namespace FlexibleParser
         }
 
         //This method assumes a normalised UnitInfo variable (i.e., without prefixes).
-        private static UnitInfo GetBestPrefixForTarget(UnitInfo unitInfo, int targetExponent, PrefixTypes prefixType, bool modifyBigNumberExponent = false)
+        private static UnitInfo GetBestPrefixForTarget(UnitInfo unitInfo, int targetExponent, PrefixTypes prefixType, bool modifyBaseTenExponent = false)
         {
             if (targetExponent == 0 || prefixType == PrefixTypes.None) return unitInfo;
 
@@ -154,9 +154,9 @@ namespace FlexibleParser
                 }
             }
 
-            if (modifyBigNumberExponent)
+            if (modifyBaseTenExponent)
             {
-                unitInfo.BigNumberExponent -= targetExponent;
+                unitInfo.BaseTenExponent -= targetExponent;
             }
 
             return unitInfo;

@@ -37,7 +37,7 @@ namespace FlexibleParser
             public List<UnitPart> Parts { get; set; }
             public ErrorInfo Error { get; set; }
             public string TempString { get; set; }
-            public int BigNumberExponent { get; set; }
+            public int BaseTenExponent { get; set; }
             //Collection storing the positions of the unit parts as input by the user. 
             //Only relevant for compounds.
             public Dictionary<UnitPart, int> InitialPositions { get; set; }
@@ -55,7 +55,7 @@ namespace FlexibleParser
                 );
             }
 
-            public UnitInfo(UnitInfo unitInfo)
+            public UnitInfo(UnitInfo unitInfo, ErrorTypes error = ErrorTypes.None)
             {
                 if (unitInfo == null) unitInfo = new UnitInfo();
 
@@ -63,8 +63,8 @@ namespace FlexibleParser
                 (
                     unitInfo.Value, unitInfo.Unit, unitInfo.Prefix, 
                     unitInfo.Parts, GetInitialPositions(unitInfo.Parts),
-                    unitInfo.BigNumberExponent, unitInfo.Type, unitInfo.System,
-                    unitInfo.Error
+                    unitInfo.BaseTenExponent, unitInfo.Type, unitInfo.System,
+                    (error != ErrorTypes.None ? new ErrorInfo(error) : unitInfo.Error)
                 );
             }
 
@@ -86,7 +86,7 @@ namespace FlexibleParser
                 PopulateVariables
                 (
                     unitP.Value, unitP.Unit, unitP.UnitPrefix, unitParts,
-                    GetInitialPositions(unitParts), unitP.BigNumberExponent,
+                    GetInitialPositions(unitParts), unitP.BaseTenExponent,
                     unitP.UnitType, unitP.UnitSystem, unitP.Error
                 );
             }
@@ -95,7 +95,7 @@ namespace FlexibleParser
             {
                 PopulateVariables
                 (
-                    value, Units.None, new Prefix(), null, null, BigNumberExponent
+                    value, Units.None, new Prefix(), null, null, BaseTenExponent
                 );
             }
 
@@ -108,7 +108,7 @@ namespace FlexibleParser
             )
             {
                 Value = value;
-                BigNumberExponent = bigNumberExponent;
+                BaseTenExponent = bigNumberExponent;
                 Unit = unit;
                 Prefix = new Prefix(prefix);
                 if (parts == null)

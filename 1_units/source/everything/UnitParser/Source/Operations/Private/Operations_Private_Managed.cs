@@ -32,7 +32,7 @@ namespace FlexibleParser
 
         //This method is much more comprehensive than the alternative alternative for values (PerformManagedOperationValues),
         //because it assumes any scenario involving two units (understood as UnitInfo variables which might have Value, 
-        //BigNumberExponent and Prefix). In case of not having to worry about any of this, even just for one of the operands,
+        //BaseTenExponent and Prefix). In case of not having to worry about any of this, even just for one of the operands,
         //PerformManagedOperationValues might be used (i.e., in any operation involving plain numbers).
         private static UnitInfo PerformManagedOperationUnits(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
@@ -74,7 +74,7 @@ namespace FlexibleParser
                 new UnitInfo(firstInfo), new UnitInfo(secondInfo)
             };
 
-            if (operands2[0].BigNumberExponent != operands2[1].BigNumberExponent || operands2[0].Prefix.Factor != operands2[1].Prefix.Factor)
+            if (operands2[0].BaseTenExponent != operands2[1].BaseTenExponent || operands2[0].Prefix.Factor != operands2[1].Prefix.Factor)
             {
                 //The addition/subtraction might not be performed right away even with normalised values.
                 //The base numbers of 5*10^2 and 6*10^7  (i.e., 5 & 6) might not be added right away; and
@@ -94,14 +94,14 @@ namespace FlexibleParser
         
         private static UnitInfo[] AdaptNormalisedValuesForAddition(UnitInfo[] unitInfos2)
         {
-            if (unitInfos2[0].BigNumberExponent == unitInfos2[1].BigNumberExponent)
+            if (unitInfos2[0].BaseTenExponent == unitInfos2[1].BaseTenExponent)
             {
                 return unitInfos2;
             }
 
             int[] bigSmallI = 
             (
-                unitInfos2[0].BigNumberExponent > unitInfos2[1].BigNumberExponent ?
+                unitInfos2[0].BaseTenExponent > unitInfos2[1].BaseTenExponent ?
                 new int[] { 0, 1 } : new int[] { 1, 0 }
             );
 
@@ -112,7 +112,7 @@ namespace FlexibleParser
             }
 
             unitInfos2[bigSmallI[0]].Value = big2.Value;
-            unitInfos2[bigSmallI[0]].BigNumberExponent = unitInfos2[bigSmallI[1]].BigNumberExponent;
+            unitInfos2[bigSmallI[0]].BaseTenExponent = unitInfos2[bigSmallI[1]].BaseTenExponent;
 
             return unitInfos2;
         }
@@ -122,10 +122,10 @@ namespace FlexibleParser
             UnitInfo big2 = RaiseToIntegerExponent
             (
                 10m, 
-                unitInfos2[bigSmallI[0]].BigNumberExponent - unitInfos2[bigSmallI[1]].BigNumberExponent
+                unitInfos2[bigSmallI[0]].BaseTenExponent - unitInfos2[bigSmallI[1]].BaseTenExponent
             );
             
-            if (big2.Error.Type != ErrorTypes.None || big2.BigNumberExponent != 0)
+            if (big2.Error.Type != ErrorTypes.None || big2.BaseTenExponent != 0)
             {
                 //After removing the small value exponent, the big one is still too big (> decimal.MaxValue). 
                 //Under these conditions, the result is just the first operand (eventually converted).
@@ -179,7 +179,7 @@ namespace FlexibleParser
                 };
             }
 
-            outInfo.BigNumberExponent = outInfoNormalised.BigNumberExponent;
+            outInfo.BaseTenExponent = outInfoNormalised.BaseTenExponent;
             outInfo.Value = outInfoNormalised.Value;
             //Normalised means no prefixes.
             outInfo.Prefix = new Prefix(outInfo.Prefix.PrefixUsage); 
@@ -238,6 +238,16 @@ namespace FlexibleParser
 
         private static UnitInfo PerformManagedOperationValues(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
+            if (firstInfo.Value == 0m || secondInfo.Value == 0m)
+            {
+                //Dividing by zero scenarios are taken into account somewhere else.
+                return new UnitInfo(firstInfo) { Value = 0m };
+            }
+
+            UnitInfo firstInfo0 = new UnitInfo(firstInfo);
+            UnitInfo secondInfo0 = new UnitInfo(secondInfo);
+
+            bool manageError = false;
             try
             {
                 if (operation == Operations.Addition)
@@ -253,7 +263,7 @@ namespace FlexibleParser
                     if (operation == Operations.Multiplication)
                     {
                         firstInfo.Value *= secondInfo.Value;
-                        firstInfo.BigNumberExponent += secondInfo.BigNumberExponent;
+                        firstInfo.BaseTenExponent += secondInfo.BaseTenExponent;
                     }
                     else if (operation == Operations.Division)
                     {
@@ -264,14 +274,17 @@ namespace FlexibleParser
                         }
 
                         firstInfo.Value /= secondInfo.Value;
-                        firstInfo.BigNumberExponent -= secondInfo.BigNumberExponent;
+                        firstInfo.BaseTenExponent -= secondInfo.BaseTenExponent;
                     }
                 }
             }
-            catch
-            {
-                firstInfo = ManageErrorValues(firstInfo, secondInfo, operation);
-            }
+            catch { manageError = true; }
+
+            //Decimal type might not trigger an error despite of dealing with a number it cannot managed.
+            //For example: 0.00000000000000000001m * 0.0000000000000000000001m can output 0m without triggering an error. 
+            if (!manageError && firstInfo.Value == 0.0m) manageError = true;
+
+            if (manageError) firstInfo = ManageErrorValues(firstInfo0, secondInfo0, operation);
 
             return firstInfo;
         }
@@ -285,7 +298,7 @@ namespace FlexibleParser
             }
 
             int secondExponent = GetExponentFromValue(secondInfo.Value);
-            firstInfo.BigNumberExponent += 
+            firstInfo.BaseTenExponent += 
             (
                 (operation == Operations.Multiplication ? 1 : -1 ) * secondExponent
             );
@@ -320,7 +333,7 @@ namespace FlexibleParser
 
             if (outInfo.Prefix.Factor != 1)
             {
-                outInfo = FromValueToBigNumberExponent
+                outInfo = FromValueToBaseTenExponent
                 (
                     outInfo, outInfo.Prefix.Factor, true
                 );
@@ -329,7 +342,7 @@ namespace FlexibleParser
             
             if (outInfo.Value == 0) return outInfo;
 
-            outInfo = FromValueToBigNumberExponent
+            outInfo = FromValueToBaseTenExponent
             (
                 outInfo, outInfo.Value, false
             );
@@ -337,7 +350,7 @@ namespace FlexibleParser
             return outInfo;
         }
 
-        private static UnitInfo FromValueToBigNumberExponent(UnitInfo outInfo, decimal value, bool isPrefix)
+        private static UnitInfo FromValueToBaseTenExponent(UnitInfo outInfo, decimal value, bool isPrefix)
         {
             decimal valueAbs = Math.Abs(value);
             bool decrease = (valueAbs > 1m);
@@ -362,12 +375,12 @@ namespace FlexibleParser
                 if (decrease)
                 {
                     value /= 10m;
-                    outInfo.BigNumberExponent = outInfo.BigNumberExponent + 1;
+                    outInfo.BaseTenExponent = outInfo.BaseTenExponent + 1;
                 }
                 else
                 {
                     value *= 10m;
-                    outInfo.BigNumberExponent = outInfo.BigNumberExponent - 1;
+                    outInfo.BaseTenExponent = outInfo.BaseTenExponent - 1;
                 }
 
                 valueAbs = Math.Abs(value);
