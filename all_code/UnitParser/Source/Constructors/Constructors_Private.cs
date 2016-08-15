@@ -148,7 +148,7 @@ namespace FlexibleParser
             parsedUnit = StartUnitParse(parsedUnit);
             bool isOK = 
             (
-                parsedUnit.UnitInfo.Error.Type != ErrorTypes.None ||
+                parsedUnit.UnitInfo.Error.Type != ErrorTypes.None &&
                 parsedUnit.UnitInfo.Unit != Units.None
             );
 
@@ -161,6 +161,7 @@ namespace FlexibleParser
                     parsedUnit,
                     string.Join("", unitString.Split(' ').Select(x => x.Trim()))
                 );
+                parsedUnit2.UnitInfo.Error = new ErrorInfo();
                 parsedUnit2 = StartUnitParse(parsedUnit2);
 
                 if (parsedUnit2.UnitInfo.Unit != Units.None)
