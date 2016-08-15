@@ -33,7 +33,7 @@ namespace Test
             UnitP varJ1 = varN1 * varM1; //N*m = J, what is a supported type (energy).
 
             //--- Any operation outputting unsupported types triggers an error. 
-            UnitP varError1 = varN1 * varM1 * varM1;// N*m2 doesn't match any valid type.
+            UnitP varError1 = varN1 * varM1 * varM1; //N*m2 doesn't match any valid type.
 
 
             //------ Multiplication/division with decimal/double values are also supported.
@@ -72,6 +72,32 @@ namespace Test
             {
                 //This condition is true.
             }
+
+
+            //------ Format of input strings.
+
+            //--- UnitP constructors without numeric inputs expect strings formed by number, blank space and unit.
+            UnitP varStringRight1 = new UnitP("1 m"); //1 metre (length).
+            UnitP varStringWrong1 = new UnitP("1m"); //Error.
+
+            //--- Multi-part strings are expected to be formed by units, multiplication/division symbols and exponents.
+            UnitP varStringRight2 = new UnitP("1 J/s"); //1 joule per second (power unit).
+            UnitP varStringRight3 = new UnitP("1 Jxs"); //1 joule second (angular momentum).
+            UnitP varStringRight4 = new UnitP("1 J⋅s2"); //1 joule square second (moment of inertia).
+            UnitP varStringRight4V2 = new UnitP("1 J÷s-2"); //1 joule square second (moment of inertia).
+
+            //--- Only one division sign is expected. It separates the numerator and denominator parts.
+            UnitP varStringRight5 = new UnitP("1 J*J/s*J2*J-1*s*s-1"); //1 joule per second (power).
+            UnitP varStringWrong2 = new UnitP("1 J*J/(s*J2*J*s*s)"); //Error becauase the brackets have no meaning.
+
+            //--- Not-supported-but-commonly-used characters are plainly ignored.
+            UnitP varStringRight6 = new UnitP(1m, "ft."); //1 foot (length).
+            UnitP varStringRight7 = new UnitP(1m, "ft^2"); //1 square foot (area).
+            UnitP varStringRight8 = new UnitP(1m, "ft*(ft*ft)"); //1 cubic foot (volume).
+
+            //--- Ideally, no blank spaces should be included. The parser can deal with them anyway.
+            UnitP varStringRight9 = new UnitP(1m, "AU/min"); //1 astronomical unit per minute (velocity).
+            UnitP varStringRight9V2 = new UnitP(1m, "A U/     min"); //1 astronomical unit per minute (velocity).
 
 
             //------ Errors and exceptions.
@@ -191,9 +217,9 @@ namespace Test
 
             //--- All the numeric inputs are converted into decimal type. UnitPVariable.BaseTenExponent avoids eventual type-conversion overflow problems.          
             UnitP varBigVal = new UnitP(9999999999999999m, "YAU2", PrefixUsageTypes.AllUnits) / new UnitP("0.000000000000001 yf", PrefixUsageTypes.AllUnits);
-            UnitP varSmallVal = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000000000000000001m, "ym2") / new UnitP("999999999999999999999 ym");
-            
-            
+            UnitP varSmallVal = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000000000000000001m, "ym2") / new UnitP("999999999999999999999 Ym");
+
+
             //------ MORE TO BE WRITTEN SOON!
 
 
