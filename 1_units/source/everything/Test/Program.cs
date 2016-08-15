@@ -88,7 +88,7 @@ namespace Test
 
             //--- Only one division sign is expected. It separates the numerator and denominator parts.
             UnitP varStringRight5 = new UnitP("1 J*J/s*J2*J-1*s*s-1"); //1 joule per second (power).
-            UnitP varStringWrong2 = new UnitP("1 J*J/(s*J2*J*s*s)"); //Error because this isn't a supported unit (brackets have no meaning).
+            UnitP varStringWrong2 = new UnitP("1 J*J/(s*J2*s)*J*s"); //Error. For the parser, the denominator is s*J2*s*J*s.
 
             //--- Not-supported-but-commonly-used characters are plainly ignored.
             UnitP varStringRight6 = new UnitP(1m, "ft."); //1 foot (length).
