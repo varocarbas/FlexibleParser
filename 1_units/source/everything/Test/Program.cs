@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlexibleParser;
@@ -269,9 +269,17 @@ namespace Test
 
             //------ MORE TO BE WRITTEN SOON!
 
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Do you want to print all the named units? Y/N");
+            string input = Console.ReadLine();
 
-            //----- Printing all the supported named units.
-            PrintAllNamedUnits();
+            if (input.ToLower() == "y")
+            {
+                //--- Printing all the supported named units out.
+                PrintAllNamedUnits();
+                Console.Read();
+            }
         }
 
         private static void PrintSampleItem(string sampleId, UnitP unitP)
