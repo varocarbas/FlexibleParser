@@ -313,11 +313,7 @@ namespace FlexibleParser
 
                 if (!prefixIsOK || !valueIsOK || unitInfo.BaseTenExponent != 0)
                 {
-                    //All the prefixes are removed.
-                    if (unitInfo.Prefix.Factor != 1m)
-                    {
-                        unitInfo = NormaliseUnitInfo(unitInfo);
-                    }
+                    unitInfo = NormaliseUnitInfo(unitInfo);
 
                     if (prefixIsOK)
                     {
