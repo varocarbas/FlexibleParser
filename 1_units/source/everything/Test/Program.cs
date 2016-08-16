@@ -88,7 +88,7 @@ namespace Test
 
             //--- Only one division sign is expected. It separates the numerator and denominator parts.
             UnitP varStringRight5 = new UnitP("1 J*J/s*J2*J-1*s*s-1"); //1 joule per second (power).
-            UnitP varStringWrong2 = new UnitP("1 J*J/(s*J2*s)*J*s"); //Error. For the parser, the denominator is s*J2*s*J*s.
+            UnitP varStringWrong2 = new UnitP("1 J*J/(s*J2*s)*J*s"); //Error. It is understood as J*J/(s*J2*s*J*s).
 
             //--- Not-supported-but-commonly-used characters are plainly ignored.
             UnitP varStringRight6 = new UnitP(1m, "ft."); //1 foot (length).
@@ -187,6 +187,7 @@ namespace Test
                 //Note that both UnitP variables being equal implies identical prefixes.
             }
 
+
             //------ Systems of units.
 
             //--- The system is automatically determined at variable instantiation. Each unit can belong to just one system.
@@ -214,10 +215,26 @@ namespace Test
             UnitP varDec1 = new UnitP(1.23456m, "m"); //The UnitP constructor overloads only support decimal type.
             UnitP varDec2 = varDec1 * 7.891011m; //Decimal variables can be used in multiplications/divisions.
             UnitP varDoub = varDec2 * 1213141516.0; //Double variables can be used in multiplications/divisions.
-
+            
             //--- All the numeric inputs are converted into decimal type. UnitPVariable.BaseTenExponent avoids eventual type-conversion overflow problems.          
-            UnitP varBigVal = new UnitP(9999999999999999m, "YAU2", PrefixUsageTypes.AllUnits) / new UnitP("0.000000000000001 yf", PrefixUsageTypes.AllUnits);
-            UnitP varSmallVal = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000000000000000001m, "ym2") / new UnitP("999999999999999999999 Ym");
+            UnitP varBigVal = new UnitP(9999999999999999m, "YAU2", PrefixUsageTypes.AllUnits) / new UnitP("0.000000000000001 yf", PrefixUsageTypes.AllUnits); //UnitP variable with a numerical value notably above decimal.MaxValue.
+            UnitP varSmallVal = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000000000000000001m, "ym2") / new UnitP("999999999999999999999 Ym"); //UnitP variable with a numerical value notably below decimal.MinValue.
+
+
+            //------ No unit, unitless & unnamed units.
+
+            //--- No unit (Units.None).
+            UnitP varNone1 = new UnitP(1m, Units.None); //Units.None cannot be used as an input.
+            UnitP varNone2 = new UnitP("1 wrong"); //Units.None is the unit associated with all the errors.
+
+            //--- Unitless (Units.Unitless).
+            UnitP varUnitless1 = new UnitP(1m, Units.Unitless); //Units.Unitless can be used as an input.
+            UnitP varUnitless2 = new UnitP("5 km") / new UnitP(1m, Units.Unitless); //Units.Unitless can be used together with other valid units without triggering an error.
+            UnitP varUnitless3 = new UnitP("1 ft/m"); //Units.Unitless is associated with the output of operations where all the units cancel each other (with or without automatic conversions).
+
+            //--- Unnamed units (Units.Valid[system]Unit).
+            UnitP varUnnamed1 = new UnitP("1 cbl/s"); //All the parsed compounds not matching any named unit are automatically included in this category.
+            UnitP varUnnamed2 = new UnitP(1m, Units.ValidCGSUnit); //Unnamed units cannot be used as inputs.
 
 
             //------ MORE TO BE WRITTEN SOON!
