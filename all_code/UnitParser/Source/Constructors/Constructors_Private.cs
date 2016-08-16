@@ -240,11 +240,13 @@ namespace FlexibleParser
             {
                 if (unitInfo.Parts.Count == 0)
                 {
-                    unitInfo = new UnitInfo
-                    (
-                        unitInfo.Value, Units.Unitless, 
-                        new Prefix(1m, unitInfo.Prefix.PrefixUsage)
-                    );
+                    if (unitInfo.Prefix.Factor != 1m)
+                    {
+                        unitInfo = NormaliseUnitInfo(unitInfo);
+                    }
+
+                    unitInfo.Unit = Units.Unitless;
+                    unitInfo.Prefix = new Prefix(1m, unitInfo.Prefix.PrefixUsage);
                 }
                 else if (Math.Abs(unitInfo.Value) < 1 && unitInfo.Prefix.Factor > 1)
                 {
@@ -312,7 +314,10 @@ namespace FlexibleParser
                 if (!prefixIsOK || !valueIsOK || unitInfo.BaseTenExponent != 0)
                 {
                     //All the prefixes are removed.
-                    unitInfo = NormaliseUnitInfo(unitInfo);
+                    if (unitInfo.Prefix.Factor != 1m)
+                    {
+                        unitInfo = NormaliseUnitInfo(unitInfo);
+                    }
 
                     if (prefixIsOK)
                     {

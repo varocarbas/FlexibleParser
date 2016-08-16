@@ -16,28 +16,37 @@ namespace FlexibleParser
             
             UnitInfo outInfo = new UnitInfo(first);
             UnitInfo secondInfo = new UnitInfo(second);
-            
-            if (operation == Operations.Addition || operation == Operations.Subtraction)
+
+            bool unitlessDone = false;
+            if (outInfo.Unit != Units.Unitless && secondInfo.Unit != Units.Unitless)
             {
-                UnitInfo[] tempInfos = PerformChecksBeforeAddition(outInfo, secondInfo);
-                
-                foreach (UnitInfo tempInfo in tempInfos)
+                unitlessDone = true;
+                if (operation == Operations.Addition || operation == Operations.Subtraction)
                 {
-                    if (tempInfo.Error.Type != ErrorTypes.None)
+                    UnitInfo[] tempInfos = PerformChecksBeforeAddition(outInfo, secondInfo);
+
+                    foreach (UnitInfo tempInfo in tempInfos)
                     {
-                        return new UnitP(first, tempInfo.Error.Type);
+                        if (tempInfo.Error.Type != ErrorTypes.None)
+                        {
+                            return new UnitP(first, tempInfo.Error.Type);
+                        }
                     }
+                    //Only the second operator might have been modified.
+                    secondInfo = tempInfos[1];
                 }
-                //Only the second operator might have been modified.
-                secondInfo = tempInfos[1];
+                else outInfo = ModifyUnitPartsBeforeMultiplication(first, secondInfo, operation);
             }
-            else outInfo = ModifyUnitPartsBeforeMultiplication(first, secondInfo, operation);
+            else if (outInfo.Unit == Units.Unitless && secondInfo.Unit != Units.Unitless)
+            {
+                outInfo = new UnitInfo(secondInfo);
+            }
 
             if (outInfo.Error.Type != ErrorTypes.None || outInfo.Unit == Units.None)
             {
                 return new UnitP
                 (
-                    first, 
+                    first,
                     (
                         outInfo.Error.Type != ErrorTypes.None ?
                         outInfo.Error.Type : ErrorTypes.InvalidUnit
@@ -45,7 +54,10 @@ namespace FlexibleParser
                 );
             }
 
-            outInfo = PerformManagedOperationUnits(outInfo, secondInfo, operation);
+            if (outInfo.Unit != Units.Unitless || !unitlessDone)
+            {
+                outInfo = PerformManagedOperationUnits(outInfo, secondInfo, operation);
+            }
 
             return 
             (
