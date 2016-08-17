@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlexibleParser;
@@ -30,16 +30,15 @@ namespace Test
             PrintSampleItem("Add1", new UnitP("1 N") + new UnitP(1m, UnitSymbols.Newton)); //All of them have the same type: force.
 
             //--- Different type variables can be multiplied/divided, but only when the generated unit belongs to a supported type.
-            PrintSampleItem("Mult1", new UnitP("1 m"));
-            PrintSampleItem("Mult2", new UnitP("1 N") * new UnitP("1 m")); //N*m = J, what is a supported type (energy).
+            PrintSampleItem("Mult1", new UnitP("1 N") * new UnitP("1 m")); //N*m = J, what is a supported type (energy).
 
             //--- Any operation outputting unsupported types triggers an error. 
-            PrintSampleItem("Mult3", new UnitP("1 N") * new UnitP("1 m") * new UnitP("1 m")); //N*m2 doesn't match any valid type.
+            PrintSampleItem("Mult2", new UnitP("1 N") * new UnitP("1 m") * new UnitP("1 m")); //N*m2 doesn't match any valid type.
 
 
             //------ Multiplication/division with decimal/double values are also supported.
 
-            PrintSampleItem("Mult4", new UnitP("1 N") * 1.23456); //Multiplication between UnitP and double variables.
+            PrintSampleItem("Mult3", new UnitP("1 N") * 1.23456); //Multiplication between UnitP and double variables.
             PrintSampleItem("Div1", new UnitP("1 N") / 7.891011m); //Division between UnitP and decimal variables.
 
             //--- Dividing a number by a UnitP variable does affect the given unit.
