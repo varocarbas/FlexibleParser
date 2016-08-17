@@ -7,7 +7,7 @@ The main class is called ```UnitP```. It can be instantiated in many different w
 
 ```C#
 //1 N.
-UnitP unitP = new UnitP("1 N")); 
+UnitP unitP = new UnitP("1 N"); 
 
 //1 N.
 unitP = new UnitP(1m, UnitSymbols.Newton);
