@@ -212,6 +212,7 @@ namespace FlexibleParser
                     PerformUnitPartConversion(outInfo, targetInfo2)
                 );
                 outInfo = new UnitInfo(targetInfo);
+                outInfo.Prefix = new Prefix(outInfo.Prefix.PrefixUsage);
                 outInfo.Value = tempInfo.Value;
                 outInfo.BaseTenExponent = tempInfo.BaseTenExponent;
             }
