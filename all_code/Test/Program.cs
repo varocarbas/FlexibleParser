@@ -88,7 +88,7 @@ namespace Test
             PrintSampleItem("Str6", new UnitP("1 J÷s-2")); //1 joule square second (moment of inertia).
 
             //--- Only one division sign is expected. It separates the numerator and denominator parts.
-            PrintSampleItem("Str7", new UnitP("1 J*J/s*J2*J-1*s*s-1")); //1 joule per second (power).
+            PrintSampleItem("Str7", new UnitP("1 J*J/s*J2*J-1*s*s-1")); //1 watt (power).
             PrintSampleItem("Str8", new UnitP("1 J*J/(s*J2*s)*J*s")); //Error. It is understood as J*J/(s*J2*s*J*s).
 
             //--- Not-supported-but-commonly-used characters are plainly ignored.
