@@ -6,33 +6,33 @@
 The main class is called ```UnitP```. It can be instantiated in many different ways.
 
 ```C#
-//1 N
+//1 N.
 UnitP unitP = new UnitP("1 N")); 
 
-//1 N
+//1 N.
 unitP = new UnitP(1m, UnitSymbols.Newton);
 
-//1 N
+//1 N.
 unitP = new UnitP(1m, "nEwTon");
 
-//1 N
+//1 N.
 unitP = new UnitP(1m, Units.Newton);
 ```
 
 ```UnitP``` can be seen as an abstract concept including many specific types ([full list](https://github.com/varocarbas/FlexibleParser/blob/master/1_units/source/main_code/Keywords/Public/Keywords_Public_Types.cs)). Same-type variables can be added/subtracted. Different-type variables can be multiplied/divided, but only in case of generating a valid-type output.
 
 ```C#
-//2 N
+//2 N.
 unitP = new UnitP("1 N") + new UnitP(1m, Units.Newton);
 
-//1 J
+//1 J.
 unitP = new UnitP("1 N") * new UnitP("1 m");
 
 //Error.
 unitP = new UnitP("1 N") * new UnitP("1 m") * new UnitP("1 m"); 
 ```
 
-###Variable Main Information
+###Main Variable Information
 UnitP variables are defined according to various ```readonly``` fields populated at instantiation.
 
 ```Unit``` - Corresponding [Units](https://github.com/varocarbas/FlexibleParser/blob/master/1_units/source/main_code/Keywords/Public/Units/Keywords_Public_Units_Names.cs) member.<br>
@@ -51,13 +51,13 @@ All the functionalities are based upon the following ideas:
 - By default, all the errors are managed internally.
 
 ```C#
-//1.3048 m
+//1.3048 m.
 unitP = new UnitP("1 m") + new UnitP("1 ft"); 
 
 //Error not triggering an exception.
 unitP = new UnitP("1 Km"); 
 
-//999999.999999900000 * 10^19 YSt
+//999999.999999900000 * 10^19 YSt.
 unitP = 999999999999999999999999999999999999.9 * new UnitP("9999999999999 St"); 
 ```
 
@@ -72,7 +72,7 @@ The unit string parsing part is quite flexible, but the following rules have to 
 //Error.
 unitP = new UnitP("1m"); 
 
-//1 W
+//1 W.
 unitP = new UnitP("1 J*J/s*J2*J-1*s*s-1");
 
 //Error.
@@ -83,13 +83,13 @@ unitP = new UnitP("1 J*J/(s*J2*s)*J*s");
 Formally, two numeric types are supported: ```decimal```, almost everywhere; and ```double```, only in multiplication/division with ```UnitP``` variables. Practically, ```UnitP``` variables implement a mixed system delivering ```decimal``` precision and beyond-```double```-range support. 
 
 ```C#
-//7.81011 ft
+//7.81011 ft.
 unitP = new UnitP("1 ft") * 7.891011m;
 
-//1213141516 s
+//1213141516 s.
 unitP = new UnitP("1 s") * 1213141516.0;
 
-//0.0001*10^-135 ym
+//0.0001*10^-135 ym.
 unitP = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000000000000000001m, "ym2") / new UnitP("999999999999999999999 Ym"); 
 ```
 
