@@ -205,13 +205,15 @@ namespace FlexibleParser
 
             if (convertIt)
             {
-                outInfo =
+                UnitInfo tempInfo =
                 (
                     UnitsCanBeConvertedDirectly(outInfo, targetInfo2) ?
                     ConvertUnitValue(outInfo, targetInfo2) :
                     PerformUnitPartConversion(outInfo, targetInfo2)
                 );
-                outInfo.Unit = targetInfo2.Unit;
+                outInfo = new UnitInfo(targetInfo);
+                outInfo.Value = tempInfo.Value;
+                outInfo.BaseTenExponent = tempInfo.BaseTenExponent;
             }
 
             return outInfo;
@@ -394,21 +396,7 @@ namespace FlexibleParser
                 return ConvertUnitValueSpecial(original, target); 
             }
 
-            UnitInfo conversionFactor = PerformManagedOperationUnits
-            (
-                GetUnitConversionFactor(original.Unit),
-                GetUnitConversionFactor(target.Unit),
-                Operations.Division
-            ); 
-
-            return
-            (   
-                PerformManagedOperationUnits
-                (
-                    original, conversionFactor, 
-                    Operations.Multiplication
-                ) 
-            );
+            return original * (GetUnitConversionFactor(original.Unit) / GetUnitConversionFactor(target.Unit));
         }
 
         private static UnitInfo GetUnitConversionFactor(Units unit)

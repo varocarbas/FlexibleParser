@@ -1,4 +1,4 @@
-using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlexibleParser;
@@ -267,7 +267,27 @@ namespace Test
             PrintSampleItem("No7", new UnitP(1m, Units.ValidCGSUnit)); //Unnamed units cannot be used as inputs.
 
 
-            //------ MORE TO BE WRITTEN SOON!
+            //------ Public functions.
+
+            //--- All the functions have static/UnitP and non-static/UnitPVariable versions.
+            Console.WriteLine
+            (
+                "Func1 - " + Units.Abampere.ToString() + " -> " + 
+                string.Join(",", UnitP.GetStringsForUnit(Units.Abampere, true)) //Static method returning all the string representations associated with the input unit.
+            );
+            Console.WriteLine
+            (
+                "Func2 - " + Units.Abampere.ToString() + " -> " + 
+                string.Join(",", new UnitP(1m, Units.Abampere).GetStringsForCurrentUnit(true)) //Non-static method returning all the string representations associated with the current unit.
+            );
+
+            //--- The most relevant function is the one performing unit conversions. 
+            PrintSampleItem("Func3", UnitP.ConvertTo(new UnitP("1 m"), Units.Foot)); //Static version of the unit conversion method.
+            PrintSampleItem("Func4", new UnitP("1 m/s").ConvertCurrentUnitTo("ft/h")); //Non-static version of the unit conversion method.
+            PrintSampleItem("Func5", new UnitP("1 m").ConvertCurrentUnitTo(Units.Gram)); //Error. No conversion is possible between different-type units.
+
+
+            //-------------------------------------------------------------
 
             Console.WriteLine();
             Console.WriteLine();
