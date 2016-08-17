@@ -63,7 +63,7 @@ unitP = 999999999999999999999999999999999999.9 * new UnitP("9999999999999 St");
 
 ###Unit String Parsing Format
 
-The unit string parsing part is quite flexible, but the following rules have to be respected:
+The unit string parsing part is quite flexible, but there are some basic rules.
 - When number and unit are included in the same string, a separating blank space is always required.
 - String multi-part units are expected to be exclusively formed by units, multiplication/division signs and exponents.
 - Only one division sign is expected. The parser understands that all what lies before/after it is the numerator/denominator.
