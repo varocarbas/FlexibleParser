@@ -20,9 +20,10 @@ namespace FlexibleParser
         private static ParsedUnit ExtractUnitParts(ParsedUnit parsedUnit)
         {
             StringBuilder previous = new StringBuilder();
-            bool isNumerator = true;
+            string origInput = parsedUnit.InputToParse;
+            parsedUnit = UnitInDenominator(parsedUnit);
+            bool isNumerator = (origInput == parsedUnit.InputToParse);
             char symbol = ' ';
-
             char[] inputArray = parsedUnit.InputToParse.ToArray();
 
             for (int i = 0; i < inputArray.Length; i++)
@@ -74,6 +75,33 @@ namespace FlexibleParser
                 previous.Length == 0 ? parsedUnit :
                 UpdateUnitParts(parsedUnit, previous, isNumerator, symbol)
             );
+        }
+
+        //When parsing a unit, only exponents are considered valid numbers (e.g., unit2).
+        //Inverse units (e.g., 1/m) are the exception to this rule. This method corrects the input
+        //string to allow ExtractUnitParts to account for such an eventuality.
+        //For example: 1/m*s being parsed as m-1*s-1.
+        private static ParsedUnit UnitInDenominator(ParsedUnit parsedUnit)
+        {
+            foreach (var symbol in OperationSymbols[Operations.Division])
+            {
+                string[] tempArray = parsedUnit.InputToParse.Split(symbol);
+                if (tempArray.Length >= 2)
+                {
+                    UnitInfo tempInfo = ParseDouble(tempArray[0]);
+                    if (tempInfo.Value != 0m && tempInfo.Error.Type == ErrorTypes.None)
+                    {
+                        parsedUnit.UnitInfo = parsedUnit.UnitInfo * tempInfo;
+                        parsedUnit.InputToParse = parsedUnit.InputToParse.Substring
+                        (
+                            tempArray[0].Length + symbol.ToString().Length
+                        );
+                        return parsedUnit;
+                    }
+                }
+            }
+
+            return parsedUnit;
         }
 
         private static ParsedUnit StartCompoundAnalysis(ParsedUnit parsedUnit)
@@ -157,10 +185,7 @@ namespace FlexibleParser
             return
             (
                 convertInfo.Value == 1m ? unitInfo : 
-                PerformManagedOperationUnits
-                (
-                    unitInfo, convertInfo, Operations.Multiplication
-                )
+                unitInfo * convertInfo
             );
         }
 

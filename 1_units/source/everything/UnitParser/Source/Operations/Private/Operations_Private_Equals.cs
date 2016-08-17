@@ -119,7 +119,7 @@ namespace FlexibleParser
             return true;
         }
 
-        public static bool PrefixesAreEqual(Prefix first, Prefix second)
+        internal static bool PrefixesAreEqual(Prefix first, Prefix second)
         {
             return 
             (
@@ -128,7 +128,7 @@ namespace FlexibleParser
             );
         }
 
-        public static bool NoNullEquals(Prefix first, Prefix second)
+        internal static bool NoNullEquals(Prefix first, Prefix second)
         {
             return
             (
@@ -138,7 +138,7 @@ namespace FlexibleParser
             );
         }
 
-        public static bool UnitPartsAreEqual(UnitPart first, UnitPart second)
+        internal static bool UnitPartsAreEqual(UnitPart first, UnitPart second)
         {
             return
             (
@@ -148,7 +148,7 @@ namespace FlexibleParser
             );
         }
 
-        public static bool NoNullEquals(UnitPart first, UnitPart second)
+        internal static bool NoNullEquals(UnitPart first, UnitPart second)
         {
             return
             (

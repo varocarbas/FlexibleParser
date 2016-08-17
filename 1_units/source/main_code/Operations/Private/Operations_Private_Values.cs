@@ -140,10 +140,7 @@ namespace FlexibleParser
                 )
             );
 
-            return PerformManagedOperationUnits
-            (
-                outInfo, newPrefix, Operations.Multiplication
-            );
+            return outInfo * newPrefix;
         }
 
         private static UnitInfo ParseDecimal(string stringToParse)

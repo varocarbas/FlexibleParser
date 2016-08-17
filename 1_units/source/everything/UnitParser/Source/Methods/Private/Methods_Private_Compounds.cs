@@ -387,13 +387,7 @@ namespace FlexibleParser
                 }
             }
 
-            if (allPrefixes.Value != 1.0m)
-            {
-                unitInfo = PerformManagedOperationUnits
-                (
-                    unitInfo, allPrefixes, Operations.Multiplication
-                );
-            }
+            if (allPrefixes.Value != 1.0m) unitInfo = unitInfo * allPrefixes;
 
             return unitInfo;
         }
@@ -738,10 +732,7 @@ namespace FlexibleParser
                 unitInfo.Parts[i2].Exponent
             );
 
-            return PerformManagedOperationUnits
-            (
-                info1, info2, Operations.Multiplication
-            );
+            return info1 * info2;
         }
     }
 }
