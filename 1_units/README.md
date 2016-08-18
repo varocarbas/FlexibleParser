@@ -28,7 +28,7 @@ unitP = new UnitP("1 N") + new UnitP(1m, Units.Newton);
 //1 J.
 unitP = new UnitP("1 N") * new UnitP("1 m");
 
-//Error.
+//Error not triggering an exception. The output unit N*m^2 doesn't match any supported type.
 unitP = new UnitP("1 N") * new UnitP("1 m") * new UnitP("1 m"); 
 ```
 
@@ -54,7 +54,7 @@ All the functionalities are based upon the following ideas:
 //1.3048 m.
 unitP = new UnitP("1 m") + new UnitP("1 ft"); 
 
-//Error not triggering an exception.
+//Error not triggering an exception. The parser expects "km" or a full-name-based version like "KiLom".
 unitP = new UnitP("1 Km"); 
 
 //999999.999999900000 * 10^19 YSt.
@@ -69,13 +69,13 @@ The unit string parsing part is quite flexible, but there are some basic rules.
 - Only one division sign is expected. The parser understands that all what lies before/after it is the numerator/denominator.
 
 ```C#
-//Error.
+//Error not triggering an exception. The parser expects "1 m" or any other version including a separating blank space.
 unitP = new UnitP("1m"); 
 
 //1 W.
 unitP = new UnitP("1 J*J/s*J2*J-1*s*s-1");
 
-//Error.
+//Error not triggering an exception. The parser understands "J*J/(s*J2*s*J*s)", what doesn't represent a supported type.
 unitP = new UnitP("1 J*J/(s*J2*s)*J*s");
 ```
 
