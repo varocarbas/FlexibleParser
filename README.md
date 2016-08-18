@@ -15,7 +15,7 @@ FlexibleParser is a multi-purpose .NET parsing library based upon the following 
 At the moment, FlexibleParser is formed by the following independent parts:
 
 [1.- UnitParser](https://github.com/varocarbas/FlexibleParser/tree/master/1_units) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/1_units/source/main_code) and [binaries](https://github.com/varocarbas/FlexibleParser/tree/master/1_units/binaries)). It allows to easily deal with a wide variety of situations involving units of measurement.
-Among its most salient features are: user-defined exception triggering and gracefully managing numeric values of any size.
+Among its most salient features are: [user-defined exception triggering](https://github.com/varocarbas/FlexibleParser/tree/master/1_units#general-rules) and [gracefully managing numeric values of any size](https://github.com/varocarbas/FlexibleParser/tree/master/1_units#numeric-support).
 
 ## Authorship & Copyright
 
