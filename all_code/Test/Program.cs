@@ -128,11 +128,9 @@ namespace Test
             }
 
             //--- In case of incompatibility, the configuration of the first operand is applied.
-            PrintSampleItem("Err3", new UnitP("wrong"));
-            PrintSampleItem("Err4", new UnitP("1 m", UnitP.ExceptionHandlingTypes.AlwaysTriggerException));
             PrintSampleItem
             (
-                "Err5",  //No exception is triggered.
+                "Err3",  //No exception is triggered.
                 new UnitP("wrong") * 
                 new UnitP("1 m", UnitP.ExceptionHandlingTypes.AlwaysTriggerException)
             );
@@ -141,25 +139,25 @@ namespace Test
             {
                 PrintSampleItem
                 (
-                    "Err6", //An exception is triggered.
+                    "Err4", //An exception is triggered.
                     new UnitP("1 m", UnitP.ExceptionHandlingTypes.AlwaysTriggerException) *
                     new UnitP("wrong")
                 );
             }
             catch 
             {
-                Console.WriteLine("Err6 - Caught Exception.");
+                Console.WriteLine("Err4 - Caught Exception.");
             }
 
             //--- When the first operand is a number, an exception is always triggered.
             try
             {
                 //An exception is triggered.
-                PrintSampleItem("Err7", 5.0 * new UnitP("wrong"));
+                PrintSampleItem("Err5", 5.0 * new UnitP("wrong"));
             }
             catch 
             {
-                Console.WriteLine("Err7 - Caught Exception.");
+                Console.WriteLine("Err5 - Caught Exception.");
             }
 
 
@@ -263,7 +261,7 @@ namespace Test
 
             //--- Unnamed units (Units.Valid[system]Unit).
             PrintSampleItem("No6", new UnitP("1 cbl/s")); //All the parsed compounds not matching any named unit are automatically included in this category.
-            PrintSampleItem("No7", new UnitP(1m, Units.ValidCGSUnit)); //Unnamed units cannot be used as inputs.
+            PrintSampleItem("No7", new UnitP(1m, Units.ValidCGSUnit)); //Error. Unnamed units cannot be used as inputs.
 
 
             //------ Public functions.
