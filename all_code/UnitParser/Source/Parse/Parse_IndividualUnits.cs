@@ -6,14 +6,25 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static ParsedUnit InitialParseActions(ParsedUnit parsedUnit)
+        private static ParsedUnit StartIndividualUnitParse(ParsedUnit parsedUnit)
         {
-            parsedUnit.InputToParse = parsedUnit.InputToParse.Trim();
+            return GetIndividualUnitParts
+            (
+                ParseIndividualUnit(parsedUnit)
+            );
+        }
 
-            foreach (string symbol in UnitP.IgnoredUnitSymbols)
+        private static ParsedUnit ParseIndividualUnit(ParsedUnit parsedUnit)
+        {
+            parsedUnit = PrefixAnalysis(parsedUnit);
+
+            if (parsedUnit.UnitInfo.Unit == Units.None)
             {
-                parsedUnit.InputToParse = parsedUnit.InputToParse.Replace(symbol, "");
+                //The final unit might have already been found while analysing prefixes.
+                parsedUnit.UnitInfo.Unit = GetUnitFromString(parsedUnit.InputToParse);
             }
+
+            parsedUnit.UnitInfo = UpdateMainUnitVariables(parsedUnit.UnitInfo);
 
             return parsedUnit;
         }
@@ -191,7 +202,7 @@ namespace FlexibleParser
             return unitString;
         }
 
-        private static ParsedUnit ImproveIndividualUnitPart(ParsedUnit parsedUnit)
+        private static ParsedUnit GetIndividualUnitParts(ParsedUnit parsedUnit)
         {
             if (parsedUnit.UnitInfo.Unit == Units.None || parsedUnit.UnitInfo.Error.Type != ErrorTypes.None)
             {

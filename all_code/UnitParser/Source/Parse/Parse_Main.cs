@@ -18,25 +18,14 @@ namespace FlexibleParser
             );
         }
 
-        private static ParsedUnit StartIndividualUnitParse(ParsedUnit parsedUnit)
+        private static ParsedUnit InitialParseActions(ParsedUnit parsedUnit)
         {
-            return ImproveIndividualUnitPart
-            (
-                ParseIndividualUnit(parsedUnit)
-            );
-        }
+            parsedUnit.InputToParse = parsedUnit.InputToParse.Trim();
 
-        private static ParsedUnit ParseIndividualUnit(ParsedUnit parsedUnit)
-        {
-            parsedUnit = PrefixAnalysis(parsedUnit);
-
-            if (parsedUnit.UnitInfo.Unit == Units.None)
+            foreach (string symbol in UnitP.IgnoredUnitSymbols)
             {
-                //The final unit might have already been found while analysing prefixes.
-                parsedUnit.UnitInfo.Unit = GetUnitFromString(parsedUnit.InputToParse);
+                parsedUnit.InputToParse = parsedUnit.InputToParse.Replace(symbol, "");
             }
-
-            parsedUnit.UnitInfo = UpdateMainUnitVariables(parsedUnit.UnitInfo);
 
             return parsedUnit;
         }
