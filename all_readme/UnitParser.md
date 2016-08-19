@@ -3,7 +3,7 @@
 [NuGet package](https://www.nuget.org/packages/UnitParser/) -- [UnitParser.dll](https://github.com/varocarbas/FlexibleParser/tree/master/all_binaries)
 
 ##Introduction
-The namespace is ```FlexibleParser``` and the main class ```UnitP```. It can be instantiated in many different ways.
+The main class ```UnitP``` (```FlexibleParser``` namespace). It can be instantiated in many different ways.
 
 ```C#
 //1 N.
