@@ -17,7 +17,7 @@ unitP = new UnitP(1m, "nEwTon");
 unitP = new UnitP(1m, Units.Newton);
 ```
 
-```UnitP``` can be seen as an abstract concept including many specific types ([full list](https://github.com/varocarbas/FlexibleParser_1-UnitParser/blob/master/source/UnitParser/Source/Keywords/Public/Keywords_Public_Types.cs)). Same-type variables can be added/subtracted. Different-type variables can be multiplied/divided, but only in case of generating a valid-type output.
+```UnitP``` can be seen as an abstract concept including many specific types ([full list](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/UnitParser/Source/Keywords/Public/Keywords_Public_Types.cs)). Same-type variables can be added/subtracted. Different-type variables can be multiplied/divided, but only in case of generating a valid-type output.
 
 ```C#
 //2 N.
@@ -34,11 +34,11 @@ unitP = new UnitP("1 N") * new UnitP("1 m") * new UnitP("1 m");
 ###Main Variable Information
 UnitP variables are defined according to various ```readonly``` fields populated at instantiation.
 
-```Unit``` - Corresponding [Units](https://github.com/varocarbas/FlexibleParser_1-UnitParser/blob/master/source/UnitParser/Source/Keywords/Public/Units/Keywords_Public_Units_Names.cs) member.<br>
-```UnitType``` - Corresponding [UnitTypes](https://github.com/varocarbas/FlexibleParser_1-UnitParser/blob/master/source/UnitParser/Source/Keywords/Public/Keywords_Public_Types.cs) member.<br>
-```UnitSystem``` - Corresponding [UnitSystems](https://github.com/varocarbas/FlexibleParser_1-UnitParser/blob/master/source/UnitParser/Source/Keywords/Public/Keywords_Public_Miscellaneous.cs) member.<br>
+```Unit``` - Corresponding [Units](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/UnitParser/Source/Keywords/Public/Units/Keywords_Public_Units_Names.cs) member.<br>
+```UnitType``` - Corresponding [UnitTypes](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/UnitParser/Source/Keywords/Public/Keywords_Public_Types.cs) member.<br>
+```UnitSystem``` - Corresponding [UnitSystems](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/UnitParser/Source/Keywords/Public/Keywords_Public_Miscellaneous.cs) member.<br>
 ```UnitParts``` - Defining parts of the given unit.<br>
-```UnitPrefix``` - [Supported prefix](https://github.com/varocarbas/FlexibleParser_1-UnitParser/blob/master/source/UnitParser/Source/Keywords/Public/Keywords_Public_Prefixes.cs) affecting all the unit parts.<br>
+```UnitPrefix``` - [Supported prefix](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/UnitParser/Source/Keywords/Public/Keywords_Public_Prefixes.cs) affecting all the unit parts.<br>
 ```BaseTenExponent``` - Base-ten exponent used when dealing with too small/big values.<br>
 ```Error``` - Variable storing all the error- and exception-related information.
 
