@@ -9,6 +9,7 @@ namespace FlexibleParser
     {
         private static ParseInfo StartCompoundParse(ParseInfo parseInfo)
         {
+            //ValidCompound isn't used when parsing individual units.
             parseInfo.ValidCompound = new StringBuilder();
 
             return StartCompoundAnalysis
@@ -21,8 +22,14 @@ namespace FlexibleParser
         {
             StringBuilder previous = new StringBuilder();
             string origInput = parseInfo.InputToParse;
+            
             parseInfo = UnitInDenominator(parseInfo);
+            
+            //Both strings being different would mean a removed number-only numerator.
+            //For example: the input string "1/m" is converted into "m", but UpdateUnitParts
+            //treats it as "m-1" because isNumerator is false.
             bool isNumerator = (origInput == parseInfo.InputToParse);
+            
             char symbol = ' ';
             char[] inputArray = parseInfo.InputToParse.ToArray();
 
@@ -80,7 +87,7 @@ namespace FlexibleParser
         //When parsing a unit, only exponents are considered valid numbers (e.g., unit2).
         //Inverse units (e.g., 1/m) are the exception to this rule. This method corrects the input
         //string to allow ExtractUnitParts to account for such an eventuality.
-        //For example: 1/m*s being parsed as m-1*s-1.
+        //For example: 1/m*s being converted into m-1*s-1.
         private static ParseInfo UnitInDenominator(ParseInfo parseInfo)
         {
             foreach (var symbol in OperationSymbols[Operations.Division])
@@ -347,12 +354,12 @@ namespace FlexibleParser
         }
 
         //Instrumental class whose sole purpose is easing the exponent parsing process.
-        private class ParsedExponent
+        private class ParseExponent
         {
             public string AfterString { get; set; }
             public int Exponent { get; set; }
 
-            public ParsedExponent(string afterString, int exponent = 1)
+            public ParseExponent(string afterString, int exponent = 1)
             {
                 AfterString = afterString;
                 Exponent = exponent;

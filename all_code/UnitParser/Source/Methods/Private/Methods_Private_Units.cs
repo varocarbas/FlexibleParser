@@ -373,8 +373,7 @@ namespace FlexibleParser
             );
         }
 
-        //Confirms whether the given minus sign ('-') is correct. "any-5" is right. On the other hand,
-        //"any-6other" and "5-5" are wrong.
+        //Confirms whether the given minus sign ('-') is correct. "any-5" is right, but 5-5 is wrong.
         private static bool MinusIsOK(char[] inputArray, int i)
         {
             if (i > 0 && i < inputArray.Length)

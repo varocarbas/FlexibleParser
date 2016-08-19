@@ -15,13 +15,13 @@ namespace FlexibleParser
             else if (unitInfo.Unit == Units.Unitless) return "Unitless";
 
             string outUnitString = "";
-            bool inNumerator = true;
+            bool isNumerator = true;
 
             foreach (UnitPart unitPart in unitInfo.Parts)
             {
-                if (inNumerator && unitPart.Exponent < 0)
+                if (isNumerator && unitPart.Exponent < 0)
                 {
-                    inNumerator = false;
+                    isNumerator = false;
                     if (outUnitString == "") outUnitString = "1";
                     outUnitString = outUnitString + "/";
                 }
@@ -70,7 +70,7 @@ namespace FlexibleParser
             return true;
         }
 
-        private static ParsedExponent GetCompoundExponent(string input)
+        private static ParseExponent AnalysePartExponent(string input)
         {
             input = input.Trim();
             char[] inputArray = input.ToArray();
@@ -85,18 +85,15 @@ namespace FlexibleParser
                 }
             }
 
-            ParsedExponent outVar = new ParsedExponent(input);
-            if (i2 >= 0 && i2 <= input.Length - 1)
+            ParseExponent outVar = new ParseExponent(input);
+            int exponent = 1;
+            if (int.TryParse(input.Substring(i2 + 1), out exponent))
             {
-                int exponent = 1;
-                if (int.TryParse(input.Substring(i2 + 1), out exponent))
-                {
-                    outVar = new ParsedExponent
-                    (
-                        input.Substring(0, i2 + 1), 
-                        exponent
-                    );
-                }
+                //Only integer exponents are supported.
+                outVar = new ParseExponent
+                (
+                    input.Substring(0, i2 + 1), exponent
+                );
             }
 
             return outVar;
@@ -106,7 +103,7 @@ namespace FlexibleParser
         {
             string input = inputSB.ToString();
 
-            ParsedExponent exponent = GetCompoundExponent(input);
+            ParseExponent exponent = AnalysePartExponent(input);
             if (!isNumerator) exponent.Exponent = -1 * exponent.Exponent;
 
             ParseInfo parseInfo2 = StartIndividualUnitParse
@@ -141,7 +138,7 @@ namespace FlexibleParser
             return parseInfo;
         }
 
-        private static ParseInfo AddInformationToValidUnitPart(ParseInfo parseInfo, char symbol, ParsedExponent exponent, string input)
+        private static ParseInfo AddInformationToValidUnitPart(ParseInfo parseInfo, char symbol, ParseExponent exponent, string input)
         {
             if (symbol != ' ') parseInfo.ValidCompound.Append(symbol);
 
