@@ -1,6 +1,6 @@
 # UnitParser 
 
-[Nuget package](https://www.nuget.org/packages/UnitParser/) -- [UnitParser.dll](https://github.com/varocarbas/FlexibleParser/tree/master/all_binaries)
+[NuGet package](https://www.nuget.org/packages/UnitParser/) -- [UnitParser.dll](https://github.com/varocarbas/FlexibleParser/tree/master/all_binaries)
 
 ##Introduction
 The main class is called ```UnitP```. It can be instantiated in many different ways.
