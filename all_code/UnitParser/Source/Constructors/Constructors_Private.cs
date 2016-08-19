@@ -156,17 +156,17 @@ namespace FlexibleParser
             {
                 //No intermediate spaces (within the unit) should be expected,
                 //but well...
-                ParseInfo ParsedUnit2 = new ParseInfo
+                ParseInfo parseInfo2 = new ParseInfo
                 (
                     parseInfo,
                     string.Join("", unitString.Split(' ').Select(x => x.Trim()))
                 );
-                ParsedUnit2.UnitInfo.Error = new ErrorInfo();
-                ParsedUnit2 = StartUnitParse(ParsedUnit2);
+                parseInfo2.UnitInfo.Error = new ErrorInfo();
+                parseInfo2 = StartUnitParse(parseInfo2);
 
-                if (ParsedUnit2.UnitInfo.Unit != Units.None)
+                if (parseInfo2.UnitInfo.Unit != Units.None)
                 {
-                    parseInfo = new ParseInfo(ParsedUnit2);
+                    parseInfo = new ParseInfo(parseInfo2);
                 }
             }
 

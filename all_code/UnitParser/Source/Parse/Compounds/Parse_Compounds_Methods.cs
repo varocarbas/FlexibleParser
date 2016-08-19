@@ -109,7 +109,7 @@ namespace FlexibleParser
             ParsedExponent exponent = GetCompoundExponent(input);
             if (!isNumerator) exponent.Exponent = -1 * exponent.Exponent;
 
-            ParseInfo ParsedUnit2 = StartIndividualUnitParse
+            ParseInfo parseInfo2 = StartIndividualUnitParse
             (
                 new ParseInfo
                 (
@@ -118,7 +118,7 @@ namespace FlexibleParser
                 )
             );
 
-            if (ParsedUnit2.UnitInfo.Unit == Units.None)
+            if (parseInfo2.UnitInfo.Unit == Units.None)
             {
                 parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
                 return parseInfo; 
@@ -133,7 +133,7 @@ namespace FlexibleParser
             (
                 new UnitPart
                 (
-                    ParsedUnit2.UnitInfo.Unit, ParsedUnit2.UnitInfo.Prefix.Factor,
+                    parseInfo2.UnitInfo.Unit, parseInfo2.UnitInfo.Prefix.Factor,
                     exponent.Exponent
                 )
             );
