@@ -14,7 +14,7 @@ namespace FlexibleParser
         public const decimal Metre = 1m;
         ///<summary><para>Centimetre (cm) conversion factor. CGS length unit.</para></summary>
         public const decimal Centimetre = 0.01m;
-        ///<summary><para>Astronomical unit (au) conversion factor. Length unit.</para></summary>
+        ///<summary><para>Astronomical unit (AU) conversion factor. Length unit.</para></summary>
         public const decimal AstronomicalUnit = 149597870700m;
         ///<summary><para>Foot (ft) conversion factor. Imperial/USCS length unit.</para></summary>
         public const decimal Foot = 0.3048m;

@@ -15,7 +15,7 @@ namespace FlexibleParser
             ///<summary><para>Centimetre symbol. CGS length unit.</para></summary>  
             public const string Centimetre = "cm";
             ///<summary><para>Astronomical unit symbol. Length unit.</para></summary>           
-            public const string AstronomicalUnit = "au";
+            public const string AstronomicalUnit = "AU";
             ///<summary><para>Inch symbol. Imperial/USCS length unit.</para></summary>             
             public const string Inch = "in";
             ///<summary><para>Foot symbol. Imperial/USCS length unit.</para></summary>             

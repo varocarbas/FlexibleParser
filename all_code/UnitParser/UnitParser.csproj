@@ -67,11 +67,11 @@
     <Compile Include="Source\Operations\Private\Operations_Private_Units.cs" />
     <Compile Include="Source\Operations\Operations_Public.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Values.cs" />
-    <Compile Include="Source\Parse\Compounds\Parse_Private_Compounds_Methods.cs" />
-    <Compile Include="Source\Parse\Parse_Private_Main.cs" />
-    <Compile Include="Source\Parse\Compounds\Parse_Private_Compounds_Main.cs" />
+    <Compile Include="Source\Parse\Compounds\Parse_Compounds_Methods.cs" />
+    <Compile Include="Source\Parse\Parse_Main.cs" />
+    <Compile Include="Source\Parse\Compounds\Parse_Compounds_Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\Parse\Parse_Private_IndividualUnits.cs" />
+    <Compile Include="Source\Parse\Parse_IndividualUnits.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

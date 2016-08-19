@@ -192,7 +192,7 @@ namespace FlexibleParser
             }
         }
 
-        private static string[] IgnoredUnitSymbols = new string[]
+        private static string[] UnitParseIgnored = new string[]
         {
             ".", ",", ":", ";", "_", "^", "+", "#", "(", ")", "[", "]", 
             "{", "}", "=", "!", "?", "@", "&"

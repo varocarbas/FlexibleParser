@@ -8,14 +8,14 @@ namespace FlexibleParser
     {
         private UnitP
         (
-            ParsedUnit parsedUnit, string originalUnitString = "", UnitSystems system = UnitSystems.None,
+            ParseInfo parseInfo, string originalUnitString = "", UnitSystems system = UnitSystems.None,
             ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
             PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage, bool noPrefixImprovement = false
         )
         {
             UnitPConstructor unitP2 = new UnitPConstructor
             (
-                originalUnitString, parsedUnit.UnitInfo, parsedUnit.UnitInfo.Type, parsedUnit.UnitInfo.System,
+                originalUnitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, parseInfo.UnitInfo.System,
                 ErrorTypes.None, exceptionHandling, noPrefixImprovement
             );
 
@@ -44,7 +44,7 @@ namespace FlexibleParser
         )
         : this
         (
-            new ParsedUnit(unitInfo), "", UnitSystems.None,
+            new ParseInfo(unitInfo), "", UnitSystems.None,
             ExceptionHandlingTypes.NeverTriggerException, unitInfo.Prefix.PrefixUsage,
             noPrefixImprovement
         )
@@ -57,7 +57,7 @@ namespace FlexibleParser
         )
         : this
         (
-            new ParsedUnit(unitInfo), originalUnitString, system,
+            new ParseInfo(unitInfo), originalUnitString, system,
             unitP.Error.ExceptionHandling, unitInfo.Prefix.PrefixUsage,
             noPrefixImprovement
         )
@@ -68,7 +68,7 @@ namespace FlexibleParser
             UnitInfo unitInfo, string originalUnitString = "", 
             ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException
         ) 
-        : this(new ParsedUnit(unitInfo), originalUnitString, UnitSystems.None, exceptionHandling) { }
+        : this(new ParseInfo(unitInfo), originalUnitString, UnitSystems.None, exceptionHandling) { }
 
         private UnitP
         (
@@ -126,51 +126,51 @@ namespace FlexibleParser
             PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage
         )
         {
-            ParsedUnit parsedUnit = ParseInputs
+            ParseInfo parseInfo = ParseInputs
             (
                 value, unitString, prefixUsage
             );
 
             return new UnitPConstructor
             (
-                unitString, parsedUnit.UnitInfo, parsedUnit.UnitInfo.Type, parsedUnit.UnitInfo.System,
+                unitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, parseInfo.UnitInfo.System,
                 (
-                    parsedUnit.UnitInfo.Unit == Units.None ?
+                    parseInfo.UnitInfo.Unit == Units.None ?
                     ErrorTypes.InvalidUnit : ErrorTypes.None 
                 ), 
                 exceptionHandling
             );
         }
 
-        private ParsedUnit ParseInputs(decimal value, string unitString, PrefixUsageTypes prefixUsage)
+        private ParseInfo ParseInputs(decimal value, string unitString, PrefixUsageTypes prefixUsage)
         {
-            ParsedUnit parsedUnit = new ParsedUnit(value, unitString, prefixUsage);
-            parsedUnit = StartUnitParse(parsedUnit);
+            ParseInfo parseInfo = new ParseInfo(value, unitString, prefixUsage);
+            parseInfo = StartUnitParse(parseInfo);
             bool isOK = 
             (
-                parsedUnit.UnitInfo.Error.Type != ErrorTypes.None &&
-                parsedUnit.UnitInfo.Unit != Units.None
+                parseInfo.UnitInfo.Error.Type != ErrorTypes.None &&
+                parseInfo.UnitInfo.Unit != Units.None
             );
 
             if (!isOK && unitString.Contains(" "))
             {
                 //No intermediate spaces (within the unit) should be expected,
                 //but well...
-                ParsedUnit parsedUnit2 = new ParsedUnit
+                ParseInfo parseInfo2 = new ParseInfo
                 (
-                    parsedUnit,
+                    parseInfo,
                     string.Join("", unitString.Split(' ').Select(x => x.Trim()))
                 );
-                parsedUnit2.UnitInfo.Error = new ErrorInfo();
-                parsedUnit2 = StartUnitParse(parsedUnit2);
+                parseInfo2.UnitInfo.Error = new ErrorInfo();
+                parseInfo2 = StartUnitParse(parseInfo2);
 
-                if (parsedUnit2.UnitInfo.Unit != Units.None)
+                if (parseInfo2.UnitInfo.Unit != Units.None)
                 {
-                    parsedUnit = new ParsedUnit(parsedUnit2);
+                    parseInfo = new ParseInfo(parseInfo2);
                 }
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
 
         //Class helping to deal with various constructors including so many readonly variables.
