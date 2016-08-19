@@ -104,7 +104,7 @@ namespace FlexibleParser
 
             return StartCompoundAnalysis
             (
-                new ParsedUnit(outInfo)
+                new ParseInfo(outInfo)
             )
             .UnitInfo;
         }

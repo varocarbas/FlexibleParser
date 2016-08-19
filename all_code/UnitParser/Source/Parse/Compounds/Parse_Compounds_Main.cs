@@ -7,24 +7,24 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static ParsedUnit StartCompoundParse(ParsedUnit parsedUnit)
+        private static ParseInfo StartCompoundParse(ParseInfo parseInfo)
         {
-            parsedUnit.ValidCompound = new StringBuilder();
+            parseInfo.ValidCompound = new StringBuilder();
 
             return StartCompoundAnalysis
             (
-                ExtractUnitParts(parsedUnit)
+                ExtractUnitParts(parseInfo)
             );
         }
 
-        private static ParsedUnit ExtractUnitParts(ParsedUnit parsedUnit)
+        private static ParseInfo ExtractUnitParts(ParseInfo parseInfo)
         {
             StringBuilder previous = new StringBuilder();
-            string origInput = parsedUnit.InputToParse;
-            parsedUnit = UnitInDenominator(parsedUnit);
-            bool isNumerator = (origInput == parsedUnit.InputToParse);
+            string origInput = parseInfo.InputToParse;
+            parseInfo = UnitInDenominator(parseInfo);
+            bool isNumerator = (origInput == parseInfo.InputToParse);
             char symbol = ' ';
-            char[] inputArray = parsedUnit.InputToParse.ToArray();
+            char[] inputArray = parseInfo.InputToParse.ToArray();
 
             for (int i = 0; i < inputArray.Length; i++)
             {
@@ -41,19 +41,19 @@ namespace FlexibleParser
                         }
                         else
                         {
-                            parsedUnit.UnitInfo.Parts = new List<UnitPart>();
-                            return parsedUnit;
+                            parseInfo.UnitInfo.Parts = new List<UnitPart>();
+                            return parseInfo;
                         }
                     }
 
-                    parsedUnit = UpdateUnitParts
+                    parseInfo = UpdateUnitParts
                     (
-                        parsedUnit, previous, isNumerator, symbol
+                        parseInfo, previous, isNumerator, symbol
                     );
 
-                    if (parsedUnit.UnitInfo.Error.Type != ErrorTypes.None)
+                    if (parseInfo.UnitInfo.Error.Type != ErrorTypes.None)
                     {
-                        return parsedUnit;
+                        return parseInfo;
                     }
 
                     if (bit != '-')
@@ -72,8 +72,8 @@ namespace FlexibleParser
 
             return
             (
-                previous.Length == 0 ? parsedUnit :
-                UpdateUnitParts(parsedUnit, previous, isNumerator, symbol)
+                previous.Length == 0 ? parseInfo :
+                UpdateUnitParts(parseInfo, previous, isNumerator, symbol)
             );
         }
 
@@ -81,64 +81,64 @@ namespace FlexibleParser
         //Inverse units (e.g., 1/m) are the exception to this rule. This method corrects the input
         //string to allow ExtractUnitParts to account for such an eventuality.
         //For example: 1/m*s being parsed as m-1*s-1.
-        private static ParsedUnit UnitInDenominator(ParsedUnit parsedUnit)
+        private static ParseInfo UnitInDenominator(ParseInfo parseInfo)
         {
             foreach (var symbol in OperationSymbols[Operations.Division])
             {
-                string[] tempArray = parsedUnit.InputToParse.Split(symbol);
+                string[] tempArray = parseInfo.InputToParse.Split(symbol);
                 if (tempArray.Length >= 2)
                 {
                     UnitInfo tempInfo = ParseDouble(tempArray[0]);
                     if (tempInfo.Value != 0m && tempInfo.Error.Type == ErrorTypes.None)
                     {
-                        parsedUnit.UnitInfo = parsedUnit.UnitInfo * tempInfo;
-                        parsedUnit.InputToParse = parsedUnit.InputToParse.Substring
+                        parseInfo.UnitInfo = parseInfo.UnitInfo * tempInfo;
+                        parseInfo.InputToParse = parseInfo.InputToParse.Substring
                         (
                             tempArray[0].Length + symbol.ToString().Length
                         );
-                        return parsedUnit;
+                        return parseInfo;
                     }
                 }
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
 
-        private static ParsedUnit StartCompoundAnalysis(ParsedUnit parsedUnit)
+        private static ParseInfo StartCompoundAnalysis(ParseInfo parseInfo)
         {
-            if (parsedUnit.UnitInfo.Error.Type != ErrorTypes.None)
+            if (parseInfo.UnitInfo.Error.Type != ErrorTypes.None)
             {
-                return parsedUnit;
+                return parseInfo;
             }
 
-            parsedUnit.UnitInfo = RemoveAllUnitInformation(parsedUnit.UnitInfo);
+            parseInfo.UnitInfo = RemoveAllUnitInformation(parseInfo.UnitInfo);
 
-            parsedUnit.UnitInfo = UpdateInitialPositions(parsedUnit.UnitInfo);
+            parseInfo.UnitInfo = UpdateInitialPositions(parseInfo.UnitInfo);
 
             //This is the best place to determine the system before finding the unit, because
             //the subsequent unit part corrections might provoke some misunderstandings on this
             //front (e.g., CGS named compound divided into SI basic units).
-            parsedUnit.UnitInfo.System = GetSystemFromUnitInfo(parsedUnit.UnitInfo).System;
+            parseInfo.UnitInfo.System = GetSystemFromUnitInfo(parseInfo.UnitInfo).System;
 
             //This is also an excellent place to correct eventual system mismatches.
             //For example: N/pint (pint has to be converted to m3, the basic unit of the first
             //operand system, SI).
-            parsedUnit.UnitInfo = CorrectDifferentSystemIssues(parsedUnit.UnitInfo);
+            parseInfo.UnitInfo = CorrectDifferentSystemIssues(parseInfo.UnitInfo);
 
-            parsedUnit.UnitInfo = GetCompoundUnitFromParts
+            parseInfo.UnitInfo = GetCompoundUnitFromParts
             (
-                ImproveUnitParts(parsedUnit.UnitInfo)
+                ImproveUnitParts(parseInfo.UnitInfo)
             );
             
-            parsedUnit.UnitInfo = UpdateMainUnitVariables(parsedUnit.UnitInfo);
+            parseInfo.UnitInfo = UpdateMainUnitVariables(parseInfo.UnitInfo);
 
-            if (parsedUnit.UnitInfo.Unit == Units.None)
+            if (parseInfo.UnitInfo.Unit == Units.None)
             {
-                parsedUnit.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
+                parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
             }
-            else parsedUnit = AnalyseValidCompoundInfo(parsedUnit);
+            else parseInfo = AnalyseValidCompoundInfo(parseInfo);
 
-            return parsedUnit;
+            return parseInfo;
         }
 
         private static UnitInfo CorrectDifferentSystemIssues(UnitInfo unitInfo)
@@ -305,19 +305,19 @@ namespace FlexibleParser
         }
 
         //Making sure that the assumed-valid compound doesn't really hide invalid information.
-        private static ParsedUnit AnalyseValidCompoundInfo(ParsedUnit parsedUnit)
+        private static ParseInfo AnalyseValidCompoundInfo(ParseInfo parseInfo)
         {
-            if (parsedUnit.InputToParse == null || parsedUnit.ValidCompound.Length < 1)
+            if (parseInfo.InputToParse == null || parseInfo.ValidCompound.Length < 1)
             {
                 //This part might not only be reached while parsing.
-                return parsedUnit;
+                return parseInfo;
             }
 
-            char[] valid = new char[parsedUnit.ValidCompound.Length];
-            parsedUnit.ValidCompound.CopyTo(0, valid, 0, valid.Length);
-            char[] toCheck = parsedUnit.InputToParse.Trim().Where(x => x != ' ').ToArray();
+            char[] valid = new char[parseInfo.ValidCompound.Length];
+            parseInfo.ValidCompound.CopyTo(0, valid, 0, valid.Length);
+            char[] toCheck = parseInfo.InputToParse.Trim().Where(x => x != ' ').ToArray();
 
-            if (valid.Length == toCheck.Length) return parsedUnit;
+            if (valid.Length == toCheck.Length) return parseInfo;
 
             decimal invalidCount = 0m;
             int i2 = -1;
@@ -329,7 +329,7 @@ namespace FlexibleParser
 
                 if (!CharAreEquivalent(valid[i2], toCheck[i]))
                 {
-                    if (!IgnoredUnitSymbols.Contains(toCheck[i].ToString()))
+                    if (!UnitParseIgnored.Contains(toCheck[i].ToString()))
                     {
                         invalidCount = invalidCount + 1m;
                     }
@@ -339,11 +339,11 @@ namespace FlexibleParser
 
             if (invalidCount >= 3m || invalidCount / valid.Length >= 0.25m)
             {
-                parsedUnit.UnitInfo.Type = UnitTypes.None;
-                parsedUnit.UnitInfo.Unit = Units.None;
+                parseInfo.UnitInfo.Type = UnitTypes.None;
+                parseInfo.UnitInfo.Unit = Units.None;
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
 
         //Instrumental class whose sole purpose is easing the exponent parsing process.

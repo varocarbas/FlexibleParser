@@ -483,13 +483,5 @@ namespace FlexibleParser
             //--- Temperature
             Units.Fahrenheit, Units.Rankine, 
         };
-
-        //The default parsing behaviour is preferring units on top of prefixes. For example: ft understood
-        //as foot rather than as femto metric ton. 
-        //This collection includes all the exceptions to such a behaviour.
-        private static Units[] AllPrefixBeforeUnits = new Units[]
-        {
-            Units.AstronomicalUnit
-        };
     }
 }

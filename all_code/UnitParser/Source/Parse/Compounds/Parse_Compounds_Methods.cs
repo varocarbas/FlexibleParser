@@ -102,61 +102,61 @@ namespace FlexibleParser
             return outVar;
         }
 
-        private static ParsedUnit UpdateUnitParts(ParsedUnit parsedUnit, StringBuilder inputSB, bool isNumerator, char symbol)
+        private static ParseInfo UpdateUnitParts(ParseInfo ParseInfo, StringBuilder inputSB, bool isNumerator, char symbol)
         {
             string input = inputSB.ToString();
 
             ParsedExponent exponent = GetCompoundExponent(input);
             if (!isNumerator) exponent.Exponent = -1 * exponent.Exponent;
 
-            ParsedUnit parsedUnit2 = StartIndividualUnitParse
+            ParseInfo ParsedUnit2 = StartIndividualUnitParse
             (
-                new ParsedUnit
+                new ParseInfo
                 (
                     0m, exponent.AfterString,
-                    parsedUnit.UnitInfo.Prefix.PrefixUsage
+                    ParseInfo.UnitInfo.Prefix.PrefixUsage
                 )
             );
 
-            if (parsedUnit2.UnitInfo.Unit == Units.None)
+            if (ParsedUnit2.UnitInfo.Unit == Units.None)
             {
-                parsedUnit.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
-                return parsedUnit; 
+                ParseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
+                return ParseInfo; 
             }
 
-            parsedUnit = AddInformationToValidUnitPart
+            ParseInfo = AddInformationToValidUnitPart
             (
-                parsedUnit, symbol, exponent, input
+                ParseInfo, symbol, exponent, input
             );
 
-            parsedUnit.UnitInfo.Parts.Add
+            ParseInfo.UnitInfo.Parts.Add
             (
                 new UnitPart
                 (
-                    parsedUnit2.UnitInfo.Unit, parsedUnit2.UnitInfo.Prefix.Factor,
+                    ParsedUnit2.UnitInfo.Unit, ParsedUnit2.UnitInfo.Prefix.Factor,
                     exponent.Exponent
                 )
             );
 
-            return parsedUnit;
+            return ParseInfo;
         }
 
-        private static ParsedUnit AddInformationToValidUnitPart(ParsedUnit parsedUnit, char symbol, ParsedExponent exponent, string input)
+        private static ParseInfo AddInformationToValidUnitPart(ParseInfo ParseInfo, char symbol, ParsedExponent exponent, string input)
         {
-            if (symbol != ' ') parsedUnit.ValidCompound.Append(symbol);
+            if (symbol != ' ') ParseInfo.ValidCompound.Append(symbol);
 
             if (exponent.AfterString.Trim().Length > 0)
             {
-                parsedUnit.ValidCompound.Append(exponent.AfterString);
+                ParseInfo.ValidCompound.Append(exponent.AfterString);
             }
 
             string exponent2 = input.Replace(exponent.AfterString, "").Trim();
             if (exponent2.Length > 0)
             {
-                parsedUnit.ValidCompound.Append(exponent2);
+                ParseInfo.ValidCompound.Append(exponent2);
             }
 
-            return parsedUnit;
+            return ParseInfo;
         }
 
         private static bool StringCanBeCompound(string inputToParse)

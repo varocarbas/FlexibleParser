@@ -6,153 +6,138 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static ParsedUnit StartIndividualUnitParse(ParsedUnit parsedUnit)
+        private static ParseInfo StartIndividualUnitParse(ParseInfo parseInfo)
         {
             return GetIndividualUnitParts
             (
-                ParseIndividualUnit(parsedUnit)
+                ParseIndividualUnit(parseInfo)
             );
         }
 
-        private static ParsedUnit ParseIndividualUnit(ParsedUnit parsedUnit)
+        private static ParseInfo ParseIndividualUnit(ParseInfo parseInfo)
         {
-            parsedUnit = PrefixAnalysis(parsedUnit);
+            parseInfo = PrefixAnalysis(parseInfo);
 
-            if (parsedUnit.UnitInfo.Unit == Units.None)
+            if (parseInfo.UnitInfo.Unit == Units.None)
             {
                 //The final unit might have already been found while analysing prefixes.
-                parsedUnit.UnitInfo.Unit = GetUnitFromString(parsedUnit.InputToParse);
+                parseInfo.UnitInfo.Unit = GetUnitFromString(parseInfo.InputToParse);
             }
 
-            parsedUnit.UnitInfo = UpdateMainUnitVariables(parsedUnit.UnitInfo);
+            parseInfo.UnitInfo = UpdateMainUnitVariables(parseInfo.UnitInfo);
 
-            return parsedUnit;
+            return parseInfo;
         }
 
-        private static ParsedUnit PrefixAnalysis(ParsedUnit parsedUnit)
+        private static ParseInfo PrefixAnalysis(ParseInfo parseInfo)
         {
-            parsedUnit = BeforePrefixAnalysis(parsedUnit);
-
+            parseInfo.UnitInfo.Unit = GetUnitFromString(parseInfo.InputToParse);
             return 
             (
-                parsedUnit.UnitInfo.Unit == Units.None ?
-                CheckPrefixes(parsedUnit) : parsedUnit
+                parseInfo.UnitInfo.Unit == Units.None ?
+                CheckPrefixes(parseInfo) : parseInfo
             );
         }
 
-        private static ParsedUnit BeforePrefixAnalysis(ParsedUnit parsedUnit)
+        private static ParseInfo CheckPrefixes(ParseInfo parseInfo)
         {
-            parsedUnit.UnitInfo.Unit = GetUnitFromString(parsedUnit.InputToParse);
-            
-            if (parsedUnit.UnitInfo.Unit != Units.None)
-            {
-                if (AllPrefixBeforeUnits.Contains(parsedUnit.UnitInfo.Unit))
-                {
-                    //The default behaviour is preferring units before prefixes but this
-                    //rule has exceptions.
-                    parsedUnit.UnitInfo = new UnitInfo(parsedUnit.UnitInfo.Value);
-                }
-            }
+            if (parseInfo.InputToParse.Length < 2) return parseInfo;
 
-            return parsedUnit;
-        }
+            string origString = parseInfo.InputToParse;
 
-        private static ParsedUnit CheckPrefixes(ParsedUnit parsedUnit)
-        {
-            if (parsedUnit.InputToParse.Length < 2) return parsedUnit;
-
-            string origString = parsedUnit.InputToParse;
-
-            parsedUnit.UnitInfo.Prefix = new Prefix
+            parseInfo.UnitInfo.Prefix = new Prefix
             (
-                parsedUnit.UnitInfo.Prefix.PrefixUsage
+                parseInfo.UnitInfo.Prefix.PrefixUsage
             );
 
-            ParsedUnit tempSI = CheckSIPrefixes(new ParsedUnit(parsedUnit));
-            ParsedUnit tempBinary = CheckBinaryPrefixes(new ParsedUnit(parsedUnit));
+            ParseInfo tempSI = CheckSIPrefixes(new ParseInfo(parseInfo));
+            ParseInfo tempBinary = CheckBinaryPrefixes(new ParseInfo(parseInfo));
 
             if (tempSI.UnitInfo.Prefix.Factor != 1m)
             {
                 if (tempBinary.UnitInfo.Prefix.Factor != 1m)
                 {
                     //Both SI and binary prefixes were detected, what is an error.
-                    parsedUnit = new ParsedUnit();
-                    parsedUnit.InputToParse = origString;
-                    parsedUnit.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
+                    parseInfo = new ParseInfo();
+                    parseInfo.InputToParse = origString;
+                    parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
                 }
-                else parsedUnit = new ParsedUnit(tempSI);
+                else parseInfo = new ParseInfo(tempSI);
             }
             else if (tempBinary.UnitInfo.Prefix.Factor != 1m)
             {
-                parsedUnit = new ParsedUnit(tempBinary);
+                parseInfo = new ParseInfo(tempBinary);
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
         
-        private static ParsedUnit CheckBinaryPrefixes(ParsedUnit parsedUnit)
+        private static ParseInfo CheckBinaryPrefixes(ParseInfo parseInfo)
         {
             return CheckPrefixes
             (
-                parsedUnit, PrefixTypes.Binary,
+                parseInfo, PrefixTypes.Binary,
                 AllBinaryPrefixSymbols, AllBinaryPrefixNames
             );
         }
 
-        private static ParsedUnit CheckSIPrefixes(ParsedUnit parsedUnit)
+        private static ParseInfo CheckSIPrefixes(ParseInfo parseInfo)
         {
             return CheckPrefixes
             (
-                parsedUnit, PrefixTypes.SI,
+                parseInfo, PrefixTypes.SI,
                 AllSIPrefixSymbols, AllSIPrefixNames
             );
         }
         
-        private static ParsedUnit CheckPrefixes(ParsedUnit parsedUnit, PrefixTypes prefixType, Dictionary<string, decimal> allPrefixes, Dictionary<string, string> allPrefixNames)
+        private static ParseInfo CheckPrefixes(ParseInfo parseInfo, PrefixTypes prefixType, Dictionary<string, decimal> allPrefixes, Dictionary<string, string> allPrefixNames)
         {
             string remString = "";
+
             foreach (var prefix in allPrefixes)
             {
-                if (parsedUnit.InputToParse.StartsWith(prefix.Key))
+                if (parseInfo.InputToParse.StartsWith(prefix.Key))
                 {
-                    remString = parsedUnit.InputToParse.Substring(prefix.Key.Length);
+                    //Symbol. Caps matter.
+                    remString = parseInfo.InputToParse.Substring(prefix.Key.Length);
                 }
-                else if (parsedUnit.InputToParse.ToLower().StartsWith(allPrefixNames[prefix.Key]))
+                else if (parseInfo.InputToParse.ToLower().StartsWith(allPrefixNames[prefix.Key]))
                 {
-                    remString = parsedUnit.InputToParse.Substring(allPrefixNames[prefix.Key].Length);
+                    //String representation. Caps don't matter.
+                    remString = parseInfo.InputToParse.Substring(allPrefixNames[prefix.Key].Length);
                 }
                 
                 if (remString != "")
                 {
                     return AnalysePrefix
                     (
-                        parsedUnit, prefixType, prefix, remString
+                        parseInfo, prefixType, prefix, remString
                     );
                 }
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
         
-        private static ParsedUnit AnalysePrefix(ParsedUnit parsedUnit, PrefixTypes prefixType, KeyValuePair<string, decimal> prefix, string remString)
+        private static ParseInfo AnalysePrefix(ParseInfo parseInfo, PrefixTypes prefixType, KeyValuePair<string, decimal> prefix, string remString)
         {
             Units unit = GetUnitFromString(remString);
 
-            if (unit != Units.None && PrefixCanBeUsedBasic(unit, prefixType, parsedUnit.UnitInfo.Prefix.PrefixUsage))
+            if (unit != Units.None && PrefixCanBeUsedBasic(unit, prefixType, parseInfo.UnitInfo.Prefix.PrefixUsage))
             {
-                parsedUnit.UnitInfo = UpdateUnitInformation
+                parseInfo.UnitInfo = UpdateUnitInformation
                 (
-                    parsedUnit.UnitInfo, unit, new Prefix
+                    parseInfo.UnitInfo, unit, new Prefix
                     (
-                        prefix.Value, parsedUnit.UnitInfo.Prefix.PrefixUsage
+                        prefix.Value, parseInfo.UnitInfo.Prefix.PrefixUsage
                     )
                 );
 
                 //Useful in case of looking for further prefixes.
-                parsedUnit.InputToParse = remString;
+                parseInfo.InputToParse = remString;
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
 
         private static UnitInfo UpdateUnitInformation(UnitInfo unitInfo, Units unit, Prefix prefix)
@@ -183,54 +168,37 @@ namespace FlexibleParser
             return false;
         }
 
-        private static string GetUnitStringIndividual(UnitInfo unitInfo)
+        private static ParseInfo GetIndividualUnitParts(ParseInfo parseInfo)
         {
-            string unitString = "None";
-            
-            if (unitInfo.Unit != Units.None && unitInfo.Unit != Units.Unitless && !IsUnnamedUnit(unitInfo.Unit))
+            if (parseInfo.UnitInfo.Unit == Units.None || parseInfo.UnitInfo.Error.Type != ErrorTypes.None)
             {
-                if (AllUnitSymbols.ContainsValue(unitInfo.Unit))
-                {
-                    unitString = AllUnitSymbols.First(x => x.Value == unitInfo.Unit).Key;
-                    if (unitInfo.Prefix.Symbol != "")
-                    {
-                        unitString = unitInfo.Prefix.Symbol + unitString;
-                    }
-                }
+                return parseInfo;
             }
 
-            return unitString;
-        }
-
-        private static ParsedUnit GetIndividualUnitParts(ParsedUnit parsedUnit)
-        {
-            if (parsedUnit.UnitInfo.Unit == Units.None || parsedUnit.UnitInfo.Error.Type != ErrorTypes.None)
+            if (parseInfo.UnitInfo.Parts.Count == 0)
             {
-                return parsedUnit;
+                parseInfo.UnitInfo = GetUnitParts(parseInfo.UnitInfo);
             }
 
-            if (parsedUnit.UnitInfo.Parts.Count == 0)
-            {
-                parsedUnit.UnitInfo = GetUnitParts(parsedUnit.UnitInfo);
-            }
-
-            if (parsedUnit.UnitInfo.Parts.Count == 1)
+            if (parseInfo.UnitInfo.Parts.Count == 1)
             {
                 //Parsing an individual unit might output more than 1 part.
-                if (parsedUnit.UnitInfo.Parts[0].Prefix.Factor != 1m)
+                if (parseInfo.UnitInfo.Parts[0].Prefix.Factor != 1m)
                 {
-                    //A unit like 1 km should be understood as 1 metre with a kilo prefix, formed
-                    //by one part of a meter (no prefix). Note that the compound parsing methods
-                    //take care of this issue automatically.
-                    parsedUnit.UnitInfo.Prefix = new Prefix
+                    //1 km should be understood as 1 metre with a kilo prefix, formed
+                    //by one part of a metre (no prefix). 
+                    parseInfo.UnitInfo.Prefix = new Prefix
                     (
-                        parsedUnit.UnitInfo.Parts[0].Prefix
+                        parseInfo.UnitInfo.Parts[0].Prefix
                     );
-                    parsedUnit.UnitInfo.Parts[0].Prefix = new Prefix(parsedUnit.UnitInfo.Parts[0].Prefix.PrefixUsage);
+                    parseInfo.UnitInfo.Parts[0].Prefix = new Prefix
+                    (
+                        parseInfo.UnitInfo.Parts[0].Prefix.PrefixUsage
+                    );
                 }
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
     }
 }

@@ -246,6 +246,25 @@ namespace FlexibleParser
             );
         }
 
+        private static string GetUnitStringIndividual(UnitInfo unitInfo)
+        {
+            string unitString = "None";
+
+            if (unitInfo.Unit != Units.None && unitInfo.Unit != Units.Unitless && !IsUnnamedUnit(unitInfo.Unit))
+            {
+                if (AllUnitSymbols.ContainsValue(unitInfo.Unit))
+                {
+                    unitString = AllUnitSymbols.First(x => x.Value == unitInfo.Unit).Key;
+                    if (unitInfo.Prefix.Symbol != "")
+                    {
+                        unitString = unitInfo.Prefix.Symbol + unitString;
+                    }
+                }
+            }
+
+            return unitString;
+        }
+
         private static Units GetUnitFromString(string input)
         {
             Units unit = GetUnitFromUnitSymbols(input);

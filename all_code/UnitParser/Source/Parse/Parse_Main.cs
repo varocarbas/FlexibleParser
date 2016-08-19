@@ -6,28 +6,28 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static ParsedUnit StartUnitParse(ParsedUnit parsedUnit)
+        private static ParseInfo StartUnitParse(ParseInfo parseInfo)
         {
-            parsedUnit = InitialParseActions(parsedUnit);
+            parseInfo = InitialParseActions(parseInfo);
 
             return
             (
-                StringCanBeCompound(parsedUnit.InputToParse) ?
-                StartCompoundParse(parsedUnit) :
-                StartIndividualUnitParse(parsedUnit)
+                StringCanBeCompound(parseInfo.InputToParse) ?
+                StartCompoundParse(parseInfo) :
+                StartIndividualUnitParse(parseInfo)
             );
         }
 
-        private static ParsedUnit InitialParseActions(ParsedUnit parsedUnit)
+        private static ParseInfo InitialParseActions(ParseInfo parseInfo)
         {
-            parsedUnit.InputToParse = parsedUnit.InputToParse.Trim();
+            parseInfo.InputToParse = parseInfo.InputToParse.Trim();
 
-            foreach (string symbol in UnitP.IgnoredUnitSymbols)
+            foreach (string ignored in UnitP.UnitParseIgnored)
             {
-                parsedUnit.InputToParse = parsedUnit.InputToParse.Replace(symbol, "");
+                parseInfo.InputToParse = parseInfo.InputToParse.Replace(ignored, "");
             }
 
-            return parsedUnit;
+            return parseInfo;
         }
 
         private static UnitInfo UpdateMainUnitVariables(UnitInfo unitInfo)
@@ -52,32 +52,33 @@ namespace FlexibleParser
 
         //Stores all the information which might be required at any point while performing
         //parsing actions.
-        private class ParsedUnit
+        private class ParseInfo
         {
             public UnitInfo UnitInfo { get; set; }   
             public string InputToParse { get; set; }
-            //This ValidCompound isn't used when parsing individual units.
+            //ValidCompound isn't used when parsing individual units.
             public StringBuilder ValidCompound { get; set; }
 
-            public ParsedUnit() : this(new UnitInfo()) { }
+            public ParseInfo() : this(null) { }
 
-            public ParsedUnit(UnitInfo unitInfo)
-            { 
+            public ParseInfo(UnitInfo unitInfo)
+            {
                 UnitInfo = new UnitInfo(unitInfo); 
             }
          
-            public ParsedUnit(ParsedUnit parsedUnit, string inputToParse = "")
+            public ParseInfo(ParseInfo parseInfo, string inputToParse = "")
             {
-                UnitInfo = new UnitInfo(parsedUnit.UnitInfo);
+                if (parseInfo == null) parseInfo = new ParseInfo();
+
+                UnitInfo = new UnitInfo(parseInfo.UnitInfo);
                 InputToParse = 
                 (
-                    inputToParse != "" ? 
-                    inputToParse : 
-                    parsedUnit.InputToParse
+                    inputToParse != "" ? inputToParse : 
+                    parseInfo.InputToParse
                 );
             }
 
-            public ParsedUnit
+            public ParseInfo
             (
                 decimal value, string inputToParse,  
                 PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage,
@@ -86,7 +87,7 @@ namespace FlexibleParser
             {
                 UnitInfo = new UnitInfo
                 (
-                    value, Units.None, new Prefix(1, prefixUsage)
+                    value, Units.None, new Prefix(prefixUsage)
                 );
                 InputToParse = inputToParse;
             }

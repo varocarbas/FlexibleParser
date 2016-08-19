@@ -9,7 +9,6 @@ namespace Test
     {
         static void Main(string[] args)
         {
-
             //------ The base class is UnitP. There are multiple ways to instantiate a UnitP variable.
 
             PrintSampleItem("Inst1", new UnitP("1 N")); //Unit symbol. Caps does matter.

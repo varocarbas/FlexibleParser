@@ -55,7 +55,7 @@ namespace FlexibleParser
         ///</summary>  
         Centimetre,
         ///<summary>
-        ///<para>Astronomical unit (au). Length unit.</para>
+        ///<para>Astronomical unit (AU). Length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>
         ///</summary>           
         AstronomicalUnit,

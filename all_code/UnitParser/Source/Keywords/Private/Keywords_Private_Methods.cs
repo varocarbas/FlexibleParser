@@ -132,7 +132,6 @@ namespace FlexibleParser
             AddToAllUnitStrings("mtr", unit);
 
             unit = Units.AstronomicalUnit;
-            AddToAllUnitStrings("au", unit);
             AddToAllUnitStrings("ua", unit);
 
             unit = Units.ImperialCable;

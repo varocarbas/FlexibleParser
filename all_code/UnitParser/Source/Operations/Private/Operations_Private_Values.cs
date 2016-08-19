@@ -83,7 +83,7 @@ namespace FlexibleParser
 
                         outInfo = StartCompoundAnalysis
                         (
-                            new ParsedUnit
+                            new ParseInfo
                             (
                                 InversePrefix(outInfo)
                             )
