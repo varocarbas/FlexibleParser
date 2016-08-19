@@ -8,14 +8,14 @@ namespace FlexibleParser
     {
         private UnitP
         (
-            ParseInfo ParseInfo, string originalUnitString = "", UnitSystems system = UnitSystems.None,
+            ParseInfo parseInfo, string originalUnitString = "", UnitSystems system = UnitSystems.None,
             ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
             PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage, bool noPrefixImprovement = false
         )
         {
             UnitPConstructor unitP2 = new UnitPConstructor
             (
-                originalUnitString, ParseInfo.UnitInfo, ParseInfo.UnitInfo.Type, ParseInfo.UnitInfo.System,
+                originalUnitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, parseInfo.UnitInfo.System,
                 ErrorTypes.None, exceptionHandling, noPrefixImprovement
             );
 
@@ -126,16 +126,16 @@ namespace FlexibleParser
             PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage
         )
         {
-            ParseInfo ParseInfo = ParseInputs
+            ParseInfo parseInfo = ParseInputs
             (
                 value, unitString, prefixUsage
             );
 
             return new UnitPConstructor
             (
-                unitString, ParseInfo.UnitInfo, ParseInfo.UnitInfo.Type, ParseInfo.UnitInfo.System,
+                unitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, parseInfo.UnitInfo.System,
                 (
-                    ParseInfo.UnitInfo.Unit == Units.None ?
+                    parseInfo.UnitInfo.Unit == Units.None ?
                     ErrorTypes.InvalidUnit : ErrorTypes.None 
                 ), 
                 exceptionHandling
@@ -144,12 +144,12 @@ namespace FlexibleParser
 
         private ParseInfo ParseInputs(decimal value, string unitString, PrefixUsageTypes prefixUsage)
         {
-            ParseInfo ParseInfo = new ParseInfo(value, unitString, prefixUsage);
-            ParseInfo = StartUnitParse(ParseInfo);
+            ParseInfo parseInfo = new ParseInfo(value, unitString, prefixUsage);
+            parseInfo = StartUnitParse(parseInfo);
             bool isOK = 
             (
-                ParseInfo.UnitInfo.Error.Type != ErrorTypes.None &&
-                ParseInfo.UnitInfo.Unit != Units.None
+                parseInfo.UnitInfo.Error.Type != ErrorTypes.None &&
+                parseInfo.UnitInfo.Unit != Units.None
             );
 
             if (!isOK && unitString.Contains(" "))
@@ -158,7 +158,7 @@ namespace FlexibleParser
                 //but well...
                 ParseInfo ParsedUnit2 = new ParseInfo
                 (
-                    ParseInfo,
+                    parseInfo,
                     string.Join("", unitString.Split(' ').Select(x => x.Trim()))
                 );
                 ParsedUnit2.UnitInfo.Error = new ErrorInfo();
@@ -166,11 +166,11 @@ namespace FlexibleParser
 
                 if (ParsedUnit2.UnitInfo.Unit != Units.None)
                 {
-                    ParseInfo = new ParseInfo(ParsedUnit2);
+                    parseInfo = new ParseInfo(ParsedUnit2);
                 }
             }
 
-            return ParseInfo;
+            return parseInfo;
         }
 
         //Class helping to deal with various constructors including so many readonly variables.

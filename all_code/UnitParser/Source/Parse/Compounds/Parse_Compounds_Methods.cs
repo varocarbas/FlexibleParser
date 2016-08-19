@@ -102,7 +102,7 @@ namespace FlexibleParser
             return outVar;
         }
 
-        private static ParseInfo UpdateUnitParts(ParseInfo ParseInfo, StringBuilder inputSB, bool isNumerator, char symbol)
+        private static ParseInfo UpdateUnitParts(ParseInfo parseInfo, StringBuilder inputSB, bool isNumerator, char symbol)
         {
             string input = inputSB.ToString();
 
@@ -114,22 +114,22 @@ namespace FlexibleParser
                 new ParseInfo
                 (
                     0m, exponent.AfterString,
-                    ParseInfo.UnitInfo.Prefix.PrefixUsage
+                    parseInfo.UnitInfo.Prefix.PrefixUsage
                 )
             );
 
             if (ParsedUnit2.UnitInfo.Unit == Units.None)
             {
-                ParseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
-                return ParseInfo; 
+                parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
+                return parseInfo; 
             }
 
-            ParseInfo = AddInformationToValidUnitPart
+            parseInfo = AddInformationToValidUnitPart
             (
-                ParseInfo, symbol, exponent, input
+                parseInfo, symbol, exponent, input
             );
 
-            ParseInfo.UnitInfo.Parts.Add
+            parseInfo.UnitInfo.Parts.Add
             (
                 new UnitPart
                 (
@@ -138,25 +138,25 @@ namespace FlexibleParser
                 )
             );
 
-            return ParseInfo;
+            return parseInfo;
         }
 
-        private static ParseInfo AddInformationToValidUnitPart(ParseInfo ParseInfo, char symbol, ParsedExponent exponent, string input)
+        private static ParseInfo AddInformationToValidUnitPart(ParseInfo parseInfo, char symbol, ParsedExponent exponent, string input)
         {
-            if (symbol != ' ') ParseInfo.ValidCompound.Append(symbol);
+            if (symbol != ' ') parseInfo.ValidCompound.Append(symbol);
 
             if (exponent.AfterString.Trim().Length > 0)
             {
-                ParseInfo.ValidCompound.Append(exponent.AfterString);
+                parseInfo.ValidCompound.Append(exponent.AfterString);
             }
 
             string exponent2 = input.Replace(exponent.AfterString, "").Trim();
             if (exponent2.Length > 0)
             {
-                ParseInfo.ValidCompound.Append(exponent2);
+                parseInfo.ValidCompound.Append(exponent2);
             }
 
-            return ParseInfo;
+            return parseInfo;
         }
 
         private static bool StringCanBeCompound(string inputToParse)
