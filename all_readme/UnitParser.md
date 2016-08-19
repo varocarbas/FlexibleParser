@@ -1,7 +1,5 @@
 # UnitParser
 
-[![Build Status](https://travis-ci.org/varocarbas/FlexibleParser_1-UnitParser.svg?branch=master)](https://travis-ci.org/varocarbas/FlexibleParser_1-UnitParser)
-
 ##Introduction
 The main class is called ```UnitP```. It can be instantiated in many different ways.
 
