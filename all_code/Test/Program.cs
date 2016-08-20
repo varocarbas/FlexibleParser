@@ -80,7 +80,7 @@ namespace Test
             PrintSampleItem("Str1", new UnitP("1 m")); //1 metre (length).
             PrintSampleItem("Str2", new UnitP("1m")); //Error.
 
-            //--- Multi-part strings are expected to be formed by units, multiplication/division symbols and exponents.
+            //--- Multi-part strings are expected to be formed by units, multiplication/division symbols and integer exponents.
             PrintSampleItem("Str3", new UnitP("1 J/s")); //1 joule per second (power unit).
             PrintSampleItem("Str4", new UnitP("1 Jxs")); //1 joule second (angular momentum).
             PrintSampleItem("Str5", new UnitP("1 J⋅s2")); //1 joule square second (moment of inertia).
