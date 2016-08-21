@@ -181,7 +181,7 @@ namespace FlexibleParser
                 return new UnitP(original, error);
             }
 
-            UnitInfo infoResult = ConvertUnit(originalInfo, targetInfo);
+            UnitInfo infoResult = ConvertUnit(originalInfo, targetInfo, false);
 
             return new UnitP
             (

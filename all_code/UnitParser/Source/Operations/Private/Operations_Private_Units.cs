@@ -170,12 +170,12 @@ namespace FlexibleParser
             return unit;
         }
 
-        private static UnitInfo ConvertUnit(UnitInfo originalInfo, UnitInfo targetInfo)
+        private static UnitInfo ConvertUnit(UnitInfo originalInfo, UnitInfo targetInfo, bool matchTargetPrefix = true)
         {
             return
             (
-                originalInfo.Type == targetInfo.Type ? 
-                PerformConversion(originalInfo, targetInfo) :
+                originalInfo.Type == targetInfo.Type ?
+                PerformConversion(originalInfo, targetInfo, matchTargetPrefix) :
                 new UnitInfo(originalInfo) 
                 { 
                     Error = new ErrorInfo(ErrorTypes.InvalidUnit) 
@@ -183,7 +183,7 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo PerformConversion(UnitInfo originalInfo, UnitInfo targetInfo)
+        private static UnitInfo PerformConversion(UnitInfo originalInfo, UnitInfo targetInfo, bool matchTargetPrefix = true)
         {
             ErrorTypes errorType = GetConversionError(originalInfo.Unit, targetInfo.Unit);
             if (errorType != ErrorTypes.None)
@@ -215,6 +215,14 @@ namespace FlexibleParser
                 outInfo.Prefix = new Prefix(outInfo.Prefix.PrefixUsage);
                 outInfo.Value = tempInfo.Value;
                 outInfo.BaseTenExponent = tempInfo.BaseTenExponent;
+
+                if (!matchTargetPrefix)
+                {
+                    //When the target unit has a prefix, the conversion is adapted to it (e.g., lb to kg is 0.453).
+                    //But such an output isn't always desirable (e.g., kg isn't a valid unit, but g + kilo).
+                    //That's why this correction is required under certain conditions (but never for internal conversions).
+                    outInfo = outInfo * targetInfo2;
+                }
             }
 
             return outInfo;
@@ -312,7 +320,7 @@ namespace FlexibleParser
             return convertInfo;
         }
 
-        private static UnitInfo ConvertUnitPartToTarget(UnitInfo outInfo, UnitPart originalPart, UnitPart targetPart)
+        private static UnitInfo ConvertUnitPartToTarget(UnitInfo outInfo, UnitPart originalPart, UnitPart targetPart, bool matchTargetPrefix = true)
         {
             ErrorTypes errorType = GetUnitPartConversionError(originalPart, targetPart);
             if (errorType != ErrorTypes.None)
@@ -333,7 +341,8 @@ namespace FlexibleParser
                 PerformConversion
                 (
                     UnitPartToUnitInfo(originalPart2, 1m),
-                    UnitPartToUnitInfo(targetPart2, 1m)
+                    UnitPartToUnitInfo(targetPart2, 1m),
+                    matchTargetPrefix
                 ),
                 originalPart.Exponent
             );

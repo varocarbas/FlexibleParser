@@ -162,6 +162,7 @@ namespace FlexibleParser
                 UnitPart part = unitInfo.Parts[i];
                 UnitTypes type = GetTypeFromUnitPart(part);
                 UnitSystems system = GetSystemFromUnit(part.Unit, true);
+                //There are two different scenarios where a conversion might occur: metric vs. English or Imperial vs. USCS.
                 bool englishConversion = false;
 
                 if (ConvertPart(system, basicSystem, type) || (englishConversion = ConvertPartEnglish(unitInfo.System, GetSystemFromUnit(part.Unit))))
@@ -177,7 +178,6 @@ namespace FlexibleParser
                     }
 
                     unitInfo = UpdateNewUnitPart(unitInfo, part, targetPart);
-                    i = i - 1;
 
                     convertInfo = ConvertUnitPartToTarget
                     (
