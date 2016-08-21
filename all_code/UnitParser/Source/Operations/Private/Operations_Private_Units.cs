@@ -219,8 +219,8 @@ namespace FlexibleParser
                 if (!matchTargetPrefix)
                 {
                     //When the target unit has a prefix, the conversion is adapted to it (e.g., lb to kg is 0.453).
-                    //But such an output isn't always desirable (e.g., kg isn't a valid unit, but g + kilo).
-                    //That's why this correction is required under certain conditions (but never for internal conversions).
+                    //Such an output isn't always desirable (kg isn't a valid unit, but g + kilo).
+                    //That's why the output value has to be multiplied by the prefix when reaching this point (i.e., conversion delivered to the user).
                     outInfo = outInfo * targetInfo2;
                 }
             }
