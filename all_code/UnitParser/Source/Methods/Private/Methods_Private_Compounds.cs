@@ -430,6 +430,8 @@ namespace FlexibleParser
                 unitInfo.InitialPositions.Max(x => x.Value) : 0
             );
 
+            //Some unit part modifications get a bit too messy and InitialPositions isn't always updated properly.
+            //This is a simple and reliable way to account for eventual problems on this front.
             foreach (UnitPart part in unitInfo.Parts)
             {
                 if (!unitInfo.InitialPositions.ContainsKey(part))
@@ -677,24 +679,37 @@ namespace FlexibleParser
                 firstTime = false;
             }
 
-            return AddNewParts(unitInfo, i, newParts);
+            return AddNewUnitParts(unitInfo, newParts, i);
         }
 
-        private static UnitInfo AddNewParts(UnitInfo unitInfo, int i, List<UnitPart> newParts)
+        private static UnitInfo AddNewUnitParts(UnitInfo unitInfo, List<UnitPart> newParts, int i = -1)
         {
             if (newParts.Count < 1) return unitInfo;
+
+            int i2 = i;
+            if (i2 == -1)
+            {
+                i2 =
+                (
+                    unitInfo.InitialPositions.Count == 0 ? 0 :
+                    unitInfo.InitialPositions.Max(x => x.Value) + 1
+                );
+            }
 
             foreach (UnitPart part in newParts)
             {
                 unitInfo.Parts.Add(part);
                 if (!unitInfo.InitialPositions.ContainsKey(part))
                 {
-                    unitInfo.InitialPositions.Add(part, i);
+                    unitInfo.InitialPositions.Add(part, i2);
                 }
             }
-            unitInfo = RemoveUnitPart(unitInfo, unitInfo.Parts[i]);
 
-            return unitInfo;
+            return
+            (
+                i == -1 ? unitInfo : //i == -1 means that old parts aren't being replaced.
+                RemoveUnitPart(unitInfo, unitInfo.Parts[i])
+            );
         }
 
         private static UnitInfo UpdateDifferentPrefixParts(UnitInfo unitInfo, int i, int i2)

@@ -30,7 +30,7 @@ namespace FlexibleParser
             );
         }
 
-        //This method is much more comprehensive than the alternative alternative for values (PerformManagedOperationValues),
+        //This method is much more comprehensive than the alternative for values (PerformManagedOperationValues),
         //because it assumes any scenario involving two units (understood as UnitInfo variables which might have Value, 
         //BaseTenExponent and Prefix). In case of not having to worry about any of this, even just for one of the operands,
         //PerformManagedOperationValues might be used (i.e., in any operation involving plain numbers).

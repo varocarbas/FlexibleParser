@@ -115,45 +115,58 @@ namespace FlexibleParser
                 )
             );
 
-            if (parseInfo2.UnitInfo.Unit == Units.None)
-            {
-                parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
-                return parseInfo; 
-            }
-
-            parseInfo = AddInformationToValidUnitPart
+            return
             (
-                parseInfo, symbol, exponent, input
+                parseInfo2.UnitInfo.Unit == Units.None ?
+                new ParseInfo(parseInfo)
+                { 
+                    UnitInfo = new UnitInfo(parseInfo.UnitInfo, ErrorTypes.InvalidUnit)
+                } :
+                AddValidUnitPartInformation
+                (
+                    parseInfo, parseInfo2, symbol, exponent, input
+                )
+            );
+        }
+
+        private static ParseInfo AddValidUnitPartInformation(ParseInfo parseInfo, ParseInfo parseInfo2, char symbol, ParseExponent exponent, string input)
+        {
+            parseInfo.ValidCompound = AddInformationToValidCompound
+            (
+                parseInfo.ValidCompound, symbol, exponent, input
             );
 
-            parseInfo.UnitInfo.Parts.Add
+            parseInfo.UnitInfo = AddNewUnitParts
             (
-                new UnitPart
-                (
-                    parseInfo2.UnitInfo.Unit, parseInfo2.UnitInfo.Prefix.Factor,
-                    exponent.Exponent
-                )
+                parseInfo.UnitInfo, new List<UnitPart>() 
+                {
+                    new UnitPart
+                    (
+                        parseInfo2.UnitInfo.Unit, parseInfo2.UnitInfo.Prefix.Factor,
+                        exponent.Exponent
+                    )
+                }
             );
 
             return parseInfo;
         }
 
-        private static ParseInfo AddInformationToValidUnitPart(ParseInfo parseInfo, char symbol, ParseExponent exponent, string input)
+        private static StringBuilder AddInformationToValidCompound(StringBuilder validCompound, char symbol, ParseExponent exponent, string input)
         {
-            if (symbol != ' ') parseInfo.ValidCompound.Append(symbol);
+            if (symbol != ' ') validCompound.Append(symbol);
 
             if (exponent.AfterString.Trim().Length > 0)
             {
-                parseInfo.ValidCompound.Append(exponent.AfterString);
+                validCompound.Append(exponent.AfterString);
             }
 
             string exponent2 = input.Replace(exponent.AfterString, "").Trim();
             if (exponent2.Length > 0)
             {
-                parseInfo.ValidCompound.Append(exponent2);
+                validCompound.Append(exponent2);
             }
 
-            return parseInfo;
+            return validCompound;
         }
 
         private static bool StringCanBeCompound(string inputToParse)

@@ -100,7 +100,7 @@ namespace FlexibleParser
                 );
             }
 
-            outInfo.Parts.AddRange(parts2);
+            outInfo = AddNewUnitParts(outInfo, parts2);
 
             return StartCompoundAnalysis
             (

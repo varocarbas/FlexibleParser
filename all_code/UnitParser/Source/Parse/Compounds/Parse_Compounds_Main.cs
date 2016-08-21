@@ -120,6 +120,9 @@ namespace FlexibleParser
 
             parseInfo.UnitInfo = RemoveAllUnitInformation(parseInfo.UnitInfo);
 
+            //Knowing the initial positions of all the unit parts is important because of the defining
+            //"first element rules" idea which underlies this whole approach. Such a determination isn't
+            //always straightforward due to the numerous unit part modifications.
             parseInfo.UnitInfo = UpdateInitialPositions(parseInfo.UnitInfo);
 
             //This is the best place to determine the system before finding the unit, because
