@@ -24,6 +24,14 @@ namespace FlexibleParser
                     new Compound
                     (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Area) }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>() 
+                        { 
+                            new CompoundPart(UnitTypes.Volume),
+                            new CompoundPart(UnitTypes.Length, -1)
+                        }
                     )
                 }
             },
@@ -37,6 +45,14 @@ namespace FlexibleParser
                     new Compound
                     (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Volume) }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>() 
+                        { 
+                            new CompoundPart(UnitTypes.Area),
+                            new CompoundPart(UnitTypes.Length)
+                        }
                     )
                 }
             },
@@ -115,6 +131,15 @@ namespace FlexibleParser
                     ),
                     new Compound
                     (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Area),
+                            new CompoundPart(UnitTypes.Time, -2)
+                        }
+                    ),
+                    new Compound
+                    (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Energy) }
                     ),
                     new Compound
@@ -144,6 +169,15 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, 2),
+                            new CompoundPart(UnitTypes.Time, -3)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Area),
                             new CompoundPart(UnitTypes.Time, -3)
                         }
                     ),
@@ -180,6 +214,16 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, -1),
                             new CompoundPart(UnitTypes.Time, -2)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Length, 1),
+                            new CompoundPart(UnitTypes.Time, -2),
+                            new CompoundPart(UnitTypes.Area, -1)
                         }
                     ),
                     new Compound
@@ -378,6 +422,14 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -1)
                         }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Area),
+                            new CompoundPart(UnitTypes.Time, -1)
+                        }
                     )
                 }
             }, 
@@ -437,6 +489,15 @@ namespace FlexibleParser
                     (
                         new List<CompoundPart>()
                         {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Area),
+                            new CompoundPart(UnitTypes.Time, -1)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
                             new CompoundPart(UnitTypes.Energy),
                             new CompoundPart(UnitTypes.Time)
                         }
@@ -469,6 +530,14 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, 2)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Area)
                         }
                     )
                 }
@@ -510,6 +579,14 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.LuminousIntensity),
                             new CompoundPart(UnitTypes.Length, -2)
                         }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.LuminousIntensity),
+                            new CompoundPart(UnitTypes.Area, -1)
+                        }
                     )
                 }
             },
@@ -524,7 +601,17 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.SolidAngle),
                             new CompoundPart(UnitTypes.Length, -2)
                         }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.LuminousIntensity),
+                            new CompoundPart(UnitTypes.SolidAngle),
+                            new CompoundPart(UnitTypes.Area, -1)
+                        }
                     )
+
                 }
             },
             {
@@ -536,6 +623,16 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, 2),
+                            new CompoundPart(UnitTypes.Time, -2),
+                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Area),
                             new CompoundPart(UnitTypes.Time, -2),
                             new CompoundPart(UnitTypes.ElectricCurrent, -1)
                         }
@@ -560,6 +657,25 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Force),
                             new CompoundPart(UnitTypes.Length, -1),
+                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Energy),
+                            new CompoundPart(UnitTypes.Area, -1),
+                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Power),
+                            new CompoundPart(UnitTypes.Time),
+                            new CompoundPart(UnitTypes.Area, -1),
                             new CompoundPart(UnitTypes.ElectricCurrent, -1)
                         }
                     ),
@@ -612,6 +728,14 @@ namespace FlexibleParser
                     (
                         new List<CompoundPart>()
                         {
+                            new CompoundPart(UnitTypes.Area),
+                            new CompoundPart(UnitTypes.Time, -2)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
                             new CompoundPart(UnitTypes.Energy),
                             new CompoundPart(UnitTypes.Mass, -1)
                         }
@@ -651,6 +775,14 @@ namespace FlexibleParser
                     (
                         new List<CompoundPart>()
                         {
+                            new CompoundPart(UnitTypes.Area),
+                            new CompoundPart(UnitTypes.Time, -2)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
                             new CompoundPart(UnitTypes.Energy),
                             new CompoundPart(UnitTypes.Mass, -1)
                         }
@@ -683,6 +815,14 @@ namespace FlexibleParser
                         new List<CompoundPart>()
                         {
                             new CompoundPart(UnitTypes.Length, 2),
+                            new CompoundPart(UnitTypes.Time, -2)
+                        }
+                    ),
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Area),
                             new CompoundPart(UnitTypes.Time, -2)
                         }
                     ),

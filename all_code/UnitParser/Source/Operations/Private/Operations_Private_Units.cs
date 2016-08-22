@@ -329,12 +329,20 @@ namespace FlexibleParser
                 return outInfo;
             }
 
-            //Both parts have the same type (= exponent) that's why better ignoring this issue during
-            //the conversion to avoid problems.
-            //For example: the part m^2 has associated a specific unit (SquareMetre), but it might be 
-            //converted into units which don't have one, like ft^2.
-            UnitPart originalPart2 = new UnitPart(originalPart) { Exponent = 1 };
-            UnitPart targetPart2 = new UnitPart(targetPart) { Exponent = 1 };
+            UnitPart originalPart2 = new UnitPart(originalPart);
+            UnitPart targetPart2 = new UnitPart(targetPart);
+
+            if (originalPart2.Exponent == targetPart2.Exponent)
+            {
+                //Both parts have the same type (= exponent) that's why better ignoring this issue during
+                //the conversion to avoid problems.
+                //For example: the part m2 has associated a specific unit (SquareMetre), but it might be 
+                //converted into units which don't have one, like ft2.
+                originalPart2.Exponent = 1;
+                targetPart2.Exponent = 1;
+            }
+            //Different exponents cannot be removed. For example: conversion between litre and m3, where the exponent
+            //does define the unit.
 
             return outInfo * RaiseToIntegerExponent
             (
@@ -344,7 +352,9 @@ namespace FlexibleParser
                     UnitPartToUnitInfo(targetPart2, 1m),
                     matchTargetPrefix
                 ),
-                originalPart.Exponent
+                //The original part being in the denominator means that the output value should be inverted.
+                //Note that this output is always expected to modify the main value (= in the numerator).
+                originalPart.Exponent / Math.Abs(originalPart.Exponent)
             );
         }
 

@@ -165,7 +165,7 @@ namespace FlexibleParser
                 //There are two different scenarios where a conversion might occur: metric vs. English or Imperial vs. USCS.
                 bool convertEnglish = false;
 
-                if (ShouldConvertPart(system, basicSystem, type) || (convertEnglish = ShouldConvertPartEnglish(unitInfo.System, GetSystemFromUnit(part.Unit))))
+                if (PartNeedsConversion(system, basicSystem, type) || (convertEnglish = PartNeedsConversionEnglish(unitInfo.System, GetSystemFromUnit(part.Unit))))
                 {
                     UnitPart targetPart = GetTargetUnitPart
                     (
@@ -177,28 +177,25 @@ namespace FlexibleParser
                         continue;
                     }
 
-                    unitInfo = UpdateNewUnitPart(unitInfo, part, targetPart);
-
-                    convertInfo = ConvertUnitPartToTarget
+                    UnitInfo tempInfo = AdaptUnitParts
                     (
-                        convertInfo, part, targetPart
+                        new UnitInfo(1m) 
+                        { 
+                            Parts = new List<UnitPart>() { part, targetPart } 
+                        }, 
+                        0, 1
                     );
 
-                    if (convertInfo.Error.Type != ErrorTypes.None)
-                    {
-                        return new UnitInfo(unitInfo)
-                        {
-                            Error = new ErrorInfo(convertInfo.Error.Type)
-                        };
-                    }
+                    if (tempInfo == null) continue;
+                    //AdaptUnitParts doesn't perform a full conversion and the target prefix is ignored.
+                    tempInfo.Parts[0].Prefix = new Prefix(targetPart.Prefix);
+
+                    unitInfo = UpdateNewUnitPart(unitInfo, unitInfo.Parts[i], tempInfo.Parts[0]);
+                    convertInfo = convertInfo * tempInfo;
                 }
             }
 
-            return
-            (
-                convertInfo.Value == 1m ? unitInfo : 
-                unitInfo * convertInfo
-            );
+            return unitInfo * convertInfo;
         }
 
         private static UnitPart GetTargetUnitPart(UnitInfo unitInfo, UnitPart part, UnitTypes partType, UnitSystems targetSystem)
@@ -211,17 +208,17 @@ namespace FlexibleParser
                 {
                     //Different unit part with the same type and the target system is good enough.
                     //For example: in kg/m*ft, m is a good target for ft.
-                    return new UnitPart(part2) { Exponent = part.Exponent };
+                    return new UnitPart(part2) 
+                    { 
+                        Exponent = 1
+                    };
                 }
             }
 
-            return GetBasicUnitPartForTypeSystem
-            (
-                partType, targetSystem, part.Exponent
-            );
+            return GetBasicUnitPartForTypeSystem(partType, targetSystem);
         }
 
-        private static bool ShouldConvertPartEnglish(UnitSystems system1, UnitSystems system2)
+        private static bool PartNeedsConversionEnglish(UnitSystems system1, UnitSystems system2)
         {
             return 
             (
@@ -229,7 +226,7 @@ namespace FlexibleParser
             );
         }
 
-        private static bool ShouldConvertPart(UnitSystems partSystem, UnitSystems basicSystem, UnitTypes partType)
+        private static bool PartNeedsConversion(UnitSystems partSystem, UnitSystems basicSystem, UnitTypes partType)
         {
             if (NeutralTypes.Contains(partType)) return false;
 
@@ -271,7 +268,7 @@ namespace FlexibleParser
             return unitInfo;
         }
 
-        private static UnitPart GetBasicUnitPartForTypeSystem(UnitTypes type, UnitSystems system, int exponent)
+        private static UnitPart GetBasicUnitPartForTypeSystem(UnitTypes type, UnitSystems system)
         {
             if (AllBasicUnits.ContainsKey(type) && AllBasicUnits[type].ContainsKey(system))
             {
@@ -289,12 +286,7 @@ namespace FlexibleParser
                         //have a 1-unit-part version. For example: energy defined as an energy unit part. 
                         //This theoretically-never-met condition accounts for eventual hardcoding misconducts, like 
                         //faulty population of AllCompounds.
-                        return new UnitPart
-                        (
-                            compoundUnitParts[0].Unit,
-                            compoundUnitParts[0].Prefix.Factor,
-                            exponent
-                        );
+                        return new UnitPart(compoundUnitParts[0]);
                     }
                 }
                 else
@@ -303,7 +295,7 @@ namespace FlexibleParser
                     (
                         AllBasicUnits[type][system].Unit,
                         AllBasicUnits[type][system].PrefixFactor,
-                        exponent
+                        1
                     );
                 }
             }
@@ -314,9 +306,6 @@ namespace FlexibleParser
                 unitParts.Count != 1 ? null :
                 //Type and system match a basic compound consisting in just one part (e.g., m^2).
                 new UnitPart(unitParts[0]) 
-                { 
-                    Exponent = exponent 
-                }
             );
         }
 

@@ -32,17 +32,7 @@ namespace FlexibleParser
             //a compound regardless of the fact of unit parts already being present.
             unitInfo.Parts = GetUnitParts(unitInfo).Parts;
 
-            //All the code below this line (further) avoids the eventuality of having more than one
-            //unit part of the same type via conversions. GetUnitParts() is already taking care of
-            //the same type version via fractional simplification. 
-            //For example: N*ft (= kg*ft*m/s2) is converted into ft-to-m-ratio J (= kg*m2/s2).
-            Dictionary<UnitPart, UnitPart> toConvert = GetUnitPartsToConvert(unitInfo);
-
-            return
-            (
-                toConvert.Count == 0 ? unitInfo : 
-                ConvertSelectedUnitParts(unitInfo, toConvert)
-            );
+            return unitInfo;
         }
 
         private static bool IsUnnamedUnit(Units unit)
@@ -54,81 +44,12 @@ namespace FlexibleParser
             );
         }
 
-        private static Dictionary<UnitPart, UnitPart> GetUnitPartsToConvert(UnitInfo unitInfo)
-        {
-            Dictionary<UnitPart, UnitPart> outDict = new Dictionary<UnitPart, UnitPart>();
-
-            var suitableMatches = unitInfo.Parts.OrderBy(x => unitInfo.InitialPositions
-            .First(y => y.Key == x).Value).ThenByDescending(x => x.Exponent)
-            .GroupBy(x => GetTypeFromUnit(x.Unit));
-
-            foreach (var item in suitableMatches)
-            {
-                if (item.Count() > 1)
-                {
-                    UnitPart target = item.First();
-
-                    foreach (var item2 in item.Where(x => x.Unit != target.Unit))
-                    {
-                        outDict.Add(item2, target);
-                    }
-                }
-            }
-
-            return outDict;
-        }
-
-        private static UnitInfo ConvertSelectedUnitParts(UnitInfo unitInfo, Dictionary<UnitPart, UnitPart> toConvertParts)
-        {
-            unitInfo = ConvertAllUnitParts(unitInfo, toConvertParts);
-            unitInfo = UpdateVariableAfterConversion(unitInfo, toConvertParts);
-
-            //Accounting for unitless side-effects of the aforementioned actions. 
-            for (int i = unitInfo.Parts.Count - 1; i >= 0; i--)
-            {
-                if (unitInfo.Parts[i].Exponent == 0)
-                {
-                    unitInfo = RemoveUnitPart(unitInfo, unitInfo.Parts[i]);
-                }
-            }
-
-            return unitInfo;
-        }
-
         private static UnitInfo RemoveUnitPart(UnitInfo unitInfo, UnitPart part)
         {
             unitInfo.InitialPositions.Remove(part);
             unitInfo.Parts.Remove(part);
 
             return unitInfo;
-        }
-
-        private static UnitInfo UpdateVariableAfterConversion(UnitInfo unitInfo, Dictionary<UnitPart, UnitPart> toConvert)
-        {
-            foreach (var item in toConvert)
-            {
-                unitInfo = RemoveUnitPart
-                (
-                    unitInfo, unitInfo.Parts.First(x => x.Unit == item.Key.Unit)
-                );
-                
-                unitInfo.Parts.First(x => x.Unit == item.Value.Unit).Exponent += item.Key.Exponent;
-            }
-
-            return unitInfo;
-        }
-
-        private static bool IsBasicUnit(Units unit)
-        {
-            foreach (var item in AllBasicUnits)
-            {
-                foreach (var item2 in item.Value)
-                {
-                    if (item2.Value.Unit == unit) return true;
-                }            
-            }
-
-            return false;
         }
 
         //This method assumes a normalised UnitInfo variable (i.e., without prefixes).

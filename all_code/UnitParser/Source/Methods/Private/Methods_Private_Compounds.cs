@@ -564,18 +564,17 @@ namespace FlexibleParser
                     {
                         remove = true;
                     }
-                    else if (GetTypeFromUnitPart(unitInfo.Parts[i], true) == GetTypeFromUnitPart(unitInfo.Parts[i2], true))
+                    else
                     {
-                        unitInfo = ConvertUnitPartToTarget
+                        UnitInfo tempInfo = AdaptUnitParts
                         (
-                            unitInfo, unitInfo.Parts[i], new UnitPart(unitInfo.Parts[i2]) 
-                            {
-                                //All the value variations will be accounted for the main unit.
-                                Exponent = 1 
-                            }
+                            unitInfo, i, i2
                         );
-                        unitInfo.Parts[i].Unit = unitInfo.Parts[i2].Unit;
-                        remove = true;
+                        if (tempInfo != null)
+                        {
+                            remove = true;
+                            unitInfo = tempInfo;
+                        }
                     }
 
                     if (remove)
@@ -605,6 +604,126 @@ namespace FlexibleParser
             if (unitInfo.Parts.Count == 0) unitInfo.Unit = Units.Unitless;
 
             return unitInfo;
+        }
+
+        private static UnitInfo AdaptUnitParts(UnitInfo unitInfo, int i, int i2)
+        {
+            UnitPart[] parts2 = GetUnitPartsConversion
+            (
+                new UnitPart(unitInfo.Parts[i]), new UnitPart(unitInfo.Parts[i2])
+            );
+            if (parts2 == null) return null;
+
+            UnitInfo tempInfo = ConvertUnitPartToTarget
+            (
+                new UnitInfo(1m), new UnitPart(parts2[0]),
+                new UnitPart(parts2[1])
+            );
+
+            //Firstly, note that GetUnitPartsConversion might have affected the exponent. For example: in m4/L2,
+            //both exponents have to be modified to reach the convertible m3/L.
+            //Secondly, bear in mind that parts2 exponents are always positive.
+            
+            int sign = unitInfo.Parts[i].Exponent / Math.Abs(unitInfo.Parts[i].Exponent);
+            int exponent = sign * unitInfo.Parts[i].Exponent / parts2[0].Exponent;
+            int outExponent = exponent;
+            if (exponent != 1m)
+            {
+                tempInfo = RaiseToIntegerExponent(tempInfo, exponent);
+            }
+
+            if (sign * unitInfo.Parts[i].Exponent > parts2[0].Exponent * exponent)
+            {
+                exponent = sign * unitInfo.Parts[i].Exponent - parts2[0].Exponent * exponent;
+                if (exponent > 0)
+                {
+                    //Account for a case like m4 converted to litre where 1 metre is left
+                    //uncompensated.
+                    UnitPart newPart = new UnitPart
+                    (
+                        parts2[0].Unit, parts2[0].Prefix.Factor, sign * exponent
+                    );
+                    unitInfo.Parts.Add(newPart);
+
+                    if (!unitInfo.InitialPositions.ContainsKey(newPart))
+                    {
+                        unitInfo.InitialPositions.Add
+                        (
+                            newPart, unitInfo.InitialPositions.Max(x => x.Value) + 1
+                        );
+                    }
+                }
+            }
+
+            if (sign == -1) tempInfo = 1m / tempInfo;
+            outExponent = sign * outExponent;
+
+            unitInfo = unitInfo * tempInfo;
+            unitInfo.Parts[i].Unit = parts2[1].Unit;
+            unitInfo.Parts[i].Exponent = outExponent * parts2[1].Exponent;
+
+            return unitInfo;
+        }
+
+        private static UnitPart[] GetUnitPartsConversion(UnitPart part1, UnitPart part2)
+        {
+            UnitPart[] unitParts = new UnitPart[] 
+            {
+                //Exponent signs will be managed at a later stage.
+                new UnitPart(part1) { Exponent = Math.Abs(part1.Exponent) },
+                new UnitPart(part2) { Exponent = Math.Abs(part2.Exponent) }
+            };
+
+            UnitPart[] tempParts = GetUnitPartsConversionSameType(unitParts);
+            if (tempParts != null) return tempParts;
+
+            int count = 0;
+            while (count < 2)
+            {
+                count = count + 1;
+                int i = 0;
+                int i2 = 1;
+                if (count == 2)
+                {
+                    i = 1;
+                    i2 = 0;
+                }
+
+                for (int i11 = unitParts[i].Exponent; i11 > 0; i11--)
+                {
+                    unitParts[i].Exponent = i11;
+                    for (int i22 = unitParts[i2].Exponent; i22 > 0; i22--)
+                    {
+                        unitParts[i2].Exponent = i22;
+                        tempParts = GetUnitPartsConversionSameType(unitParts);
+                        if (tempParts != null)
+                        {
+                            //Accounts for scenarios on the lines of m3/L2.
+                            return tempParts;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static UnitPart[] GetUnitPartsConversionSameType(UnitPart[] unitParts)
+        {
+            if (GetTypeFromUnitPart(unitParts[0]) == GetTypeFromUnitPart(unitParts[1]))
+            {
+                return unitParts;
+            }
+            else if (GetTypeFromUnitPart(unitParts[0], true) == GetTypeFromUnitPart(unitParts[1], true))
+            {
+                //Cases like m2/ft3 recognised as length. Exponents are being managed later.
+                unitParts[0].Exponent = 1;
+                unitParts[1].Exponent = 1;
+
+                return unitParts;
+            }
+
+            return null;
         }
 
         private static UnitInfo ExpandNonBasicCompoundToUnitPart(UnitInfo unitInfo, UnitInfo partInfo, int i)
