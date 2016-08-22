@@ -307,6 +307,9 @@ namespace FlexibleParser
         private static UnitTypes GetTypeFromUnitPart(UnitPart unitPart, bool ignoreExponents = false)
         {
             UnitPart unitPart2 = new UnitPart(unitPart);
+
+            //When comparing unit part types, the exponent is often irrelevant. For example: in the compound
+            //kg*m4, looking for m4 would yield no match (unlikely looking just for m).
             if (ignoreExponents) unitPart2.Exponent = 1;
 
             //Negative exponent do not affect type determination. For example, a unit consisting

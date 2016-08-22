@@ -19,7 +19,7 @@ namespace FlexibleParser
                 //unitPart.Unit doesn't account for unitPart.Exponent. That is: it took the basic
                 //unit rather than the compound which it was forming.
                 Dictionary<Units, UnitPart> potentials = new Dictionary<Units, UnitPart>();
-                foreach (var compoundUnit in AllUnitTypes.Where(x => x.Value == type && UnitIsCompound(x.Key)))
+                foreach (var compoundUnit in AllUnitTypes.Where(x => x.Value == type && UnitIsNamedCompound(x.Key)))
                 {
                     Units unit2 = compoundUnit.Key;
 
@@ -65,39 +65,65 @@ namespace FlexibleParser
             return false;
         }
 
-        private static List<UnitPart> GetBasicCompoundUnitParts(UnitTypes type, UnitSystems system)
+        private static List<UnitPart> GetBasicCompoundUnitParts(UnitTypes type, UnitSystems system, bool onePartCompound = false)
         {
             if (AllBasicCompounds.ContainsKey(type) && AllBasicCompounds[type].ContainsKey(system))
             {
-                return GetCompoundUnitParts(AllBasicCompounds[type][system], true);
+                return GetCompoundUnitParts(AllBasicCompounds[type][system], true, type, system, onePartCompound);
             }
 
             return new List<UnitPart>();
         }
+        
+        private static List<UnitPart> GetBasicCompoundUnitParts(Units unit, bool onePartCompound = false)
+        {
+            return GetCompoundUnitParts
+            (
+                unit, true, UnitTypes.None, 
+                UnitSystems.None, onePartCompound
+            );
+        }
 
-        private static List<UnitPart> GetCompoundUnitParts(Units unit, bool basicCompound)
+        private static List<UnitPart> GetCompoundUnitParts(Units unit, bool basicCompound, UnitTypes type = UnitTypes.None, UnitSystems system = UnitSystems.None, bool onePartCompound = false)
         {
             List<UnitPart> unitParts = new List<UnitPart>();
 
             if (basicCompound)
             {
-                UnitTypes type2 = GetTypeFromUnit(unit);
-                UnitSystems system2 = GetSystemFromUnit(unit);
-
-                if (AllBasicCompounds.ContainsKey(type2) && AllBasicCompounds[type2].ContainsKey(system2))
+                if (type == UnitTypes.None)
                 {
-                    foreach (CompoundPart compoundPart in AllCompounds[type2][0].Parts)
-                    {
-                        BasicUnit basicUnit = AllBasicUnits[compoundPart.Type][system2];
+                    type = GetTypeFromUnit(unit);
+                    system = GetSystemFromUnit(unit);
+                }
 
-                        unitParts.Add
-                        (
-                            new UnitPart
+                if (AllBasicCompounds.ContainsKey(type) && AllBasicCompounds[type].ContainsKey(system))
+                {
+                    foreach (Compound compound in AllCompounds[type])
+                    {
+                        if (onePartCompound && compound.Parts.Count > 1)
+                        {
+                            //AllCompounds includes various versions for each compound. onePartCompound being true
+                            //means that only 1-part compounds are relevant.
+                            continue;
+                        }
+                        //When onePartCompound is false, the primary/most-expanded version is expected.
+                        //In AllCompounds, this version is always located in the first position for the given type.
+
+                        foreach (CompoundPart compoundPart in compound.Parts)
+                        {
+                            BasicUnit basicUnit = AllBasicUnits[compoundPart.Type][system];
+
+                            unitParts.Add
                             (
-                                basicUnit.Unit, basicUnit.PrefixFactor,
-                                compoundPart.Exponent
-                            )
-                        );
+                                new UnitPart
+                                (
+                                    basicUnit.Unit, basicUnit.PrefixFactor,
+                                    compoundPart.Exponent
+                                )
+                            );
+                        }
+
+                        return unitParts;
                     }
                 }
             }
@@ -115,7 +141,7 @@ namespace FlexibleParser
         {
             bool canBeUsed = true;
 
-            if (UnitIsCompound(unitInfo.Unit))
+            if (UnitIsNamedCompound(unitInfo.Unit))
             {
                 canBeUsed = AllCompoundsUsingPrefixes.Contains(unitInfo.Unit);
             }
@@ -124,7 +150,7 @@ namespace FlexibleParser
             return canBeUsed;
         }
 
-        private static bool UnitIsCompound(Units unit)
+        private static bool UnitIsNamedCompound(Units unit)
         {
             return
             (

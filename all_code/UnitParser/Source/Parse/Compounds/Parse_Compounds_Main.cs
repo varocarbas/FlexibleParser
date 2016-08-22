@@ -163,13 +163,13 @@ namespace FlexibleParser
                 UnitTypes type = GetTypeFromUnitPart(part);
                 UnitSystems system = GetSystemFromUnit(part.Unit, true);
                 //There are two different scenarios where a conversion might occur: metric vs. English or Imperial vs. USCS.
-                bool englishConversion = false;
+                bool convertEnglish = false;
 
-                if (ConvertPart(system, basicSystem, type) || (englishConversion = ConvertPartEnglish(unitInfo.System, GetSystemFromUnit(part.Unit))))
+                if (ShouldConvertPart(system, basicSystem, type) || (convertEnglish = ShouldConvertPartEnglish(unitInfo.System, GetSystemFromUnit(part.Unit))))
                 {
                     UnitPart targetPart = GetTargetUnitPart
                     (
-                        unitInfo, i, type, (englishConversion ? unitInfo.System : basicSystem)
+                        unitInfo, part, type, (convertEnglish ? unitInfo.System : basicSystem)
                     );
 
                     if (targetPart == null || targetPart.Unit == part.Unit || GetTypeFromUnitPart(targetPart) != type)
@@ -186,8 +186,10 @@ namespace FlexibleParser
 
                     if (convertInfo.Error.Type != ErrorTypes.None)
                     {
-                        unitInfo.Error = new ErrorInfo(convertInfo.Error.Type);
-                        return unitInfo;
+                        return new UnitInfo(unitInfo)
+                        {
+                            Error = new ErrorInfo(convertInfo.Error.Type)
+                        };
                     }
                 }
             }
@@ -199,27 +201,27 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitPart GetTargetUnitPart(UnitInfo unitInfo, int i, UnitTypes type, UnitSystems system)
+        private static UnitPart GetTargetUnitPart(UnitInfo unitInfo, UnitPart part, UnitTypes partType, UnitSystems targetSystem)
         {
-            for (int i2 = 0; i2 < i; i2++)
+            foreach (UnitPart part2 in unitInfo.Parts)
             {
-                if (GetTypeFromUnitPart(unitInfo.Parts[i2], true) == type)
+                if (part2.Unit == part.Unit) continue;
+
+                if (GetSystemFromUnit(part2.Unit) == targetSystem && GetTypeFromUnitPart(part2, true) == partType)
                 {
-                    //This part certainly belongs to the target system.
-                    return new UnitPart(unitInfo.Parts[i2])
-                    { 
-                        Exponent = unitInfo.Parts[i].Exponent 
-                    };
+                    //Different unit part with the same type and the target system is good enough.
+                    //For example: in kg/m*ft, m is a good target for ft.
+                    return new UnitPart(part2) { Exponent = part.Exponent };
                 }
             }
 
             return GetBasicUnitPartForTypeSystem
             (
-                type, system, unitInfo.Parts[i].Exponent
+                partType, targetSystem, part.Exponent
             );
         }
 
-        private static bool ConvertPartEnglish(UnitSystems system1, UnitSystems system2)
+        private static bool ShouldConvertPartEnglish(UnitSystems system1, UnitSystems system2)
         {
             return 
             (
@@ -227,7 +229,7 @@ namespace FlexibleParser
             );
         }
 
-        private static bool ConvertPart(UnitSystems partSystem, UnitSystems basicSystem, UnitTypes partType)
+        private static bool ShouldConvertPart(UnitSystems partSystem, UnitSystems basicSystem, UnitTypes partType)
         {
             if (NeutralTypes.Contains(partType)) return false;
 
@@ -252,7 +254,6 @@ namespace FlexibleParser
                 {
                     unitInfo.InitialPositions.Remove(item.Key);
                 }
-                
             }
             else if (unitInfo.InitialPositions.Count > 0)
             {
@@ -274,23 +275,26 @@ namespace FlexibleParser
         {
             if (AllBasicUnits.ContainsKey(type) && AllBasicUnits[type].ContainsKey(system))
             {
+                //The given type/system matches a basic unit. For example: length and SI matching metre.
                 Units unit2 = AllBasicUnits[type][system].Unit;
-                if (UnitIsCompound(unit2))
+                if (UnitIsNamedCompound(unit2))
                 {
-                    //Remember that BasicUnit doesn't fully agree with the "basic unit" concept.
-                    List<UnitPart> compoundParts = GetCompoundUnitParts(unit2, true);
-                    if (compoundParts.Count == 1)
+                    //Note that BasicUnit doesn't fully agree with the "basic unit" concept and that's why it might
+                    //be a compound. 
+                    List<UnitPart> compoundUnitParts = GetBasicCompoundUnitParts(unit2, true);
+                    if (compoundUnitParts.Count == 1)
                     {
-                        int sign = exponent / Math.Abs(exponent); //This is always required.
-
-                        if (Math.Abs(exponent) > Math.Abs(compoundParts[0].Exponent))
-                        {
-                            //Condition to compensate situations like litre being a volume unit.
-                            compoundParts[0].Exponent = exponent;
-                        }
-                        compoundParts[0].Exponent *= sign;
-
-                        return compoundParts[0];
+                        //Only 1-unit-part versions are relevant. 
+                        //This condition should always be met as far as all the compound basic units are expected to
+                        //have a 1-unit-part version. For example: energy defined as an energy unit part. 
+                        //This theoretically-never-met condition accounts for eventual hardcoding misconducts, like 
+                        //faulty population of AllCompounds.
+                        return new UnitPart
+                        (
+                            compoundUnitParts[0].Unit,
+                            compoundUnitParts[0].Prefix.Factor,
+                            exponent
+                        );
                     }
                 }
                 else
@@ -304,14 +308,16 @@ namespace FlexibleParser
                 }
             }
 
-            List<UnitPart> unitParts = GetBasicCompoundUnitParts(type, system);
-            if (unitParts.Count == 1)
-            {
-                unitParts[0].Exponent = exponent;
-                return unitParts[0];
-            }
-
-            return null;
+            List<UnitPart> unitParts = GetBasicCompoundUnitParts(type, system, true);
+            return
+            (
+                unitParts.Count != 1 ? null :
+                //Type and system match a basic compound consisting in just one part (e.g., m^2).
+                new UnitPart(unitParts[0]) 
+                { 
+                    Exponent = exponent 
+                }
+            );
         }
 
         //Making sure that the assumed-valid compound doesn't really hide invalid information.

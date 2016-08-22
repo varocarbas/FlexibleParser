@@ -331,8 +331,8 @@ namespace FlexibleParser
 
             //Both parts have the same type (= exponent) that's why better ignoring this issue during
             //the conversion to avoid problems.
-            //For example: the part m^2 has associated a specific unit, but it might be converted
-            //to parts which don't have one.
+            //For example: the part m^2 has associated a specific unit (SquareMetre), but it might be 
+            //converted into units which don't have one, like ft^2.
             UnitPart originalPart2 = new UnitPart(originalPart) { Exponent = 1 };
             UnitPart targetPart2 = new UnitPart(targetPart) { Exponent = 1 };
 
