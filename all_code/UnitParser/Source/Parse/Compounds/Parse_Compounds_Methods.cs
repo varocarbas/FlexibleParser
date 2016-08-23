@@ -43,15 +43,97 @@ namespace FlexibleParser
             {
                 foreach (var compound in allCompound.Value)
                 {
-                    if (UnitPartsMatchCompoundParts(unitInfo.Parts, compound.Parts))
+                    if (UnitPartsMatchCompound(unitInfo, compound.Parts))
                     {
                         unitInfo.Type = allCompound.Key;
-                        break;
+                        return unitInfo;
                     }
                 }
             }
 
             return unitInfo;
+        }
+
+        private static bool UnitPartsMatchCompound(UnitInfo unitInfo, List<CompoundPart> compoundParts)
+        {
+            int count = 0;
+            while (count < 2)
+            {
+                count = count + 1;
+                if (UnitPartsMatchCompoundParts(GetCompoundComparisonUnitParts(unitInfo, count), compoundParts))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static List<UnitPart> GetCompoundComparisonUnitParts(UnitInfo unitInfo, int type)
+        {
+            List<UnitPart> outParts = new List<UnitPart>();
+
+            if (type == 1)
+            {
+                return unitInfo.Parts;
+            }
+            else
+            {
+                foreach (UnitPart part in unitInfo.Parts)
+                {
+                    //Under these specific conditions, GetTypeFromUnit is good enough on account of the fact that the
+                    //exponent is irrelevant. 
+                    //For example: m3 wouldn't go through this part (type 1 match) and the exponent doesn't define litre.
+                    //Note that these parts aren't actually correct in many cases, just compatible with the AllCompounds format.
+                    UnitTypes type2 = GetTypeFromUnit(part.Unit);
+                    if (AllCompounds.ContainsKey(type2))
+                    {
+                        outParts.AddRange
+                        (
+                            GetUnitPartsFromBasicCompound
+                            (
+                                AllCompounds[type2][0], 
+                                unitInfo.System, part.Exponent
+                            )
+                        );
+                        outParts = SimplifyCompoundComparisonUnitParts(outParts);
+                    }
+                    else outParts.Add(new UnitPart(part));
+                }
+            }
+
+            return outParts;
+        }
+
+        private static List<UnitPart> SimplifyCompoundComparisonUnitParts(List<UnitPart> outParts)
+        {
+            for (int i = outParts.Count - 1; i >= 0; i--)
+            {
+                for (int i2 = i - 1; i2 >= 0; i2--)
+                {
+                    if (outParts[i].Unit == outParts[i2].Unit && outParts[i].Prefix == outParts[i2].Prefix)
+                    {
+                        //The scenario with different prefixes doesn't need to be considered because same-type
+                        //basic units always have the same prefixes. And this is precisely what this method is
+                        //about: simplifying basic units to eventually match a compound.
+                        outParts[i].Exponent += outParts[i2].Exponent;
+
+                        if (outParts[i].Exponent == 0)
+                        {
+                            outParts.RemoveAt(i);
+                        }
+                        outParts.RemoveAt(i2);
+
+                        if (outParts.Count == 0 || i > outParts.Count - 1)
+                        {
+                            i = outParts.Count;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return outParts;
         }
 
         private static bool UnitPartsMatchCompoundParts(List<UnitPart> unitParts, List<CompoundPart> compoundParts)

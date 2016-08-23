@@ -6,12 +6,16 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
+
         //Contains the definitions of all the supported compounds, understood as units formed by other units
-        //and/or variations (e.g., accounting for exponents different than 1) of them.
-        //It accounts for all the metric/English peculiarities. For example: L and m3 being a volume units or 
-        //N being dividable and lbf not.
-        //NOTE: the order of the compounds within each type does matter. The first position should always be
-        //reserved for the fully-expanded versions. For example, mass*length/time2 for force.
+        //and/or variations (e.g., exponents different than 1) of them.
+        //In order to be as efficient as possible, AllCompounds ignores the difference between dividable and 
+        //non-dividable units. For example: N is formed by kg*m/s2, exactly what this collection expects; on the
+        //other hand, lbf isn't formed by the expected lb*ft/s2. In any case, note that this "faulty" format is
+        //only used internally, never shown to the user.
+        //NOTE: the order of the compounds within each type does matter. The first position is reserved for the main
+        //fully-expanded version (e.g., mass*length/time2 for force). In the second position, the compound basic 
+        //units (e.g., energy) are expected to have their 1-part version (e.g., 1 energy part for energy).
         private static Dictionary<UnitTypes, Compound[]> AllCompounds = new Dictionary<UnitTypes, Compound[]>()
         {
             {
@@ -24,14 +28,6 @@ namespace FlexibleParser
                     new Compound
                     (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Area) }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Volume),
-                            new CompoundPart(UnitTypes.Length, -1)
-                        }
                     )
                 }
             },
@@ -45,14 +41,6 @@ namespace FlexibleParser
                     new Compound
                     (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Volume) }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Length)
-                        }
                     )
                 }
             },
@@ -97,23 +85,6 @@ namespace FlexibleParser
                     new Compound
                     (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Force) }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Length, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Length, -1)
-                        }
                     )
                 }
             }, 
@@ -131,32 +102,7 @@ namespace FlexibleParser
                     ),
                     new Compound
                     (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Time, -2)
-                        }
-                    ),
-                    new Compound
-                    (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Energy) }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time)
-                        }
                     )
                 }
             },
@@ -174,33 +120,7 @@ namespace FlexibleParser
                     ),
                     new Compound
                     (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Time, -3)
-                        }
-                    ),
-                    new Compound
-                    (
                         new List<CompoundPart>() { new CompoundPart(UnitTypes.Power) }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.Time, -1)
-                        }
                     )
                 }
             },
@@ -214,66 +134,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, -1),
                             new CompoundPart(UnitTypes.Time, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Length, 1),
-                            new CompoundPart(UnitTypes.Time, -2),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Volume, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Volume, -1),
-                            new CompoundPart(UnitTypes.Time, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Length, -3)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Length, -3),
-                            new CompoundPart(UnitTypes.Time, -1)
                         }
                     )
                 }
@@ -422,14 +282,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -1)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Time, -1)
-                        }
                     )
                 }
             }, 
@@ -484,40 +336,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -1)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Time, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time, 2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.Time)
-                        }
                     )
                 }
             },
@@ -530,14 +348,6 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, 2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Area)
                         }
                     )
                 }
@@ -579,14 +389,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.LuminousIntensity),
                             new CompoundPart(UnitTypes.Length, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.LuminousIntensity),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
                     )
                 }
             },
@@ -601,17 +403,7 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.SolidAngle),
                             new CompoundPart(UnitTypes.Length, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.LuminousIntensity),
-                            new CompoundPart(UnitTypes.SolidAngle),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
                     )
-
                 }
             },
             {
@@ -623,16 +415,6 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, 2),
-                            new CompoundPart(UnitTypes.Time, -2),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Area),
                             new CompoundPart(UnitTypes.Time, -2),
                             new CompoundPart(UnitTypes.ElectricCurrent, -1)
                         }
@@ -648,53 +430,6 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Time, -2),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Area, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Area, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Length, -2),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Length, -2),
                             new CompoundPart(UnitTypes.ElectricCurrent, -1)
                         }
                     )
@@ -723,40 +458,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Time, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
                     )
                 }
             },
@@ -770,40 +471,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Time, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
                     )
                 }
             },
@@ -816,40 +483,6 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Area),
-                            new CompoundPart(UnitTypes.Time, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Mass, -1),
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.Mass, -1)
                         }
                     )
                 }
@@ -903,14 +536,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, -3)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Volume, -1)
-                        }
                     )
                 }
             },
@@ -922,14 +547,6 @@ namespace FlexibleParser
                         new List<CompoundPart>()
                         {
                             new CompoundPart(UnitTypes.Length, 3),
-                            new CompoundPart(UnitTypes.Mass, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Volume),
                             new CompoundPart(UnitTypes.Mass, -1)
                         }
                     )
@@ -945,14 +562,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Length, 3),
                             new CompoundPart(UnitTypes.Time, -1)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Volume),
-                            new CompoundPart(UnitTypes.Time, -1)
-                        }
                     )
                 }
             },
@@ -966,49 +575,7 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Time, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
+                    )
                 }
             },
             {
@@ -1021,39 +588,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Time, -2),
                             new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Volume, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length, -3)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Length, -4)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Length, -4)
                         }
                     )
                 }
@@ -1068,34 +602,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length),
                             new CompoundPart(UnitTypes.Time, -3),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Length, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Length, -1),
                             new CompoundPart(UnitTypes.Temperature, -1)
                         }
                     )
@@ -1113,33 +619,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Time, -3),
                             new CompoundPart(UnitTypes.Temperature, -1)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
                     )
                 }
             },
@@ -1154,34 +633,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Temperature),
                             new CompoundPart(UnitTypes.Mass, -1),
                             new CompoundPart(UnitTypes.Length, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Temperature),
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Power, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Temperature),
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Energy, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Temperature),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Force, -1)
                         }
                     )
                 }
@@ -1198,33 +649,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass, -1),
                             new CompoundPart(UnitTypes.Length, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Temperature),
-                            new CompoundPart(UnitTypes.Power, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Temperature),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Energy, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Temperature),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Force, -1),
-                            new CompoundPart(UnitTypes.Length, -1)
-                        }
                     )
                 }
             },
@@ -1237,35 +661,6 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Time, -3),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Length, -2),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Length, -2),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Length, -1),
                             new CompoundPart(UnitTypes.Temperature, -1)
                         }
                     )
@@ -1281,49 +676,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Time, -3)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.Length, -1)
-                        }
                     )
                 }
             },
@@ -1337,32 +689,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -2),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
                             new CompoundPart(UnitTypes.Temperature, -1)
                         }
                     )
@@ -1381,35 +707,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.AmountOfSubstance, -1),
                             new CompoundPart(UnitTypes.Temperature, -1)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.AmountOfSubstance, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.AmountOfSubstance, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.AmountOfSubstance, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
                     )
                 }
             },
@@ -1425,35 +722,7 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Time, -3),
                             new CompoundPart(UnitTypes.ElectricCurrent, -1)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1),
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Length, -1),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1),
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>() 
-                        { 
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Length, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -1),
-                        }
-                    ),
+                    )
                 }
             },
             {
@@ -1481,15 +750,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Time),
                             new CompoundPart(UnitTypes.Length, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.ElectricCurrent),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
                     )
                 }
             },
@@ -1503,15 +763,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.ElectricCurrent),
                             new CompoundPart(UnitTypes.Time),
                             new CompoundPart(UnitTypes.Length, -3)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.ElectricCurrent),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.Volume, -1)
                         }
                     )
                 }
@@ -1543,33 +794,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Time, -2),
                             new CompoundPart(UnitTypes.ElectricCurrent, -2)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Length, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time, 1),
-                            new CompoundPart(UnitTypes.Length, -1),
-                            new CompoundPart(UnitTypes.ElectricCurrent, -2)
-                        }
                     )
                 }
             },
@@ -1583,32 +807,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, 2),
                             new CompoundPart(UnitTypes.Time, -2),
-                            new CompoundPart(UnitTypes.AmountOfSubstance, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.AmountOfSubstance, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.Time),
-                            new CompoundPart(UnitTypes.AmountOfSubstance, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
                             new CompoundPart(UnitTypes.AmountOfSubstance, -1)
                         }
                     )
@@ -1626,33 +824,6 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Time, -3),
                             new CompoundPart(UnitTypes.SolidAngle, -1)
                         }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.SolidAngle, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.SolidAngle, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.SolidAngle, -1)
-                        }
                     )
                 }
             },
@@ -1665,54 +836,6 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Time, -3),
-                            new CompoundPart(UnitTypes.SolidAngle, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.SolidAngle, -1),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.SolidAngle, -1),
-                            new CompoundPart(UnitTypes.Area, -1)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Power),
-                            new CompoundPart(UnitTypes.SolidAngle, -1),
-                            new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Energy),
-                            new CompoundPart(UnitTypes.Time, -1),
-                            new CompoundPart(UnitTypes.SolidAngle, -1),
-                            new CompoundPart(UnitTypes.Length, -2)
-                        }
-                    ),
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Force),
-                            new CompoundPart(UnitTypes.Length, -1),
-                            new CompoundPart(UnitTypes.Time, -1),
                             new CompoundPart(UnitTypes.SolidAngle, -1)
                         }
                     )
