@@ -25,9 +25,9 @@ namespace FlexibleParser
             
             parseInfo = UnitInDenominator(parseInfo);
             
-            //Both strings being different would mean a removed number-only numerator.
-            //For example: the input string "1/m" is converted into "m", but UpdateUnitParts
-            //treats it as "m-1" because isNumerator is false.
+            //Both strings being different would mean that a number-only numerator was removed.
+            //For example: the input string 1/m is converted into m, but UpdateUnitParts treats it
+            //as m-1 because isNumerator being false.
             bool isNumerator = (origInput == parseInfo.InputToParse);
             
             char symbol = ' ';
@@ -84,10 +84,9 @@ namespace FlexibleParser
             );
         }
 
-        //When parsing a unit, only exponents are considered valid numbers (e.g., unit2).
-        //Inverse units (e.g., 1/m) are the exception to this rule. This method corrects the input
-        //string to allow ExtractUnitParts to account for such an eventuality.
-        //For example: 1/m*s being converted into m-1*s-1.
+        //When parsing a unit, only integer exponents are considered valid numbers (e.g., m2). Inverse units 
+        //(e.g., 1/m) are the exception to this rule. This method corrects the input string to avoid ExtractUnitParts
+        //to trigger an error. For example: 1/m*s being converted into m-1*s-1.
         private static ParseInfo UnitInDenominator(ParseInfo parseInfo)
         {
             foreach (var symbol in OperationSymbols[Operations.Division])
@@ -125,14 +124,13 @@ namespace FlexibleParser
             //always straightforward due to the numerous unit part modifications.
             parseInfo.UnitInfo = UpdateInitialPositions(parseInfo.UnitInfo);
 
-            //This is the best place to determine the system before finding the unit, because
-            //the subsequent unit part corrections might provoke some misunderstandings on this
-            //front (e.g., CGS named compound divided into SI basic units).
+            //This is the best place to determine the system before finding the unit, because the subsequent
+            //unit part corrections might provoke some misunderstandings on this front (e.g., CGS named 
+            //compound divided into SI basic units).
             parseInfo.UnitInfo.System = GetSystemFromUnitInfo(parseInfo.UnitInfo).System;
 
-            //This is also an excellent place to correct eventual system mismatches.
-            //For example: N/pint (pint has to be converted to m3, the basic unit of the first
-            //operand system, SI).
+            //This is also an excellent place to correct eventual system mismatches. For example: N/pint 
+            //where pint has to be converted into m3, the SI (first operand system) basic unit for volume.
             parseInfo.UnitInfo = CorrectDifferentSystemIssues(parseInfo.UnitInfo);
 
             parseInfo.UnitInfo = GetCompoundUnitFromParts
@@ -304,7 +302,7 @@ namespace FlexibleParser
             return
             (
                 unitParts.Count != 1 ? null :
-                //Type and system match a basic compound consisting in just one part (e.g., m^2).
+                //Type and system match a basic compound consisting in just one part (e.g., m2).
                 new UnitPart(unitParts[0]) 
             );
         }
@@ -314,7 +312,8 @@ namespace FlexibleParser
         {
             if (parseInfo.InputToParse == null || parseInfo.ValidCompound.Length < 1)
             {
-                //This part might not only be reached while parsing.
+                //This part might be reached  when performing different actions than parsing; that's why
+                //InputToParse or ValidCompound might have not be populated.
                 return parseInfo;
             }
 

@@ -26,9 +26,9 @@ namespace FlexibleParser
     ///<summary><para>Contains all the supported mathematical constants.</para></summary>
     public class MathematicalConstants
     {
-        ///<summary><para>Decimal type version of Math.PI</para></summary>
+        ///<summary><para>Decimal version of Math.PI</para></summary>
         public const decimal Pi = 3.141592653589793238462643383m;
-        ///<summary><para>Decimal type version of Math.E</para></summary>
+        ///<summary><para>Decimal version of Math.E</para></summary>
         public const decimal EulerNumber = 2.718281828459045235360287471m;
     }
 

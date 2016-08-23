@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FlexibleParser
 {
@@ -90,7 +89,6 @@ namespace FlexibleParser
         {
             AllUnitSymbols2 = new Dictionary<string, Units>();
             
-            AllUnitSymbols2.Add("mi", Units.Mile);
             AllUnitSymbols2.Add("nmi", Units.NauticalMile);
             AllUnitSymbols2.Add("fath", Units.Fathom);
             AllUnitSymbols2.Add("mil", Units.Thou);
@@ -123,7 +121,7 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("stH", Units.Stathenry);
         }
 
-        //Populates all the unit string representations different than symbols. That is: when dealing
+        //Populates all the unit string representations which aren't symbols. That is: when dealing
         //with them, case doesn't matter.
         private static void PopulateAllUnitStrings()
         {

@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static UnitInfo RemoveAllValueInformation(UnitInfo unitInfo)
-        {
-            unitInfo.Value = 0m;
-            unitInfo.BaseTenExponent = 0;
-            unitInfo.Prefix = new Prefix(unitInfo.Prefix.PrefixUsage);
-
-            return unitInfo;
-        }
-
         private static UnitInfo RemoveAllUnitInformation(UnitInfo unitInfo)
         {
             unitInfo.Unit = Units.None;
@@ -233,9 +223,9 @@ namespace FlexibleParser
             //kg*m4, looking for m4 would yield no match (unlikely looking just for m).
             if (ignoreExponents) unitPart2.Exponent = 1;
 
-            //Negative exponent do not affect type determination. For example, a unit consisting
-            //in just the part m-1 is wavenumber (negative exponent being relevant), but this part
-            //is actually length (-1 doesn't matter).
+            //Negative exponents do not affect type determination. For example, a unit consisting
+            //in just the part m-1 is wavenumber (negative exponent being relevant), but is expected
+            //to be treated as length (-1 doesn't matter) because of being used in internal calculations.
             unitPart2.Exponent = Math.Abs(unitPart2.Exponent);
             UnitInfo unitInfo = new UnitInfo(unitPart2.Unit, unitPart2.Prefix.Factor);
             unitInfo.Parts = new List<UnitPart>() { unitPart2 };
@@ -244,7 +234,7 @@ namespace FlexibleParser
             return 
             (
                 outType == UnitTypes.None && unitPart2.Exponent != 1 ?
-                //To account for cases like kg^4 within compounds.
+                //To account for cases like kg4 within compounds, expected to be understood as kg.
                 GetTypeFromUnitPart(new UnitPart(unitPart2) { Exponent = 1 }) :
                 outType
             );
@@ -297,7 +287,7 @@ namespace FlexibleParser
             );
         }
 
-        //Confirms whether the given minus sign ('-') is correct. "any-5" is right, but 5-5 is wrong.
+        //Confirms whether the given minus sign (-) is correct. Any-5 is right, but 5-5 is wrong.
         private static bool MinusIsOK(char[] inputArray, int i)
         {
             if (i > 0 && i < inputArray.Length)

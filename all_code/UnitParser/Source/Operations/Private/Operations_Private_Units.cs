@@ -109,67 +109,6 @@ namespace FlexibleParser
             .UnitInfo;
         }
 
-        private static UnitInfo AnalyseNewUnitOperationPart(UnitP unitP, UnitPart part)
-        {
-            UnitInfo outInfo = new UnitInfo(1m, part.Unit, part.Prefix);
-            if (unitP.UnitParts.Count < 1) return outInfo;
-
-            UnitInfo newInfo = SyncUnitWithPreviousParts(unitP, outInfo.Unit);
-            if (newInfo.Unit != outInfo.Unit)
-            {
-                newInfo = ConvertUnit(outInfo, newInfo);
-                newInfo = RaiseToIntegerExponent(newInfo, part.Exponent);
-                if (newInfo.Error.Type == ErrorTypes.None)
-                {
-                    return newInfo;
-                }
-            }
-
-            return outInfo;
-        }
-
-        private static UnitInfo SyncUnitWithPreviousParts(UnitP first, Units unit)
-        {
-            UnitInfo outInfo = new UnitInfo(1m, unit, new Prefix(1m));
-            if (first.UnitParts.FirstOrDefault(x => x.Unit == unit) != null)
-            {
-                return outInfo;
-            }
- 
-            Units unit2 = GetSameTypePart(first.UnitParts.ToList(), unit);
-            if (unit2 != unit) return new UnitInfo(outInfo) { Unit = unit2 };
-
-            UnitSystems systemFirst =
-            (
-                first.UnitSystem == UnitSystems.None ?
-                GetSystemFromUnitInfo(new UnitInfo(first)).System :
-                first.UnitSystem
-            );
-            UnitSystems system = GetSystemFromUnit(unit);
-
-            return new UnitInfo(outInfo)
-            {
-                Unit =
-                (
-                    AllMetricEnglish[systemFirst] != AllMetricEnglish[system] ?
-                    GetDefaultEnglishMetricUnit(GetTypeFromUnit(unit), system) : unit
-                )
-            };
-        }
-
-        private static Units GetSameTypePart(List<UnitPart> parts, Units unit)
-        {
-            foreach (UnitPart part in parts)
-            {
-                if (GetTypeFromUnitPart(part) == GetTypeFromUnit(unit))
-                {
-                    return part.Unit;
-                }
-            }
-
-            return unit;
-        }
-
         private static UnitInfo ConvertUnit(UnitInfo originalInfo, UnitInfo targetInfo, bool matchTargetPrefix = true)
         {
             return
@@ -220,7 +159,8 @@ namespace FlexibleParser
                 {
                     //When the target unit has a prefix, the conversion is adapted to it (e.g., lb to kg is 0.453).
                     //Such an output isn't always desirable (kg isn't a valid unit, but g + kilo).
-                    //That's why the output value has to be multiplied by the prefix when reaching this point (i.e., conversion delivered to the user).
+                    //That's why the output value has to be multiplied by the prefix when reaching this point 
+                    //(i.e., conversion delivered to the user).
                     outInfo = outInfo * targetInfo2;
                 }
             }
@@ -256,7 +196,7 @@ namespace FlexibleParser
             return NormaliseUnitInfo(outInfo);
         }
 
-        //NOTE: targetInfo2 is assumed be normalised.
+        //This function expects targetInfo2 to be normalised.
         private static UnitInfo AccountForTargetUnitPrefixes(UnitInfo originalInfo, UnitInfo targetInfo2)
         {
             int newExponent = GetBaseTenExponentIncreasePrefixes
@@ -269,22 +209,24 @@ namespace FlexibleParser
                 new UnitInfo(originalInfo) 
                 { 
                     BaseTenExponent = newExponent,
-                    Prefix = new Prefix(originalInfo.Prefix.PrefixUsage) //Already included in the newExponent.
+                    //Prefix.Factor is already included in newExponent.
+                    Prefix = new Prefix(originalInfo.Prefix.PrefixUsage) 
                 }
             );
         }
 
         private static int GetBaseTenExponentIncreasePrefixes(UnitInfo originalInfo, int targetInfo2Exp)
         {
-            //targetInfo2 is already normalised by only accounting for the value information which is 
-            //relevant for the conversion (i.e., the prefix).
+            //targetInfo2 is being normalised by only accounting for the value information which is 
+            //relevant to the conversion (i.e., the prefix).
             UnitInfo originalTemp = new UnitInfo(originalInfo) { Value = 1m, BaseTenExponent = 0 };
             originalTemp = NormaliseUnitInfo(originalTemp);
 
             return originalTemp.BaseTenExponent - targetInfo2Exp;
         }
 
-        //Checks whether the conversion might be performed directly (i.e., without parts analysis).
+        //Determines whether the conversion might be performed directly. That is: by only considering the
+        //main unit information (i.e., Units enum member), rather than its constituent parts.
         private static bool UnitsCanBeConvertedDirectly(UnitInfo original, UnitInfo target)
         {
             if (original.Unit != Units.None && original.Unit != Units.Unitless && !IsUnnamedUnit(original.Unit))
@@ -368,7 +310,7 @@ namespace FlexibleParser
             }
             else if (IsUnnamedUnit(originalPart.Unit) || IsUnnamedUnit(targetPart.Unit))
             {
-                //Finding a compound here would be certainly an error.
+                //Finding an unnamed compound here would be certainly an error.
                 outError = ErrorTypes.InvalidUnitConversion;
             }
 
@@ -382,7 +324,6 @@ namespace FlexibleParser
 
             foreach (UnitPart original in originals)
             {
-                //GetTypeFromUnit always works with UnitPart units (never unnamed).
                 UnitTypes type = GetTypeFromUnitPart(original);
 
                 var target = targets.FirstOrDefault
@@ -416,7 +357,11 @@ namespace FlexibleParser
                 return ConvertUnitValueSpecial(original, target); 
             }
 
-            return original * (GetUnitConversionFactor(original.Unit) / GetUnitConversionFactor(target.Unit));
+            return 
+            (
+                original * GetUnitConversionFactor(original.Unit) /
+                GetUnitConversionFactor(target.Unit)
+            );
         }
 
         private static UnitInfo GetUnitConversionFactor(Units unit)
@@ -429,7 +374,7 @@ namespace FlexibleParser
             );
         }
 
-        //Accounts for situations where a specific conversion (i.e., not just conversion factors) is required.
+        //Takes care of conversions which do not rely on conversion factors.
         private static UnitInfo ConvertUnitValueSpecial(UnitInfo original, UnitInfo target)
         {
             UnitInfo convertInfo = new UnitInfo(original);

@@ -5,8 +5,8 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        //Relates the primary string representations (constants in the UnitStrings class) with
-        //the corresponding unit (element of the Units enum).
+        //Relates the primary string representations (constants in the UnitSymbols class) with the corresponding
+        //unit (element of the Units enum).
         private static Dictionary<string, Units> AllUnitSymbols = new Dictionary<string, Units>()
         {
             //--- Unitless
@@ -412,9 +412,8 @@ namespace FlexibleParser
             { UnitSymbols.WattPerSteradianPerSquareMetre, Units.WattPerSteradianPerSquareMetre }
         };
 
-        //Contains all the units outside the SI-prefixes-supporting systems (i.e., UnitSystems.SI & UnitSystems.CGS + variants)
+        //Contains all the units outside the SI-prefix-supporting systems (i.e., UnitSystems.SI & UnitSystems.CGS)
         //which do support SI prefixes by default.
-        //NOTE: users might force all the units to use SI prefixes via PrefixUsageTypes.AllUnits.
         private static Units[] AllOtherSIPrefixUnits = new Units[]
         {
             //--- Mass
@@ -443,7 +442,7 @@ namespace FlexibleParser
             Units.Curie,
         };
 
-        //English-system units being identical in Imperial/USCS.
+        //English-system units which are identical in both Imperial and USCS.
         private static Units[] AllImperialAndUSCSUnits = new Units[]
         {
             //--- Length

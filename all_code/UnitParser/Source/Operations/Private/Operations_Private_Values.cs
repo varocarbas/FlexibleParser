@@ -17,8 +17,7 @@ namespace FlexibleParser
 
         private static UnitP PerformUnitOperation(double firstValue, UnitP second, Operations operation, string operationString)
         {
-            //The first operand (the one defining how errors should be handled) is a number and that's why exceptions have
-            //to be let unhandled.
+            //The first operand (the one defining exception handling) is a number and that's why exceptions have to be left unhandled.
             UnitP second2 = new UnitP(second, ExceptionHandlingTypes.AlwaysTriggerException);
             return PerformUnitValueOperation
             (
@@ -37,8 +36,7 @@ namespace FlexibleParser
 
         private static UnitP PerformUnitOperation(decimal firstValue, UnitP second, Operations operation, string operationString)
         {
-            //The first operand (the one defining how errors should be handled) is a number and that's why exceptions have
-            //to be let unhandled.
+            //The first operand (the one defining exception handling) is a number and that's why exceptions have to be left unhandled.
             UnitP second2 = new UnitP(second, ExceptionHandlingTypes.AlwaysTriggerException);
             return PerformUnitValueOperation
             (
@@ -192,7 +190,7 @@ namespace FlexibleParser
 
             outInfo.Value = Convert.ToDecimal(valueDouble);
 
-            //By default, numbers have a AlwaysTriggerException configuration.
+            //Numbers always rely on ExceptionHandlingTypes.AlwaysTriggerException.
             outInfo.Error = new ErrorInfo
             (
                 ErrorTypes.None, ExceptionHandlingTypes.AlwaysTriggerException

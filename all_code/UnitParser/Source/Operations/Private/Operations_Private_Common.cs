@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FlexibleParser
 {
@@ -84,8 +83,7 @@ namespace FlexibleParser
             Division
         };
 
-        private const double MaxValue = 79228162514264337593543950335.0; //decimal.MaxValue actual value.
+        private const double MaxValue = 79228162514264337593543950335.0; //Decimal.MaxValue actual value.
         private const double MinValue = 0.0000000000000000000000000001; //Decimal precision lowest limit.
-        private const decimal MinValueDec = 0.0000000000000000000000000001m;
     }
 }

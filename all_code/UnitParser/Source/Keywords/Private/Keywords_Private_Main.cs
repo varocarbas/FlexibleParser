@@ -1512,13 +1512,13 @@ namespace FlexibleParser
         };
 
         //Relates all the unnamed units with their associated systems.
-        //There are many units which don't fit any Units enum case; this is what this unnamed category addresses.
+        //There are many units which don't fit any Units enum case, what this unnamed category addresses.
         //That is: placeholders avoiding a huge (and not too logical) hardcoding effort.
         private static Dictionary<UnitSystems, Units> DefaultUnnamedUnits = 
         AllUnits[UnitTypes.None].ToDictionary(x => x.Key, x => x.Value.First().Key);    
 
         //Relates all the units with their respective types.
-        //The call to GetALLMain() also populates all the collections below this lines.
+        //The call to GetALLMain() also populates all the collections below this line.
         private static Dictionary<Units, UnitTypes> AllUnitTypes = GetAllMain();
 
         //Relates all the units with their respective systems.
@@ -1530,7 +1530,7 @@ namespace FlexibleParser
         //Includes all the supported unit string representations where case doesn't matter.
         private static Dictionary<string, Units> AllUnitStrings;
 
-        //Includes Secondary symbols for some units (case does matter).
+        //Includes secondary symbols for some units (case does matter).
         private static Dictionary<string, Units> AllUnitSymbols2;
 
         //Some conversion factors are too small/big for decimal type.

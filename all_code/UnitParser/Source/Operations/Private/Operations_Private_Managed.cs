@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FlexibleParser
 {
@@ -22,18 +21,10 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo PerformManagedOperationUnits(decimal first, decimal second, Operations operation)
-        {
-            return PerformManagedOperationUnits
-            (
-                new UnitInfo(first), new UnitInfo(second), operation
-            );
-        }
-
         //This method is much more comprehensive than the alternative for values (PerformManagedOperationValues),
         //because it assumes any scenario involving two units (understood as UnitInfo variables which might have Value, 
         //BaseTenExponent and Prefix). In case of not having to worry about any of this, even just for one of the operands,
-        //PerformManagedOperationValues might be used (i.e., in any operation involving plain numbers).
+        //PerformManagedOperationValues might be used (e.g., in any operation involving plain numbers).
         private static UnitInfo PerformManagedOperationUnits(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
             ErrorTypes errorType = GetOperationError
@@ -78,7 +69,7 @@ namespace FlexibleParser
             {
                 //The addition/subtraction might not be performed right away even with normalised values.
                 //The base numbers of 5*10^2 and 6*10^7  (i.e., 5 & 6) might not be added right away; and
-                //this is precisely what normalised units are.
+                //this is precisely what normalised units are (i.e., value * 10^exp).
                 operands2 = AdaptNormalisedValuesForAddition
                 (
                     new UnitInfo[] 
@@ -228,14 +219,6 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo PerformManagedOperationValues(decimal firstValue, UnitInfo secondInfo, Operations operation)
-        {
-            return PerformManagedOperationValues
-            (
-                new UnitInfo(firstValue), secondInfo, operation
-            );
-        }
-
         private static UnitInfo PerformManagedOperationValues(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
             if (firstInfo.Value == 0m || secondInfo.Value == 0m)
@@ -280,7 +263,7 @@ namespace FlexibleParser
             }
             catch { manageError = true; }
 
-            //Decimal type might not trigger an error despite of dealing with a number it cannot managed.
+            //An error might not be triggered despite of dealing with numbers outside decimal precision.
             //For example: 0.00000000000000000001m * 0.0000000000000000000001m can output 0m without triggering an error. 
             if (!manageError && firstInfo.Value == 0.0m) manageError = true;
 

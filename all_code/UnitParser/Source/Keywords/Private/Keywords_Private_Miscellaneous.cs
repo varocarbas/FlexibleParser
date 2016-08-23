@@ -6,10 +6,9 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        //While determining the system of the units from its contituent parts, some units might
-        //be easily misinterpreted. For example: in ft/s, assuming that s implies SI. The purpose
-        //of this collection is avoiding these problems, by helping to quickly know which units should
-        //be ignored.
+        //While determining the system from the contituent parts, some units might be misinterpreted. 
+        //For example: in ft/s, assuming SI (because of s) would be wrong. This collection avoids these
+        //problems by including types to be ignored in these analyses (i.e., neutral types).
         private static UnitTypes[] NeutralTypes = new UnitTypes[]
         {
             UnitTypes.Time,
@@ -26,7 +25,9 @@ namespace FlexibleParser
             UnitTypes.Temperature
         };
 
-        //Includes all the unit-related information required during most of calculations.
+        //Class storing all the unit-related information. 
+        //It includes the main numeric variables (Value, Prefix.Factor & BaseTenExponent) and, consequently,
+        //is also the managed operations (i.e., error-free-ly dealing with numbers of any size) basic class.
         private class UnitInfo
         {
             public decimal Value { get; set; }
@@ -39,7 +40,6 @@ namespace FlexibleParser
             public string TempString { get; set; }
             public int BaseTenExponent { get; set; }
             //Collection storing the positions of the unit parts as input by the user. 
-            //Only relevant for compounds.
             public Dictionary<UnitPart, int> InitialPositions { get; set; }
 
             public UnitInfo() : this(0m) { }
@@ -83,6 +83,7 @@ namespace FlexibleParser
                 {
                     unitParts = new List<UnitPart>(unitP.UnitParts.ToList());
                 }
+
                 PopulateVariables
                 (
                     unitP.Value, unitP.Unit, unitP.UnitPrefix, unitParts,
@@ -192,6 +193,9 @@ namespace FlexibleParser
             }
         }
 
+        //Characters which are ignored while parsing units. For example: m or m. or (m) are identical.
+        //NOTE: the decimal separator characters would have to be removed from this list in order to
+        //start supporting decimal exponents.
         private static string[] UnitParseIgnored = new string[]
         {
             ".", ",", ":", ";", "_", "^", "+", "#", "(", ")", "[", "]", 

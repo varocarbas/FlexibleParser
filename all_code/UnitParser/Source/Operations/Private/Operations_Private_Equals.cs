@@ -88,7 +88,7 @@ namespace FlexibleParser
             );
         }
 
-        //NOTE: assumes that both inputs are normalised.
+        //This method assumes that both inputs are normalised.
         private static bool UnitInfoValuesAreEqual(UnitInfo firstInfo, UnitInfo secondInfo)
         {
             return 
@@ -103,7 +103,7 @@ namespace FlexibleParser
             return UnitPartListsAreEqual(firstUnit.Parts, secondUnit.Parts);
         }
 
-        //NOTE: this method expects fully expanded/simplified unit parts.
+        //This method expects fully expanded/simplified unit parts.
         private static bool UnitPartListsAreEqual(List<UnitPart> firstParts, List<UnitPart> secondParts)
         {
             if (firstParts.Count != secondParts.Count) return false;
