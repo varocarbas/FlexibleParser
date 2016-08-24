@@ -23,8 +23,8 @@ namespace FlexibleParser
 
         //This method is much more comprehensive than the alternative for values (PerformManagedOperationValues),
         //because it assumes any scenario involving two units (understood as UnitInfo variables which might have Value, 
-        //BaseTenExponent and Prefix). In case of not having to worry about any of this, even just for one of the operands,
-        //PerformManagedOperationValues might be used (e.g., in any operation involving plain numbers).
+        //BaseTenExponent and Prefix). In case of not having to worry about any of this, at least in one of the operands,
+        //(e.g., operation with numeric-type variables) PerformManagedOperationValues might be used.
         private static UnitInfo PerformManagedOperationUnits(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
             ErrorTypes errorType = GetOperationError
@@ -49,8 +49,8 @@ namespace FlexibleParser
 
         private static UnitInfo PerformManagedOperationAddition(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {   
-            //Additionally to being normalised, the operands have to pass through further checks.
-            UnitInfo[] normalised = GetOperandsAddition(firstInfo, secondInfo);
+            //After being normalised, the operands might be modified further.
+            UnitInfo[] normalised = GetOperandsAddition(firstInfo, secondInfo, operation);
 
             return PerformManagedOperationNormalisedValues
             (
@@ -58,7 +58,7 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo[] GetOperandsAddition(UnitInfo firstInfo, UnitInfo secondInfo)
+        private static UnitInfo[] GetOperandsAddition(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
             UnitInfo[] operands2 = new UnitInfo[] 
             {
@@ -76,17 +76,19 @@ namespace FlexibleParser
                     { 
                         NormaliseUnitInfo(operands2[0]), 
                         NormaliseUnitInfo(operands2[1])
-                    }
+                    },
+                    operation
                 );
             }
 
             return operands2;
         }
         
-        private static UnitInfo[] AdaptNormalisedValuesForAddition(UnitInfo[] unitInfos2)
+        private static UnitInfo[] AdaptNormalisedValuesForAddition(UnitInfo[] unitInfos2, Operations operation)
         {
             if (unitInfos2[0].BaseTenExponent == unitInfos2[1].BaseTenExponent)
             {
+                //Being normalised implies no prefixes.
                 return unitInfos2;
             }
 
@@ -96,7 +98,9 @@ namespace FlexibleParser
                 new int[] { 0, 1 } : new int[] { 1, 0 }
             );
 
-            UnitInfo big2 = AdaptBiggerAdditionOperand(unitInfos2, bigSmallI);
+            //Only the variable with the bigger value would be modified. For example:
+            //5*10^5 & 3*10^3 is converted into 500*10^3 & 3*10^3 to allow 500+3. 
+            UnitInfo big2 = AdaptBiggerAdditionOperand(unitInfos2, bigSmallI, operation);
             if (big2.Error.Type != ErrorTypes.None)
             {
                 return new UnitInfo[] { unitInfos2[0] };
@@ -108,27 +112,56 @@ namespace FlexibleParser
             return unitInfos2;
         }
 
-        private static UnitInfo AdaptBiggerAdditionOperand(UnitInfo[] unitInfos2, int[] bigSmallI)
+        private static UnitInfo AdaptBiggerAdditionOperand(UnitInfo[] unitInfos2, int[] bigSmallI, Operations operation)
         {
             UnitInfo big2 = RaiseToIntegerExponent
             (
-                10m, 
+                10m,
                 unitInfos2[bigSmallI[0]].BaseTenExponent - unitInfos2[bigSmallI[1]].BaseTenExponent
-            );
+            ); 
             
+            //Forces all the numeric information to be stored in Value (if possible).
+            big2 = PerformManagedOperationValues
+            (
+                big2, unitInfos2[bigSmallI[0]].Value, Operations.Multiplication                
+            );
+
+            bool isWrong = false;
             if (big2.Error.Type != ErrorTypes.None || big2.BaseTenExponent != 0)
             {
                 //After removing the small value exponent, the big one is still too big (> decimal.MaxValue). 
                 //Under these conditions, the result is just the first operand (eventually converted).
-                return new UnitInfo(unitInfos2[0])
+                isWrong = true;
+            }
+            else
+            {
+                try
                 {
-                    Error = new ErrorInfo(ErrorTypes.InvalidOperation)
-                };
+                    //This operation is unlikely to trigger an error. In fact, with properly normalised variables,
+                    //triggering an error would be plainly impossible.
+                    decimal tempVal = unitInfos2[0].Value + unitInfos2[1].Value *
+                    (
+                        operation == Operations.Addition ? 1 : -1
+                    );
+                }
+                catch
+                {
+                    isWrong = true;
+                }
             }
 
-            return PerformManagedOperationValues
+            return
             (
-                big2, unitInfos2[bigSmallI[0]], Operations.Multiplication
+                isWrong ?
+                new UnitInfo(unitInfos2[0])
+                {
+                    Error = new ErrorInfo(ErrorTypes.InvalidOperation)
+                } :
+                //Returning the new big value. For example: with 5*10^5 & 3*10^2, 500 would be returned.
+                new UnitInfo(unitInfos2[bigSmallI[0]])
+                {
+                    Value = big2.Value
+                }
             );
         }
 
@@ -138,29 +171,32 @@ namespace FlexibleParser
             (
                 firstInfo, new UnitInfo[] 
                 { 
-                    NormaliseUnitInfo(firstInfo), 
+                    NormaliseUnitInfo(firstInfo),
                     NormaliseUnitInfo(secondInfo) 
                 },
                 operation
             );
         }
 
-        private static UnitInfo PerformManagedOperationNormalisedValues(UnitInfo outInfo, UnitInfo[] normalised, Operations operation)
+        private static UnitInfo PerformManagedOperationNormalisedValues(UnitInfo outInfo, UnitInfo[] normalisedInfos, Operations operation)
         {
             outInfo =
             (
-                normalised.Length == 1 ?
+                normalisedInfos.Length == 1 ?
                 //There is just one operand when the difference between both of them is too big.
-                outInfo = normalised[0] :
-                PerformManagedOperationTwoOperands(outInfo, normalised, operation)
+                outInfo = normalisedInfos[0] :
+                PerformManagedOperationTwoOperands(outInfo, normalisedInfos, operation)
             );
 
             return outInfo;
         }
 
-        private static UnitInfo PerformManagedOperationTwoOperands(UnitInfo outInfo, UnitInfo[] normalised, Operations operation)
+        private static UnitInfo PerformManagedOperationTwoOperands(UnitInfo outInfo, UnitInfo[] normalisedInfos, Operations operation)
         {
-            UnitInfo outInfoNormalised = PerformManagedOperationValues(normalised[0], normalised[1], operation);
+            UnitInfo outInfoNormalised = PerformManagedOperationValues
+            (
+                normalisedInfos[0], normalisedInfos[1], operation
+            );
 
             if (outInfo.Error.Type != ErrorTypes.None)
             {
@@ -178,29 +214,31 @@ namespace FlexibleParser
             return outInfo;
         }
 
-        private static int GetExponentFromValue(decimal value)
+        private static UnitInfo ConvertValueToBaseTen(decimal value)
         {
-            int exponent = 0;
-            value = Math.Abs(value);
-            if (value < 10m && value > 0.1m) return exponent;
+            UnitInfo outInfo = new UnitInfo(Math.Abs(value));
+            if (outInfo.Value < 10m && outInfo.Value > 0.1m)
+            {
+                return outInfo;
+            }
 
-            bool reduceIt = (value >= 10);
+            bool reduceIt = (outInfo.Value >= 10);
 
-            while (value >= 10m || value <= 0.1m)
+            while (outInfo.Value >= 10m || outInfo.Value <= 0.1m)
             {
                 if (reduceIt)
                 {
-                    value = value / 10m;
-                    exponent = exponent + 1;
+                    outInfo.Value /= 10m;
+                    outInfo.BaseTenExponent += 1;
                 }
                 else
                 {
-                    value = value * 10m;
-                    exponent = exponent - 1;
+                    outInfo.Value *= 10m;
+                    outInfo.BaseTenExponent -= 1;
                 }
             }
 
-            return exponent;
+            return outInfo;
         }
 
         private static UnitInfo PerformManagedOperationValues(decimal firstValue, decimal secondValue, Operations operation)
@@ -223,86 +261,109 @@ namespace FlexibleParser
         {
             if (firstInfo.Value == 0m || secondInfo.Value == 0m)
             {
-                //Dividing by zero scenarios are taken into account somewhere else.
-                return new UnitInfo(firstInfo) { Value = 0m };
+                if (operation == Operations.Multiplication || operation == Operations.Division)
+                {
+                    //Dividing by zero scenarios are taken into account somewhere else.
+                    return new UnitInfo(firstInfo) { Value = 0m };
+                }
             }
 
+            UnitInfo outInfo = new UnitInfo(firstInfo);
             UnitInfo firstInfo0 = new UnitInfo(firstInfo);
             UnitInfo secondInfo0 = new UnitInfo(secondInfo);
 
-            bool manageError = false;
+            bool isWrong = false;
             try
             {
                 if (operation == Operations.Addition)
                 {
-                    firstInfo.Value += secondInfo.Value;
+                    outInfo.Value += secondInfo.Value;
                 }
                 else if (operation == Operations.Subtraction)
                 {
-                    firstInfo.Value -= secondInfo.Value;
+                    outInfo.Value -= secondInfo.Value;
                 }
                 else
                 {
                     if (operation == Operations.Multiplication)
                     {
-                        firstInfo.Value *= secondInfo.Value;
-                        firstInfo.BaseTenExponent += secondInfo.BaseTenExponent;
+                        outInfo.Value *= secondInfo.Value;
+                        outInfo.BaseTenExponent += secondInfo.BaseTenExponent;
                     }
                     else if (operation == Operations.Division)
                     {
                         if (secondInfo.Value == 0m)
                         {
-                            firstInfo.Error = new ErrorInfo(ErrorTypes.NumericError);
-                            return firstInfo;
+                            return
+                            (
+                                new UnitInfo(outInfo) 
+                                { 
+                                    Error = new ErrorInfo(ErrorTypes.NumericError) 
+                                }
+                            );
                         }
-
-                        firstInfo.Value /= secondInfo.Value;
-                        firstInfo.BaseTenExponent -= secondInfo.BaseTenExponent;
+                        outInfo.Value /= secondInfo.Value;
+                        outInfo.BaseTenExponent -= secondInfo.BaseTenExponent;
                     }
                 }
             }
-            catch { manageError = true; }
+            catch { isWrong = true; }
 
-            //An error might not be triggered despite of dealing with numbers outside decimal precision.
-            //For example: 0.00000000000000000001m * 0.0000000000000000000001m can output 0m without triggering an error. 
-            if (!manageError && firstInfo.Value == 0.0m) manageError = true;
-
-            if (manageError) firstInfo = ManageErrorValues(firstInfo0, secondInfo0, operation);
-
-            return firstInfo;
+            return
+            (
+                //An error might not be triggered despite of dealing with numbers outside decimal precision.
+                //For example: 0.00000000000000000001m * 0.0000000000000000000001m can output 0m without triggering an error. 
+                isWrong || outInfo.Value == 0.0m ?
+                OperationValuesManageError(firstInfo0, secondInfo0, operation) :
+                outInfo
+            );
         }
 
-        private static UnitInfo ManageErrorValues(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
+        private static UnitInfo OperationValuesManageError(UnitInfo outInfo, UnitInfo secondInfo, Operations operation)
         {
             if (operation != Operations.Multiplication && operation != Operations.Division)
             {
-                //In principle, this condition should never be true.
-                return firstInfo;
+                //This condition should never be true on account of the fact that the pre-modifications performed before
+                //adding/subtracting should avoid erroneous situations.
+                return outInfo;
             }
 
-            int secondExponent = GetExponentFromValue(secondInfo.Value);
-            firstInfo.BaseTenExponent += 
+            UnitInfo secondInfo2 = ConvertValueToBaseTen(secondInfo.Value);
+            outInfo.BaseTenExponent += 
             (
-                (operation == Operations.Multiplication ? 1 : -1 ) * secondExponent
+                (operation == Operations.Multiplication ? 1 : -1) * secondInfo2.BaseTenExponent
             );
 
-            UnitInfo remInfo = PerformManagedOperationValues
-            (
-                secondInfo.Value,
-                RaiseToIntegerExponent(10, secondExponent).Value,
-                Operations.Division
-            );
-
-
-            if (Math.Abs(remInfo.Value) != 1m)
+            if (Math.Abs(secondInfo2.Value) == 1m) return outInfo;
+            
+            try
             {
-                firstInfo = PerformManagedOperationUnits
+                outInfo = PerformManagedOperationUnits
                 (
-                    firstInfo.Value, remInfo, Operations.Multiplication
-                ); 
+                    outInfo, secondInfo2.Value, operation
+                );
+            }
+            catch
+            {
+                //Very unlikely scenario on account of the fact that Math.Abs(secondInfo2.Value)
+                //lies within the 0.1-1.0 range.
+                outInfo = OperationValuesManageError
+                (
+                    new UnitInfo(outInfo)
+                    {
+                        Value = secondInfo2.Value,
+                        BaseTenExponent = 0
+                    },
+                    new UnitInfo()
+                    {
+                        Value = outInfo.Value,
+                        BaseTenExponent = outInfo.BaseTenExponent
+                    },
+                    operation
+                );
             }
 
-            return firstInfo;
+            return outInfo;
         }
 
         private static UnitInfo NormaliseUnitInfo(UnitInfo unitInfo)

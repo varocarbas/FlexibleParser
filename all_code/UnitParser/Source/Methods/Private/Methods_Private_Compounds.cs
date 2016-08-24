@@ -69,7 +69,11 @@ namespace FlexibleParser
         {
             if (AllBasicCompounds.ContainsKey(type) && AllBasicCompounds[type].ContainsKey(system))
             {
-                return GetCompoundUnitParts(AllBasicCompounds[type][system], true, type, system, onePartCompound);
+                return GetCompoundUnitParts
+                (
+                    AllBasicCompounds[type][system], true, 
+                    type, system, onePartCompound
+                );
             }
 
             return new List<UnitPart>();
@@ -183,7 +187,7 @@ namespace FlexibleParser
             unitInfo = GetIndividualUnitFromParts(unitInfo);
             if (unitInfo.Unit != Units.None) return unitInfo;
 
-            //Better starting with the non-basic compounds because of being less misinterpretation-prone.
+            //Better starting with the quicker non-basic-compound check.
             unitInfo = GetNonBasicCompoundUnitFromParts(unitInfo);
 
             return
@@ -567,10 +571,7 @@ namespace FlexibleParser
                     }
                     else
                     {
-                        UnitInfo tempInfo = AdaptUnitParts
-                        (
-                            unitInfo, i, i2
-                        );
+                        UnitInfo tempInfo = AdaptUnitParts(unitInfo, i, i2);
                         if (tempInfo != null)
                         {
                             remove = true;
@@ -580,18 +581,7 @@ namespace FlexibleParser
 
                     if (remove)
                     {
-                        if (unitInfo.Parts[i].Prefix.Factor == unitInfo.Parts[i2].Prefix.Factor)
-                        {
-                            unitInfo.Parts[i].Exponent += unitInfo.Parts[i2].Exponent;
-                        }
-                        else unitInfo = UpdateDifferentPrefixParts(unitInfo, i, i2);
-
-                        if (unitInfo.Parts[i].Exponent == 0)
-                        {
-                            unitInfo = RemoveUnitPart(unitInfo, unitInfo.Parts[i]);
-                        }
-
-                        unitInfo = RemoveUnitPart(unitInfo, unitInfo.Parts[i2]);
+                        unitInfo = SimplifyUnitPartsRemove(unitInfo, i, i2);
                     }
 
                     if (unitInfo.Parts.Count == 0 || i > unitInfo.Parts.Count - 1)
@@ -605,6 +595,22 @@ namespace FlexibleParser
             if (unitInfo.Parts.Count == 0) unitInfo.Unit = Units.Unitless;
 
             return unitInfo;
+        }
+
+        private static UnitInfo SimplifyUnitPartsRemove(UnitInfo unitInfo, int i, int i2)
+        {
+            if (unitInfo.Parts[i].Prefix.Factor == unitInfo.Parts[i2].Prefix.Factor)
+            {
+                unitInfo.Parts[i].Exponent += unitInfo.Parts[i2].Exponent;
+            }
+            else unitInfo = UpdateDifferentPrefixParts(unitInfo, i, i2);
+
+            if (unitInfo.Parts[i].Exponent == 0)
+            {
+                unitInfo = RemoveUnitPart(unitInfo, unitInfo.Parts[i]);
+            }
+
+            return RemoveUnitPart(unitInfo, unitInfo.Parts[i2]);
         }
 
         private static UnitInfo AdaptUnitParts(UnitInfo unitInfo, int i, int i2)
@@ -661,6 +667,10 @@ namespace FlexibleParser
 
             unitInfo = unitInfo * tempInfo;
             unitInfo.Parts[i].Unit = parts2[1].Unit;
+            //outExponent indicates the number of times which the target exponent is
+            //repeated to match the original unit. For example: in L to m3, the final
+            //unit is m and outExponent is 1 (= the original unit contains 1 target 
+            //unit/exponent); but the output exponent should be 3 (1 * target exponent).
             unitInfo.Parts[i].Exponent = outExponent * parts2[1].Exponent;
 
             return unitInfo;

@@ -20,9 +20,7 @@ namespace FlexibleParser
             //GetUnitParts isn't just meant to get parts, but also to expand/simplify them.
             //That's why calling this method is one of the first steps when improving/analysing
             //a compound regardless of the fact of unit parts already being present.
-            unitInfo.Parts = GetUnitParts(unitInfo).Parts;
-
-            return unitInfo;
+            return GetUnitParts(unitInfo);
         }
 
         private static bool IsUnnamedUnit(Units unit)

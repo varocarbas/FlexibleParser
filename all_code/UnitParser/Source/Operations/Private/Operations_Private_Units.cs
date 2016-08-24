@@ -276,15 +276,16 @@ namespace FlexibleParser
 
             if (originalPart2.Exponent == targetPart2.Exponent)
             {
-                //Both parts have the same type (= exponent) that's why better ignoring this issue during
+                //In this situation, exponents don't need to be considered and it is better ignoring them during
                 //the conversion to avoid problems.
-                //For example: the part m2 has associated a specific unit (SquareMetre), but it might be 
-                //converted into units which don't have one, like ft2.
+                //For example: the part m2 has associated a specific unit (SquareMetre), but it might be converted
+                //into units which don't have one, like ft2.
                 originalPart2.Exponent = 1;
                 targetPart2.Exponent = 1;
             }
             //Different exponents cannot be removed. For example: conversion between litre and m3, where the exponent
-            //does define the unit.
+            //does define the unit. 
+
 
             return outInfo * RaiseToIntegerExponent
             (

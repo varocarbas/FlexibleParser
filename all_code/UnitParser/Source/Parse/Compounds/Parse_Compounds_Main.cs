@@ -26,8 +26,8 @@ namespace FlexibleParser
             parseInfo = UnitInDenominator(parseInfo);
             
             //Both strings being different would mean that a number-only numerator was removed.
-            //For example: the input string 1/m is converted into m, but UpdateUnitParts treats it
-            //as m-1 because isNumerator being false.
+            //For example: the input string 1/m is converted into m, but UpdateUnitParts treats
+            //it as m-1 because isNumerator being false.
             bool isNumerator = (origInput == parseInfo.InputToParse);
             
             char symbol = ' ';
@@ -139,7 +139,6 @@ namespace FlexibleParser
             );
             
             parseInfo.UnitInfo = UpdateMainUnitVariables(parseInfo.UnitInfo);
-
             if (parseInfo.UnitInfo.Unit == Units.None)
             {
                 parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
@@ -153,7 +152,6 @@ namespace FlexibleParser
         {
             UnitSystems basicSystem = AllMetricEnglish[unitInfo.System];
             UnitInfo convertInfo = new UnitInfo(1m);
-            unitInfo.Parts = unitInfo.Parts.OrderBy(x => unitInfo.InitialPositions[x]).ToList();
 
             for (int i = 1; i < unitInfo.Parts.Count; i++)
             {
@@ -167,7 +165,12 @@ namespace FlexibleParser
                 {
                     UnitPart targetPart = GetTargetUnitPart
                     (
-                        unitInfo, part, type, (convertEnglish ? unitInfo.System : basicSystem)
+                        unitInfo, part, type, 
+                        (
+                            convertEnglish ?
+                            unitInfo.System :
+                            basicSystem
+                        )
                     );
 
                     if (targetPart == null || targetPart.Unit == part.Unit || GetTypeFromUnitPart(targetPart) != type)
@@ -185,10 +188,15 @@ namespace FlexibleParser
                     );
 
                     if (tempInfo == null) continue;
-                    //AdaptUnitParts doesn't perform a full conversion and the target prefix is ignored.
+                    //AdaptUnitParts doesn't perform an actual conversion, just an adaptation to the target format.
+                    //That's why it doesn't account for the target prefix and this fix is required.
                     tempInfo.Parts[0].Prefix = new Prefix(targetPart.Prefix);
 
-                    unitInfo = UpdateNewUnitPart(unitInfo, unitInfo.Parts[i], tempInfo.Parts[0]);
+                    unitInfo = UpdateNewUnitPart
+                    (
+                        unitInfo, unitInfo.Parts[i], 
+                        tempInfo.Parts[0]
+                    );
                     convertInfo = convertInfo * tempInfo;
                 }
             }
@@ -208,6 +216,8 @@ namespace FlexibleParser
                     //For example: in kg/m*ft, m is a good target for ft.
                     return new UnitPart(part2) 
                     { 
+                        //The exponent is removed because there was a non-exponent match.
+                        //Cases like m3-litre never reach this point and are analysed below.
                         Exponent = 1
                     };
                 }
@@ -293,7 +303,10 @@ namespace FlexibleParser
                     (
                         AllBasicUnits[type][system].Unit,
                         AllBasicUnits[type][system].PrefixFactor,
-                        1
+                        //Note that Exponents aren't relevant to define basic units (= always 1).
+                        //On the other hand, they might be formed by parts where the exponent is
+                        //relevant; for example: Units.CubicMetre (1 part with exponent 3).
+                        1 
                     );
                 }
             }
