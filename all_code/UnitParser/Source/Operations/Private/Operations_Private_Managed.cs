@@ -137,9 +137,9 @@ namespace FlexibleParser
             {
                 try
                 {
-                    //This operation is unlikely to trigger an error. In fact, with properly normalised variables,
+                    //Overflow-check very unlikely to trigger an error. In fact, with properly normalised variables,
                     //triggering an error would be plainly impossible.
-                    decimal tempVal = unitInfos2[0].Value + unitInfos2[1].Value *
+                    unitInfos2[0].Value = unitInfos2[0].Value + unitInfos2[1].Value *
                     (
                         operation == Operations.Addition ? 1 : -1
                     );
