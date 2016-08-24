@@ -157,7 +157,7 @@ namespace FlexibleParser
                 {
                     Error = new ErrorInfo(ErrorTypes.InvalidOperation)
                 } :
-                //Returning the new big value. For example: with 5*10^5 & 3*10^2, 500 would be returned.
+                //Returning the new big value. For example: with 5*10^4 & 3*10^2, 500 would be returned.
                 new UnitInfo(unitInfos2[bigSmallI[0]])
                 {
                     Value = big2.Value
