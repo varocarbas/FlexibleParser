@@ -23,6 +23,7 @@ namespace FlexibleParser
             );
 
         }
+
         private static ErrorTypes GetOperationError(UnitInfo[] unitInfos, Operations operation)
         {
             if (operation == Operations.None) return ErrorTypes.InvalidOperation;

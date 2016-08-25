@@ -39,12 +39,12 @@ namespace FlexibleParser
 
             if (unitInfo.Type == UnitTypes.None)
             {
-                unitInfo = GetTypeFromUnitInfo(unitInfo);
+                unitInfo.Type = GetTypeFromUnitInfo(unitInfo);
             }
 
             if (unitInfo.System == UnitSystems.None)
             {
-                unitInfo = GetSystemFromUnitInfo(unitInfo);
+                unitInfo.System = GetSystemFromUnitInfo(unitInfo);
             }
 
             return unitInfo;

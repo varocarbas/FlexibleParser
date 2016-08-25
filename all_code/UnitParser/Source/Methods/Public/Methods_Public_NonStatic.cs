@@ -13,7 +13,11 @@ namespace FlexibleParser
         {
             return ConvertToCommon
             (
-                this, new UnitInfo(0m, targetUnit, new Prefix(targetPrefix))
+                //Calling UpdateMainUnitVariables is required to populate the type/system variables.
+                this, UpdateMainUnitVariables 
+                (
+                    new UnitInfo(0m, targetUnit, new Prefix(targetPrefix))
+                )
             );
         }
 

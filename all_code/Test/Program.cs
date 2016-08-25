@@ -10,7 +10,6 @@ namespace Test
         static void Main(string[] args)
         {
             //------ The base class is UnitP. There are multiple ways to instantiate a UnitP variable.
-
             PrintSampleItem("Inst1", new UnitP("1 N")); //Unit symbol. Caps does matter.
             PrintSampleItem("Inst2", new UnitP(1m, UnitSymbols.Newton));
             PrintSampleItem("Inst3", new UnitP(1m, "nEwTon")); //Unit secondary string representation. Caps doesn't matter.  

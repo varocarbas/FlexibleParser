@@ -124,10 +124,13 @@ namespace FlexibleParser
 
         private static UnitInfo PerformConversion(UnitInfo originalInfo, UnitInfo targetInfo, bool matchTargetPrefix = true)
         {
-            ErrorTypes errorType = GetConversionError(originalInfo.Unit, targetInfo.Unit);
+            ErrorTypes errorType = GetConversionError(originalInfo, targetInfo);
             if (errorType != ErrorTypes.None)
             {
-                return new UnitInfo(originalInfo) { Error = new ErrorInfo(errorType) };
+                return new UnitInfo(originalInfo) 
+                { 
+                    Error = new ErrorInfo(errorType) 
+                };
             }
 
             UnitInfo targetInfo2 = NormaliseTargetUnit(targetInfo);
@@ -168,15 +171,27 @@ namespace FlexibleParser
             return outInfo;
         }
 
-        private static ErrorTypes GetConversionError(Units originalUnit, Units targetUnit)
+        private static ErrorTypes GetConversionError(UnitInfo originalInfo, UnitInfo targetInfo)
         {
             ErrorTypes outError = ErrorTypes.None;
 
-            if (originalUnit == Units.None || targetUnit == Units.None)
+            if (originalInfo.Unit == Units.None || targetInfo.Unit == Units.None)
             {
                 outError = ErrorTypes.InvalidUnit;
             }
-            else if (originalUnit == Units.Unitless || targetUnit == Units.Unitless)
+            else if (originalInfo.Unit == Units.Unitless || targetInfo.Unit == Units.Unitless)
+            {
+                outError = ErrorTypes.InvalidUnitConversion;
+            }
+            else if (originalInfo.Error.Type != ErrorTypes.None)
+            {
+                outError = originalInfo.Error.Type;
+            }
+            else if (targetInfo.Error.Type != ErrorTypes.None)
+            {
+                outError = targetInfo.Error.Type;
+            }
+            else if (originalInfo.Type == UnitTypes.None || originalInfo.Type != targetInfo.Type)
             {
                 outError = ErrorTypes.InvalidUnitConversion;
             }

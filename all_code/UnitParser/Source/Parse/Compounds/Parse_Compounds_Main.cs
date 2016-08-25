@@ -127,7 +127,7 @@ namespace FlexibleParser
             //This is the best place to determine the system before finding the unit, because the subsequent
             //unit part corrections might provoke some misunderstandings on this front (e.g., CGS named 
             //compound divided into SI basic units).
-            parseInfo.UnitInfo.System = GetSystemFromUnitInfo(parseInfo.UnitInfo).System;
+            parseInfo.UnitInfo.System = GetSystemFromUnitInfo(parseInfo.UnitInfo);
 
             //This is also an excellent place to correct eventual system mismatches. For example: N/pint 
             //where pint has to be converted into m3, the SI (first operand system) basic unit for volume.

@@ -241,7 +241,7 @@ namespace FlexibleParser
 
             if (unitInfo.Type == UnitTypes.None)
             {
-                unitInfo.Type = GetTypeFromUnitInfo(unitInfo).Type;
+                unitInfo.Type = GetTypeFromUnitInfo(unitInfo);
             }
             if (unitInfo.System == UnitSystems.None)
             {
@@ -284,8 +284,10 @@ namespace FlexibleParser
             return unitInfo;
         }
 
-        private static UnitInfo GetSystemFromUnitInfo(UnitInfo unitInfo)
+        private static UnitSystems GetSystemFromUnitInfo(UnitInfo unitInfo)
         {
+            UnitSystems outSystem = UnitSystems.None;
+
             //It helps to avoid misunderstandingg with "neutral types".
             //For example, to avoid s*ft to be understood as SI.
             List<UnitSystems> neutralSystems = new List<UnitSystems>();
@@ -303,23 +305,22 @@ namespace FlexibleParser
                 else
                 {
                     allNeutral = false;
-                    if (unitInfo.System == UnitSystems.None) unitInfo.System = system2;
-                    else if (unitInfo.System != system2) break;
+                    if (outSystem == UnitSystems.None) outSystem = system2;
+                    else if (outSystem != system2) break;
                 }
             }
 
-            if (unitInfo.System == UnitSystems.None && allNeutral && neutralSystems.Count > 0)
+            if (outSystem == UnitSystems.None && allNeutral && neutralSystems.Count > 0)
             {
                 //When all the units are "neutral", their defining system cannot be ignored.
-                unitInfo.System = neutralSystems.GroupBy(x => x).OrderByDescending(x => x.Count()).First().Key;
+                outSystem = neutralSystems.GroupBy(x => x).OrderByDescending(x => x.Count()).First().Key;
             }
 
-            if (unitInfo.System == UnitSystems.None)
-            {
-                unitInfo.System = GetSystemFromUnit(unitInfo.Unit);
-            }
-
-            return unitInfo;
+            return
+            (
+                outSystem != UnitSystems.None ?
+                outSystem : GetSystemFromUnit(unitInfo.Unit)
+            );
         }
 
         private static List<UnitPart> GetUnitPartsFromBasicCompound(Compound compound, UnitSystems system, int exponent = 0)
@@ -349,7 +350,7 @@ namespace FlexibleParser
 
             if (unitInfo.Type == UnitTypes.None)
             {
-                unitInfo.Type = GetTypeFromUnitInfo(unitInfo).Type;
+                unitInfo.Type = GetTypeFromUnitInfo(unitInfo);
             }
 
             return
@@ -539,7 +540,7 @@ namespace FlexibleParser
 
         private static bool IsDividable(UnitInfo unitInfo)
         {
-            unitInfo.Type = GetTypeFromUnitInfo(unitInfo).Type;
+            unitInfo.Type = GetTypeFromUnitInfo(unitInfo);
             
             return
             (

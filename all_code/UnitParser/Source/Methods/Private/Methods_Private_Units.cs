@@ -228,7 +228,7 @@ namespace FlexibleParser
             UnitInfo unitInfo = new UnitInfo(unitPart2.Unit, unitPart2.Prefix.Factor);
             unitInfo.Parts = new List<UnitPart>() { unitPart2 };
 
-            UnitTypes outType = GetTypeFromUnitInfo(unitInfo).Type;
+            UnitTypes outType = GetTypeFromUnitInfo(unitInfo);
             return 
             (
                 outType == UnitTypes.None && unitPart2.Exponent != 1 ?
@@ -238,19 +238,19 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo GetTypeFromUnitInfo(UnitInfo unitInfo)
+        private static UnitTypes GetTypeFromUnitInfo(UnitInfo unitInfo)
         {
+            UnitTypes outType = UnitTypes.None;
             if (unitInfo.Parts.Count > 0)
             {
-                unitInfo = GetBasicCompoundType(unitInfo);
+                outType = GetBasicCompoundType(unitInfo).Type;
             }
 
-            if (unitInfo.Type == UnitTypes.None)
-            {
-                unitInfo.Type = GetTypeFromUnit(unitInfo.Unit);
-            }
-
-            return unitInfo;
+            return
+            (
+                outType != UnitTypes.None ?
+                outType : GetTypeFromUnit(unitInfo.Unit)
+            );
         }
 
         private static UnitTypes GetTypeFromUnit(Units unit)

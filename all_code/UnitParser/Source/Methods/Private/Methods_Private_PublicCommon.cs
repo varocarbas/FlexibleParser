@@ -173,52 +173,45 @@ namespace FlexibleParser
 
         private static UnitP ConvertToCommon(UnitP original, UnitInfo targetInfo)
         {
-            UnitInfo originalInfo = new UnitInfo(original);
-            ErrorTypes error = GetErrorType(original, targetInfo);
-
-            if (error != ErrorTypes.None)
+            ErrorTypes error = PrelimaryErrorCheckConversion(original, targetInfo);
+            if (error != ErrorTypes.None) 
             {
                 return new UnitP(original, error);
             }
 
+            UnitInfo originalInfo = new UnitInfo(original);
             UnitInfo infoResult = ConvertUnit(originalInfo, targetInfo, false);
 
-            return new UnitP
+            return
             (
-                infoResult, original,
-                original.OriginalUnitString + " => " + GetUnitString(infoResult)
+                infoResult.Error.Type != ErrorTypes.None ?
+                new UnitP(original, infoResult.Error.Type) :
+                new UnitP
+                (
+                    infoResult, original,
+                    original.OriginalUnitString + " => " + GetUnitString(infoResult)
+                )
             );
         }
 
-        private static ErrorTypes GetErrorType(UnitP original, UnitInfo targetInfo)
+        private static ErrorTypes PrelimaryErrorCheckConversion(UnitP original, UnitInfo targetInfo)
         {
-            UnitTypes typeOrig = original.UnitType;
-            UnitTypes typeTarget = GetTypeFromUnitInfo(targetInfo).Type;
+            ErrorTypes outError = ErrorTypes.None;
 
-            ErrorTypes error =
-            (
-                original.Error.Type != ErrorTypes.None ?
-                original.Error.Type : targetInfo.Error.Type
-            );
-
-            if (error == ErrorTypes.None)
+            if (original == null)
             {
-                if (targetInfo.Unit == Units.None || targetInfo.Unit == Units.Unitless)
-                {
-                    error = ErrorTypes.InvalidUnit;
-                }
+                outError = ErrorTypes.InvalidUnit;
+            }
+            else if (original.Error.Type != ErrorTypes.None)
+            {
+                outError = original.Error.Type;
+            }
+            else if (targetInfo.Error.Type != ErrorTypes.None)
+            {
+                outError = targetInfo.Error.Type;
             }
 
-            if (error == ErrorTypes.None)
-            {
-                error =
-                (
-                    typeOrig != typeTarget || typeOrig == UnitTypes.None ?
-                    ErrorTypes.InvalidUnitConversion : ErrorTypes.None
-                );
-            }
-
-            return error;
+            return outError;
         }
     }
 

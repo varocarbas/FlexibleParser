@@ -21,10 +21,9 @@ namespace FlexibleParser
             );
         }
 
-        //This method is much more comprehensive than the alternative for values (PerformManagedOperationValues),
-        //because it assumes any scenario involving two units (understood as UnitInfo variables which might have Value, 
-        //BaseTenExponent and Prefix). In case of not having to worry about any of this, at least in one of the operands,
-        //(e.g., operation with numeric-type variables) PerformManagedOperationValues might be used.
+        //This method should always be used when dealing with random UnitInfo variables because it accounts for all the
+        //possible scenarios. On the other hand, with simple operations (e.g., random UnitInfo & numeric type) it might
+        //be better to use PerformManagedOperationValues. 
         private static UnitInfo PerformManagedOperationUnits(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
             ErrorTypes errorType = GetOperationError
@@ -68,8 +67,7 @@ namespace FlexibleParser
             if (operands2[0].BaseTenExponent != operands2[1].BaseTenExponent || operands2[0].Prefix.Factor != operands2[1].Prefix.Factor)
             {
                 //The addition/subtraction might not be performed right away even with normalised values.
-                //The base numbers of 5*10^2 and 6*10^7  (i.e., 5 & 6) might not be added right away; and
-                //this is precisely what normalised units are (i.e., value * 10^exp).
+                //For example: 5 and 6 from 5*10^2 and 6*10^7 cannot be added right away; same problem with normalised UnitInfo variables.
                 operands2 = AdaptNormalisedValuesForAddition
                 (
                     new UnitInfo[] 
@@ -88,7 +86,8 @@ namespace FlexibleParser
         {
             if (unitInfos2[0].BaseTenExponent == unitInfos2[1].BaseTenExponent)
             {
-                //Being normalised implies no prefixes.
+                //Same BaseTenExponent values means that the given operation can be performed right away 
+                //(bear in mind that normalised implies no prefixes).
                 return unitInfos2;
             }
 
@@ -98,8 +97,8 @@ namespace FlexibleParser
                 new int[] { 0, 1 } : new int[] { 1, 0 }
             );
 
-            //Only the variable with the bigger value would be modified. For example:
-            //5*10^5 & 3*10^3 is converted into 500*10^3 & 3*10^3 to allow 500+3. 
+            //Only the variable with the bigger value is modified. For example: 5*10^5 & 3*10^3 is converted
+            //into 500*10^3 & 3*10^3 in order to allow the addition 500 + 3. 
             UnitInfo big2 = AdaptBiggerAdditionOperand(unitInfos2, bigSmallI, operation);
             if (big2.Error.Type != ErrorTypes.None)
             {
@@ -114,23 +113,30 @@ namespace FlexibleParser
 
         private static UnitInfo AdaptBiggerAdditionOperand(UnitInfo[] unitInfos2, int[] bigSmallI, Operations operation)
         {
-            UnitInfo big2 = RaiseToIntegerExponent
+            int gapExponent = unitInfos2[bigSmallI[0]].BaseTenExponent - unitInfos2[bigSmallI[1]].BaseTenExponent;
+            if (gapExponent >= 27)
+            {
+                //The difference between both inputs is bigger than (or, at least, very close to) the maximum decimal value/precision;
+                //what makes this situation calculation unworthy and the first operand to be returned as the result.
+                //Note that the error below these lines is just an easy way to tell the calling function about this eventuality.
+                return new UnitInfo(unitInfos2[0]) 
+                { 
+                    Error = new ErrorInfo(ErrorTypes.InvalidOperation) 
+                };
+            }
+
+            //The reason for using PerformManagedOperationValues is to make sure that the resulting numeric information is stored
+            //in Value (if possible).
+            UnitInfo big2 = PerformManagedOperationValues
             (
-                10m,
-                unitInfos2[bigSmallI[0]].BaseTenExponent - unitInfos2[bigSmallI[1]].BaseTenExponent
-            ); 
-            
-            //Forces all the numeric information to be stored in Value (if possible).
-            big2 = PerformManagedOperationValues
-            (
-                big2, unitInfos2[bigSmallI[0]].Value, Operations.Multiplication                
+                RaiseToIntegerExponent(10m, gapExponent), unitInfos2[bigSmallI[0]].Value, 
+                Operations.Multiplication                
             );
 
             bool isWrong = false;
             if (big2.Error.Type != ErrorTypes.None || big2.BaseTenExponent != 0)
             {
-                //After removing the small value exponent, the big one is still too big (> decimal.MaxValue). 
-                //Under these conditions, the result is just the first operand (eventually converted).
+                //The value of the bigger input times 10^(gap between BaseTenExponent of inputs) is too big. 
                 isWrong = true;
             }
             else
@@ -144,15 +150,15 @@ namespace FlexibleParser
                         operation == Operations.Addition ? 1 : -1
                     );
                 }
-                catch
-                {
-                    isWrong = true;
-                }
+                catch { isWrong = true; }
             }
 
             return
             (
                 isWrong ?
+                //This error is just an easy way to let the calling function know about the fact that no
+                //calculation has been performed (too big gap). This isn't a properly-speaking error and
+                //that's why it will not be notified to the user.
                 new UnitInfo(unitInfos2[0])
                 {
                     Error = new ErrorInfo(ErrorTypes.InvalidOperation)
@@ -257,6 +263,13 @@ namespace FlexibleParser
             );
         }
 
+        //This method might be used to perform full operations (not just being the last calculation step) instead
+        //of the default one (PerformManagedOperationUnits) for simple cases. That is: ones not dealing with the
+        //complex numeric reality (Value, Prefix and BaseTenExponent) which makes a pre-analysis required.
+        //Note that, unlikely what happens with PerformMangedOperationUnits, the outputs of this method aren't
+        //normalised (= primarily stored under Value), what is useful in certain contexts.
+        //NOTE: this function assumes that both inputs are normalised, what means that no prefix information is expected.
+        //It might also be used with non-normalised inputs, but their prefix information would be plainly ignored.
         private static UnitInfo PerformManagedOperationValues(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {
             if (firstInfo.Value == 0m || secondInfo.Value == 0m)
@@ -277,7 +290,7 @@ namespace FlexibleParser
             {
                 if (operation == Operations.Addition)
                 {
-                    outInfo.Value += secondInfo.Value;
+                    outInfo.Value += secondInfo0.Value;
                 }
                 else if (operation == Operations.Subtraction)
                 {
@@ -346,7 +359,7 @@ namespace FlexibleParser
             catch
             {
                 //Very unlikely scenario on account of the fact that Math.Abs(secondInfo2.Value)
-                //lies within the 0.1-1.0 range.
+                //lies within the 0.1-10.0 range.
                 outInfo = OperationValuesManageError
                 (
                     new UnitInfo(outInfo)
@@ -372,7 +385,6 @@ namespace FlexibleParser
             {
                 return unitInfo;
             }
-
             UnitInfo outInfo = new UnitInfo(unitInfo);
 
             if (outInfo.Prefix.Factor != 1)
@@ -383,8 +395,7 @@ namespace FlexibleParser
                 );
                 outInfo.Prefix = new Prefix(outInfo.Prefix.PrefixUsage);
             }
-            
-            if (outInfo.Value == 0) return outInfo;
+            if (outInfo.Value == 0m) return outInfo;
 
             outInfo = FromValueToBaseTenExponent
             (
@@ -398,7 +409,11 @@ namespace FlexibleParser
         {
             decimal valueAbs = Math.Abs(value);
             bool decrease = (valueAbs > 1m);
-            if (!isPrefix) outInfo.Value = outInfo.Value / valueAbs;
+            if (!isPrefix)
+            {
+                //When reaching this point, valueAbs cannot be zero.
+                outInfo.Value = outInfo.Value / valueAbs;
+            }
 
             while (valueAbs != 1m)
             {
@@ -419,12 +434,12 @@ namespace FlexibleParser
                 if (decrease)
                 {
                     value /= 10m;
-                    outInfo.BaseTenExponent = outInfo.BaseTenExponent + 1;
+                    outInfo.BaseTenExponent += 1;
                 }
                 else
                 {
                     value *= 10m;
-                    outInfo.BaseTenExponent = outInfo.BaseTenExponent - 1;
+                    outInfo.BaseTenExponent -= 1;
                 }
 
                 valueAbs = Math.Abs(value);

@@ -212,7 +212,7 @@ namespace FlexibleParser
                     UnitType = 
                     (
                         UnitInfo.Type != UnitTypes.None ? UnitInfo.Type :
-                        GetTypeFromUnitInfo(UnitInfo).Type
+                        GetTypeFromUnitInfo(UnitInfo)
                     );
                     UnitSystem = 
                     (
