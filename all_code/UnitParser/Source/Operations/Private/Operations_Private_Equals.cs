@@ -6,39 +6,6 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static ErrorTypes GetUnitOperationError(UnitP first, UnitP second, Operations operation)
-        {
-            if (first.Unit == Units.None || second.Unit == Units.None)
-            {
-                return ErrorTypes.InvalidUnit;
-            }
-
-            return GetOperationError
-            (
-                new UnitInfo[] 
-                { 
-                    new UnitInfo(first), new UnitInfo(second) 
-                },
-                operation
-            );
-
-        }
-
-        private static ErrorTypes GetOperationError(UnitInfo[] unitInfos, Operations operation)
-        {
-            if (operation == Operations.None) return ErrorTypes.InvalidOperation;
-
-            foreach (UnitInfo info in unitInfos)
-            {
-                if (info.Error.Type != ErrorTypes.None)
-                {
-                    return info.Error.Type;
-                }
-            }
-
-            return ErrorTypes.None;
-        }
-
         private static bool UnitPVarsAreEqual(UnitP first, UnitP second)
         {
             return

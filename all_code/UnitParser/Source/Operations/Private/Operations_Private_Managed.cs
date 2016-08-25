@@ -28,7 +28,7 @@ namespace FlexibleParser
         {
             ErrorTypes errorType = GetOperationError
             (
-                new UnitInfo[] { firstInfo, secondInfo }, operation
+                firstInfo, secondInfo, operation
             );
             if (errorType != ErrorTypes.None)
             {

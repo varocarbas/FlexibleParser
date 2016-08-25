@@ -193,26 +193,6 @@ namespace FlexibleParser
                 )
             );
         }
-
-        private static ErrorTypes PrelimaryErrorCheckConversion(UnitP original, UnitInfo targetInfo)
-        {
-            ErrorTypes outError = ErrorTypes.None;
-
-            if (original == null)
-            {
-                outError = ErrorTypes.InvalidUnit;
-            }
-            else if (original.Error.Type != ErrorTypes.None)
-            {
-                outError = original.Error.Type;
-            }
-            else if (targetInfo.Error.Type != ErrorTypes.None)
-            {
-                outError = targetInfo.Error.Type;
-            }
-
-            return outError;
-        }
     }
 
     internal enum InputTypes { Unit, Type, TypeAndSystem, System }

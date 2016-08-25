@@ -111,14 +111,9 @@ namespace FlexibleParser
 
         private static UnitInfo ConvertUnit(UnitInfo originalInfo, UnitInfo targetInfo, bool matchTargetPrefix = true)
         {
-            return
+            return PerformConversion
             (
-                originalInfo.Type == targetInfo.Type ?
-                PerformConversion(originalInfo, targetInfo, matchTargetPrefix) :
-                new UnitInfo(originalInfo) 
-                { 
-                    Error = new ErrorInfo(ErrorTypes.InvalidUnit) 
-                }
+                originalInfo, targetInfo, matchTargetPrefix
             );
         }
 
@@ -169,34 +164,6 @@ namespace FlexibleParser
             }
 
             return outInfo;
-        }
-
-        private static ErrorTypes GetConversionError(UnitInfo originalInfo, UnitInfo targetInfo)
-        {
-            ErrorTypes outError = ErrorTypes.None;
-
-            if (originalInfo.Unit == Units.None || targetInfo.Unit == Units.None)
-            {
-                outError = ErrorTypes.InvalidUnit;
-            }
-            else if (originalInfo.Unit == Units.Unitless || targetInfo.Unit == Units.Unitless)
-            {
-                outError = ErrorTypes.InvalidUnitConversion;
-            }
-            else if (originalInfo.Error.Type != ErrorTypes.None)
-            {
-                outError = originalInfo.Error.Type;
-            }
-            else if (targetInfo.Error.Type != ErrorTypes.None)
-            {
-                outError = targetInfo.Error.Type;
-            }
-            else if (originalInfo.Type == UnitTypes.None || originalInfo.Type != targetInfo.Type)
-            {
-                outError = ErrorTypes.InvalidUnitConversion;
-            }
-
-            return outError;
         }
 
         //The only relevant part of the target unit value is the prefix.
@@ -314,23 +281,6 @@ namespace FlexibleParser
                 //Note that this output is always expected to modify the main value (= in the numerator).
                 originalPart.Exponent / Math.Abs(originalPart.Exponent)
             );
-        }
-
-        private static ErrorTypes GetUnitPartConversionError(UnitPart originalPart, UnitPart targetPart)
-        {
-            ErrorTypes outError = ErrorTypes.None;
-            
-            if (GetTypeFromUnitPart(originalPart) != GetTypeFromUnitPart(targetPart))
-            {
-                outError = ErrorTypes.InvalidUnitConversion;
-            }
-            else if (IsUnnamedUnit(originalPart.Unit) || IsUnnamedUnit(targetPart.Unit))
-            {
-                //Finding an unnamed compound here would be certainly an error.
-                outError = ErrorTypes.InvalidUnitConversion;
-            }
-
-            return outError;
         }
 
         //Relates all the original/target unit parts between each other in order to facilitate the subsequent unit conversion.

@@ -98,25 +98,6 @@ namespace FlexibleParser
             );
         }
 
-        private static ErrorTypes GetUnitValueOperationError(UnitP unitP, UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
-        {
-            ErrorTypes outError = GetOperationError
-            (
-                new UnitInfo[] { firstInfo, secondInfo }, operation
-            );
-
-            if (outError == ErrorTypes.None && unitP.Unit == Units.None)
-            {
-                outError = ErrorTypes.InvalidUnit;
-            }
-            else if (operation == Operations.Division && secondInfo.Value == 0m)
-            {
-                outError = ErrorTypes.NumericError;
-            }
-
-            return outError;
-        }
-
         private static UnitInfo InversePrefix(UnitInfo outInfo)
         {
             if (outInfo.Prefix.Factor == 1m) return outInfo;

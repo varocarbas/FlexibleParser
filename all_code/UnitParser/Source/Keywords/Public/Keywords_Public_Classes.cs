@@ -5,9 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace FlexibleParser
 {
-    ///<summary>
-    ///<para>Contains the information of unit constituent parts.</param>
-    ///</summary>
+    ///<summary><para>Contains the main information associated with unit constituent parts.</param></summary>
     public class UnitPart
     {
         public Units Unit { get; set; }
@@ -74,7 +72,7 @@ namespace FlexibleParser
         public override int GetHashCode() { return 0; }
     }
 
-    ///<summary><para>Contains the information of unit prefixes.</para></summary>
+    ///<summary><para>Contains the main information associated with unit prefixes.</para></summary>
     public class Prefix
     {
         ///<summary><para>Name of the unit prefix.</para></summary>
