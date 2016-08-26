@@ -409,10 +409,6 @@ namespace FlexibleParser
         ///<summary><para>Electromagnetic unit of resistance abbreviation. CGS-EMU electric resistance unit.</para></summary>
         public const string EMUOfResistance = "EMUres";
 
-        //--- Electric Resistivity 
-        ///<summary><para>Ohm metre symbol. SI electric resistivity unit.</para></summary>
-        public const string OhmMetre = "Ω*m";
-
         //--- Electric Conductance
         ///<summary><para>Siemens symbol. SI electric conductance unit.</para></summary>
         public const string Siemens = "S";
@@ -435,10 +431,6 @@ namespace FlexibleParser
         ///</summary>
         public const string Abmho = "ab℧";
 
-        //--- Electric Conductivity
-        ///<summary><para>Siemens per metre symbol. SI electric conductivity unit.</para></summary>
-        public const string SiemensPerMetre = "S/m";
-        
         //--- Electric Capacitance
         ///<summary><para>Farad symbol. SI electric capacitance unit.</para></summary>
         public const string Farad = "F";
@@ -501,7 +493,7 @@ namespace FlexibleParser
         public const string Poise = "P";
 
         //--- Kinematic Viscosity
-        ///<summary><para>Square metre per second symbol. SI kinematic viscosity unit.</para></summary>  
+        ///<summary><para>Square metre per second (m2/s). SI kinematic viscosity unit.</para></summary>  
         public const string SquareMetrePerSecond = "m2/s";
         ///<summary><para>Stokes symbol. CGS kinematic viscosity unit.</para></summary>
         public const string Stokes = "St";
@@ -529,7 +521,7 @@ namespace FlexibleParser
         public const string JouleSecond = "J*s";
 
         //--- Moment of Inertia
-        ///<summary><para>Kilogram square metre symbol. SI moment of inertia unit.</para></summary>  
+        ///<summary><para>Kilogram square metre. SI moment of inertia unit.</para></summary>  
         public const string KilogramSquareMetre = "kg*m2";
 
         //--- Solid Angle
@@ -625,142 +617,100 @@ namespace FlexibleParser
         ///<summary><para>Katal symbol. SI catalytic activity unit.</para></summary> 
         public const string Katal = "kat";
 
-        //--- Catalytic Activity Concentration
-        ///<summary><para>Katal per cubic metre symbol. SI catalytic activity concentration unit.</para></summary> 
-        public const string KatalPerCubicMetre = "kat/m3";
-
         //--- Jerk
-        ///<summary><para>Metre per cubic second symbol. SI jerk unit.</para></summary> 
+        ///<summary><para>Metre per cubic second. SI jerk unit.</para></summary> 
         public const string MetrePerCubicSecond = "m/s3";
 
         //--- Mass Flow Rate
-        ///<summary><para>Kilogram per second symbol. SI mass flow rate unit.</para></summary> 
+        ///<summary><para>Kilogram per second. SI mass flow rate unit.</para></summary> 
         public const string KilogramPerSecond = "kg/s";
 
         //--- Density
-        ///<summary><para>Kilogram per cubic metre symbol. SI density unit.</para></summary> 
+        ///<summary><para>Kilogram per cubic metre. SI density unit.</para></summary> 
         public const string KilogramPerCubicMetre = "kg/m3";
 
-        //--- Area Density
-        ///<summary><para>Kilogram per square metre symbol. SI area density unit.</para></summary> 
-        public const string KilogramPerSquareMetre = "kg/m2";
-
         //--- Specific Volume
-        ///<summary><para>Cubic metre per kilogram symbol. SI specific volume unit.</para></summary> 
+        ///<summary><para>Cubic metre per kilogram. SI specific volume unit.</para></summary> 
         public const string CubicMetrePerKilogram = "m3/kg";
 
         //--- Volumetric Flow Rate
-        ///<summary><para>Cubic metre per second symbol. SI volumetric flow rate unit.</para></summary> 
+        ///<summary><para>Cubic metre per second. SI volumetric flow rate unit.</para></summary> 
         public const string CubicMetrePerSecond = "m3/s";
 
         //--- Surface Tension
-        ///<summary><para>Joule per square metre symbol. SI surface tension unit.</para></summary> 
+        ///<summary><para>Joule per square metre. SI surface tension unit.</para></summary> 
         public const string JoulePerSquareMetre = "J/m2";
 
         //--- Specific Weight
-        ///<summary><para>Newton per cubic metre symbol. SI specific weight unit.</para></summary> 
+        ///<summary><para>Newton per cubic metre. SI specific weight unit.</para></summary> 
         public const string NewtonPerCubicMetre = "N/m3";
 
         //--- Thermal Conductivity
-        ///<summary><para>Watt per metre per kelvin symbol. SI thermal conductivity unit.</para></summary> 
+        ///<summary><para>Watt per metre per kelvin. SI thermal conductivity unit.</para></summary> 
         public const string WattPerMetrePerKelvin = "W/m*K";
 
         //--- Thermal Conductance
-        ///<summary><para>Watt per kelvin symbol. SI thermal conductance unit.</para></summary> 
+        ///<summary><para>Watt per kelvin. SI thermal conductance unit.</para></summary> 
         public const string WattPerKelvin = "W/K";
 
         //--- Thermal Resistivity
-        ///<summary><para>Metre kelvin per watt symbol. SI thermal resistivity unit.</para></summary> 
+        ///<summary><para>Metre kelvin per watt. SI thermal resistivity unit.</para></summary> 
         public const string MetreKelvinPerWatt = "m*K/W";
 
         //--- Thermal Resistance
-        ///<summary><para>Kelvin per watt symbol. SI thermal resistance unit.</para></summary> 
+        ///<summary><para>Kelvin per watt. SI thermal resistance unit.</para></summary> 
         public const string KelvinPerWatt = "K/W";
 
         //--- Heat Transfer Coefficient
-        ///<summary><para>Watt per square metre per kelvin symbol. SI heat transfer coefficient unit.</para></summary> 
+        ///<summary><para>Watt per square metre per kelvin. SI heat transfer coefficient unit.</para></summary> 
         public const string WattPerSquareMetrePerKelvin = "W/m2*K";
 
         //--- Heat Flux Density
-        ///<summary><para>Watt per square metre symbol. SI heat flux density unit.</para></summary> 
+        ///<summary><para>Watt per square metre. SI heat flux density unit.</para></summary> 
         public const string WattPerSquareMetre = "W/m2";
 
         //--- Entropy
-        ///<summary><para>Joule per kelvin symbol. SI entropy unit.</para></summary> 
+        ///<summary><para>Joule per kelvin. SI entropy unit.</para></summary> 
         public const string JoulePerKelvin = "J/K";
 
         //--- Electric Field Strength
-        ///<summary><para>Newton per coulomb symbol. SI Electric Field Strength unit.</para></summary> 
+        ///<summary><para>Newton per coulomb. SI Electric Field Strength unit.</para></summary> 
         public const string NewtonPerCoulomb = "N/C";
 
         //--- Linear Electric Charge Density
-        ///<summary><para>Coulomb per metre symbol. SI linear electric charge density unit.</para></summary> 
+        ///<summary><para>Coulomb per metre. SI linear electric charge density unit.</para></summary> 
         public const string CoulombPerMetre = "C/m";
 
         //--- Surface Electric Charge Density
-        ///<summary><para>Coulomb per square metre symbol. SI surface electric charge density unit.</para></summary> 
+        ///<summary><para>Coulomb per square metre. SI surface electric charge density unit.</para></summary> 
         public const string CoulombPerSquareMetre = "C/m2";
 
         //--- Volume Electric Charge Density
-        ///<summary><para>Coulomb per cubic metre symbol. SI volume electric charge density unit.</para></summary> 
+        ///<summary><para>Coulomb per cubic metre. SI volume electric charge density unit.</para></summary> 
         public const string CoulombPerCubicMetre = "C/m3";
 
-        //--- Current Density
-        ///<summary><para>Ampere per square metre symbol. SI current density unit.</para></summary> 
-        public const string AmperePerSquareMetre = "A/m2";
-
-        //--- Energy Density
-        ///<summary><para>Joule per cubic metre symbol. SI energy density unit.</para></summary> 
-        public const string JoulePerCubicMetre = "J/m3";
-
         //--- Permittivity
-        ///<summary><para>Farad per metre symbol. SI permittivity unit.</para></summary> 
+        ///<summary><para>Farad per metre. SI permittivity unit.</para></summary> 
         public const string FaradPerMetre = "F/m";
 
         //--- Permeability
-        ///<summary><para>Henry per metre symbol. SI permeability unit.</para></summary> 
+        ///<summary><para>Henry per metre. SI permeability unit.</para></summary> 
         public const string HenryPerMetre = "H/m";
 
-        //--- Molar Concentration
-        ///<summary><para>Mole per cubic metre symbol. SI molar concentration unit.</para></summary> 
-        public const string MolePerCubicMetre = "mol/m3";
-
         //--- Molar Energy
-        ///<summary><para>Joule per mole symbol. SI molar energy unit.</para></summary> 
+        ///<summary><para>Joule per mole. SI molar energy unit.</para></summary> 
         public const string JoulePerMole = "J/mol";
 
         //--- Molar Entropy
-        ///<summary><para>Joule per mole per kelvin symbol. SI molar entropy unit.</para></summary> 
+        ///<summary><para>Joule per mole per kelvin. SI molar entropy unit.</para></summary> 
         public const string JoulePerMolePerKelvin = "J/mol*K";
 
         //--- Radiant Intensity
-        ///<summary><para>Watt per steradian symbol. SI radiant intensity unit.</para></summary> 
+        ///<summary><para>Watt per steradian. SI radiant intensity unit.</para></summary> 
         public const string WattPerSteradian = "W/sr";
 
         //--- Radiance
-        ///<summary><para>Watt per steradian per square metre symbol. SI radiance unit.</para></summary> 
+        ///<summary><para>Watt per steradian per square metre. SI radiance unit.</para></summary> 
         public const string WattPerSteradianPerSquareMetre = "W/sr*m2";
-        
-        //--- Fuel Economomy
-        ///<summary><para>Inverse square metre symbol. SI fuel economy unit.</para></summary> 
-        public const string InverseSquareMetre = "1/m2";
-        ///<summary><para>Imperial mile per gallon abbreviation. Imperial fuel economy unit.</para></summary> 
-        public const string MilePerGallon = "mpg";
-        ///<summary><para>Imperial mile per gallon abbreviation. Imperial fuel economy unit.</para></summary> 
-        public const string ImperialMilePerGallon = "impmpg";
-        ///<summary><para>USCS mile per gallon abbreviation. USCS fuel economy unit.</para></summary> 
-        public const string USCSMilePerGallon = "uscmpg";
-
-        //--- Sound Exposure
-        ///<summary><para>Square pascal second symbol. SI sound exposure unit.</para></summary> 
-        public const string SquarePascalSecond = "Pa2*s";
-
-        //--- Sound Impedance
-        ///<summary><para>Pascal second per cubic metre symbol. SI sound impedance unit.</para></summary> 
-        public const string PascalSecondPerCubicMetre = "Pa*s/m3";
-
-        //--- Rotational Stiffness
-        ///<summary><para>Newton metre per radian symbol. SI rotational stiffness unit.</para></summary> 
-        public const string NewtonMetrePerRadian = "N*m/rad";
     }
 }

@@ -911,13 +911,6 @@ namespace FlexibleParser
         ///</summary>
         EMUOfResistance,
 
-        //--- Electric Resistivity 
-        ///<summary>
-        ///<para>Ohm metre (Ω*m). SI electric resistivity unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>  
-        ///</summary>
-        OhmMetre,
-
         //--- Electric Conductance
         ///<summary>
         ///<para>Siemens (S). SI electric conductance unit.</para>
@@ -954,13 +947,6 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>             
         ///</summary>
         Abmho,
-
-        //--- Electric Conductivity
-        ///<summary>
-        ///<para>Siemens per metre (S/m). SI electric conductivity unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>  
-        ///</summary>
-        SiemensPerMetre,
 
         //--- Electric Capacitance
         ///<summary>
@@ -1306,13 +1292,6 @@ namespace FlexibleParser
         ///</summary> 
         Katal,
 
-        //--- Catalytic Activity Concentration
-        ///<summary>
-        ///<para>Katal per cubic metre (kat/m3). SI catalytic activity concentration unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        KatalPerCubicMetre,
-
         //--- Jerk
         ///<summary>
         ///<para>Metre per cubic second (m/s3). SI jerk unit.</para>
@@ -1333,20 +1312,6 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         KilogramPerCubicMetre,
-
-        //--- Area Density
-        ///<summary>
-        ///<para>Kilogram per square metre (kg/m2). SI area density unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        KilogramPerSquareMetre,
-
-        //--- Energy Density
-        ///<summary>
-        ///<para>Joule per cubic metre (J/m3). SI energy density unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        JoulePerCubicMetre,
 
         //--- Specific Volume
         ///<summary>
@@ -1453,13 +1418,6 @@ namespace FlexibleParser
         ///</summary> 
         CoulombPerCubicMetre,
 
-        //--- Current Density
-        ///<summary>
-        ///<para>Ampere per square metre (A/m2). SI current density unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        AmperePerSquareMetre,
-
         //--- Permittivity
         ///<summary>
         ///<para>Farad per metre (F/m). SI permittivity unit.</para>
@@ -1473,13 +1431,6 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         HenryPerMetre,
-
-        //--- Molar Concentration
-        ///<summary>
-        ///<para>Mole per cubic metre (mol/m3). SI molar concentration unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        MolePerCubicMetre,
 
         //--- Molar Energy
         ///<summary>
@@ -1508,48 +1459,5 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         WattPerSteradianPerSquareMetre,
-
-        //--- Fuel Economomy
-        ///<summary>
-        ///<para>Inverse square metre (1/m2). SI fuel economy unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        InverseSquareMetre,
-        ///<summary>
-        ///<para>Imperial mile per gallon (mpg). Imperial fuel economy unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        MilePerGallon,
-        ///<summary>
-        ///<para>Imperial mile per gallon (impmpg). Imperial fuel economy unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        ImperialMilePerGallon,
-        ///<summary>
-        ///<para>USCS mile per gallon (uscmpg). USCS fuel economy unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>          
-        ///</summary>     
-        USCSMilePerGallon,
-
-        //--- Sound Exposure
-        ///<summary>
-        ///<para>Square pascal second (Pa2*s). SI sound exposure unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        SquarePascalSecond,
-
-        //--- Sound Impedance
-        ///<summary>
-        ///<para>Pascal second per cubic metre (Pa*s/m3). SI sound impedance unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        PascalSecondPerCubicMetre,
-
-        //--- Rotational Stiffness
-        ///<summary>
-        ///<para>Newton metre per radian (N*m/rad). SI rotational stiffness unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        NewtonMetrePerRadian,
     };
 }

@@ -217,9 +217,6 @@ namespace FlexibleParser
             { UnitSymbols.ESUOfResistance, Units.ESUOfResistance }, 
             { UnitSymbols.Abohm, Units.Abohm }, 
             { UnitSymbols.EMUOfResistance, Units.EMUOfResistance }, 
-            
-            //--- Electric Resistivity 
-            { UnitSymbols.OhmMetre, Units.OhmMetre },  
 
             //--- Electric Conductance
             { UnitSymbols.Siemens, Units.Siemens },  
@@ -229,9 +226,6 @@ namespace FlexibleParser
             { UnitSymbols.Statmho, Units.Statmho }, 
             { UnitSymbols.Absiemens, Units.Absiemens }, 
             { UnitSymbols.Abmho, Units.Abmho }, 
-
-            //--- Electric Conductivity
-            { UnitSymbols.SiemensPerMetre, Units.SiemensPerMetre },  
 
             //--- Electric Capacitance
             { UnitSymbols.Farad, Units.Farad },  
@@ -345,9 +339,6 @@ namespace FlexibleParser
             //--- Catalytic Activity
             { UnitSymbols.Katal, Units.Katal }, 
 
-            //--- Catalytic Activity Concentration
-            { UnitSymbols.KatalPerCubicMetre, Units.KatalPerCubicMetre }, 
-
             //--- Jerk
             { UnitSymbols.MetrePerCubicSecond, Units.MetrePerCubicSecond },
 
@@ -356,12 +347,6 @@ namespace FlexibleParser
 
             //--- Density
             { UnitSymbols.KilogramPerCubicMetre, Units.KilogramPerCubicMetre },
-
-            //--- Area Density
-            { UnitSymbols.KilogramPerSquareMetre, Units.KilogramPerSquareMetre },
-
-            //--- Energy Density
-            { UnitSymbols.JoulePerCubicMetre, Units.JoulePerCubicMetre },
 
             //--- Specific Volume
             { UnitSymbols.CubicMetrePerKilogram, Units.CubicMetrePerKilogram },
@@ -408,41 +393,23 @@ namespace FlexibleParser
             //--- Volume Electric Charge Density
             { UnitSymbols.CoulombPerCubicMetre, Units.CoulombPerCubicMetre },
 
-            //--- Current Density
-            { UnitSymbols.AmperePerSquareMetre, Units.AmperePerSquareMetre },
-
             //--- Permittivity
             { UnitSymbols.FaradPerMetre, Units.FaradPerMetre },
 
             //--- Permeability
             { UnitSymbols.HenryPerMetre, Units.HenryPerMetre },
 
+            //--- Molar Energy
+            { UnitSymbols.JoulePerMole, Units.JoulePerMole },
+
             //--- Molar Entropy
             { UnitSymbols.JoulePerMolePerKelvin, Units.JoulePerMolePerKelvin },
-
-            //--- Molar Concentration
-            { UnitSymbols.MolePerCubicMetre, Units.MolePerCubicMetre },
 
             //--- Radiant Intensity
             { UnitSymbols.WattPerSteradian, Units.WattPerSteradian },
 
             //--- Radiance
-            { UnitSymbols.WattPerSteradianPerSquareMetre, Units.WattPerSteradianPerSquareMetre },
-
-            //--- Fuel Economy
-            { UnitSymbols.InverseSquareMetre, Units.InverseSquareMetre },
-            { UnitSymbols.MilePerGallon, Units.MilePerGallon },
-            { UnitSymbols.ImperialMilePerGallon, Units.ImperialMilePerGallon },
-            { UnitSymbols.USCSMilePerGallon, Units.USCSMilePerGallon },
-
-            //--- Sound Exposure
-            { UnitSymbols.SquarePascalSecond, Units.SquarePascalSecond },
-
-            //--- Sound Impedance
-            { UnitSymbols.PascalSecondPerCubicMetre, Units.PascalSecondPerCubicMetre },
-
-            //--- Rotational Stiffness
-            { UnitSymbols.NewtonMetrePerRadian, Units.NewtonMetrePerRadian }
+            { UnitSymbols.WattPerSteradianPerSquareMetre, Units.WattPerSteradianPerSquareMetre }
         };
 
         //Contains all the units outside the SI-prefix-supporting systems (i.e., UnitSystems.SI & UnitSystems.CGS)

@@ -439,13 +439,6 @@ namespace FlexibleParser
         ///<summary><para>Electromagnetic unit of resistance (EMUres) conversion factor. CGS-EMU electric resistance unit.</para></summary>
         public const decimal EMUOfResistance = 1E-9m;
 
-        //--- Electric Resistivity
-        ///<summary>
-        ///<para>Ohm metre (Ω*m) conversion factor. SI electric resistivity unit.</para>
-        ///<para>Reference point for all the electric resistivity units.</para>
-        ///</summary>
-        public const decimal OhmMetre = 1m;
-
         //--- Electric Conductance
         ///<summary>
         ///<para>Siemens (S) conversion factor. SI electric conductance unit.</para>
@@ -464,13 +457,6 @@ namespace FlexibleParser
         public const decimal Absiemens = 1E9m;
         ///<summary><para>Abmho (ab℧) conversion factor. CGS-EMU electric conductance unit.</para></summary>
         public const decimal Abmho = 1E9m;
-
-        //--- Electric Conductivity
-        ///<summary>
-        ///<para>Siemens per metre (S/m) conversion factor. SI electric conductivity unit.</para>
-        ///<para>Reference point for all the electric conductivity units.</para>
-        ///</summary>
-        public const decimal SiemensPerMetre = 1m;
 
         //--- Electric Capacitance
         ///<summary><para>Farad (F) conversion factor. SI electric capacitance unit.</para><para>Reference point for all the electric capacitance units.</para></summary>
@@ -649,7 +635,7 @@ namespace FlexibleParser
         ///<para>Reference point for all the magnetic flux units.</para>
         ///</summary>
         public const decimal Weber = 1m;
-        ///<summary><para>Maxwell (Mx) conversion factor.</para><para>CGS-Gaussian/CGS-EMU magnetic flux unit.</para></summary>                         
+        ///<summary><para>Maxwell (Mx).</para><para>CGS-Gaussian/CGS-EMU magnetic flux unit.</para></summary>                         
         public const decimal Maxwell = 1E-8m;
 
         //--- Magnetic Field B
@@ -658,7 +644,7 @@ namespace FlexibleParser
         ///<para>Reference point for all the magnetic field B units.</para>
         ///</summary>
         public const decimal Tesla = 1m;
-        ///<summary><para>Gauss (G) conversion factor. CGS-Gaussian/CGS-EMU magnetic field B unit.</para></summary>                         
+        ///<summary><para>Gauss (G). CGS-Gaussian/CGS-EMU magnetic field B unit.</para></summary>                         
         public const decimal Gauss = 1E-4m;
 
         //--- Magnetic Field H
@@ -700,7 +686,7 @@ namespace FlexibleParser
         ///<para>Reference point for all the equivalent dose units.</para>
         ///</summary> 
         public const decimal Sievert = 1m;
-        ///<summary><para>Roentgen equivalent in man (rem) conversion factor. CGS equivalent dose unit.</para></summary> 
+        ///<summary><para>Roentgen equivalent in man (rem). CGS equivalent dose unit.</para></summary> 
         public const decimal REM = 0.01m;
 
         //--- Catalytic Activity
@@ -710,232 +696,172 @@ namespace FlexibleParser
         ///</summary> 
         public const decimal Katal = 1m;
 
-        //--- Catalytic Activity Concentration
-        ///<summary>
-        ///<para>Katal per cubic metre (kat/m3) conversion factor. SI catalytic activity concentration unit.</para>
-        ///<para>Reference point for all the catalytic activity concentration units.</para>            
-        ///</summary> 
-        public const decimal KatalPerCubicMetre = 1m;
-
         //--- Jerk
         ///<summary>
-        ///<para>Metre per cubic second (m/s3) conversion factor. SI jerk unit.</para>
+        ///<para>Metre per cubic second (m/s3). SI jerk unit.</para>
         ///<para>Reference point for all the jerk units.</para>
         ///</summary> 
         public const decimal MetrePerCubicSecond = 1m;
 
         //--- Mass Flow Rate
         ///<summary>
-        ///<para>Kilogram per second (kg/s) conversion factor. SI mass flow rate unit.</para>
+        ///<para>Kilogram per second (kg/s). SI mass flow rate unit.</para>
         ///<para>Reference point for all the mass flow rate units.</para>          
         ///</summary> 
         public const decimal KilogramPerSecond = 1m;
 
         //--- Density
         ///<summary>
-        ///<para>Kilogram per cubic metre (kg/m3) conversion factor. SI density unit.</para>
+        ///<para>Kilogram per cubic metre (kg/m3). SI density unit.</para>
         ///<para>Reference point for all the density units.</para>            
         ///</summary> 
         public const decimal KilogramPerCubicMetre = 1m;
 
-        //--- Area Density
-        ///<summary>
-        ///<para>Kilogram per square metre (kg/m2) conversion factor. SI area density unit.</para>
-        ///<para>Reference point for all the area density units.</para>            
-        ///</summary> 
-        public const decimal KilogramPerSquareMetre = 1m;
-
-        //--- Energy Density
-        ///<summary>
-        ///<para>Joule per cubic metre (J/m3) conversion factor. SI energy density unit.</para>
-        ///<para>Reference point for all the energy density units.</para>            
-        ///</summary> 
-        public const decimal JoulePerCubicMetre = 1m;
-
         //--- Specific Volume
         ///<summary>
-        ///<para>Cubic metre per kilogram (m3/kg) conversion factor. SI specific volume unit.</para>
+        ///<para>Cubic metre per kilogram (m3/kg). SI specific volume unit.</para>
         ///<para>Reference point for all the specific volume units.</para>            
         ///</summary> 
         public const decimal CubicMetrePerKilogram = 1m;
 
         //--- Volumetric Flow Rate
         ///<summary>
-        ///<para>Cubic metre per second (m3/s) conversion factor. SI volumetric flow rate unit.</para>
+        ///<para>Cubic metre per second (m3/s). SI volumetric flow rate unit.</para>
         ///<para>Reference point for all the volumetric flow rate units.</para>                
         ///</summary> 
         public const decimal CubicMetrePerSecond = 1m;
 
         //--- Surface Tension
         ///<summary>
-        ///<para>Joule per square metre (J/m2) conversion factor. SI surface tension unit.</para>
+        ///<para>Joule per square metre (J/m2). SI surface tension unit.</para>
         ///<para>Reference point for all the surface tension units.</para>            
         ///</summary> 
         public const decimal JoulePerSquareMetre = 1m;
 
         //--- Specific Weight
         ///<summary>
-        ///<para>Newton per cubic metre (N/m3) conversion factor. SI specific weight unit.</para>
+        ///<para>Newton per cubic metre (N/m3). SI specific weight unit.</para>
         ///<para>Reference point for all the specific weight units.</para>            
         ///</summary> 
         public const decimal NewtonPerCubicMetre = 1m;
 
         //--- Thermal Conductivity
         ///<summary>
-        ///<para>Watt per metre per kelvin (W/m*K) conversion factor. SI thermal conductivity unit.</para>
+        ///<para>Watt per metre per kelvin (W/m*K). SI thermal conductivity unit.</para>
         ///<para>Reference point for all the thermal conductivity units.</para>            
         ///</summary> 
         public const decimal WattPerMetrePerKelvin = 1m;
 
         //--- Thermal Conductance
         ///<summary>
-        ///<para>Watt per kelvin (W/K) conversion factor. SI thermal conductance unit.</para>
+        ///<para>Watt per kelvin (W/K). SI thermal conductance unit.</para>
         ///<para>Reference point for all the thermal conductance units.</para>            
         ///</summary> 
         public const decimal WattPerKelvin = 1m;
 
         //--- Thermal Resistivity
         ///<summary>
-        ///<para>Metre kelvin per watt (m*K/W) conversion factor. SI thermal resistivity unit.</para>
+        ///<para>Metre kelvin per watt (m*K/W). SI thermal resistivity unit.</para>
         ///<para>Reference point for all the thermal resistivity units.</para>             
         ///</summary> 
         public const decimal MetreKelvinPerWatt = 1m;
 
         //--- Thermal Resistance
         ///<summary>
-        ///<para>Kelvin per watt (K/W) conversion factor. SI thermal resistance unit.</para>
+        ///<para>Kelvin per watt (K/W). SI thermal resistance unit.</para>
         ///<para>Reference point for all the thermal resistance units.</para>             
         ///</summary> 
         public const decimal KelvinPerWatt = 1m;
 
         //--- Heat Transfer Coefficient
         ///<summary>
-        ///<para>Watt per square metre per kelvin (W/m2*K) conversion factor. SI heat transfer coefficient unit.</para>
+        ///<para>Watt per square metre per kelvin (W/m2*K). SI heat transfer coefficient unit.</para>
         ///<para>Reference point for all the heat transfer coefficient units.</para>             
         ///</summary> 
         public const decimal WattPerSquareMetrePerKelvin = 1m;
 
         //--- Heat Flux Density
         ///<summary>
-        ///<para>Watt per square metre (W/m2) conversion factor. SI heat flux density unit.</para>
+        ///<para>Watt per square metre (W/m2). SI heat flux density unit.</para>
         ///<para>Reference point for all the heat flux density units.</para>             
         ///</summary> 
         public const decimal WattPerSquareMetre = 1m;
 
         //--- Entropy
         ///<summary>
-        ///<para>Joule per kelvin (J/K) conversion factor. SI entropy unit.</para>
+        ///<para>Joule per kelvin (J/K). SI entropy unit.</para>
         ///<para>Reference point for all the entropy units.</para>  
         /// </summary> 
         public const decimal JoulePerKelvin = 1m;
 
         //--- Electric Field Strength
         ///<summary>
-        ///<para>Newton per coulomb (N/C) conversion factor. SI Electric Field Strength unit.</para>
+        ///<para>Newton per coulomb (N/C). SI Electric Field Strength unit.</para>
         ///<para>Reference point for all the Electric Field Strength units.</para>              
         ///</summary> 
         public const decimal NewtonPerCoulomb = 1m;
 
         //--- Linear Electric Charge Density
         ///<summary>
-        ///<para>Coulomb per metre (C/m) conversion factor. SI linear electric charge density unit.</para>
+        ///<para>Coulomb per metre (C/m). SI linear electric charge density unit.</para>
         ///<para>Reference point for all the linear electric charge units.</para>              
         ///</summary> 
         public const decimal CoulombPerMetre = 1m;
 
         //--- Surface Electric Charge Density
         ///<summary>
-        ///<para>Coulomb per square metre (C/m2) conversion factor. SI surface electric charge density unit.</para>
+        ///<para>Coulomb per square metre (C/m2). SI surface electric charge density unit.</para>
         ///<para>Reference point for all the surface electric charge units.</para>              
         ///</summary> 
         public const decimal CoulombPerSquareMetre = 1m;
 
         //--- Volume Electric Charge Density
         ///<summary>
-        ///<para>Coulomb per cubic metre (C/m3) conversion factor. SI volume electric charge density unit.</para>
+        ///<para>Coulomb per cubic metre (C/m3). SI volume electric charge density unit.</para>
         ///<para>Reference point for all the volume electric charge density units.</para>              
         ///</summary> 
         public const decimal CoulombPerCubicMetre = 1m;
 
-        //--- Current Density
-        ///<summary>
-        ///<para>Ampere per square metre (A/m2) conversion factor. SI current density unit.</para>
-        ///<para>Reference point for all the current density units.</para>            
-        ///</summary> 
-        public const decimal AmperePerSquareMetre = 1m;
-
         //--- Permittivity
         ///<summary>
-        ///<para>Farad per metre (F/m) conversion factor. SI permittivity unit.</para>
+        ///<para>Farad per metre (F/m). SI permittivity unit.</para>
         ///<para>Reference point for all the permittivity units.</para>              
         ///</summary> 
         public const decimal FaradPerMetre = 1m;
 
         //--- Permeability
         ///<summary>
-        ///<para>Henry per metre (H/m) conversion factor. SI permeability unit.</para>
+        ///<para>Henry per metre (H/m). SI permeability unit.</para>
         ///<para>Reference point for all the permeability units.</para>              
         ///</summary> 
         public const decimal HenryPerMetre = 1m;
 
-        //--- Molar Concentration
-        ///<summary>
-        ///<para>Mole per cubic metre (mol/m3) conversion factor. SI molar concentration unit.</para>
-        ///<para>Reference point for all the molar concentration units.</para>            
-        ///</summary> 
-        public const decimal MolePerCubicMetre = 1m;
-
         //--- Molar Energy
         ///<summary>
-        ///<para>Joule per mole (J/mol) conversion factor. SI molar energy unit.</para>
+        ///<para>Joule per mole (J/mol). SI molar energy unit.</para>
         ///<para>Reference point for all the molar energy units.</para>              
         ///</summary> 
         public const decimal JoulePerMole = 1m;
 
         //--- Molar Entropy
         ///<summary>
-        ///<para>Joule per mole per kelvin (J/mol*K) conversion factor. SI molar entropy unit.</para>
+        ///<para>Joule per mole per kelvin (J/mol*K). SI molar entropy unit.</para>
         ///<para>Reference point for all the molar entropy units.</para>              
         ///</summary> 
         public const decimal JoulePerMolePerKelvin = 1m;
 
         //--- Radiant Intensity
         ///<summary>
-        ///<para>Watt per steradian (W/sr) conversion factor. SI radiant intensity unit.</para>
+        ///<para>Watt per steradian (W/sr). SI radiant intensity unit.</para>
         ///<para>Reference point for all the radiant intensity units.</para>              
         ///</summary> 
         public const decimal WattPerSteradian = 1m;
 
         //--- Radiance
         ///<summary>
-        ///<para>Watt per steradian per square metre (W/sr*m2) conversion factor. SI radiance unit.</para>
+        ///<para>Watt per steradian per square metre (W/sr*m2). SI radiance unit.</para>
         ///<para>Reference point for all the radiance units.</para>              
         ///</summary> 
         public const decimal WattPerSteradianPerSquareMetre = 1m;
-
-        //--- Fuel Economomy
-        ///<summary>
-        ///<para>Inverse square metre (1/m2) conversion factor. SI fuel economy unit.</para>
-        ///<para>Reference point for all the fuel economy units.</para>            
-        ///</summary> 
-        public const decimal InverseSquareMetre = 1m;
-        ///<summary><para>Imperial mile per gallon (mpg) conversion factor. Imperial fuel economy unit.</para></summary> 
-        public const decimal MilePerGallon = 354006.18993464713633034101833m;
-        ///<summary><para>Imperial mile per gallon (impmpg) conversion factor. Imperial fuel economy unit.</para></summary> 
-        public const decimal ImperialMilePerGallon = 354006.18993464713633034101833m;
-        ///<summary><para>USCS mile per gallon (uscmpg) conversion factor. USCS fuel economy unit.</para></summary> 
-        public const decimal USCSMilePerGallon = 425143.70743027200340114965944m; 
-
-        //--- Sound Exposure
-        ///<summary><para>Square pascal second (Pa2*s) conversion factor. SI sound exposure unit.</para></summary> 
-        public const decimal SquarePascalSecond = 1m;
-
-        //--- Sound Impedance
-        ///<summary><para>Pascal second per cubic metre (Pa*s/m3) conversion factor. SI sound impedance unit.</para></summary> 
-        public const decimal PascalSecondPerCubicMetre = 1m;
-
-        //--- Rotational Stiffness
-        ///<summary><para>Newton metre per radian (N*m/rad) conversion factor. SI rotational stiffness unit.</para></summary> 
-        public const decimal NewtonMetrePerRadian = 1m;
     }
 }
