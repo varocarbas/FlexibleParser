@@ -9,7 +9,6 @@ namespace FlexibleParser
         private static ParseInfo StartUnitParse(ParseInfo parseInfo)
         {
             parseInfo = InitialParseActions(parseInfo);
-
             return
             (
                 StringCanBeCompound(parseInfo.InputToParse) ?

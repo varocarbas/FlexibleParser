@@ -27,6 +27,13 @@ namespace FlexibleParser
         {
             return
             (
+                //During the calculations, ImperialAndUSCS (Units.ValidImperialUSCSUnit) is used for both
+                //Imperial & USCS. Units.ValidImperialUnit/Units.ValidUSCSUnit are only considered when
+                //showing information to the user. 
+                //DefaultUnnamedUnits expects only one unnamed unit per system; Units.ValidImperialUSCSUnit
+                //is already associated with Systems.Imperial, what explains the additional check below.
+                //Logically, this implementation is fine as it is because adding multi-dimensional support to
+                //DefaultUnnamedUnits would provoke an unnecessary waste of resources.
                 unit == Units.ValidImperialUnit || 
                 DefaultUnnamedUnits.ContainsValue(unit)
             );

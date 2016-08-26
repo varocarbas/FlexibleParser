@@ -798,29 +798,16 @@ namespace FlexibleParser
 
                 if (firstTime && unitInfo.Parts[i].Prefix.Factor != 1m)
                 {
-                    newPrefixInfo = NormaliseUnitInfo
+                    //Finding the most adequate new prefix isn't required at this point.
+                    newPrefixInfo = PerformManagedOperationValues
                     (
-                        PerformManagedOperationValues
-                        (
-                            unitInfo.Parts[i].Prefix.Factor, part.Prefix.Factor, 
-                            Operations.Multiplication
-                        )
-                    );
-
-                    newPrefixInfo = NormaliseUnitInfo
-                    (
-                        GetBestPrefixForTarget
-                        (
-                            newPrefixInfo, newPrefixInfo.BaseTenExponent, prefixType, true
-                        )
+                        unitInfo.Parts[i].Prefix.Factor, part.Prefix.Factor,
+                        Operations.Multiplication
                     );
 
                     if (newPrefixInfo.Value != 1 || newPrefixInfo.BaseTenExponent != 0)
                     {
-                        unitInfo = PerformManagedOperationValues
-                        (
-                            unitInfo, new UnitInfo(newPrefixInfo), Operations.Multiplication
-                        );
+                        unitInfo = unitInfo * newPrefixInfo;
                     }
                 }
 

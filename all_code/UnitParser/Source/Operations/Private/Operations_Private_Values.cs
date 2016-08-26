@@ -102,24 +102,19 @@ namespace FlexibleParser
         {
             if (outInfo.Prefix.Factor == 1m) return outInfo;
 
-            UnitInfo newPrefix = NormaliseUnitInfo
+            outInfo = new UnitInfo(outInfo) 
+            {
+                Prefix = new Prefix(outInfo.Prefix.PrefixUsage)
+            };
+
+            return 
             (
-                PerformManagedOperationValues
+                //No need to find a new prefix.
+                outInfo * PerformManagedOperationValues
                 (
                     1m, outInfo.Prefix.Factor, Operations.Division
-                )
+                )               
             );
-
-            newPrefix = GetBestPrefixForTarget
-            (
-                newPrefix, newPrefix.BaseTenExponent,
-                (
-                    outInfo.Prefix.Type != PrefixTypes.None ?
-                    outInfo.Prefix.Type : PrefixTypes.SI
-                )
-            );
-
-            return outInfo * newPrefix;
         }
 
         private static UnitInfo ParseDecimal(string stringToParse)
