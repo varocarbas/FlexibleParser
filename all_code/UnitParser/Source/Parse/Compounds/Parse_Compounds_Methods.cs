@@ -183,6 +183,7 @@ namespace FlexibleParser
 
         private static ParseInfo UpdateUnitParts(ParseInfo parseInfo, StringBuilder inputSB, bool isNumerator, char symbol)
         {
+            if (inputSB.Length == 0) return parseInfo;
             string input = inputSB.ToString();
 
             ParseExponent exponent = AnalysePartExponent(input);

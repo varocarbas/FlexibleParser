@@ -213,11 +213,26 @@ namespace FlexibleParser
   
         private static Units GetUnitFromUnitStrings(string input)
         {
+            string inputLower = input.ToLower();
+
             return AllUnitStrings.FirstOrDefault
             (
-                x => x.Key.ToLower() == input.ToLower()
+                x => (x.Key.ToLower() == inputLower || GetUnitStringPlural(x.Key.ToLower()) == inputLower)
             )
             .Value;
+        }
+
+        private static string GetUnitStringPlural(string unitString)
+        {
+            unitString = unitString.Replace("inches", "inch");
+            unitString = unitString.Replace("inch", "inches");
+            unitString = unitString.Replace("foot", "feet");
+
+            return
+            (
+                unitString.EndsWith("inches") || unitString.EndsWith("feet") ?
+                unitString : unitString + "s"
+            );
         }
 
         private static UnitTypes GetTypeFromUnitPart(UnitPart unitPart, bool ignoreExponents = false)

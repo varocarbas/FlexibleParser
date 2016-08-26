@@ -44,13 +44,8 @@ namespace FlexibleParser
                         if (MinusIsOK(inputArray, i))
                         {
                             previous.Append(bit);
-                            continue;
                         }
-                        else
-                        {
-                            parseInfo.UnitInfo.Parts = new List<UnitPart>();
-                            return parseInfo;
-                        }
+                        continue;
                     }
 
                     parseInfo = UpdateUnitParts
@@ -346,7 +341,7 @@ namespace FlexibleParser
 
                 if (!CharAreEquivalent(valid[i2], toCheck[i]))
                 {
-                    if (!UnitParseIgnored.Contains(toCheck[i].ToString()))
+                    if (!wrongCharIsOK(toCheck[i]))
                     {
                         invalidCount = invalidCount + 1m;
                     }
@@ -361,6 +356,26 @@ namespace FlexibleParser
             }
 
             return parseInfo;
+        }
+
+        //Certain symbols aren't considered when post-analysing the validity of the input string.
+        //For example: m//////////////s is considered fine.
+        private static bool wrongCharIsOK(char charToCheck)
+        {
+            if (UnitParseIgnored.Contains(charToCheck.ToString()))
+            {
+                return true;
+            }
+
+            foreach (var item in OperationSymbols)
+            {
+                if (item.Value.Contains(charToCheck))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         //Instrumental class whose sole purpose is easing the exponent parsing process.

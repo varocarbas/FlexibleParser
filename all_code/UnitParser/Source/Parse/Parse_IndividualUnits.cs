@@ -92,33 +92,60 @@ namespace FlexibleParser
         
         private static ParseInfo CheckPrefixes(ParseInfo parseInfo, PrefixTypes prefixType, Dictionary<string, decimal> allPrefixes, Dictionary<string, string> allPrefixNames)
         {
-            string remString = "";
-
             foreach (var prefix in allPrefixes)
             {
-                if (parseInfo.InputToParse.StartsWith(prefix.Key))
-                {
-                    //Symbol. Caps matter.
-                    remString = parseInfo.InputToParse.Substring(prefix.Key.Length);
-                }
-                else if (parseInfo.InputToParse.ToLower().StartsWith(allPrefixNames[prefix.Key]))
-                {
-                    //String representation. Caps don't matter.
-                    remString = parseInfo.InputToParse.Substring(allPrefixNames[prefix.Key].Length);
-                }
-                
-                if (remString != "")
-                {
-                    return AnalysePrefix
-                    (
-                        parseInfo, prefixType, prefix, remString
-                    );
-                }
+                string remString = GetPrefixRemaining
+                (
+                    parseInfo.InputToParse, allPrefixNames[prefix.Key], prefix.Key
+                );
+                if (remString == "") continue;
+
+                return AnalysePrefix
+                (
+                    parseInfo, prefixType, prefix, remString
+                );
             }
 
             return parseInfo;
         }
-        
+
+        private static string GetPrefixRemaining(string input, string prefixName, string prefixSymbol)
+        {
+            string remString = GetPrefixRemainingSpecial
+            (
+                input, prefixName, prefixSymbol
+            );
+            if (remString != "") return remString;
+
+            if (input.ToLower().StartsWith(prefixName))
+            {
+                //String representation. Caps don't matter.
+                remString = input.Substring(prefixName.Length);
+            }
+            else if (input.StartsWith(prefixSymbol))
+            {
+                //Symbol. Caps matter.
+                remString = input.Substring(prefixSymbol.Length);
+            }
+
+            return remString;
+        }
+
+        //Accounts for cases where the default check (i.e., firstly name and then symbol) fails.
+        private static string GetPrefixRemainingSpecial(string input, string prefixName, string prefixSymbol)
+        {
+            if (input.StartsWith(prefixSymbol))
+            {
+                if (input.ToLower().StartsWith(prefixSymbol.ToLower() + "bit"))
+                {
+                    //For example: Kibit which might be misunderstood as kibi prefix (name check) and t unit.
+                    return "bit";
+                }
+            }
+
+            return "";
+        }
+
         private static ParseInfo AnalysePrefix(ParseInfo parseInfo, PrefixTypes prefixType, KeyValuePair<string, decimal> prefix, string remString)
         {
             Units unit = GetUnitFromString(remString);

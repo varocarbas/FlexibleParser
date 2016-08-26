@@ -69,7 +69,7 @@ namespace FlexibleParser
                 Operations.Multiplication, new char[] { '*', 'x', 'X', '×', '⊗', '⋅', '·' } 
             },
             { 
-                Operations.Division, new char[] { '/', '∕', '⁄', '÷', '|' }
+                Operations.Division, new char[] { '/', '∕', '⁄', '÷', '|', '\\' }
             }
         };
 
