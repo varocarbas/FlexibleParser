@@ -790,11 +790,6 @@ namespace FlexibleParser
             foreach (UnitPart part in compoundUnitParts)
             {
                 UnitInfo newPrefixInfo = new UnitInfo(Units.None, part.Prefix.Factor);
-                PrefixTypes prefixType = 
-                (
-                    unitInfo.Prefix.Type != PrefixTypes.None ?
-                    unitInfo.Prefix.Type : PrefixTypes.SI
-                );
 
                 if (firstTime && unitInfo.Parts[i].Prefix.Factor != 1m)
                 {
