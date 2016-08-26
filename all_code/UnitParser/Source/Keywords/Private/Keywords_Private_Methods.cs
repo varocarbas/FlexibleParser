@@ -119,6 +119,9 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("st℧", Units.Statmho);
             AllUnitSymbols2.Add("stF", Units.Statfarad);
             AllUnitSymbols2.Add("stH", Units.Stathenry);
+            AllUnitSymbols2.Add("mi/gal", Units.MilePerGallon);
+            AllUnitSymbols2.Add("ukmpg", Units.ImperialMilePerGallon);
+            AllUnitSymbols2.Add("usmpg", Units.USCSMilePerGallon);
         }
 
         //Populates all the unit string representations which aren't symbols. That is: when dealing

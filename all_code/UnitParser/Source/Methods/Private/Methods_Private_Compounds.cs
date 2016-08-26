@@ -41,7 +41,7 @@ namespace FlexibleParser
                     if (UnitPartsAreEquivalent(potential.Value, unitPart))
                     {
                         outUnitInfo.Unit = potential.Key;
-                        outUnitInfo = UpdateMainUnitVariables(outUnitInfo);
+                        outUnitInfo = UpdateMainUnitVariables(outUnitInfo, true);
                         return outUnitInfo;
                     }
                 }

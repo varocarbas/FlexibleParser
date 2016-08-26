@@ -643,6 +643,19 @@ namespace FlexibleParser
                 }
             },
             { 
+                UnitTypes.ElectricResistivity, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.OhmMetre, UnitConversionFactors.OhmMetre }
+                        }
+                    },
+                }
+            },
+            { 
                 UnitTypes.ElectricConductance, 
                 new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
                 {
@@ -671,6 +684,19 @@ namespace FlexibleParser
                             { Units.Gemmho, UnitConversionFactors.Gemmho }
                         }
                     }
+                }
+            },
+            { 
+                UnitTypes.ElectricConductivity, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.SiemensPerMetre, UnitConversionFactors.SiemensPerMetre }
+                        }
+                    },
                 }
             },
             { 
@@ -1171,6 +1197,19 @@ namespace FlexibleParser
                 }
             },
             { 
+                UnitTypes.CatalyticActivityConcentration, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.KatalPerCubicMetre, UnitConversionFactors.KatalPerCubicMetre }
+                        }
+                    }
+                }
+            },
+            { 
                 UnitTypes.Jerk, 
                 new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
                 {
@@ -1205,6 +1244,32 @@ namespace FlexibleParser
                         new Dictionary<Units, decimal>()
                         {
                             { Units.KilogramPerCubicMetre, UnitConversionFactors.KilogramPerCubicMetre }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.AreaDensity, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.KilogramPerSquareMetre, UnitConversionFactors.KilogramPerSquareMetre }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.EnergyDensity, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.JoulePerCubicMetre, UnitConversionFactors.JoulePerCubicMetre }
                         }
                     }
                 }
@@ -1405,6 +1470,19 @@ namespace FlexibleParser
                 }
             },
             { 
+                UnitTypes.CurrentDensity, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.AmperePerSquareMetre, UnitConversionFactors.AmperePerSquareMetre }
+                        }
+                    }
+                }
+            },
+            { 
                 UnitTypes.Permittivity, 
                 new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
                 {
@@ -1478,6 +1556,60 @@ namespace FlexibleParser
                         new Dictionary<Units, decimal>()
                         {
                             { Units.WattPerSteradianPerSquareMetre, UnitConversionFactors.WattPerSteradianPerSquareMetre }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.FuelEconomy, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.InverseSquareMetre, UnitConversionFactors.InverseSquareMetre }
+                        }
+                    },
+                    {
+                        UnitSystems.Imperial, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.MilePerGallon, UnitConversionFactors.MilePerGallon },
+                            { Units.ImperialMilePerGallon, UnitConversionFactors.ImperialMilePerGallon }
+                        }
+                    },
+                    {
+                        UnitSystems.USCS, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.USCSMilePerGallon, UnitConversionFactors.USCSMilePerGallon }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.SoundExposure, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.SquarePascalSecond, UnitConversionFactors.SquarePascalSecond }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.SoundImpedance, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.PascalSecondPerCubicMetre, UnitConversionFactors.PascalSecondPerCubicMetre }
                         }
                     }
                 }

@@ -117,7 +117,7 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo PerformConversion(UnitInfo originalInfo, UnitInfo targetInfo, bool matchTargetPrefix = true)
+        private static UnitInfo PerformConversion(UnitInfo originalInfo, UnitInfo targetInfo, bool isInternal = true)
         {
             ErrorTypes errorType = GetConversionError(originalInfo, targetInfo);
             if (errorType != ErrorTypes.None)
@@ -128,7 +128,7 @@ namespace FlexibleParser
                 };
             }
 
-            UnitInfo targetInfo2 = NormaliseTargetUnit(targetInfo);
+            UnitInfo targetInfo2 = NormaliseTargetUnit(targetInfo, isInternal);
             UnitInfo outInfo = AccountForTargetUnitPrefixes(originalInfo, targetInfo2); 
 
             bool convertIt =
@@ -153,27 +153,31 @@ namespace FlexibleParser
                 outInfo.Value = tempInfo.Value;
                 outInfo.BaseTenExponent = tempInfo.BaseTenExponent;
 
-                if (!matchTargetPrefix)
+                if (!isInternal)
                 {
                     //When the target unit has a prefix, the conversion is adapted to it (e.g., lb to kg is 0.453).
                     //Such an output isn't always desirable (kg isn't a valid unit, but g + kilo).
                     //That's why the output value has to be multiplied by the prefix when reaching this point 
                     //(i.e., conversion delivered to the user).
-                    outInfo = outInfo * targetInfo2;
+                    outInfo = outInfo * targetInfo.Prefix.Factor;
                 }
             }
 
             return outInfo;
         }
 
-        //The only relevant part of the target unit value is the prefix.
-        private static UnitInfo NormaliseTargetUnit(UnitInfo targetInfo)
+        private static UnitInfo NormaliseTargetUnit(UnitInfo targetInfo, bool isInternal)
         {
-            UnitInfo outInfo = new UnitInfo(targetInfo)
+            UnitInfo outInfo = new UnitInfo(targetInfo);
+
+            if (isInternal)
             {
-                Value = 1,
-                BaseTenExponent = 0
-            };
+                //The only relevant part of the target unit value should always be the prefix.
+                //But this isn't always compatible with external conversions, where the target
+                //unit might have been parsed and made the other values relevant too (e.g., conversion).
+                outInfo.Value = 1;
+                outInfo.BaseTenExponent = 0;
+            }
 
             return NormaliseUnitInfo(outInfo);
         }

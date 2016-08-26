@@ -29,11 +29,17 @@ namespace FlexibleParser
             return parseInfo;
         }
 
-        private static UnitInfo UpdateMainUnitVariables(UnitInfo unitInfo)
+        private static UnitInfo UpdateMainUnitVariables(UnitInfo unitInfo, bool recalculateAlways = false)
         {
             if (unitInfo.Unit == Units.None || unitInfo.Unit == Units.Unitless)
             {
                 return unitInfo;
+            }
+
+            if (recalculateAlways)
+            {
+                unitInfo.Type = UnitTypes.None;
+                unitInfo.System = UnitSystems.None;
             }
 
             if (unitInfo.Type == UnitTypes.None)

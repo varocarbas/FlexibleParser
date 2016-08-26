@@ -45,8 +45,12 @@ namespace FlexibleParser
         ElectricCurrent,
         ///<summary><para>Associated with all the electric resistance units.</para></summary>                                                                 
         ElectricResistance,
+        ///<summary><para>Associated with all the electric resistivity units.</para></summary>                                                                 
+        ElectricResistivity,             
         ///<summary><para>Associated with all the electric conductance units.</para></summary>                                                                
         ElectricConductance,
+        ///<summary><para>Associated with all the electric conductivity units.</para></summary>                                                                 
+        ElectricConductivity,  
         ///<summary><para>Associated with all the electric capacitance units.</para></summary>                                                                 
         ElectricCapacitance,
         ///<summary><para>Associated with all the electric inductance units.</para></summary>                                                                 
@@ -101,12 +105,18 @@ namespace FlexibleParser
         EquivalentDose,
         ///<summary><para>Associated with all the catalytic activity units.</para></summary> 
         CatalyticActivity,
+        ///<summary><para>Associated with all the catalytic activity concentration units.</para></summary> 
+        CatalyticActivityConcentration,
         ///<summary><para>Associated with all the jerk units.</para></summary> 
         Jerk,
         ///<summary><para>Associated with all the mass flow rate units.</para></summary> 
         MassFlowRate,
         ///<summary><para>Associated with all the density units.</para></summary> 
         Density,
+        ///<summary><para>Associated with all the area density units.</para></summary> 
+        AreaDensity,
+        ///<summary><para>Associated with all the energy density units.</para></summary> 
+        EnergyDensity,
         ///<summary><para>Associated with all the specific energy units.</para></summary> 
         SpecificEnergy,
         ///<summary><para>Associated with all the specific volume units.</para></summary> 
@@ -139,10 +149,14 @@ namespace FlexibleParser
         SurfaceElectricChargeDensity,
         ///<summary><para>Associated with all the volume electric charge density units.</para></summary> 
         VolumeElectricChargeDensity,
+        ///<summary><para>Associated with all the current density units.</para></summary> 
+        CurrentDensity,
         ///<summary><para>Associated with all the permittivity units.</para></summary> 
         Permittivity,
         ///<summary><para>Associated with all the permeability units.</para></summary> 
         Permeability,
+        ///<summary><para>Associated with all the molar concentration units.</para></summary> 
+        MolarConcentration,
         ///<summary><para>Associated with all the molar energy units.</para></summary> 
         MolarEnergy,
         ///<summary><para>Associated with all the molar entropy units.</para></summary> 
@@ -150,6 +164,14 @@ namespace FlexibleParser
         ///<summary><para>Associated with all the radiant intensity units.</para></summary> 
         RadiantIntensity,
         ///<summary><para>Associated with all the radiance units.</para></summary> 
-        Radiance
+        Radiance,
+        ///<summary><para>Associated with all the fuel economy units.</para></summary> 
+        FuelEconomy,
+        ///<summary><para>Associated with all the sound exposure units.</para></summary> 
+        SoundExposure,
+        ///<summary><para>Associated with all the sound impedance units.</para></summary> 
+        SoundImpedance,
+        ///<summary><para>Associated with all the rotational stiffness units.</para></summary> 
+        RotationalStiffness,
     };
 }

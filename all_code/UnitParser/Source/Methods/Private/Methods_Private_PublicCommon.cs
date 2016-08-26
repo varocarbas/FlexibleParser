@@ -167,7 +167,7 @@ namespace FlexibleParser
         {
             return ConvertToCommon
             (
-                original, StartUnitParse(new ParseInfo(0m, unitString)).UnitInfo
+                original, StartUnitParse(new ParseInfo(1m, unitString)).UnitInfo
             );
         }
 

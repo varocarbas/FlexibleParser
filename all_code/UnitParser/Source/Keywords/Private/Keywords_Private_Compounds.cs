@@ -191,6 +191,21 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.ElectricResistivity, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Length, 3),
+                            new CompoundPart(UnitTypes.Time, -3),
+                            new CompoundPart(UnitTypes.ElectricCurrent, -2),
+                        }
+                    )
+                }
+            },
+            {
                 UnitTypes.ElectricConductance, new Compound[]
                 {
                     new Compound 
@@ -201,6 +216,21 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Time, 3),
                             new CompoundPart(UnitTypes.Mass, -1),
                             new CompoundPart(UnitTypes.Length, -2),
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.ElectricConductivity, new Compound[]
+                {
+                    new Compound 
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.ElectricCurrent, 2),
+                            new CompoundPart(UnitTypes.Time, 3),
+                            new CompoundPart(UnitTypes.Mass, -1),
+                            new CompoundPart(UnitTypes.Length, -3),
                         }
                     )
                 }
@@ -501,6 +531,20 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.CatalyticActivityConcentration, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.AmountOfSubstance),
+                            new CompoundPart(UnitTypes.Time, -1),
+                            new CompoundPart(UnitTypes.Length, -3)
+                        }
+                    )
+                }
+            },
+            {
                 UnitTypes.Jerk, new Compound[]
                 {
                     new Compound
@@ -535,6 +579,32 @@ namespace FlexibleParser
                         {
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Length, -3)
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.AreaDensity, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Length, -2)
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.EnergyDensity, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Length, -2)
                         }
                     )
                 }
@@ -768,6 +838,19 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.CurrentDensity, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.ElectricCurrent),
+                            new CompoundPart(UnitTypes.Length, -2)
+                        }
+                    )
+                }
+            },
+            {
                 UnitTypes.Permittivity, new Compound[]
                 {
                     new Compound
@@ -837,6 +920,61 @@ namespace FlexibleParser
                             new CompoundPart(UnitTypes.Mass),
                             new CompoundPart(UnitTypes.Time, -3),
                             new CompoundPart(UnitTypes.SolidAngle, -1)
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.FuelEconomy, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Length, -2)
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.SoundExposure, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass, 2),
+                            new CompoundPart(UnitTypes.Length, -2),
+                            new CompoundPart(UnitTypes.Time, -3)
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.SoundImpedance, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Length, -4),
+                            new CompoundPart(UnitTypes.Time, -1)
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.RotationalStiffness, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Length, 2),
+                            new CompoundPart(UnitTypes.Time, -2),
+                            new CompoundPart(UnitTypes.Angle, -1),
                         }
                     )
                 }
@@ -959,6 +1097,7 @@ namespace FlexibleParser
 
         //Contains all the named compounds defined by the basic units for the given type/system.
         //Example: Newton is formed by kg*m/s^2, the basic mass*length/time units in SI; that's why it belongs here.
+        //NOTE: all these compounds are divided into their most basic constituent parts (againt what some non-SI units expect).
         private static Dictionary<UnitTypes, Dictionary<UnitSystems, Units>> AllBasicCompounds = new Dictionary<UnitTypes, Dictionary<UnitSystems, Units>>()
         {
            {
@@ -1052,9 +1191,21 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.ElectricResistivity, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.OhmMetre },
+                }
+            },
+            {
                 UnitTypes.ElectricConductance, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.Siemens }
+                }
+            },
+            {
+                UnitTypes.ElectricConductivity, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.SiemensPerMetre },
                 }
             },
             {
@@ -1185,6 +1336,12 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.CatalyticActivityConcentration, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.KatalPerCubicMetre }
+                }
+            },
+            {
                 UnitTypes.Jerk, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.MetrePerCubicSecond }                  
@@ -1200,6 +1357,18 @@ namespace FlexibleParser
                 UnitTypes.Density, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.KilogramPerCubicMetre }                  
+                }
+            },
+            {
+                UnitTypes.AreaDensity, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.KilogramPerSquareMetre }                  
+                }
+            },
+            {
+                UnitTypes.EnergyDensity, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.JoulePerCubicMetre }                  
                 }
             },
             {
@@ -1293,6 +1462,12 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.CurrentDensity, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.AmperePerSquareMetre }                  
+                }
+            },
+            {
                 UnitTypes.Permittivity, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.FaradPerMetre }                  
@@ -1302,6 +1477,12 @@ namespace FlexibleParser
                 UnitTypes.Permeability, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.HenryPerMetre }                  
+                }
+            },
+            {
+                UnitTypes.MolarConcentration, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.MolePerCubicMetre }                  
                 }
             },
             {
@@ -1326,6 +1507,30 @@ namespace FlexibleParser
                 UnitTypes.Radiance, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.WattPerSteradianPerSquareMetre }                  
+                }
+            },
+            {
+                UnitTypes.FuelEconomy, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.InverseSquareMetre },                
+                }
+            },
+            {
+                UnitTypes.SoundExposure, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.SquarePascalSecond }                
+                }
+            },
+            {
+                UnitTypes.SoundImpedance, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.PascalSecondPerCubicMetre }                
+                }
+            },
+            {
+                UnitTypes.RotationalStiffness, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.NewtonMetrePerRadian }                
                 }
             }
         };
@@ -1436,6 +1641,14 @@ namespace FlexibleParser
                 { 
                     new UnitPart(Units.Candela),
                     new UnitPart(Units.Metre, -2)
+                } 
+            },
+            { 
+                Units.MilePerGallon, 
+                new UnitPart[] 
+                { 
+                    new UnitPart(Units.Mile),
+                    new UnitPart(Units.Gallon, -1)
                 } 
             },
         };
