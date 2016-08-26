@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{66ED39C1-C01C-43F1-85A1-F1A4B5422F7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnitParser</RootNamespace>
+    <AssemblyName>UnitParser</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Source\Constructors\Constructors_Private.cs" />
+    <Compile Include="Source\Keywords\Private\Keywords_Private_Prefixes.cs" />
+    <Compile Include="Source\Keywords\Private\Keywords_Private_Miscellaneous.cs" />
+    <Compile Include="Source\Keywords\Private\Keywords_Private_Units.cs" />
+    <Compile Include="Source\Keywords\Public\Keywords_Public_Classes.cs" />
+    <Compile Include="Source\Keywords\Public\Units\Keywords_Public_Units_Symbols.cs" />
+    <Compile Include="Source\Methods\Private\Methods_Private_PublicCommon.cs" />
+    <Compile Include="Source\Methods\Private\Methods_Private_Units.cs" />
+    <Compile Include="Source\Constructors\Constructors_Public.cs" />
+    <Compile Include="Source\Errors.cs" />
+    <Compile Include="Source\Keywords\Private\Keywords_Private_Main.cs" />
+    <Compile Include="Source\Keywords\Private\Keywords_Private_Methods.cs" />
+    <Compile Include="Source\Methods\Private\Methods_Private_Compounds.cs" />
+    <Compile Include="Source\Methods\Private\Methods_Private_Strings.cs" />
+    <Compile Include="Source\Operations\Private\Operations_Private_Common.cs" />
+    <Compile Include="Source\Operations\Private\Operations_Private_Equals.cs" />
+    <Compile Include="Source\Operations\Private\Operations_Private_Managed.cs" />
+    <Compile Include="Source\Methods\Public\Methods_Public_NonStatic.cs" />
+    <Compile Include="Source\Methods\Public\Methods_Public_Static.cs" />
+    <Compile Include="Source\Keywords\Private\Keywords_Private_Compounds.cs" />
+    <Compile Include="Source\Keywords\Public\Keywords_Public_Miscellaneous.cs" />
+    <Compile Include="Source\Keywords\Public\Keywords_Public_Prefixes.cs" />
+    <Compile Include="Source\Keywords\Public\Keywords_Public_Types.cs" />
+    <Compile Include="Source\Keywords\Public\Units\Keywords_Public_Units_ConversionFactors.cs" />
+    <Compile Include="Source\Keywords\Public\Units\Keywords_Public_Units_Names.cs" />
+    <Compile Include="Source\Operations\Private\Operations_Private_Units.cs" />
+    <Compile Include="Source\Operations\Operations_Public.cs" />
+    <Compile Include="Source\Operations\Private\Operations_Private_Values.cs" />
+    <Compile Include="Source\Parse\Compounds\Parse_Compounds_Methods.cs" />
+    <Compile Include="Source\Parse\Parse_Main.cs" />
+    <Compile Include="Source\Parse\Compounds\Parse_Compounds_Main.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Parse\Parse_IndividualUnits.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
