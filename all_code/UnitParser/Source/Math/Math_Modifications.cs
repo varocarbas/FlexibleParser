@@ -9,6 +9,7 @@ namespace FlexibleParser
         //For example: 1.2999999999999 is likely to actually be 1.3.
         private static decimal ImproveFinalValue(decimal value)
         {
+            if (value == 0m) return value;
             decimal sign = value / Math.Abs(value);
             decimal absValue = Math.Abs(value);
             decimal maxGapVal = 0.0000001m;

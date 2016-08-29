@@ -43,7 +43,6 @@ namespace FlexibleParser
         {
             unitInfo.InitialPositions.Remove(part);
             unitInfo.Parts.Remove(part);
-
             return unitInfo;
         }
 
