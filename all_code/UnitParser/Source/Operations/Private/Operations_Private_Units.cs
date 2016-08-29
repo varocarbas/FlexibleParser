@@ -109,15 +109,15 @@ namespace FlexibleParser
             .UnitInfo;
         }
 
-        private static UnitInfo ConvertUnit(UnitInfo originalInfo, UnitInfo targetInfo, bool isInternal = true)
+        private static UnitInfo ConvertUnit(UnitInfo originalInfo, UnitInfo targetInfo, bool matchTargetPrefix = true)
         {
             return PerformConversion
             (
-                originalInfo, targetInfo, isInternal
+                originalInfo, targetInfo, matchTargetPrefix
             );
         }
 
-        private static UnitInfo PerformConversion(UnitInfo originalInfo, UnitInfo targetInfo, bool isInternal = true, bool inverseOutputs = false)
+        private static UnitInfo PerformConversion(UnitInfo originalInfo, UnitInfo targetInfo, bool isInternal = true)
         {
             ErrorTypes errorType = GetConversionError(originalInfo, targetInfo);
             if (errorType != ErrorTypes.None)
@@ -145,7 +145,7 @@ namespace FlexibleParser
                 UnitInfo tempInfo =
                 (
                     UnitsCanBeConvertedDirectly(outInfo, targetInfo2) ?
-                    ConvertUnitValue(outInfo, targetInfo2, inverseOutputs) :
+                    ConvertUnitValue(outInfo, targetInfo2) :
                     PerformUnitPartConversion(outInfo, targetInfo2)
                 );
                 outInfo = new UnitInfo(targetInfo);
@@ -165,7 +165,6 @@ namespace FlexibleParser
 
             return outInfo;
         }
-
 
         private static UnitInfo NormaliseTargetUnit(UnitInfo targetInfo, bool isInternal)
         {
@@ -249,7 +248,7 @@ namespace FlexibleParser
             return convertInfo;
         }
 
-        private static UnitInfo ConvertUnitPartToTarget(UnitInfo outInfo, UnitPart originalPart, UnitPart targetPart)
+        private static UnitInfo ConvertUnitPartToTarget(UnitInfo outInfo, UnitPart originalPart, UnitPart targetPart, bool matchTargetPrefix = true)
         {
             ErrorTypes errorType = GetUnitPartConversionError(originalPart, targetPart);
             if (errorType != ErrorTypes.None)
@@ -273,16 +272,18 @@ namespace FlexibleParser
             //Different exponents cannot be removed. For example: conversion between litre and m3, where the exponent
             //does define the unit. 
 
-            return outInfo * PerformConversion
+
+            return outInfo * RaiseToIntegerExponent
             (
-                UnitPartToUnitInfo(originalPart2, 1m),
-                UnitPartToUnitInfo(targetPart2, 1m), true,
-                //The original part being in the denominator means that the output value has to be inverted.
-                //Note that this value is always expected to modify the main value (= in the numerator).
-                //This is the only conversion where such a scenario is being considered; but the information
-                //is passed to PerformConversion anyway to ensure the highest accuracy. Even the decimal type
-                //can output noticeable differences in cases like 1/(val1/val2) vs. val2/val1.
-                originalPart.Exponent / Math.Abs(originalPart.Exponent) == -1
+                PerformConversion
+                (
+                    UnitPartToUnitInfo(originalPart2, 1m),
+                    UnitPartToUnitInfo(targetPart2, 1m),
+                    matchTargetPrefix
+                ),
+                //The original part being in the denominator means that the output value should be inverted.
+                //Note that this output is always expected to modify the main value (= in the numerator).
+                originalPart.Exponent / Math.Abs(originalPart.Exponent)
             );
         }
 
@@ -307,8 +308,8 @@ namespace FlexibleParser
             return outParts;
         }
 
-        //The prefixes of both units are being managed before reaching this point.
-        private static UnitInfo ConvertUnitValue(UnitInfo original, UnitInfo target, bool inverseOutputs = false)
+        //The prefixes of both units are managed before reaching this point.
+        private static UnitInfo ConvertUnitValue(UnitInfo original, UnitInfo target)
         {
             if 
             (
@@ -323,20 +324,14 @@ namespace FlexibleParser
             //Both units have the same type.
             if (original.Type != UnitTypes.None && SpecialConversionTypes.Contains(original.Type))
             {
-                UnitInfo tempInfo = ConvertUnitValueSpecial(original, target);
-                return inverseOutputs ? 1m / tempInfo : tempInfo;
+                return ConvertUnitValueSpecial(original, target); 
             }
-            else
-            {
-                UnitInfo convFactor =
-                (
-                    inverseOutputs ? 
-                    GetUnitConversionFactor(target.Unit) / GetUnitConversionFactor(original.Unit) :
-                    GetUnitConversionFactor(original.Unit) / GetUnitConversionFactor(target.Unit)
-                );
 
-                return original * convFactor;
-            }
+            return 
+            (
+                original * GetUnitConversionFactor(original.Unit) /
+                GetUnitConversionFactor(target.Unit)
+            );
         }
 
         private static UnitInfo GetUnitConversionFactor(Units unit)
