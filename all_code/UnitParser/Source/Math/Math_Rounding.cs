@@ -14,15 +14,13 @@ namespace FlexibleParser
              1E25m, 1E26m, 1E27m, 1E28m
 	};
 
-        //This function (+ all the related code) is a version of my CoreFX RoundExact proposal to improve Math.Round (https://github.com/dotnet/corefx/issues/6308).
-        //Note that the default Math.Round cannot meet the expectations of the method ImproveFinalValue (mainly when rounding down).
+        //This function (+ all the related code) is a version of my CoreFX proposal to improve Math.Round (https://github.com/dotnet/corefx/issues/6308).
+        //Note that Math.Round cannot deal with the rounding-down expectations of ImproveFinalValue.
         private static decimal RoundExact(decimal d, int digits, RoundType type)
         {
             if (d == 0m) return 0m;
 
-            decimal sign = (d > 0m ? 1m : -1m);
-
-            return sign * RoundDecInternalAfter(Math.Abs(d), digits, type);
+            return (d > 0m ? 1m : -1m) * RoundDecInternalAfter(Math.Abs(d), digits, type);
         }
 
         private static decimal RoundDecInternalAfter(decimal d, int digits, RoundType type)
@@ -96,7 +94,7 @@ namespace FlexibleParser
             
             return
             (
-                //This only way to meet this condition is with an overflow.
+                //The only way to meet this condition is if an overflow occurs.
                 roundPower10Decimal[remDigits] * rounded < rounded ? d :
                 rounded * roundPower10Decimal[remDigits]
             );
