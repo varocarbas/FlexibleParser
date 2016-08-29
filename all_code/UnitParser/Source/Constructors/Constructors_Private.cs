@@ -225,7 +225,7 @@ namespace FlexibleParser
                     }
                     UnitString = GetUnitString(UnitInfo);
 
-                    Value = UnitInfo.Value;
+                    Value = ImproveFinalValue(UnitInfo.Value);
 
                     ValueAndUnitString = Value +
                     (
