@@ -197,10 +197,7 @@ namespace FlexibleParser
                             return errorInfo;
                         }
                         UnitInfo outInfo = ConvertDoubleToDecimal(startNumber);
-                        outInfo.BaseTenExponent += GetBeyondDoubleCharacterCount
-                        (
-                            stringToParse.Substring(299)
-                        );
+                        outInfo.BaseTenExponent += GetBeyondDoubleCharacterCount(remString);
                         return outInfo;
                     }
                 }
