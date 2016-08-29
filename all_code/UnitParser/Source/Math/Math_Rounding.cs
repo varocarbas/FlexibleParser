@@ -9,10 +9,10 @@ namespace FlexibleParser
 
         private static decimal[] roundPower10Decimal = new decimal[] 
     	{ 
-			1m, 1E1m, 1E2m, 1E3m, 1E4m, 1E5m, 1E6m, 1E7m, 1E8m, 1E9m, 1E10m, 1E11m, 1E12m,
-        	1E13m, 1E14m, 1E15m, 1E16m, 1E17m, 1E18m, 1E19m, 1E20m, 1E21m, 1E22m, 1E23m, 1E24m,
-        	1E25m, 1E26m, 1E27m, 1E28m
-		};
+	     1m, 1E1m, 1E2m, 1E3m, 1E4m, 1E5m, 1E6m, 1E7m, 1E8m, 1E9m, 1E10m, 1E11m, 1E12m,
+             1E13m, 1E14m, 1E15m, 1E16m, 1E17m, 1E18m, 1E19m, 1E20m, 1E21m, 1E22m, 1E23m, 1E24m,
+             1E25m, 1E26m, 1E27m, 1E28m
+	};
 
         //This function (+ all the related code) is a version of my CoreFX RoundExact proposal to improve Math.Round (https://github.com/dotnet/corefx/issues/6308).
         //Note that the default Math.Round cannot meet the expectations of the method ImproveFinalValue (mainly when rounding down).
