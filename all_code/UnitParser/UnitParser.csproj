@@ -45,6 +45,8 @@
     <Compile Include="Source\Keywords\Private\Keywords_Private_Units.cs" />
     <Compile Include="Source\Keywords\Public\Keywords_Public_Classes.cs" />
     <Compile Include="Source\Keywords\Public\Units\Keywords_Public_Units_Symbols.cs" />
+    <Compile Include="Source\Math\Math_Modifications.cs" />
+    <Compile Include="Source\Math\Math_Rounding.cs" />
     <Compile Include="Source\Methods\Private\Methods_Private_PublicCommon.cs" />
     <Compile Include="Source\Methods\Private\Methods_Private_Units.cs" />
     <Compile Include="Source\Constructors\Constructors_Public.cs" />
