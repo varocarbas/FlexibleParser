@@ -219,7 +219,7 @@ namespace FlexibleParser
                 {
                     if (!char.IsDigit(item) || item == '.')
                     {
-                        //It would mean that it isn't a valid 
+                        //Invalid number. Decimal separators aren't acceptable here.
                         return 0;
                     }
                     outCount = outCount + 1;
@@ -227,7 +227,7 @@ namespace FlexibleParser
             }
             catch
             {
-                //The really unlikely scenario of hitting int.MaxValue.
+                //The really unlikely scenario of hitting int.MaxValue. 300 + int.MaxValue digits one after the other?!
                 outCount = 0;
             }
 
