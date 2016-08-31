@@ -765,22 +765,6 @@ namespace FlexibleParser
                 }
             },
             {
-                UnitTypes.MolarEntropy, new Compound[]
-                {
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Length, 2),
-                            new CompoundPart(UnitTypes.Time, -2),
-                            new CompoundPart(UnitTypes.AmountOfSubstance, -1),
-                            new CompoundPart(UnitTypes.Temperature, -1)
-                        }
-                    )
-                }
-            },
-            {
                 UnitTypes.ElectricFieldStrength, new Compound[]
                 {
                     new Compound
@@ -896,6 +880,74 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.MolarEntropy, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.Length, 2),
+                            new CompoundPart(UnitTypes.Time, -2),
+                            new CompoundPart(UnitTypes.AmountOfSubstance, -1),
+                            new CompoundPart(UnitTypes.Temperature, -1),
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.MolarVolume, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Length, 3),
+                            new CompoundPart(UnitTypes.AmountOfSubstance, -1),
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.MolarMass, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Mass),
+                            new CompoundPart(UnitTypes.AmountOfSubstance, -1),
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.MolarConcentration, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.AmountOfSubstance),
+                            new CompoundPart(UnitTypes.Length, -3),
+                        }
+                    )
+                }
+            },
+            {
+                UnitTypes.MolalConcentration, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.AmountOfSubstance),
+                            new CompoundPart(UnitTypes.Mass, -1),
+                        }
+                    )
+                }
+            },
+            {
                 UnitTypes.RadiantIntensity, new Compound[]
                 {
                     new Compound
@@ -978,40 +1030,20 @@ namespace FlexibleParser
                         }
                     )
                 }
+            },
+            {
+                UnitTypes.BitRate, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Information),
+                            new CompoundPart(UnitTypes.Time, -1),
+                        }
+                    )
+                }
             }
-        };
-
-        //Includes all the units with compound (= dividable by default) types which cannot
-        //be divided.
-        private static Units[] AllNonDividableUnits = new Units[]
-        {
-            //--- Area
-            Units.Are, Units.Rood, Units.Acre, Units.Barn,
-            
-            //--- Volume
-            Units.Litre, Units.FluidOunce, Units.ImperialFluidOunce, Units.USCSFluidOunce, Units.Gill,
-            Units.ImperialGill, Units.USCSGill, Units.Pint, Units.ImperialPint, Units.LiquidPint,
-            Units.DryPint, Units.Quart, Units.ImperialQuart, Units.LiquidQuart, Units.DryQuart,
-            Units.Gallon, Units.ImperialGallon, Units.LiquidGallon, Units.DryGallon,
-            
-            //--- Force
-            Units.Kilopond, Units.PoundForce, Units.Kip, Units.Poundal, Units.OunceForce,
-            
-            //--- Energy
-            Units.Electronvolt, Units.BritishThermalUnit, Units.ThermochemicalBritishThermalUnit,
-            Units.Calorie, Units.ThermochemicalCalorie, Units.FoodCalorie, Units.Therm, Units.UKTherm,
-            Units.USTherm, 
-                        
-            //--- Power
-            Units.Horsepower, Units.MetricHorsepower, Units.BoilerHorsepower, Units.ElectricHorsepower,
-            Units.TonOfRefrigeration,
-                        
-            //--- Pressure
-            Units.Atmosphere, Units.Bar, Units.MillimetreMercury, Units.InchMercury32F, Units.InchMercury60F,
-            Units.Torr,
-                        
-            //--- Amount of substance
-            Units.PoundMole,
         };
 
         //By default, global prefixes aren't used with compounds to avoid misunderstandings.
@@ -1092,7 +1124,10 @@ namespace FlexibleParser
             Units.Sievert, Units.REM,
             
             //--- Catalytic Activity
-            Units.Katal        
+            Units.Katal,
+            
+            //--- Bit Rate
+            Units.BitPerSecond        
         };
 
         //Contains all the named compounds defined by the basic units for the given type/system.
@@ -1480,12 +1515,6 @@ namespace FlexibleParser
                 }
             },
             {
-                UnitTypes.MolarConcentration, new Dictionary<UnitSystems, Units>()
-                {
-                    { UnitSystems.SI, Units.MolePerCubicMetre }                  
-                }
-            },
-            {
                 UnitTypes.MolarEnergy, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.JoulePerMole }                  
@@ -1495,6 +1524,30 @@ namespace FlexibleParser
                 UnitTypes.MolarEntropy, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.JoulePerMolePerKelvin }                  
+                }
+            },
+            {
+                UnitTypes.MolarVolume, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.CubicMetrePerMole }                  
+                }
+            },
+            {
+                UnitTypes.MolarMass, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.KilogramPerMole }                  
+                }
+            },
+            {
+                UnitTypes.MolarConcentration, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.MolePerCubicMetre }                  
+                }
+            },
+            {
+                UnitTypes.MolalConcentration, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.MolePerKilogram }                  
                 }
             },
             {
@@ -1531,6 +1584,14 @@ namespace FlexibleParser
                 UnitTypes.RotationalStiffness, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.NewtonMetrePerRadian }                
+                }
+            },
+            {
+                UnitTypes.BitRate, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.BitPerSecond },
+                    { UnitSystems.Imperial, Units.BitPerSecond },
+                    { UnitSystems.CGS, Units.BitPerSecond }                
                 }
             }
         };
@@ -1658,7 +1719,7 @@ namespace FlexibleParser
                     new UnitPart(Units.Mile),
                     new UnitPart(Units.Gallon, -1)
                 } 
-            },
+            }
         };
 
         //Classifies all the basic units on account of their types and systems.
@@ -1775,6 +1836,14 @@ namespace FlexibleParser
                     { UnitSystems.SI, new BasicUnit(Units.Mole) },
                     { UnitSystems.CGS, new BasicUnit(Units.Mole) },
                     { UnitSystems.Imperial, new BasicUnit(Units.Mole) }
+                }
+            },
+            {
+                UnitTypes.Information, new Dictionary<UnitSystems, BasicUnit>()
+                {
+                    { UnitSystems.SI, new BasicUnit(Units.Bit) },
+                    { UnitSystems.CGS, new BasicUnit(Units.Bit) },
+                    { UnitSystems.Imperial, new BasicUnit(Units.Bit) }
                 }
             }
         };

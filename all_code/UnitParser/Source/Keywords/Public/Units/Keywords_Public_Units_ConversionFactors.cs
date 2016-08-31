@@ -890,13 +890,6 @@ namespace FlexibleParser
         ///</summary> 
         public const decimal HenryPerMetre = 1m;
 
-        //--- Molar Concentration
-        ///<summary>
-        ///<para>Mole per cubic metre (mol/m3) conversion factor. SI molar concentration unit.</para>
-        ///<para>Reference point for all the molar concentration units.</para>            
-        ///</summary> 
-        public const decimal MolePerCubicMetre = 1m;
-
         //--- Molar Energy
         ///<summary>
         ///<para>Joule per mole (J/mol) conversion factor. SI molar energy unit.</para>
@@ -910,6 +903,34 @@ namespace FlexibleParser
         ///<para>Reference point for all the molar entropy units.</para>              
         ///</summary> 
         public const decimal JoulePerMolePerKelvin = 1m;
+
+        //--- Molar Volume
+        ///<summary>
+        ///<para>Cubic metre per mole (m3/mol) conversion factor. SI molar volume unit.</para>
+        ///<para>Reference point for all the molar volume units.</para>   
+        ///</summary> 
+        public const decimal CubicMetrePerMole = 1m;
+
+        //--- Molar Mass
+        ///<summary>
+        ///<para>Kilogram per mole (kg/mol) conversion factor. SI molar mass unit.</para>
+        ///<para>Reference point for all the molar mass units.</para>   
+        ///</summary> 
+        public const decimal KilogramPerMole = 1m;
+
+        //--- Molar Concentration
+        ///<summary>
+        ///<para>Mole per cubic metre (mol/m3) conversion factor. SI molar concentration unit.</para>
+        ///<para>Reference point for all the molar concentration units.</para>   
+        ///</summary> 
+        public const decimal MolePerCubicMetre = 1m;
+
+        //--- Molal Concentration
+        ///<summary>
+        ///<para>Mole per kilogram (mol/kg) conversion factor. SI molal concentration unit.</para>
+        ///<para>Reference point for all the molal concentration units.</para>   
+        ///</summary> 
+        public const decimal MolePerKilogram = 1m;
 
         //--- Radiant Intensity
         ///<summary>
@@ -939,15 +960,38 @@ namespace FlexibleParser
         public const decimal USCSMilePerGallon = 425143.70743027200340114965944m;
 
         //--- Sound Exposure
-        ///<summary><para>Square pascal second (Pa2*s) conversion factor. SI sound exposure unit.</para></summary> 
+        ///<summary>
+        ///<para>Square pascal second (Pa2*s) conversion factor. SI sound exposure unit.</para>
+        ///<para>Reference point for all the sound exposure units.</para>            
+        ///</summary> 
         public const decimal SquarePascalSecond = 1m;
 
         //--- Sound Impedance
-        ///<summary><para>Pascal second per cubic metre (Pa*s/m3) conversion factor. SI sound impedance unit.</para></summary> 
+        ///<summary>
+        ///<para>Pascal second per cubic metre (Pa*s/m3) conversion factor. SI sound impedance unit.</para>
+        ///<para>Reference point for all the sound impedance units.</para>          
+        ///</summary> 
         public const decimal PascalSecondPerCubicMetre = 1m;
 
         //--- Rotational Stiffness
-        ///<summary><para>Newton metre per radian (N*m/rad) conversion factor. SI rotational stiffness unit.</para></summary> 
+        ///<summary>
+        ///<para>Newton metre per radian (N*m/rad) conversion factor. SI rotational stiffness unit.</para>
+        ///<para>Reference point for all the rotational stiffness units.</para>            
+        ///</summary> 
         public const decimal NewtonMetrePerRadian = 1m;
+
+        //--- Bit Rate
+        ///<summary>
+        ///<para>Bit per second (bit/s) conversion factor. Bit rate unit.</para>
+        ///<para>Reference point for all the bit rate units.</para>           
+        ///</summary> 
+        public const decimal BitPerSecond = 1m;
+
+        //--- Symbol Rate
+        ///<summary>
+        ///<para>Baud (Bd) conversion factor. Symbol rate unit.</para>
+        ///<para>Reference point for all the symbol rate units.</para>           
+        ///</summary> 
+        public const decimal Baud = 1m;
     }
 }

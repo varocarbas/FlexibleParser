@@ -1538,6 +1538,58 @@ namespace FlexibleParser
                 }
             },
             { 
+                UnitTypes.MolarVolume, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.CubicMetrePerMole, UnitConversionFactors.CubicMetrePerMole }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.MolarMass, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.KilogramPerMole, UnitConversionFactors.KilogramPerMole }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.MolarConcentration, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.MolePerCubicMetre, UnitConversionFactors.MolePerCubicMetre }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.MolalConcentration, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.MolePerKilogram, UnitConversionFactors.MolePerKilogram }
+                        }
+                    }
+                }
+            },
+            { 
                 UnitTypes.RadiantIntensity, 
                 new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
                 {
@@ -1613,6 +1665,45 @@ namespace FlexibleParser
                         new Dictionary<Units, decimal>()
                         {
                             { Units.PascalSecondPerCubicMetre, UnitConversionFactors.PascalSecondPerCubicMetre }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.RotationalStiffness, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.NewtonMetrePerRadian, UnitConversionFactors.NewtonMetrePerRadian }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.BitRate, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.None, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.BitPerSecond, UnitConversionFactors.BitPerSecond }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.SymbolRate, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.None, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.Baud, UnitConversionFactors.Baud }
                         }
                     }
                 }

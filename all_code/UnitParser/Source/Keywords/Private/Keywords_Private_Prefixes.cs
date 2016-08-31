@@ -103,5 +103,50 @@ namespace FlexibleParser
 
         private static IEnumerable<decimal> SmallBinaryPrefixValues =
         AllBinaryPrefixes.Where(x => x.Value < 1m).Select(x => x.Value).OrderBy(x => x);
+
+        //Contains all the units outside the SI-prefix-supporting systems (i.e., UnitSystems.SI & UnitSystems.CGS)
+        //which do support SI prefixes by default.
+        private static Units[] AllOtherSIPrefixUnits = new Units[]
+        {
+            //--- Length
+            Units.Parsec,
+
+            //--- Mass
+            Units.MetricTon, Units.Dalton, Units.UnifiedAtomicMassUnit,
+            
+            //--- Area
+            Units.Are, Units.Barn,
+            
+            //--- Volume
+            Units.Litre,
+            
+            //--- Information
+            Units.Bit, Units.Byte, Units.Nibble, Units.Quartet, Units.Octet,
+            
+            //--- Energy
+            Units.Electronvolt, Units.WattHour, Units.Calorie, Units.ThermochemicalCalorie,
+            Units.FoodCalorie,
+            
+            //--- Pressure
+            Units.Bar, Units.Torr,
+            
+            //--- Logarithmic
+            Units.Bel, Units.Neper,
+            
+            //--- Radioactivity
+            Units.Curie,
+            
+            //--- Bit Rate
+            Units.BitPerSecond,
+
+            //--- Symbol Rate
+            Units.Baud
+        };
+
+        //Includes all the unit types which support binary prefixes by default.
+        private static UnitTypes[] AllBinaryPrefixTypes = new UnitTypes[]
+        {
+            UnitTypes.Information, UnitTypes.BitRate, UnitTypes.SymbolRate
+        };
     }
 }

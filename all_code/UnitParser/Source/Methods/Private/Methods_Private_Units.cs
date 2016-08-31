@@ -213,7 +213,6 @@ namespace FlexibleParser
         private static Units GetUnitFromUnitStrings(string input)
         {
             string inputLower = input.ToLower();
-
             return AllUnitStrings.FirstOrDefault
             (
                 x => (x.Key.ToLower() == inputLower || GetUnitStringPlural(x.Key.ToLower()) == inputLower)
@@ -221,8 +220,14 @@ namespace FlexibleParser
             .Value;
         }
 
+        //A proper plural determination isn't required. The outputs of this method are quite secondary and
+        //the supported units quite regular on this front.
         private static string GetUnitStringPlural(string unitString)
         {
+            if (unitString.EndsWith("y"))
+            {
+                return unitString.Substring(0, unitString.Length - 1) + "ies";
+            }
             unitString = unitString.Replace("inches", "inch");
             unitString = unitString.Replace("inch", "inches");
             unitString = unitString.Replace("foot", "feet");

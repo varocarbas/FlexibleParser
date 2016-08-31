@@ -727,10 +727,6 @@ namespace FlexibleParser
         ///<summary><para>Henry per metre symbol. SI permeability unit.</para></summary> 
         public const string HenryPerMetre = "H/m";
 
-        //--- Molar Concentration
-        ///<summary><para>Mole per cubic metre symbol. SI molar concentration unit.</para></summary> 
-        public const string MolePerCubicMetre = "mol/m3";
-
         //--- Molar Energy
         ///<summary><para>Joule per mole symbol. SI molar energy unit.</para></summary> 
         public const string JoulePerMole = "J/mol";
@@ -738,6 +734,22 @@ namespace FlexibleParser
         //--- Molar Entropy
         ///<summary><para>Joule per mole per kelvin symbol. SI molar entropy unit.</para></summary> 
         public const string JoulePerMolePerKelvin = "J/mol*K";
+
+        //--- Molar Volume
+        ///<summary><para>Cubic metre per mole symbol. SI molar volume unit.</para></summary> 
+        public const string CubicMetrePerMole = "m3/mol";
+
+        //--- Molar Mass
+        ///<summary><para>Kilogram per mole symbol. SI molar mass unit.</para></summary> 
+        public const string KilogramPerMole = "kg/mol";
+
+        //--- Molar Concentration
+        ///<summary><para>Mole per cubic metre symbol. SI molar concentration unit.</para></summary> 
+        public const string MolePerCubicMetre = "mol/m3";
+
+        //--- Molal Concentration
+        ///<summary><para>Mole per kilogram symbol. SI molal concentration unit.</para></summary> 
+        public const string MolePerKilogram = "mol/kg";
 
         //--- Radiant Intensity
         ///<summary><para>Watt per steradian symbol. SI radiant intensity unit.</para></summary> 
@@ -756,6 +768,8 @@ namespace FlexibleParser
         public const string ImperialMilePerGallon = "impmpg";
         ///<summary><para>USCS mile per gallon abbreviation. USCS fuel economy unit.</para></summary> 
         public const string USCSMilePerGallon = "uscmpg";
+        ///<summary><para>Litre per 100 km abbreviation. USCS fuel economy unit.</para></summary> 
+        public const string LitrePerHundredKilometres = "L100km";
 
         //--- Sound Exposure
         ///<summary><para>Square pascal second symbol. SI sound exposure unit.</para></summary> 
@@ -768,5 +782,13 @@ namespace FlexibleParser
         //--- Rotational Stiffness
         ///<summary><para>Newton metre per radian symbol. SI rotational stiffness unit.</para></summary> 
         public const string NewtonMetrePerRadian = "N*m/rad";
+
+        //--- Bit Rate
+        ///<summary><para>Bit per second symbol. Bit rate unit.</para></summary> 
+        public const string BitPerSecond = "bit/s";
+
+        //--- Symbol Rate
+        ///<summary><para>Baud. Symbol rate unit.</para></summary> 
+        public const string Baud = "Bd";
     }
 }

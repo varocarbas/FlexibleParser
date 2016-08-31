@@ -363,18 +363,23 @@ namespace FlexibleParser
         private static UnitInfo GetBasicCompoundUnit(UnitInfo unitInfo)
         {
             unitInfo.Unit = DefaultUnnamedUnits[unitInfo.System];
-            if (unitInfo.System == UnitSystems.None) return unitInfo;
+            
+            UnitSystems system2 = unitInfo.System;
+            if (system2 == UnitSystems.None)
+            {
+                system2 = UnitSystems.SI;
+            }
 
             Units basicCompound =
             (
-                AllBasicCompounds[unitInfo.Type].ContainsKey(unitInfo.System) ?
-                AllBasicCompounds[unitInfo.Type][unitInfo.System] :
+                AllBasicCompounds[unitInfo.Type].ContainsKey(system2) ?
+                AllBasicCompounds[unitInfo.Type][system2] :
                 Units.None
             );
 
             if (basicCompound == Units.None) return unitInfo;
 
-            UnitSystems basicSystem = AllBasicSystems[unitInfo.System];
+            UnitSystems basicSystem = AllBasicSystems[system2];
             List<UnitPart> basicUnitParts = GetBasicCompoundUnitParts(unitInfo.Type, basicSystem);
             if (basicUnitParts.Count != unitInfo.Parts.Count) return unitInfo;
 

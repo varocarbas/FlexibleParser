@@ -155,12 +155,18 @@ namespace FlexibleParser
         Permittivity,
         ///<summary><para>Associated with all the permeability units.</para></summary> 
         Permeability,
-        ///<summary><para>Associated with all the molar concentration units.</para></summary> 
-        MolarConcentration,
         ///<summary><para>Associated with all the molar energy units.</para></summary> 
         MolarEnergy,
         ///<summary><para>Associated with all the molar entropy units.</para></summary> 
         MolarEntropy,
+        ///<summary><para>Associated with all the molar volume units.</para></summary> 
+        MolarVolume,
+        ///<summary><para>Associated with all the molar mass units.</para></summary> 
+        MolarMass,
+        ///<summary><para>Associated with all the molar concentration (or molarity) units.</para></summary> 
+        MolarConcentration,
+        ///<summary><para>Associated with all the molal concentration (or molality) units.</para></summary> 
+        MolalConcentration,
         ///<summary><para>Associated with all the radiant intensity units.</para></summary> 
         RadiantIntensity,
         ///<summary><para>Associated with all the radiance units.</para></summary> 
@@ -173,5 +179,9 @@ namespace FlexibleParser
         SoundImpedance,
         ///<summary><para>Associated with all the rotational stiffness units.</para></summary> 
         RotationalStiffness,
+        ///<summary><para>Associated with all the bit rate units.</para></summary> 
+        BitRate,
+        ///<summary><para>Associated with all the symbol rate units.</para></summary> 
+        SymbolRate
     };
 }

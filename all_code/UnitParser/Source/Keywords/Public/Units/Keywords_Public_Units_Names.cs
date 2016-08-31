@@ -1489,17 +1489,10 @@ namespace FlexibleParser
         ///</summary> 
         HenryPerMetre,
 
-        //--- Molar Concentration
-        ///<summary>
-        ///<para>Mole per cubic metre (mol/m3). SI molar concentration unit.</para>
-        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
-        ///</summary> 
-        MolePerCubicMetre,
-
         //--- Molar Energy
         ///<summary>
         ///<para>Joule per mole (J/mol). SI molar energy unit.</para>
-        ///<para>BNo prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         JoulePerMole,
 
@@ -1509,6 +1502,34 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         JoulePerMolePerKelvin,
+
+        //--- Molar Volume
+        ///<summary>
+        ///<para>Cubic metre per mole (m3/mol). SI molar volume unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///</summary> 
+        CubicMetrePerMole,
+
+        //--- Molar Mass
+        ///<summary>
+        ///<para>Kilogram per mole (kg/mol). SI molar mass unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///</summary> 
+        KilogramPerMole,
+
+        //--- Molar Concentration
+        ///<summary>
+        ///<para>Mole per cubic metre (mol/m3). SI molar concentration unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///</summary> 
+        MolePerCubicMetre,
+
+        //--- Molal Concentration
+        ///<summary>
+        ///<para>Mole per kilogram (mol/kg). SI molal concentration unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///</summary> 
+        MolePerKilogram,
 
         //--- Radiant Intensity
         ///<summary>
@@ -1566,5 +1587,13 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         NewtonMetrePerRadian,
+
+        //--- Bit Rate
+        ///<summary><para>Bit per second (bit/s). Bit rate unit.</para></summary> 
+        BitPerSecond,
+
+        //--- Symbol Rate
+        ///<summary><para>Baud (Bd). Symbol rate unit.</para></summary> 
+        Baud,
     };
 }

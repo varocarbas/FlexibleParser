@@ -182,6 +182,14 @@ namespace FlexibleParser
             AddToAllUnitStrings("shortcwt", unit);
             AddToAllUnitStrings("uscwt", unit);
 
+            //Plural support is automatically added to all the string representations (e.g., the ones added here), 
+            //but not to the symbols. For example: the aforementioned mtr reference already includes mtrs.
+            unit = Units.Gram;
+            AddToAllUnitStrings("gs", unit);
+
+            unit = Units.Pound;
+            AddToAllUnitStrings("lbs", unit);
+
             unit = Units.LongTon;
             AddToAllUnitStrings("longtn", unit);
             AddToAllUnitStrings("uktn", unit);
@@ -286,6 +294,9 @@ namespace FlexibleParser
 
             unit = Units.Rankine;
             AddToAllUnitStrings("degR", unit);
+
+            unit = Units.BitPerSecond;
+            AddToAllUnitStrings("bps", unit);
         }
 
         private static void AddSqCuToAllUnitStrings(string[] symbols, Units unit, bool square = true)

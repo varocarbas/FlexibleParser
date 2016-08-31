@@ -420,11 +420,23 @@ namespace FlexibleParser
             //--- Permeability
             { UnitSymbols.HenryPerMetre, Units.HenryPerMetre },
 
+            //--- Molar Energy
+            { UnitSymbols.JoulePerMole, Units.JoulePerMole },
+
             //--- Molar Entropy
             { UnitSymbols.JoulePerMolePerKelvin, Units.JoulePerMolePerKelvin },
 
+            //--- Molar Volume
+            { UnitSymbols.CubicMetrePerMole, Units.CubicMetrePerMole },
+
+            //--- Molar Mass
+            { UnitSymbols.KilogramPerMole, Units.KilogramPerMole },
+
             //--- Molar Concentration
             { UnitSymbols.MolePerCubicMetre, Units.MolePerCubicMetre },
+
+            //--- Molal Concentration
+            { UnitSymbols.MolePerKilogram, Units.MolePerKilogram },
 
             //--- Radiant Intensity
             { UnitSymbols.WattPerSteradian, Units.WattPerSteradian },
@@ -445,40 +457,46 @@ namespace FlexibleParser
             { UnitSymbols.PascalSecondPerCubicMetre, Units.PascalSecondPerCubicMetre },
 
             //--- Rotational Stiffness
-            { UnitSymbols.NewtonMetrePerRadian, Units.NewtonMetrePerRadian }
+            { UnitSymbols.NewtonMetrePerRadian, Units.NewtonMetrePerRadian },
+
+            //--- Bit Rate
+            { UnitSymbols.BitPerSecond, Units.BitPerSecond },
+
+            //--- Symbol Rate
+            { UnitSymbols.Baud, Units.Baud },
         };
 
-        //Contains all the units outside the SI-prefix-supporting systems (i.e., UnitSystems.SI & UnitSystems.CGS)
-        //which do support SI prefixes by default.
-        private static Units[] AllOtherSIPrefixUnits = new Units[]
+        //Includes all the units with compound (= dividable by default) types which cannot
+        //be divided.
+        private static Units[] AllNonDividableUnits = new Units[]
         {
-            //--- Length
-            Units.Parsec,
-
-            //--- Mass
-            Units.MetricTon, Units.Dalton, Units.UnifiedAtomicMassUnit,
-            
             //--- Area
-            Units.Are, Units.Barn,
+            Units.Are, Units.Rood, Units.Acre, Units.Barn,
             
             //--- Volume
-            Units.Litre,
+            Units.Litre, Units.FluidOunce, Units.ImperialFluidOunce, Units.USCSFluidOunce, Units.Gill,
+            Units.ImperialGill, Units.USCSGill, Units.Pint, Units.ImperialPint, Units.LiquidPint,
+            Units.DryPint, Units.Quart, Units.ImperialQuart, Units.LiquidQuart, Units.DryQuart,
+            Units.Gallon, Units.ImperialGallon, Units.LiquidGallon, Units.DryGallon,
             
-            //--- Information
-            Units.Bit, Units.Byte, Units.Nibble, Units.Quartet, Units.Octet,
+            //--- Force
+            Units.Kilopond, Units.PoundForce, Units.Kip, Units.Poundal, Units.OunceForce,
             
             //--- Energy
-            Units.Electronvolt, Units.WattHour, Units.Calorie, Units.ThermochemicalCalorie,
-            Units.FoodCalorie,
-            
+            Units.Electronvolt, Units.BritishThermalUnit, Units.ThermochemicalBritishThermalUnit,
+            Units.Calorie, Units.ThermochemicalCalorie, Units.FoodCalorie, Units.Therm, Units.UKTherm,
+            Units.USTherm, 
+                        
+            //--- Power
+            Units.Horsepower, Units.MetricHorsepower, Units.BoilerHorsepower, Units.ElectricHorsepower,
+            Units.TonOfRefrigeration,
+                        
             //--- Pressure
-            Units.Bar, Units.Torr,
-            
-            //--- Logarithmic
-            Units.Bel, Units.Neper,
-            
-            //--- Radioactivity
-            Units.Curie,
+            Units.Atmosphere, Units.Bar, Units.MillimetreMercury, Units.InchMercury32F, Units.InchMercury60F,
+            Units.Torr,
+                        
+            //--- Amount of substance
+            Units.PoundMole
         };
 
         //English-system units which are identical in both Imperial and USCS.

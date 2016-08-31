@@ -32,6 +32,7 @@ namespace FlexibleParser
         private static ParseInfo PrefixAnalysis(ParseInfo parseInfo)
         {
             parseInfo.UnitInfo.Unit = GetUnitFromString(parseInfo.InputToParse);
+
             return 
             (
                 parseInfo.UnitInfo.Unit == Units.None ?
@@ -187,9 +188,9 @@ namespace FlexibleParser
                 UnitSystems system = GetSystemFromUnit(unit);
                 return (system == UnitSystems.SI || system == UnitSystems.CGS);
             }
-            else if (prefixType == PrefixTypes.Binary && GetTypeFromUnit(unit) == UnitTypes.Information)
+            else if (prefixType == PrefixTypes.Binary)
             {
-                return true;
+                return AllBinaryPrefixTypes.Contains(GetUnitType(unit));
             }
 
             return false;
