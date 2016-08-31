@@ -510,7 +510,8 @@ namespace FlexibleParser
                         UnitSystems.Imperial, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.PoundforcePerSquareInch, UnitConversionFactors.PoundforcePerSquareInch }
+                            { Units.PoundforcePerSquareInch, UnitConversionFactors.PoundforcePerSquareInch },
+                            { Units.PoundforcePerSquareFoot, UnitConversionFactors.PoundforcePerSquareFoot }
                         }
                     },
                     {

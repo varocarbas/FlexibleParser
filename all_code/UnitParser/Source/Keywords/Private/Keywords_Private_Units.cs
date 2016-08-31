@@ -177,7 +177,8 @@ namespace FlexibleParser
             { UnitSymbols.Pascal, Units.Pascal },    
             { UnitSymbols.Atmosphere, Units.Atmosphere },             
             { UnitSymbols.Bar, Units.Bar },             
-            { UnitSymbols.PoundforcePerSquareInch, Units.PoundforcePerSquareInch },                   
+            { UnitSymbols.PoundforcePerSquareInch, Units.PoundforcePerSquareInch },       
+            { UnitSymbols.PoundforcePerSquareFoot, Units.PoundforcePerSquareFoot },              
             { UnitSymbols.MillimetreMercury, Units.MillimetreMercury },             
             { UnitSymbols.InchMercury32F, Units.InchMercury32F },              
             { UnitSymbols.InchMercury60F, Units.InchMercury60F },               
@@ -515,7 +516,7 @@ namespace FlexibleParser
             Units.Horsepower, 
                         
             //--- Pressure
-            Units.PoundforcePerSquareInch, 
+            Units.PoundforcePerSquareInch, Units.PoundforcePerSquareFoot,
                         
             //--- Temperature
             Units.Fahrenheit, Units.Rankine, 

@@ -109,6 +109,7 @@ namespace FlexibleParser
             AddToAllUnitStrings("M/h", Units.MilePerHour);
             AllUnitSymbols2.Add("mi/h", Units.MilePerHour);
             AllUnitSymbols2.Add("lbf/in2", Units.PoundforcePerSquareInch);
+            AllUnitSymbols2.Add("lbf/ft2", Units.PoundforcePerSquareFoot);
             AllUnitSymbols2.Add("Btu", Units.BritishThermalUnit);
             AllUnitSymbols2.Add("thBtu", Units.ThermochemicalBritishThermalUnit);
             AllUnitSymbols2.Add("stC", Units.Statcoulomb);
