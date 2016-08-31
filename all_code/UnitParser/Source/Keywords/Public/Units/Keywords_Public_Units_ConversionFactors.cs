@@ -14,8 +14,11 @@ namespace FlexibleParser
         public const decimal Metre = 1m;
         ///<summary><para>Centimetre (cm) conversion factor. CGS length unit.</para></summary>
         public const decimal Centimetre = 0.01m;
-        ///<summary><para>Astronomical unit (AU) conversion factor. Length unit.</para></summary>
-        public const decimal AstronomicalUnit = 149597870700m;
+        ///<summary>
+        ///<para>Astronomical unit (AU) conversion factor. Length unit.</para>
+        ///<para>Source: IAU 2012.</para>
+        ///</summary>
+        public const decimal AstronomicalUnit = 149597870700m; 
         ///<summary><para>Foot (ft) conversion factor. Imperial/USCS length unit.</para></summary>
         public const decimal Foot = 0.3048m;
         ///<summary><para>Inch (in) conversion factor. Imperial/USCS length unit.</para></summary>
@@ -66,6 +69,13 @@ namespace FlexibleParser
         public const decimal Angstrom = 1E-10m;
         ///<summary><para>Fermi (f) conversion factor. Length unit.</para></summary>
         public const decimal Fermi = 1E-15m;
+        ///<summary><para>Light year (ly) conversion factor. Length unit.</para></summary>
+        public const decimal LightYear = 9460730472580800m;
+        ///<summary>
+        ///<para>Parsec (pc) conversion factor. Length unit.</para>
+        ///<para>Source: IAU 2015.</para>
+        ///</summary>
+        public const decimal Parsec = 30856775814913672.789139379581m; //UnitConversionFactors.AstronomicalUnit * 648000m / MathematicalConstants.Pi
 
         //--- Mass
         ///<summary>
@@ -351,6 +361,8 @@ namespace FlexibleParser
         public const decimal Bar = 100000;
         ///<summary><para>Pound-force per square inch (psi) conversion factor. Imperial/USCS pressure unit.</para></summary>
         public const decimal PoundforcePerSquareInch = 6894.7572931683613367226734453m; //UnitConversionFactors.PoundForce / UnitConversionFactors.Inch / UnitConversionFactors.Inch;
+        ///<summary><para>Pound-force per square foot (psf) conversion factor. Imperial/USCS pressure unit.</para></summary>
+        public const decimal PoundforcePerSquareFoot = 47.880258980335842616129676703m; //UnitConversionFactors.PoundForce / UnitConversionFactors.Foot / UnitConversionFactors.Foot;
         ///<summary><para>Millimetre of Mercury (mmHg) conversion factor. Pressure unit.</para></summary>
         public const decimal MillimetreMercury = 133.322387415m;
         ///<summary><para>Inch of Mercury at 32 °F (inHg32) conversion factor. Pressure unit.</para></summary>
@@ -924,7 +936,7 @@ namespace FlexibleParser
         ///<summary><para>Imperial mile per gallon (impmpg) conversion factor. Imperial fuel economy unit.</para></summary> 
         public const decimal ImperialMilePerGallon = 354006.18993464713633034101833m;
         ///<summary><para>USCS mile per gallon (uscmpg) conversion factor. USCS fuel economy unit.</para></summary> 
-        public const decimal USCSMilePerGallon = 425143.70743027200340114965944m; 
+        public const decimal USCSMilePerGallon = 425143.70743027200340114965944m;
 
         //--- Sound Exposure
         ///<summary><para>Square pascal second (Pa2*s) conversion factor. SI sound exposure unit.</para></summary> 

@@ -41,6 +41,8 @@ namespace FlexibleParser
             { UnitSymbols.Link, Units.Link }, 
             { UnitSymbols.Angstrom, Units.Angstrom }, 
             { UnitSymbols.Fermi, Units.Fermi }, 
+            { UnitSymbols.LightYear, Units.LightYear }, 
+            { UnitSymbols.Parsec, Units.Parsec }, 
 
             //--- Mass
             { UnitSymbols.Gram, Units.Gram }, 
@@ -449,6 +451,9 @@ namespace FlexibleParser
         //which do support SI prefixes by default.
         private static Units[] AllOtherSIPrefixUnits = new Units[]
         {
+            //--- Length
+            Units.Parsec,
+
             //--- Mass
             Units.MetricTon, Units.Dalton, Units.UnifiedAtomicMassUnit,
             

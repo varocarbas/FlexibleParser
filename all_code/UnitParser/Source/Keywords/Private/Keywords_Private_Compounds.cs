@@ -1620,6 +1620,14 @@ namespace FlexibleParser
                 } 
             },
             { 
+                Units.PoundforcePerSquareFoot, 
+                new UnitPart[] 
+                { 
+                    new UnitPart(Units.PoundForce),
+                    new UnitPart(Units.Foot, -2)
+                } 
+            },
+            { 
                 Units.KipPerSquareInch, 
                 new UnitPart[] 
                 { 

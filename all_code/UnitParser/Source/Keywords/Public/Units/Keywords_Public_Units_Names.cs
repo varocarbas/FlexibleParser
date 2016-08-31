@@ -184,6 +184,16 @@ namespace FlexibleParser
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         Fermi,
+        ///<summary>
+        ///<para>Light year (ly). Length unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
+        ///</summary>
+        LightYear,
+        ///<summary>
+        ///<para>Parsec (pc). Length unit.</para>
+        ///<para>By default, binary prefixes may not be used with this unit.</para>            
+        ///</summary>
+        Parsec,
 
         //--- Mass
         ///<summary>
@@ -745,6 +755,11 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>             
         ///</summary>                 
         PoundforcePerSquareInch,
+        ///<summary>
+        ///<para>Pound-force per square foot (psf). Imperial/USCS pressure unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>             
+        ///</summary>                 
+        PoundforcePerSquareFoot,
         ///<summary>
         ///<para>Millimetre of mercury (mmHg). Pressure unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             

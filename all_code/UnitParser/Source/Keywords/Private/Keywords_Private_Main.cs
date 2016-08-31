@@ -86,7 +86,9 @@ namespace FlexibleParser
                             { Units.AstronomicalUnit, UnitConversionFactors.AstronomicalUnit },
                             { Units.NauticalMile, UnitConversionFactors.NauticalMile },
                             { Units.Angstrom, UnitConversionFactors.Angstrom },
-                            { Units.Fermi, UnitConversionFactors.Fermi }
+                            { Units.Fermi, UnitConversionFactors.Fermi },
+                            { Units.LightYear, UnitConversionFactors.LightYear },
+                            { Units.Parsec, UnitConversionFactors.Parsec }
                         }
                     }
                 }

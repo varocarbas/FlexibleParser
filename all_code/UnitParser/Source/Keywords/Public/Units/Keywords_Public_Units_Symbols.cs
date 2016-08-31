@@ -69,6 +69,10 @@ namespace FlexibleParser
         public const string Angstrom = "Å";
         ///<summary><para>Fermi symbol. Length unit.</para></summary>
         public const string Fermi = "f";
+        ///<summary><para>Light symbol. Length unit.</para></summary>
+        public const string LightYear = "ly";
+        ///<summary><para>Parsec. Length unit.</para></summary>
+        public const string Parsec = "pc";
 
         //--- Mass
         ///<summary><para>Gram symbol. SI mass unit.</para></summary>
@@ -324,6 +328,8 @@ namespace FlexibleParser
         public const string Bar = "bar";
         ///<summary><para>Pound-force per square inch abbreviation. Imperial/USCS pressure unit.</para></summary>                 
         public const string PoundforcePerSquareInch = "psi";
+        ///<summary><para>Pound-force per square foot abbreviation. Imperial/USCS pressure unit.</para></summary>                 
+        public const string PoundforcePerSquareFoot = "psf";
         ///<summary><para>Millimetre of mercury symbol. Pressure unit.</para></summary>               
         public const string MillimetreMercury = "mmHg";
         ///<summary><para>Inch of mercury 32 °F abbreviation. Pressure unit.</para></summary>               
