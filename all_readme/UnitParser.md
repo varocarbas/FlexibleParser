@@ -1,6 +1,6 @@
 # UnitParser 
 
- [customsolvers.com page](http://customsolvers.com/en/pages/open_source/flexible_parser/unit_parser/) -- [UnitParser.dll](http://customsolvers.com/downloads/flexible_parser/unit_parser/) -- [NuGet package](https://www.nuget.org/packages/UnitParser/)
+ [customsolvers.com page](http://customsolvers.com/unit_parser/) -- [UnitParser.dll](http://customsolvers.com/downloads/flexible_parser/unit_parser/) -- [NuGet package](https://www.nuget.org/packages/UnitParser/)
 
 ##Introduction
 The main class is called ```UnitP``` (```FlexibleParser``` namespace). It can be instantiated in many different ways.
