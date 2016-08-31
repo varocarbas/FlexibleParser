@@ -10,13 +10,14 @@ namespace FlexibleParser
         (
             ParseInfo parseInfo, string originalUnitString = "", UnitSystems system = UnitSystems.None,
             ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
-            PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage, bool noPrefixImprovement = false
+            PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage, bool noPrefixImprovement = false,
+            bool improveFinalValue = true
         )
         {
             UnitPConstructor unitP2 = new UnitPConstructor
             (
                 originalUnitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, parseInfo.UnitInfo.System,
-                ErrorTypes.None, exceptionHandling, noPrefixImprovement
+                ErrorTypes.None, exceptionHandling, noPrefixImprovement, improveFinalValue
             );
 
             OriginalUnitString = unitP2.OriginalUnitString;
@@ -53,13 +54,13 @@ namespace FlexibleParser
         private UnitP
         (
             UnitInfo unitInfo, UnitP unitP, string originalUnitString = "", 
-            UnitSystems system = UnitSystems.None, bool noPrefixImprovement = false
+            bool improveFinalValue = true
         )
         : this
         (
-            new ParseInfo(unitInfo), originalUnitString, system,
-            unitP.Error.ExceptionHandling, unitInfo.Prefix.PrefixUsage,
-            noPrefixImprovement
+            new ParseInfo(unitInfo), originalUnitString, UnitSystems.None,
+            unitP.Error.ExceptionHandling, unitInfo.Prefix.PrefixUsage, 
+            false, improveFinalValue
         )
         { }
 
@@ -190,7 +191,7 @@ namespace FlexibleParser
                 UnitTypes unitType = UnitTypes.None, UnitSystems unitSystem = UnitSystems.None,
                 ErrorTypes errorType = ErrorTypes.None,
                 ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
-                bool noPrefixImprovement = false
+                bool noPrefixImprovement = false, bool improveFinalValue = true
             )
             {
 
@@ -225,7 +226,14 @@ namespace FlexibleParser
                     }
                     UnitString = GetUnitString(UnitInfo);
 
-                    Value = ImproveFinalValue(UnitInfo.Value);
+                    Value =
+                    (
+                        improveFinalValue ? 
+                        //Values like 1.999999 are assumed to be a not-that-good version of 2.0 (+ precision loss).
+                        //This assumption doesn't hold with operations performed by the user (who might want that result).
+                        ImproveFinalValue(UnitInfo.Value) :
+                        UnitInfo.Value
+                    );
 
                     ValueAndUnitString = Value +
                     (

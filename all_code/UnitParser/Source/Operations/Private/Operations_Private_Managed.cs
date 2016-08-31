@@ -133,25 +133,20 @@ namespace FlexibleParser
                 Operations.Multiplication                
             );
 
-            bool isWrong = false;
-            if (big2.Error.Type != ErrorTypes.None || big2.BaseTenExponent != 0)
-            {
+            bool isWrong = 
+            (
+                big2.Error.Type != ErrorTypes.None || big2.BaseTenExponent != 0 ?
+                
                 //The value of the bigger input times 10^(gap between BaseTenExponent of inputs) is too big. 
-                isWrong = true;
-            }
-            else
-            {
-                try
-                {
-                    //Overflow-check very unlikely to trigger an error. In fact, with properly normalised variables,
-                    //triggering an error would be plainly impossible.
-                    unitInfos2[0].Value = unitInfos2[0].Value + unitInfos2[1].Value *
-                    (
-                        operation == Operations.Addition ? 1 : -1
-                    );
-                }
-                catch { isWrong = true; }
-            }
+                isWrong = true :
+                
+                //Overflow-check very unlikely to trigger an error. In fact, with properly normalised variables,
+                //triggering an error would be plainly impossible.               
+                AreAdditionFinalValuesWrong
+                (
+                    unitInfos2[0].Value, unitInfos2[1].Value, operation
+                )
+            );
 
             return
             (
@@ -169,6 +164,22 @@ namespace FlexibleParser
                     Value = big2.Value
                 }
             );
+        }
+
+        private static bool AreAdditionFinalValuesWrong(decimal val1, decimal val2, Operations operation)
+        {
+            bool isWrong = false;
+
+            try
+            {
+                val1 = val1 + val2 *
+                (
+                    operation == Operations.Addition ? 1 : -1
+                );
+            }
+            catch { isWrong = true; }
+
+            return isWrong;
         }
 
         private static UnitInfo PerformManagedOperationMultiplication(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
@@ -326,9 +337,8 @@ namespace FlexibleParser
             (
                 //An error might not be triggered despite of dealing with numbers outside decimal precision.
                 //For example: 0.00000000000000000001m * 0.0000000000000000000001m can output 0m without triggering an error. 
-                isWrong || outInfo.Value == 0.0m ?
-                OperationValuesManageError(firstInfo0, secondInfo0, operation) :
-                outInfo
+                isWrong || ((operation == Operations.Multiplication || operation == Operations.Division) && outInfo.Value == 0.0m) ?
+                OperationValuesManageError(firstInfo0, secondInfo0, operation) : outInfo
             );
         }
 

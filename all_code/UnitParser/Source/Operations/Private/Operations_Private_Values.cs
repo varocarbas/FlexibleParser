@@ -95,7 +95,7 @@ namespace FlexibleParser
             return
             (
                 outInfo.Error.Type != ErrorTypes.None ? new UnitP(unitP, outInfo.Error.Type) :
-                new UnitP(outInfo, unitP, operationString)
+                new UnitP(outInfo, unitP, operationString, false)
             );
         }
 
@@ -126,7 +126,7 @@ namespace FlexibleParser
             {
                 //In some cases, decimal.TryParse might consider valid numbers beyond the actual scope of
                 //decimal type. For example: 0.00000000000000000000000000000001m assumed to be zero.
-                if (value != 0m) return new UnitInfo(value);
+                //if (value != 0m) return new UnitInfo(value);
             }
 
             return ParseDouble(stringToParse);
@@ -216,7 +216,7 @@ namespace FlexibleParser
                 {
                     if (!char.IsDigit(item) || item == '.')
                     {
-                        //Invalid number. Decimal separators aren't acceptable here.
+                        //It would mean that it isn't a valid 
                         return 0;
                     }
                     outCount = outCount + 1;
@@ -224,7 +224,7 @@ namespace FlexibleParser
             }
             catch
             {
-                //The really unlikely scenario of hitting int.MaxValue. 300 + int.MaxValue digits one after the other?!
+                //The really unlikely scenario of hitting int.MaxValue.
                 outCount = 0;
             }
 

@@ -56,6 +56,7 @@
     <Compile Include="Source\Methods\Private\Methods_Private_Compounds.cs" />
     <Compile Include="Source\Methods\Private\Methods_Private_Strings.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Common.cs" />
+    <Compile Include="Source\Operations\Private\Operations_Private_Conversions.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Equals.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Managed.cs" />
     <Compile Include="Source\Methods\Public\Methods_Public_NonStatic.cs" />
