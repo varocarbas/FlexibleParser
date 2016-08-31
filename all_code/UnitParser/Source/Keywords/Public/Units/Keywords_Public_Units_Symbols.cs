@@ -768,8 +768,6 @@ namespace FlexibleParser
         public const string ImperialMilePerGallon = "impmpg";
         ///<summary><para>USCS mile per gallon abbreviation. USCS fuel economy unit.</para></summary> 
         public const string USCSMilePerGallon = "uscmpg";
-        ///<summary><para>Litre per 100 km abbreviation. USCS fuel economy unit.</para></summary> 
-        public const string LitrePerHundredKilometres = "L100km";
 
         //--- Sound Exposure
         ///<summary><para>Square pascal second symbol. SI sound exposure unit.</para></summary> 
