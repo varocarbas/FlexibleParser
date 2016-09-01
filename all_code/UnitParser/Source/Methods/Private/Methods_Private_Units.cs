@@ -239,7 +239,7 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitTypes GetTypeFromUnitPart(UnitPart unitPart, bool ignoreExponents = false)
+        private static UnitTypes GetTypeFromUnitPart(UnitPart unitPart, bool ignoreExponents = false, bool simplestApproach = false)
         {
             UnitPart unitPart2 = new UnitPart(unitPart);
 
@@ -254,6 +254,26 @@ namespace FlexibleParser
             UnitInfo unitInfo = new UnitInfo(unitPart2.Unit, unitPart2.Prefix.Factor);
             unitInfo.Parts = new List<UnitPart>() { unitPart2 };
 
+            if (simplestApproach)
+            {
+                //This is reached when calling from parts of the code likely to provoke an infinite loop. 
+                UnitTypes type2 = GetTypeFromUnit(unitPart.Unit);
+                
+                if (type2 == UnitTypes.Length)
+                {
+                    if (unitPart2.Exponent == 2)
+                    {
+                        type2 = UnitTypes.Area;
+                    }
+                    else if (unitPart2.Exponent == 3)
+                    {
+                        type2 = UnitTypes.Volume;
+                    }
+                }
+
+                return type2;
+            }
+
             UnitTypes outType = GetTypeFromUnitInfo(unitInfo);
             return 
             (
@@ -267,7 +287,7 @@ namespace FlexibleParser
         private static UnitTypes GetTypeFromUnitInfo(UnitInfo unitInfo)
         {
             UnitTypes outType = UnitTypes.None;
-            if (unitInfo.Parts.Count > 0)
+            if (unitInfo.Parts.Count > 0 && unitInfo.Parts.FirstOrDefault(x => x.Exponent != 1) != null)   
             {
                 outType = GetBasicCompoundType(unitInfo).Type;
             }

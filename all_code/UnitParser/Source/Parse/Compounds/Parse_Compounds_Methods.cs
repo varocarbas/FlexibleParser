@@ -91,7 +91,7 @@ namespace FlexibleParser
                     //exponent is irrelevant. 
                     //For example: m3 wouldn't go through this part (type 1 match) and the exponent doesn't define litre.
                     //Note that these parts aren't actually correct in many cases, just compatible with the AllCompounds format.
-                    UnitTypes type2 = GetTypeFromUnit(part.Unit);
+                    UnitTypes type2 = GetTypeFromUnitPart(part, false, true);
                     if (AllCompounds.ContainsKey(type2))
                     {
                         outParts.AddRange
@@ -99,12 +99,12 @@ namespace FlexibleParser
                             GetUnitPartsFromBasicCompound
                             (
                                 AllCompounds[type2][0], 
-                                unitInfo.System, part.Exponent
+                                unitInfo.System, Math.Sign(part.Exponent)
                             )
                         );
-                        outParts = SimplifyCompoundComparisonUnitParts(outParts);
                     }
                     else outParts.Add(new UnitPart(part));
+                    outParts = SimplifyCompoundComparisonUnitParts(outParts);
                 }
             }
 
