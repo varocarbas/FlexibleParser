@@ -1046,90 +1046,6 @@ namespace FlexibleParser
             }
         };
 
-        //By default, global prefixes aren't used with compounds to avoid misunderstandings.
-        //For example: 1000 m2 converted into k m2 confused as km2.
-        //This collection includes the only compounds which might use prefixes.
-        private static Units[] AllCompoundsUsingPrefixes = new Units[]
-        {
-            //--- Acceleration
-             Units.Gal,
- 
-             //--- Force
-             Units.Newton, Units.Dyne, 
-             
-             //--- Energy
-             Units.Joule, Units.Erg,
-             
-             //--- Power
-             Units.Watt,
-
-             //--- Pressure
-             Units.Pascal, Units.Barye,
-             
-             //--- Frequency
-             Units.Hertz,
-
-             //--- Electric Charge
-             Units.Coulomb, 
-
-             //--- Electric Current
-             Units.Ampere, 
-
-             //--- Electric Voltage
-             Units.Volt, 
-
-             //--- Electric Resitance
-             Units.Ohm, 
-
-             //--- Electric Conductance
-             Units.Siemens,
-
-             //--- Electric Capacitance
-             Units.Farad,
-
-             //--- Electric Inductance
-             Units.Henry,
-
-             //--- Wavenumber
-            Units.Kayser,
-
-            //--- Viscosity
-            Units.Poise,
-
-            //--- Kinematic Viscosity
-            Units.Stokes,
-
-            //--- Luminous Flux
-            Units.Lumen,
-
-            //--- Luminous Energy
-            Units.Talbot,
-
-            //--- Luminance
-            Units.Stilb,
-
-            //--- Illuminance
-            Units.Lux, Units.Phot,
-
-            //--- Magnetic Flux
-            Units.Weber,
-
-            //--- Magnetic Field B
-            Units.Tesla,
-
-            //--- Absorbed Dose
-            Units.Gray, Units.Rad,
-
-            //--- Equivalent Dose
-            Units.Sievert, Units.REM,
-            
-            //--- Catalytic Activity
-            Units.Katal,
-            
-            //--- Bit Rate
-            Units.BitPerSecond        
-        };
-
         //Contains all the named compounds defined by the basic units for the given type/system.
         //Example: Newton is formed by kg*m/s^2, the basic mass*length/time units in SI; that's why it belongs here.
         //NOTE: all these compounds are divided into their most basic constituent parts (againt what some non-SI units expect).
@@ -1596,6 +1512,15 @@ namespace FlexibleParser
             }
         };
 
+        //Roughly speaking, AllNonBasicCompounds is a container of somehow exceptional situations. Ideally,
+        //AllCompounds (+ associated variables) should be enough to deal with this reality by its own. 
+        //Some of these units (e.g., centimetre) shouldn't be matched when looking for valid compounds.
+        //The reason for being here is defining its constituent parts (what cannot be done in AllCompounds).
+        private static Units[] NonBasicCompoundsToSkip = new Units[]
+        {
+            Units.Centimetre
+        };
+
         //Contains the definition (i.e., UnitPart[] containing their defining units) of all the supported named 
         //compounds except the ones defined by the given system basic units (included in AllBasicCompounds).
         private static Dictionary<Units, UnitPart[]> AllNonBasicCompounds = new Dictionary<Units, UnitPart[]>()
@@ -1668,7 +1593,9 @@ namespace FlexibleParser
                 Units.WattHour, 
                 new UnitPart[] 
                 { 
-                    new UnitPart(Units.Watt),
+                    new UnitPart(Units.Metre, 2),
+                    new UnitPart(Units.Gram, SIPrefixValues.Kilo),
+                    new UnitPart(Units.Second, -3),
                     new UnitPart(Units.Hour)
                 } 
             },

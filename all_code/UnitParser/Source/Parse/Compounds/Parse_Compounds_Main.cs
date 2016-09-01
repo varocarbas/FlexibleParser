@@ -128,10 +128,12 @@ namespace FlexibleParser
             //where pint has to be converted into m3, the SI (first operand system) basic unit for volume.
             parseInfo.UnitInfo = CorrectDifferentSystemIssues(parseInfo.UnitInfo);
 
-            parseInfo.UnitInfo = GetCompoundUnitFromParts
-            (
-                ImproveUnitParts(parseInfo.UnitInfo)
-            );
+            parseInfo.UnitInfo = ImproveUnitParts(parseInfo.UnitInfo);
+
+            if (parseInfo.UnitInfo.Type == UnitTypes.None)
+            {
+                parseInfo.UnitInfo = GetCompoundUnitFromParts(parseInfo.UnitInfo);
+            }
             
             parseInfo.UnitInfo = UpdateMainUnitVariables(parseInfo.UnitInfo);
             if (parseInfo.UnitInfo.Unit == Units.None)

@@ -143,6 +143,90 @@ namespace FlexibleParser
             Units.Baud
         };
 
+        //By default, global prefixes aren't used with compounds to avoid misunderstandings.
+        //For example: 1000 m2 converted into k m2 confused as km2.
+        //This collection includes the only compounds which might use prefixes.
+        private static Units[] AllCompoundsUsingPrefixes = new Units[]
+        {
+            //--- Acceleration
+             Units.Gal,
+ 
+             //--- Force
+             Units.Newton, Units.Dyne, 
+             
+             //--- Energy
+             Units.Joule, Units.Erg, Units.WattHour,
+             
+             //--- Power
+             Units.Watt,
+
+             //--- Pressure
+             Units.Pascal, Units.Barye,
+             
+             //--- Frequency
+             Units.Hertz,
+
+             //--- Electric Charge
+             Units.Coulomb, 
+
+             //--- Electric Current
+             Units.Ampere, 
+
+             //--- Electric Voltage
+             Units.Volt, 
+
+             //--- Electric Resitance
+             Units.Ohm, 
+
+             //--- Electric Conductance
+             Units.Siemens,
+
+             //--- Electric Capacitance
+             Units.Farad,
+
+             //--- Electric Inductance
+             Units.Henry,
+
+             //--- Wavenumber
+            Units.Kayser,
+
+            //--- Viscosity
+            Units.Poise,
+
+            //--- Kinematic Viscosity
+            Units.Stokes,
+
+            //--- Luminous Flux
+            Units.Lumen,
+
+            //--- Luminous Energy
+            Units.Talbot,
+
+            //--- Luminance
+            Units.Stilb,
+
+            //--- Illuminance
+            Units.Lux, Units.Phot,
+
+            //--- Magnetic Flux
+            Units.Weber,
+
+            //--- Magnetic Field B
+            Units.Tesla,
+
+            //--- Absorbed Dose
+            Units.Gray, Units.Rad,
+
+            //--- Equivalent Dose
+            Units.Sievert, Units.REM,
+            
+            //--- Catalytic Activity
+            Units.Katal,
+            
+            //--- Bit Rate
+            Units.BitPerSecond        
+        };
+
         //Includes all the unit types which support binary prefixes by default.
         private static UnitTypes[] AllBinaryPrefixTypes = new UnitTypes[]
         {

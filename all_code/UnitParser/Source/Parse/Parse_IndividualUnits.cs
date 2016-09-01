@@ -210,6 +210,21 @@ namespace FlexibleParser
 
             if (parseInfo.UnitInfo.Parts.Count == 1)
             {
+                bool isCentimetre = parseInfo.UnitInfo.Parts[0].Unit == Units.Centimetre;
+                if(!isCentimetre) isCentimetre = 
+                (
+                    parseInfo.UnitInfo.Parts[0].Unit == Units.Metre &&
+                    parseInfo.UnitInfo.Parts[0].Prefix.Factor == 0.01m
+                );
+                
+                if(isCentimetre) 
+                {
+                    //Centimetre has a very special status: it is fully defined by centi+metre, but it also needs its
+                    //own unit to be the CGS basic length unit. Formally, it is a compound (formed by 1 part); practically,
+                    //it doesn't enjoy any of the benefits associated with this reality.
+                    return parseInfo;
+                }
+
                 //Parsing an individual unit might output more than 1 part.
                 if (parseInfo.UnitInfo.Parts[0].Prefix.Factor != 1m)
                 {

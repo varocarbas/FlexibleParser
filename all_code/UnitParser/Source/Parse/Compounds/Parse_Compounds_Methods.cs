@@ -27,7 +27,13 @@ namespace FlexibleParser
                 }
                 else if (outUnitString != "") outUnitString = outUnitString + "*";
 
-                string unitString = unitPart.Prefix.Symbol + AllUnitSymbols.First(x => x.Value == unitPart.Unit).Key;
+                string unitString = "";
+                if (unitPart.Prefix.Symbol != "" && unitPart.Unit.ToString().ToLower().StartsWith(unitPart.Prefix.Name.ToLower()))
+                {
+                    unitString = unitPart.Prefix.Symbol;
+                }
+                unitString = AllUnitSymbols.First(x => x.Value == unitPart.Unit).Key;
+                
                 int exponent = Math.Abs(unitPart.Exponent);
                 if (exponent != 1) unitString = unitString + exponent.ToString();
 

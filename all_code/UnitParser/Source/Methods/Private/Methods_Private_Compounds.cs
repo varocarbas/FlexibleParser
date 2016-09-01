@@ -216,13 +216,22 @@ namespace FlexibleParser
         {
             foreach (var compound in AllNonBasicCompounds)
             {
+                if (NonBasicCompoundsToSkip.Contains(compound.Key))
+                {
+                    continue;
+                }
+
                 if (compound.Value.Length == unitInfo.Parts.Count)
                 {
-                    if (UnitPartListsAreEqual(unitInfo.Parts, compound.Value.ToList()))
+                    List<UnitPart> targetParts = compound.Value.ToList();
+                    if (UnitPartsMatchCompoundUnitParts(unitInfo, targetParts, true))
                     {
-                        unitInfo.Unit = compound.Key;
-                        unitInfo.Type = AllUnitTypes[unitInfo.Unit];
-                        unitInfo.System = AllUnitSystems[unitInfo.Unit];
+                        unitInfo = PopulateUnitRelatedInfo(unitInfo, compound.Key);
+                        if (!UnitPartsMatchCompoundUnitParts(unitInfo, targetParts))
+                        {
+                            //Some prefixes differ from the basic configuration.
+                            unitInfo = AdaptPrefixesToMatchBasicCompound(unitInfo, targetParts);
+                        }
 
                         return unitInfo;
                     }
@@ -385,7 +394,7 @@ namespace FlexibleParser
 
             if (UnitPartsMatchCompoundUnitParts(unitInfo, basicUnitParts, true))
             {
-                unitInfo.Unit = basicCompound;
+                unitInfo = PopulateUnitRelatedInfo(unitInfo, basicCompound);
                 if (!UnitPartsMatchCompoundUnitParts(unitInfo, basicUnitParts))
                 {
                     //Some prefixes differ from the basic configuration.
@@ -452,7 +461,10 @@ namespace FlexibleParser
         private static UnitInfo GetUnitParts(UnitInfo unitInfo)
         {
             unitInfo = ExpandUnitParts(unitInfo);
-            unitInfo = SimplifyUnitParts(unitInfo);
+            if (unitInfo.Parts.Count > 1)
+            {
+                unitInfo = SimplifyUnitParts(unitInfo);
+            }
 
             return UpdateInitialPositions(unitInfo);
         }
@@ -557,15 +569,38 @@ namespace FlexibleParser
             );
         }
 
-        private static UnitInfo SimplifyUnitParts(UnitInfo unitInfo, List<int> initialPositions = null)
+        private static UnitInfo SimplifyUnitParts(UnitInfo unitInfo)
         {
             if (unitInfo.Parts.Count < 1) return unitInfo;
+
+            //When having more than one part of the same type, a conversion (+ later removal) is performed.
+            //By the default, the part with the higher index is kept. That's why better reordering the parts
+            //to give more preference to likely to be more relevant systems.
+            unitInfo.Parts = unitInfo.Parts.OrderBy
+            (
+                x => GetUnitSystem(x.Unit) == UnitSystems.None
+            )
+            .ThenBy
+            (
+                x => AllMetricEnglish[GetUnitSystem(x.Unit)] == UnitSystems.Imperial
+            )
+            .ToList();
 
             for (int i = unitInfo.Parts.Count - 1; i >= 0; i--)
             {
                 if (unitInfo.Parts[i].Unit == Units.None || unitInfo.Parts[i].Unit == Units.Unitless)
                 {
                     continue;
+                }
+
+                //Checking non-basic compounds is very quick (+ can avoid some of the subsequent analyses).
+                //Additionally, some of these compounds wouldn't be detected in case of performing a full
+                //simplification. For example: in Wh, all the time parts would be converted into hour or second
+                //and, consequently, recognised as other energy unit (joule or unnamed one).
+                unitInfo = GetNonBasicCompoundUnitFromParts(unitInfo);
+                if(unitInfo.Type != UnitTypes.None)
+                {
+                    return unitInfo;
                 }
 
                 for (int i2 = i - 1; i2 >= 0; i2--)
@@ -645,7 +680,7 @@ namespace FlexibleParser
                 tempInfo = RaiseToIntegerExponent(tempInfo, exponent);
             }
 
-            if (sign * unitInfo.Parts[i].Exponent > parts2[0].Exponent * exponent)
+            if (Math.Abs(unitInfo.Parts[i].Exponent) > Math.Abs(parts2[0].Exponent * exponent))
             {
                 exponent = sign * unitInfo.Parts[i].Exponent - parts2[0].Exponent * exponent;
                 if (exponent > 0)
@@ -727,7 +762,14 @@ namespace FlexibleParser
 
         private static UnitPart[] GetUnitPartsConversionSameType(UnitPart[] unitParts)
         {
-            if (GetTypeFromUnitPart(unitParts[0]) == GetTypeFromUnitPart(unitParts[1]))
+            if (GetTypeFromUnitInfo(new UnitInfo(unitParts[0].Unit, 1m)) == GetTypeFromUnitInfo(new UnitInfo(unitParts[1].Unit, 1m)))
+            {
+                unitParts[0].Exponent = 1;
+                unitParts[1].Exponent = 1;
+
+                return unitParts;     
+            }
+            else if (GetTypeFromUnitPart(unitParts[0]) == GetTypeFromUnitPart(unitParts[1]))
             {
                 return unitParts;
             }

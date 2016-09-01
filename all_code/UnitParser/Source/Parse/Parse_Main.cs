@@ -9,6 +9,7 @@ namespace FlexibleParser
         private static ParseInfo StartUnitParse(ParseInfo parseInfo)
         {
             parseInfo = InitialParseActions(parseInfo);
+
             return
             (
                 StringCanBeCompound(parseInfo.InputToParse) ?
@@ -27,6 +28,19 @@ namespace FlexibleParser
             }
 
             return parseInfo;
+        }
+
+        private static UnitInfo PopulateUnitRelatedInfo(UnitInfo unitInfo, Units unit)
+        {
+            unitInfo.Unit = unit;
+
+            if (unitInfo.Unit != Units.None && unitInfo.Unit != Units.Unitless && !IsUnnamedUnit(unitInfo.Unit))
+            {
+                unitInfo.Type = AllUnitTypes[unitInfo.Unit];
+                unitInfo.System = AllUnitSystems[unitInfo.Unit];
+            }
+
+            return unitInfo;
         }
 
         private static UnitInfo UpdateMainUnitVariables(UnitInfo unitInfo, bool recalculateAlways = false)
