@@ -574,8 +574,8 @@ namespace FlexibleParser
             if (unitInfo.Parts.Count < 1) return unitInfo;
 
             //When having more than one part of the same type, a conversion (+ later removal) is performed.
-            //By the default, the part with the higher index is kept. That's why better reordering the parts
-            //to give more preference to likely to be more relevant systems.
+            //By default, the part with the higher index is kept. That's why it is better to reorder the parts
+            //such that the ones belonging to systems more likely to be preferred are kept.
             unitInfo.Parts = unitInfo.Parts.OrderBy
             (
                 x => GetUnitSystem(x.Unit) == UnitSystems.None
