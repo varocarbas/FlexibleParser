@@ -90,8 +90,9 @@ namespace FlexibleParser
             AllUnitSymbols2 = new Dictionary<string, Units>();
             
             AllUnitSymbols2.Add("nmi", Units.NauticalMile);
-            AllUnitSymbols2.Add("fath", Units.Fathom);
+            AllUnitSymbols2.Add("ftm", Units.Fathom);
             AllUnitSymbols2.Add("mil", Units.Thou);
+            AllUnitSymbols2.Add("th", Units.Thou);
             AllUnitSymbols2.Add("lnk", Units.Link);
             AllUnitSymbols2.Add("fm", Units.Fermi);
             AllUnitSymbols2.Add("M/h", Units.Knot);
@@ -112,8 +113,6 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("mi/h", Units.MilePerHour);
             AllUnitSymbols2.Add("lbf/in2", Units.PoundforcePerSquareInch);
             AllUnitSymbols2.Add("lbf/ft2", Units.PoundforcePerSquareFoot);
-            AllUnitSymbols2.Add("Btu", Units.BritishThermalUnit);
-            AllUnitSymbols2.Add("thBtu", Units.ThermochemicalBritishThermalUnit);
             AllUnitSymbols2.Add("stC", Units.Statcoulomb);
             AllUnitSymbols2.Add("stA", Units.Statampere);
             AllUnitSymbols2.Add("stV", Units.Statvolt);
@@ -122,6 +121,7 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("st℧", Units.Statmho);
             AllUnitSymbols2.Add("stF", Units.Statfarad);
             AllUnitSymbols2.Add("stH", Units.Stathenry);
+            AllUnitSymbols2.Add("lm/ft2", Units.FootCandle);
             AllUnitSymbols2.Add("mi/gal", Units.MilePerGallon);
             AllUnitSymbols2.Add("ukmpg", Units.ImperialMilePerGallon);
             AllUnitSymbols2.Add("usmpg", Units.USCSMilePerGallon);
@@ -159,8 +159,14 @@ namespace FlexibleParser
             unit = Units.SurveyChain;
             AddToAllUnitStrings("usch", unit);
 
+            unit = Units.SurveyLink;
+            AddToAllUnitStrings("usli", unit);
+
             unit = Units.SurveyMile;
             AddToAllUnitStrings("usmi", unit);
+
+            unit = Units.SurveyFathom;
+            AddToAllUnitStrings("usfathom", unit);
 
             unit = Units.MetricTon;
             AddToAllUnitStrings("tonne", unit);
@@ -283,6 +289,12 @@ namespace FlexibleParser
 
             unit = Units.Arcminute;
             AddToAllUnitStrings("arcmin", unit);
+
+            unit = Units.BritishThermalUnit;
+            AddToAllUnitStrings("btu", unit);
+
+            unit = Units.ThermochemicalBritishThermalUnit;
+            AddToAllUnitStrings("thbtu", unit);
 
             unit = Units.TonOfRefrigeration;
             AddToAllUnitStrings("tr", unit);

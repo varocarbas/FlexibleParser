@@ -85,12 +85,12 @@ namespace FlexibleParser
         ///</summary>                   
         NauticalMile,
         ///<summary>
-        ///<para>Thou (th). Imperial/USCS length unit.</para>
+        ///<para>Thou (thou). Imperial/USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>
         ///</summary>                  
         Thou,
         ///<summary>
-        ///<para>Fathom (ftm). Imperial/USCS length unit.</para>
+        ///<para>Fathom (fathom). Imperial/USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         Fathom,
@@ -145,35 +145,45 @@ namespace FlexibleParser
         ///</summary>
         Link,
         ///<summary>
-        ///<para>Survey inch (surin). USCS length unit.</para>
+        ///<para>U.S. survey inch (surin). USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         SurveyInch,
         ///<summary>
-        ///<para>Survey foot (surft) conversion factor. USCS length unit.</para>
+        ///<para>U.S. survey foot (surft). USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         SurveyFoot,
         ///<summary>
-        ///<para>Survey yard (suryd) conversion factor. USCS length unit.</para>
+        ///<para>U.S. survey yard (suryd). USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         SurveyYard,
         ///<summary>
-        ///<para>Survey rod (surrd) conversion factor. USCS length unit.</para>
+        ///<para>U.S. survey rod (surrd). USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         SurveyRod,
         ///<summary>
-        ///<para>Survey chain (surch) conversion factor. USCS length unit.</para>
+        ///<para>U.S. survey chain (surch). USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         SurveyChain,
         ///<summary>
-        ///<para>Survey mile (surmi) conversion factor. USCS length unit.</para>
+        ///<para>U.S. survey link (surli). USCS length unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
+        ///</summary>
+        SurveyLink,
+        ///<summary>
+        ///<para>U.S. survey mile (surmi). USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         SurveyMile,
+        ///<summary>
+        ///<para>U.S. survey fathom (surfathom). USCS length unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
+        ///</summary>
+        SurveyFathom,
         ///<summary>
         ///<para>Ångström (Å). Length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
@@ -323,6 +333,11 @@ namespace FlexibleParser
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>  
         ///</summary>  
         Day,
+        ///<summary>
+        ///<para>Shake (shake). Time unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>  
+        ///</summary>  
+        Shake,
 
         //--- Area
         ///<summary>
@@ -380,6 +395,11 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>              
         ///</summary>  
         Barn,
+        ///<summary>
+        ///<para>U.S. survey acre (surac). USCS area unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>              
+        ///</summary>  
+        SurveyAcre,
 
         //--- Volume
         ///<summary>
@@ -751,6 +771,11 @@ namespace FlexibleParser
         ///</summary>            
         Atmosphere,
         ///<summary>
+        ///<para>Technical atmosphere (at). Pressure unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para> 
+        ///</summary>            
+        TechnicalAtmosphere,
+        ///<summary>
         ///<para>Bar (bar). Pressure unit.</para>
         ///<para>By default, binary prefixes may not be used with this unit.</para> 
         ///</summary>            
@@ -769,17 +794,17 @@ namespace FlexibleParser
         ///<para>Millimetre of mercury (mmHg). Pressure unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             
         ///</summary>               
-        MillimetreMercury,
+        MillimetreOfMercury,
         ///<summary>
         ///<para>Inch of mercury 32 °F (inHg32). Pressure unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             
         ///</summary>               
-        InchMercury32F,
+        InchOfMercury32F,
         ///<summary>
         ///<para>Inch of mercury 60 °F (inHg60). Pressure unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             
         ///</summary>               
-        InchMercury60F,
+        InchOfMercury60F,
         ///<summary>
         ///<para>Barye (Ba). CGS pressure unit.</para>
         ///<para>By default, binary prefixes may not be used with this unit.</para>             
@@ -819,6 +844,11 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>             
         ///</summary>
         Coulomb,
+        ///<summary>
+        ///<para>AmpereHour (Ah). Electric charge unit.</para>
+        ///<para>By default, binary prefixes may not be used with this unit.</para>             
+        ///</summary>
+        AmpereHour,
         ///<summary>
         ///<para>Franklin (Fr). CGS-Gaussian/CGS-ESU electric charge unit.</para>
         ///<para>By default, binary prefixes may not be used with this unit.</para>            
@@ -1207,6 +1237,16 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>                         
         ///</summary>                 
         Stilb,
+        ///<summary>
+        ///<para>Lambert (lambert). CGS Luminance unit.</para>
+        ///<para>By default, binary prefixes may not be used with this unit.</para>                         
+        ///</summary>                 
+        Lambert,
+        ///<summary>
+        ///<para>Foot-lambert (ftL). Imperial/USCS Luminance unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>                         
+        ///</summary>                 
+        FootLambert,
 
         //--- Illuminance
         ///<summary>
@@ -1219,6 +1259,11 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>                         
         ///</summary>                 
         Phot,
+        ///<summary>
+        ///<para>Foot-candle (fc). Imperial/USCS illuminance unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>                         
+        ///</summary>                 
+        FootCandle,
 
         //--- Logarithmic
         ///<summary>
@@ -1306,6 +1351,13 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>                         
         ///</summary> 
         Rad,
+
+        //--- Absorbed Dose Rate
+        ///<summary>
+        ///<para>Gray per second (Gy/s). SI absorbed dose rate unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///</summary> 
+        GrayPerSecond,
 
         //--- Equivalent Dose
         ///<summary>

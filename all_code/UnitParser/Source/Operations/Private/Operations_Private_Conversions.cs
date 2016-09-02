@@ -286,11 +286,11 @@ namespace FlexibleParser
             }
             else if (outUnitInfo.Unit == Units.Fahrenheit)
             {
-                outUnitInfo = 5m * (outUnitInfo + 459.67m) / 9m;
+                outUnitInfo = (outUnitInfo + 459.67m) / 1.8m;
             }
             else if (outUnitInfo.Unit == Units.Rankine)
             {
-                outUnitInfo = 5m * outUnitInfo / 9m;
+                outUnitInfo = outUnitInfo / 1.8m;
             }
 
             return outUnitInfo;
@@ -304,11 +304,11 @@ namespace FlexibleParser
             }
             else if (outUnitInfo.Unit == Units.Fahrenheit)
             {
-                outUnitInfo = 9m * outUnitInfo / 5m - 459.67m;
+                outUnitInfo = 1.8m * outUnitInfo - 459.67m;
             }
             else if (outUnitInfo.Unit == Units.Rankine)
             {
-                outUnitInfo = 9m * outUnitInfo / 5m;
+                outUnitInfo = 1.8m * outUnitInfo;
             }
 
             return outUnitInfo;

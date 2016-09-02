@@ -76,7 +76,9 @@ namespace FlexibleParser
                             { Units.SurveyYard, UnitConversionFactors.SurveyYard }, 
                             { Units.SurveyRod, UnitConversionFactors.SurveyRod }, 
                             { Units.SurveyChain, UnitConversionFactors.SurveyChain }, 
-                            { Units.SurveyMile, UnitConversionFactors.SurveyMile }
+                            { Units.SurveyLink, UnitConversionFactors.SurveyLink }, 
+                            { Units.SurveyMile, UnitConversionFactors.SurveyMile },
+                            { Units.SurveyFathom, UnitConversionFactors.SurveyFathom } 
                         }
                     },
                     { 
@@ -161,7 +163,8 @@ namespace FlexibleParser
                         {
                             { Units.Minute, UnitConversionFactors.Minute }, 
                             { Units.Hour, UnitConversionFactors.Hour },
-                            { Units.Day, UnitConversionFactors.Day }
+                            { Units.Day, UnitConversionFactors.Day },
+                            { Units.Shake, UnitConversionFactors.Shake }
                         }
                     }
                 }
@@ -195,6 +198,13 @@ namespace FlexibleParser
                             { Units.SquarePole, UnitConversionFactors.SquarePole }, 
                             { Units.Rood, UnitConversionFactors.Rood }, 
                             { Units.Acre, UnitConversionFactors.Acre }
+                        }
+                    },
+                    {
+                        UnitSystems.USCS, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.SurveyAcre, UnitConversionFactors.SurveyAcre }
                         }
                     },
                    {
@@ -521,9 +531,10 @@ namespace FlexibleParser
                         {
                             { Units.Bar, UnitConversionFactors.Bar }, 
                             { Units.Atmosphere, UnitConversionFactors.Atmosphere },
-                            { Units.MillimetreMercury, UnitConversionFactors.MillimetreMercury },
-                            { Units.InchMercury32F, UnitConversionFactors.InchMercury32F },
-                            { Units.InchMercury60F, UnitConversionFactors.InchMercury60F },
+                            { Units.TechnicalAtmosphere, UnitConversionFactors.TechnicalAtmosphere },
+                            { Units.MillimetreOfMercury, UnitConversionFactors.MillimetreOfMercury },
+                            { Units.InchOfMercury32F, UnitConversionFactors.InchOfMercury32F },
+                            { Units.InchOfMercury60F, UnitConversionFactors.InchOfMercury60F },
                             { Units.Torr, UnitConversionFactors.Torr },
                             { Units.KipPerSquareInch, UnitConversionFactors.KipPerSquareInch }
                         }
@@ -559,7 +570,8 @@ namespace FlexibleParser
                         UnitSystems.SI, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.Coulomb, UnitConversionFactors.Coulomb }
+                            { Units.Coulomb, UnitConversionFactors.Coulomb },
+                            { Units.AmpereHour, UnitConversionFactors.AmpereHour }
                         }
                     },
                     {
@@ -1018,7 +1030,15 @@ namespace FlexibleParser
                         UnitSystems.CGS, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.Stilb, UnitConversionFactors.Stilb }
+                            { Units.Stilb, UnitConversionFactors.Stilb },
+                            { Units.Lambert, UnitConversionFactors.Lambert }
+                        }
+                    },
+                    {
+                        UnitSystems.Imperial, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.FootLambert, UnitConversionFactors.FootLambert }
                         }
                     },
                     {
@@ -1039,6 +1059,13 @@ namespace FlexibleParser
                         new Dictionary<Units, decimal>()
                         {
                             { Units.Lux, UnitConversionFactors.Lux }
+                        }
+                    },
+                    {
+                        UnitSystems.Imperial, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.FootCandle, UnitConversionFactors.FootCandle }
                         }
                     },
                     {
@@ -1165,6 +1192,19 @@ namespace FlexibleParser
                             { Units.Rad, UnitConversionFactors.Rad }
                         }
                     }
+                }
+            },
+            { 
+                UnitTypes.AbsorbedDoseRate, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.GrayPerSecond, UnitConversionFactors.GrayPerSecond }
+                        }
+                    },
                 }
             },
             { 

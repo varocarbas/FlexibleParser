@@ -101,6 +101,8 @@ namespace FlexibleParser
         Radioactivity,
         ///<summary><para>Associated with all the (ionising radiation) absorbed dose units.</para></summary>  
         AbsorbedDose,
+        ///<summary><para>Associated with all the (ionising radiation) absorbed dose rate units.</para></summary>  
+        AbsorbedDoseRate,
         ///<summary><para>Associated with all the (ionising radiation) equivalent dose units.</para></summary>  
         EquivalentDose,
         ///<summary><para>Associated with all the (ionising radiation) exposure units.</para></summary>  

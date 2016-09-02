@@ -29,9 +29,9 @@ namespace FlexibleParser
         public const decimal Mile = 1609.344m;
         ///<summary><para>Nautical Mile (M) conversion factor. Length unit.</para></summary>
         public const decimal NauticalMile = 1852m;
-        ///<summary><para>Thou (th) conversion factor. Imperial/USCS length unit.</para></summary>    
+        ///<summary><para>Thou (thou) conversion factor. Imperial/USCS length unit.</para></summary>    
         public const decimal Thou = 0.0000254m;
-        ///<summary><para>Fathom (ftm) conversion factor. Imperial/USCS length unit.</para></summary>
+        ///<summary><para>Fathom (fathom) conversion factor. Imperial/USCS length unit.</para></summary>
         public const decimal Fathom = 1.8288m;
         ///<summary><para>Rod (rd) conversion factor. Imperial/USCS length unit.</para></summary>
         public const decimal Rod = 5.0292m;
@@ -53,31 +53,35 @@ namespace FlexibleParser
         public const decimal USCSCable = 219.456m;
         ///<summary><para>Link (li) conversion factor. Imperial/USCS length unit.</para></summary>
         public const decimal Link = 0.201168m;
-        ///<summary><para>Survey inch (surin) conversion factor. USCS length unit.</para></summary>
+        ///<summary><para>U.S. survey inch (surin) conversion factor. USCS length unit.</para></summary>
         public const decimal SurveyInch = 0.0254000508001016002032004064m;
-        ///<summary><para>Survey foot (surft) conversion factor. USCS length unit.</para></summary>
-        public const decimal SurveyFoot = 0.3048006096012192024384048768m;
-        ///<summary><para>Survey yard (suryd) conversion factor. USCS length unit.</para></summary>
-        public const decimal SurveyYard = 0.9144018288036576073152146304m;
-        ///<summary><para>Survey rod (surrd) conversion factor. USCS length unit.</para></summary>
-        public const decimal SurveyRod = 5.0292100584201168402336804672m;
-        ///<summary><para>Survey chain (surch) conversion factor. USCS length unit.</para></summary>
-        public const decimal SurveyChain = 20.116840233680467360934721869m;
-        ///<summary><para>Survey mile (surmi) conversion factor. USCS length unit.</para></summary>
-        public const decimal SurveyMile = 1609.3472186944373888747777495m;
+        ///<summary><para>U.S. survey foot (surft) conversion factor. USCS length unit.</para></summary>
+        public const decimal SurveyFoot = 0.3048006096012192024384048768m; //= 1.200m / 3.937m;
+        ///<summary><para>U.S. survey yard (suryd) conversion factor. USCS length unit.</para></summary>
+        public const decimal SurveyYard = 0.9144018288036576073152146304m; //= 3m * SurveyFoot;
+        ///<summary><para>U.S. survey rod (surrd) conversion factor. USCS length unit.</para></summary>
+        public const decimal SurveyRod = 5.0292100584201168402336804672m; //= SurveyChain / 4m;
+        ///<summary><para>U.S. survey chain (surch) conversion factor. USCS length unit.</para></summary>
+        public const decimal SurveyChain = 20.116840233680467360934721869m; //= 66m * SurveyFoot;
+        ///<summary><para>U.S. survey link (surli) conversion factor. USCS length unit.</para></summary>
+        public const decimal SurveyLink = 0.2011684023368046736093472187m; //= SurveyChain / 100m;
+        ///<summary><para>U.S. survey mile (surmi) conversion factor. USCS length unit.</para></summary>
+        public const decimal SurveyMile = 1609.3472186944373888747777495m; //= 5280 * SurveyFoot
+        ///<summary><para>U.S. survey fathom (surfathom) conversion factor. USCS length unit.</para></summary>
+        public const decimal SurveyFathom = 1.8288036576073152146304292608m; //= 6m * SurveyFoot;
         ///<summary><para>Ångström (Å) conversion factor. Length unit.</para></summary>
         public const decimal Angstrom = 1E-10m;
         ///<summary><para>Fermi (f) conversion factor. Length unit.</para></summary>
-        public const decimal Fermi = 1E-15m; //SIPrefixValues.Femto
+        public const decimal Fermi = 1E-15m; //= SIPrefixValues.Femto;
         ///<summary><para>Light year (ly) conversion factor. Length unit.</para></summary>
         public const decimal LightYear = 9460730472580800m;
         ///<summary>
         ///<para>Parsec (pc) conversion factor. Length unit.</para>
         ///<para>Source: IAU 2015.</para>
         ///</summary>
-        public const decimal Parsec = 30856775814913672.789139379581m; //UnitConversionFactors.AstronomicalUnit * 648000m / MathematicalConstants.Pi
+        public const decimal Parsec = 30856775814913672.789139379581m; //= AstronomicalUnit * 648000m / MathematicalConstants.Pi;
         ///<summary><para>Micron (μ) conversion factor. Length unit.</para></summary>
-        public const decimal Micron = 1E-6m; //SIPrefixValues.Micro
+        public const decimal Micron = 1E-6m; //= SIPrefixValues.Micro;
 
 
         //--- Mass
@@ -121,9 +125,9 @@ namespace FlexibleParser
         ///<summary><para>Carat (ct) conversion factor. Mass unit.</para></summary>  
         public const decimal Carat = 0.2m;
         ///<summary><para>Dalton (Da) conversion factor. Mass unit.</para></summary>  
-        public const decimal Dalton = 1.66053904E-24m; //PhysicalConstants.AtomicMassConstant * 1000m;
+        public const decimal Dalton = 1.66053904E-24m; //= PhysicalConstants.AtomicMassConstant * 1000m;
         ///<summary><para>Unified atomic mass unit (u) conversion factor. Mass unit.</para></summary>  
-        public const decimal UnifiedAtomicMassUnit = 1.66053904E-24m; //PhysicalConstants.AtomicMassConstant * 1000m;
+        public const decimal UnifiedAtomicMassUnit = 1.66053904E-24m; //= PhysicalConstants.AtomicMassConstant * 1000m;
 
         //--- Time
         ///<summary>
@@ -137,6 +141,8 @@ namespace FlexibleParser
         public const decimal Hour = 3600m;
         ///<summary><para>Day (d) conversion factor. Time unit.</para></summary>
         public const decimal Day = 86400m;
+        ///<summary><para>Shake (shake) conversion factor. Time unit.</para></summary>
+        public const decimal Shake = 1E-8m; 
 
         //--- Area
         ///<summary>
@@ -167,6 +173,12 @@ namespace FlexibleParser
         ///<para>The decimal type cannot deal directly with the actual conversion factor (1E-28m).</para>
         ///</summary>
         public const decimal Barn = -1m;
+        ///<summary><para>Survey acre (surac) conversion factor. USCS area unit.</para></summary>
+        //Conversion factor including up to the last digit which the following calculations have in common:
+        //160m * SurveyRod * SurveyRod; 
+        //4840m * SurveyYard * SurveyYard; 
+        //43560m * SurveyFoot * SurveyFoot;
+        public const decimal SurveyAcre = 4046.87260987425200656852926m; 
 
         //--- Volume
         ///<summary>
@@ -226,17 +238,17 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Radian = 1m;
         ///<summary><para>Degree (°) conversion factor. Angle unit.</para></summary>
-        public const decimal Degree = 0.0174532925199432957692369077m; //MathematicalConstants.Pi / 180m;
+        public const decimal Degree = 0.0174532925199432957692369077m; //= MathematicalConstants.Pi / 180m;
         ///<summary><para>Revolution (rev) conversion factor. Angle unit.</para></summary>
-        public const decimal Revolution = 6.283185307179586476925286766m; //2m * MathematicalConstants.Pi;
+        public const decimal Revolution = 6.283185307179586476925286766m; //= 2m * MathematicalConstants.Pi;
         ///<summary><para>Arcminute (') conversion factor. Angle unit.</para></summary>
-        public const decimal Arcminute = 0.0002908882086657215961539485m; //MathematicalConstants.Pi / 10800m;
+        public const decimal Arcminute = 0.0002908882086657215961539485m; //= MathematicalConstants.Pi / 10800m;
         ///<summary><para>Arcsecond ('') conversion factor. Angle unit.</para></summary>
-        public const decimal Arcsecond = 0.0000048481368110953599358991m; //MathematicalConstants.Pi / 648000m;
+        public const decimal Arcsecond = 0.0000048481368110953599358991m; //= MathematicalConstants.Pi / 648000m;
         ///<summary><para>Gradian (grad) conversion factor. Angle unit.</para></summary>
-        public const decimal Gradian = 0.0157079632679489661923132169m; //MathematicalConstants.Pi / 200m;
+        public const decimal Gradian = 0.0157079632679489661923132169m; //= MathematicalConstants.Pi / 200m;
         ///<summary><para>Gon (gon) conversion factor. Angle unit.</para></summary>
-        public const decimal Gon = 0.0157079632679489661923132169m; //MathematicalConstants.Pi / 200m;
+        public const decimal Gon = 0.0157079632679489661923132169m; //= MathematicalConstants.Pi / 200m;
 
         //--- Information
         ///<summary>
@@ -260,7 +272,7 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Newton = 1m;
         ///<summary><para>Kilopond (kp) conversion factor. Force unit.</para></summary>
-        public const decimal Kilopond = 9.80665m; //PhysicalConstants.GravityAcceleration;
+        public const decimal Kilopond = 9.80665m; //= PhysicalConstants.GravityAcceleration;
         ///<summary><para>Pound-force (lbf) conversion factor. Imperial/USCS force unit.</para></summary>
         public const decimal PoundForce = 4.4482216152605m;
         ///<summary><para>Kip (kip) conversion factor. Force unit.</para></summary>
@@ -285,11 +297,11 @@ namespace FlexibleParser
         ///<summary><para>Inch per second (in/s) conversion factor. Imperial/USCS velocity unit.</para></summary>
         public const decimal InchPerSecond = 0.0254m;
         ///<summary><para>Kilometre per hour (kph) conversion factor. Velocity unit.</para></summary>
-        public const decimal KilometrePerHour = 0.2777777777777777777777777778m; //1000m / Hour;
+        public const decimal KilometrePerHour = 0.2777777777777777777777777778m; //= 1000m / Hour;
         ///<summary><para>Knot (kn) conversion factor. Velocity unit.</para></summary>
-        public const decimal Knot = 0.5144444444444444444444444444m; //1852m / 3600m;
+        public const decimal Knot = 0.5144444444444444444444444444m; //= 1852m / 3600m;
         ///<summary><para>Mile per hour (mph) conversion factor. Velocity unit.</para></summary>
-        public const decimal MilePerHour = 0.44704m; //Mile / Hour;
+        public const decimal MilePerHour = 0.44704m; //= Mile / Hour;
 
         //--- Acceleration
         ///<summary>
@@ -311,7 +323,7 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Joule = 1m;
         ///<summary><para>Electronvolt (eV) conversion factor. Energy unit.</para></summary>
-        public const decimal Electronvolt = 1.6021766208E-19m; //PhysicalConstants.Electronvolt;
+        public const decimal Electronvolt = 1.6021766208E-19m; //= PhysicalConstants.Electronvolt;
         ///<summary><para>Watt hour (Wh) conversion factor. Energy unit.</para></summary>
         public const decimal WattHour = 3600;
         ///<summary><para>IT calorie (cal) conversion factor. Energy unit.</para></summary>
@@ -323,7 +335,7 @@ namespace FlexibleParser
         ///<summary><para>IT British thermal unit (BTU) conversion factor. Imperial/USCS energy unit.</para></summary>
         public const decimal BritishThermalUnit = 1055.05585262m;
         ///<summary><para>Thermochemical British thermal unit (thBTU) conversion factor. Imperial/USCS energy unit.</para></summary>
-        public const decimal ThermochemicalBritishThermalUnit = 1054.3502644888888888888888889m; //BritishThermalUnit * ThermochemicalCalorie / Calorie;            
+        public const decimal ThermochemicalBritishThermalUnit = 1054.3502644888888888888888889m; //= BritishThermalUnit * ThermochemicalCalorie / Calorie;            
         ///<summary><para>Erg (erg) conversion factor. CGS Energy unit.</para></summary>
         public const decimal Erg = 1E-7m;
         ///<summary><para>EC therm (thm) conversion factor. Energy unit.</para></summary>              
@@ -359,23 +371,25 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Pascal = 1m;
         ///<summary><para>Atmosphere (atm) conversion factor. Pressure unit.</para></summary>
-        public const decimal Atmosphere = 101325m; //PhysicalConstants.StandardAtmosphere;
+        public const decimal Atmosphere = 101325m; //= PhysicalConstants.StandardAtmosphere;
+        ///<summary><para>Technical atmosphere (at) conversion factor. Pressure unit.</para></summary>
+        public const decimal TechnicalAtmosphere = 98066.5m; //= Kilopond / Centimetre / Centimetre;
         ///<summary><para>Bar (bar) conversion factor. Pressure unit.</para></summary>
         public const decimal Bar = 100000;
         ///<summary><para>Pound-force per square inch (psi) conversion factor. Imperial/USCS pressure unit.</para></summary>
-        public const decimal PoundforcePerSquareInch = 6894.7572931683613367226734453m; //UnitConversionFactors.PoundForce / UnitConversionFactors.Inch / UnitConversionFactors.Inch;
+        public const decimal PoundforcePerSquareInch = 6894.7572931683613367226734453m; //= PoundForce / Inch / Inch;
         ///<summary><para>Pound-force per square foot (psf) conversion factor. Imperial/USCS pressure unit.</para></summary>
-        public const decimal PoundforcePerSquareFoot = 47.880258980335842616129676703m; //UnitConversionFactors.PoundForce / UnitConversionFactors.Foot / UnitConversionFactors.Foot;
+        public const decimal PoundforcePerSquareFoot = 47.880258980335842616129676703m; //= PoundForce / Foot / Foot;
         ///<summary><para>Millimetre of Mercury (mmHg) conversion factor. Pressure unit.</para></summary>
-        public const decimal MillimetreMercury = 133.322387415m;
+        public const decimal MillimetreOfMercury = 133.322387415m;
         ///<summary><para>Inch of Mercury at 32 °F (inHg32) conversion factor. Pressure unit.</para></summary>
-        public const decimal InchMercury32F = 3386.38m;
+        public const decimal InchOfMercury32F = 3386.38m;
         ///<summary><para>Inch of Mercury at 60 °F (inHg60) conversion factor. Pressure unit.</para></summary>
-        public const decimal InchMercury60F = 3376.85m;
+        public const decimal InchOfMercury60F = 3376.85m;
         ///<summary><para>Barye (Ba) conversion factor. CGS pressure unit.</para></summary>
         public const decimal Barye = 0.1m;
         ///<summary><para>Torr (Torr) conversion factor. Pressure unit.</para></summary>
-        public const decimal Torr = 133.32236842105263157894736842m; //PhysicalConstants.StandardAtmosphere / 760m;
+        public const decimal Torr = 133.32236842105263157894736842m; //= PhysicalConstants.StandardAtmosphere / 760m;
         ///<summary><para>Kip per square inch (ksi) conversion factor. Pressure unit.</para></summary>
         public const decimal KipPerSquareInch = 6894757.2931683613367226734453m;
 
@@ -386,7 +400,7 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Hertz = 1m;
         ///<summary><para>Revolutions per minute (rpm) conversion factor. Frequency unit.</para></summary>
-        public const decimal RevolutionsPerMinute = 0.0166666666666666666666666667m; //1m / 60m;
+        public const decimal RevolutionsPerMinute = 0.0166666666666666666666666667m; //= 1m / Minute;
         ///<summary><para>Cycles per Second (cps) conversion factor. Frequency unit.</para></summary>
         public const decimal CyclesPerSecond = 1m;
 
@@ -396,12 +410,14 @@ namespace FlexibleParser
         ///<para>Reference point for all the electric charge units.</para>
         ///</summary>
         public const decimal Coulomb = 1m;
+        ///<summary><para>AmpereHour (Ah) conversion factor. Electric charge unit.</para></summary>
+        public const decimal AmpereHour = 3600m;
         ///<summary><para>Franklin (Fr) conversion ratio. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
-        public const decimal Franklin = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
+        public const decimal Franklin = 0.0000000003335640951981520496m; //= 1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Statcoulomb (statC) conversion ratio. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
-        public const decimal Statcoulomb = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
+        public const decimal Statcoulomb = 0.0000000003335640951981520496m; //= 1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Electrostatic unit of charge (ESUcha) conversion ratio. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
-        public const decimal ESUOfCharge = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
+        public const decimal ESUOfCharge = 0.0000000003335640951981520496m; //= 1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Abcoulomb (abC) conversion ratio. CGS-EMU electric charge unit.</para></summary>
         public const decimal Abcoulomb = 10m;
         ///<summary><para>Electromagnetic unit of charge (EMUcha) conversion ratio. CGS-EMU electric charge unit.</para></summary>
@@ -414,11 +430,11 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Ampere = 1m;
         ///<summary><para>Statampere (statA) conversion factor. CGS-Gaussian/CGS-ESU electric current unit.</para></summary>
-        public const decimal Statampere = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
+        public const decimal Statampere = 0.0000000003335640951981520496m; //= 1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Electrostatic unit of current (ESUcur) conversion factor. CGS-Gaussian/CGS-ESU electric current unit.</para></summary>
-        public const decimal ESUOfCurrent = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
+        public const decimal ESUOfCurrent = 0.0000000003335640951981520496m; //= 1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Abampere (abA) conversion factor. CGS-EMU electric current unit.</para></summary>
-        public const decimal Abampere = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
+        public const decimal Abampere = 10m;
         ///<summary><para>Biot (Bi) conversion factor. CGS-EMU electric current unit.</para></summary>
         public const decimal Biot = 10m;
         ///<summary><para>Electromagnetic unit of current (EMUcur) conversion factor. CGS-EMU electric current unit.</para></summary>
@@ -431,9 +447,9 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Volt = 1m;
         ///<summary><para>Statvolt (statV) conversion factor. CGS-Gaussian/CGS-ESU voltage unit.</para></summary>
-        public const decimal Statvolt = 299.792458m; //PhysicalConstants.SpeedOfLight / 1E6m;
+        public const decimal Statvolt = 299.792458m; //= PhysicalConstants.SpeedOfLight / 1E6m;
         ///<summary><para>Electrostatic unit of electric potential (ESUpot) conversion factor. CGS-Gaussian/CGS-ESU voltage unit.</para></summary>
-        public const decimal ESUOfElectricPotential = 299.792458m; //PhysicalConstants.SpeedOfLight / 1E6m;
+        public const decimal ESUOfElectricPotential = 299.792458m; //= PhysicalConstants.SpeedOfLight / 1E6m;
         ///<summary><para>Abvolt (abV) conversion factor. CGS-EMU voltage unit.</para></summary>
         public const decimal Abvolt = 1E-8m;
         ///<summary><para>Electromagnetic unit of electric potential (EMUpot) conversion factor. CGS-EMU voltage unit.</para></summary>
@@ -472,9 +488,9 @@ namespace FlexibleParser
         ///<summary><para>Gemmho (gemmho) conversion factor. SI electric conductance unit.</para><para>Reference point for all the electric conductance units.</para></summary>
         public const decimal Gemmho = 0.000001m;
         ///<summary><para>Statsiemens (statS) conversion factor. CGS-Gaussian/CGS-ESU electric conductance unit.</para></summary>
-        public const decimal Statsiemens = 1.1126500560536184E-12m; //1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
+        public const decimal Statsiemens = 1.1126500560536184E-12m; //= 1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
         ///<summary><para>Statmho (stat℧) conversion factor. CGS-Gaussian/CGS-ESU electric conductance unit.</para></summary>
-        public const decimal Statmho = 1.1126500560536184E-12m; //1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
+        public const decimal Statmho = 1.1126500560536184E-12m; //= 1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
         ///<summary><para>Absiemens (abS) conversion factor. CGS-EMU electric conductance unit.</para></summary>
         public const decimal Absiemens = 1E9m;
         ///<summary><para>Abmho (ab℧) conversion factor. CGS-EMU electric conductance unit.</para></summary>
@@ -491,9 +507,9 @@ namespace FlexibleParser
         ///<summary><para>Farad (F) conversion factor. SI electric capacitance unit.</para><para>Reference point for all the electric capacitance units.</para></summary>
         public const decimal Farad = 1m;
         ///<summary><para>Statfarad (statF) conversion factor. CGS-Gaussian/CGS-ESU electric capacitance unit.</para></summary>
-        public const decimal Statfarad = 1.1126500560536184E-12m; //1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
+        public const decimal Statfarad = 1.1126500560536184E-12m; //= 1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
         ///<summary><para>Electrostatic unit of capacitance (ESUcap) conversion factor. CGS-Gaussian/CGS-ESU electric capacitance unit.</para></summary>
-        public const decimal ESUOfCapacitance = 1.1126500560536184E-12m; //1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
+        public const decimal ESUOfCapacitance = 1.1126500560536184E-12m; //= 1E5m / PhysicalConstants.SpeedOfLight / PhysicalConstants.SpeedOfLight
         ///<summary><para>Abfarad (abF) conversion factor. CGS-EMU electric capacitance unit.</para></summary>
         public const decimal Abfarad = 1E9m;
         ///<summary><para>Electromagnetic unit of capacitance (EMUcap) conversion factor. CGS-EMU electric resistance unit.</para></summary>
@@ -507,7 +523,7 @@ namespace FlexibleParser
         ///<summary><para>Electrostatic unit of inductance (ESUind) conversion factor. CGS-Gaussian/CGS-ESU electric inductance unit.</para></summary>
         public const decimal ESUOfInductance = 8.987551787E11m;
         ///<summary><para>Abhenry (abH). CGS-EMU electric inductance unit.</para></summary>
-        public const decimal Abhenry = 1e-9m;
+        public const decimal Abhenry = 1E-9m;
         ///<summary><para>Electromagnetic unit of inductance (EMUind) conversion factor. CGS-EMU electric inductance unit.</para></summary>
         public const decimal EMUOfInductance = 1E-9m;
 
@@ -601,7 +617,7 @@ namespace FlexibleParser
         ///</summary>                 
         public const decimal Steradian = 1m;
         ///<summary><para>Square degree (deg2) conversion factor. Solid angle unit.</para></summary>                 
-        public const decimal SquareDegree = 0.0003046174197867085993467435m; //MathematicalConstants.Pi * MathematicalConstants.Pi / 32400;
+        public const decimal SquareDegree = 0.0003046174197867085993467435m; //= MathematicalConstants.Pi * MathematicalConstants.Pi / 32400;
 
         //--- Luminous Intensity
         ///<summary>
@@ -635,10 +651,14 @@ namespace FlexibleParser
         ///<para>Reference point for all the luminance units.</para>
         ///</summary>                 
         public const decimal CandelaPerSquareMetre = 1m;
-        ///<summary><para>Nit (nt) conversion factor.</para></summary>                 
+        ///<summary><para>Nit (nt) conversion factor. Luminance unit</para></summary>                 
         public const decimal Nit = 1m;
         ///<summary><para>Stilb (sb) conversion factor.</para></summary>                 
         public const decimal Stilb = 1E4m;
+        ///<summary><para>Lambert (lambert) conversion factor.</para></summary>                 
+        public const decimal Lambert = 3183.098861837906715377675268m; //= 1m / MathematicalConstants.Pi / UnitConversionFactors.Centimetre / UnitConversionFactors.Centimetre;
+        ///<summary><para>Foot-lambert (ftL) conversion factor.</para></summary>                 
+        public const decimal FootLambert = 3.4262590996353905269167459623m; //= 1m / MathematicalConstants.Pi / UnitConversionFactors.Foot / UnitConversionFactors.Foot;
 
         //--- Illuminance
         ///<summary>
@@ -648,6 +668,8 @@ namespace FlexibleParser
         public const decimal Lux = 1m;
         ///<summary><para>Phot (ph) conversion factor. CGS illuminance unit.</para></summary>                 
         public const decimal Phot = 1E4m;
+        ///<summary><para>Foot-candle (fc) conversion factor. Imperial/USCS illuminance unit.</para></summary>                 
+        public const decimal FootCandle = 10.763910416709722308333505556m; //= 1m / UnitConversionFactors.Foot / UnitConversionFactors.Foot;
 
         //--- Logarithmic
         ///<summary>
@@ -656,7 +678,7 @@ namespace FlexibleParser
         ///</summary>                        
         public const decimal Bel = 1m;
         ///<summary><para>Neper (Np) conversion factor. Logarithmic unit.</para></summary>      
-        public const decimal Neper = 0.8685889638065035m; //20.0 / Math.Log(10)
+        public const decimal Neper = 0.8685889638065035m; //= 20.0 / Math.Log(10)
 
         //--- Magnetic Flux
         ///<summary>
@@ -664,7 +686,7 @@ namespace FlexibleParser
         ///<para>Reference point for all the magnetic flux units.</para>
         ///</summary>
         public const decimal Weber = 1m;
-        ///<summary><para>Maxwell (Mx) conversion factor.</para><para>CGS-Gaussian/CGS-EMU magnetic flux unit.</para></summary>                         
+        ///<summary><para>Maxwell (Mx) conversion factor. CGS-Gaussian/CGS-EMU magnetic flux unit.</para></summary>                         
         public const decimal Maxwell = 1E-8m;
 
         //--- Magnetic Field B
@@ -708,6 +730,13 @@ namespace FlexibleParser
         public const decimal Gray = 1m;
         ///<summary><para>Rad (Rad) conversion factor. CGS absorbed dose unit.</para></summary> 
         public const decimal Rad = 0.01m;
+
+        //--- Absorbed Dose Rate
+        ///<summary>
+        ///<para>Gray per second (Gy/s) conversion factor. SI absorbed dose rate unit.</para>
+        ///<para>Reference point for all the absorbed dose rate units.</para>
+        ///</summary> 
+        public const decimal GrayPerSecond = 1m;
 
         //--- Equivalent Dose
         ///<summary>
@@ -965,12 +994,12 @@ namespace FlexibleParser
         ///</summary> 
         public const decimal InverseSquareMetre = 1m;
         ///<summary><para>Imperial mile per gallon (mpg) conversion factor. Imperial fuel economy unit.</para></summary> 
-        public const decimal MilePerGallon = 354006.18993464713633034101833m;
+        public const decimal MilePerGallon = 354006.18993464713633034101833m; //= Mile/Gallon;
         ///<summary><para>Imperial mile per gallon (impmpg) conversion factor. Imperial fuel economy unit.</para></summary> 
-        public const decimal ImperialMilePerGallon = 354006.18993464713633034101833m;
+        public const decimal ImperialMilePerGallon = 354006.18993464713633034101833m; //= Mile / Gallon;
         ///<summary><para>USCS mile per gallon (uscmpg) conversion factor. USCS fuel economy unit.</para></summary> 
-        public const decimal USCSMilePerGallon = 425143.70743027200340114965944m;
-
+        public const decimal USCSMilePerGallon = 425143.70743027200340114965944m; //= Mile / UnitConversionFactors.LiquidGallon;
+       
         //--- Sound Exposure
         ///<summary>
         ///<para>Square pascal second (Pa2*s) conversion factor. SI sound exposure unit.</para>

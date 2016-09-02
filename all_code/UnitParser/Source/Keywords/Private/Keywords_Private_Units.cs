@@ -37,7 +37,9 @@ namespace FlexibleParser
             { UnitSymbols.SurveyYard, Units.SurveyYard }, 
             { UnitSymbols.SurveyRod, Units.SurveyRod }, 
             { UnitSymbols.SurveyChain, Units.SurveyChain },  
+            { UnitSymbols.SurveyLink, Units.SurveyLink },
             { UnitSymbols.SurveyMile, Units.SurveyMile }, 
+            { UnitSymbols.SurveyFathom, Units.SurveyFathom },
             { UnitSymbols.Link, Units.Link }, 
             { UnitSymbols.Angstrom, Units.Angstrom }, 
             { UnitSymbols.Fermi, Units.Fermi }, 
@@ -84,6 +86,7 @@ namespace FlexibleParser
             { UnitSymbols.SquarePole, Units.SquarePole },  
             { UnitSymbols.Rood, Units.Rood }, 
             { UnitSymbols.Acre, Units.Acre }, 
+            { UnitSymbols.SurveyAcre, Units.SurveyAcre }, 
             { UnitSymbols.Barn, Units.Barn },  
 
             //--- Volume
@@ -176,13 +179,14 @@ namespace FlexibleParser
 
             //--- Pressure
             { UnitSymbols.Pascal, Units.Pascal },    
-            { UnitSymbols.Atmosphere, Units.Atmosphere },             
+            { UnitSymbols.Atmosphere, Units.Atmosphere },     
+            { UnitSymbols.TechnicalAtmosphere, Units.TechnicalAtmosphere },        
             { UnitSymbols.Bar, Units.Bar },             
             { UnitSymbols.PoundforcePerSquareInch, Units.PoundforcePerSquareInch },       
             { UnitSymbols.PoundforcePerSquareFoot, Units.PoundforcePerSquareFoot },              
-            { UnitSymbols.MillimetreMercury, Units.MillimetreMercury },             
-            { UnitSymbols.InchMercury32F, Units.InchMercury32F },              
-            { UnitSymbols.InchMercury60F, Units.InchMercury60F },               
+            { UnitSymbols.MillimetreOfMercury, Units.MillimetreOfMercury },             
+            { UnitSymbols.InchOfMercury32F, Units.InchOfMercury32F },              
+            { UnitSymbols.InchOfMercury60F, Units.InchOfMercury60F },               
             { UnitSymbols.Barye, Units.Barye },              
             { UnitSymbols.Torr, Units.Torr },               
             { UnitSymbols.KipPerSquareInch, Units.KipPerSquareInch },                
@@ -194,6 +198,7 @@ namespace FlexibleParser
 
             //--- Electric Charge
             { UnitSymbols.Coulomb, Units.Coulomb }, 
+            { UnitSymbols.AmpereHour, Units.AmpereHour },
             { UnitSymbols.Franklin, Units.Franklin }, 
             { UnitSymbols.Statcoulomb, Units.Statcoulomb }, 
             { UnitSymbols.ESUOfCharge, Units.ESUOfCharge }, 
@@ -310,10 +315,13 @@ namespace FlexibleParser
             { UnitSymbols.CandelaPerSquareMetre, Units.CandelaPerSquareMetre },                
             { UnitSymbols.Nit, Units.Nit },
             { UnitSymbols.Stilb, Units.Stilb },
+            { UnitSymbols.Lambert, Units.Lambert },
+            { UnitSymbols.FootLambert, Units.FootLambert },
 
             //--- Illuminance
             { UnitSymbols.Lux, Units.Lux },               
             { UnitSymbols.Phot, Units.Phot },   
+            { UnitSymbols.FootCandle, Units.FootCandle },
 
             //--- Logarithmic
             { UnitSymbols.Bel, Units.Bel },                       
@@ -341,6 +349,9 @@ namespace FlexibleParser
             //--- Absorbed Dose
             { UnitSymbols.Gray, Units.Gray },
             { UnitSymbols.Rad, Units.Rad },
+            
+            //--- Absorbed Dose Rate
+            { UnitSymbols.GrayPerSecond, Units.GrayPerSecond },
 
             //--- Equivalent Dose
             { UnitSymbols.Sievert, Units.Sievert },
@@ -476,7 +487,7 @@ namespace FlexibleParser
         private static Units[] AllNonDividableUnits = new Units[]
         {
             //--- Area
-            Units.Are, Units.Rood, Units.Acre, Units.Barn,
+            Units.Are, Units.Rood, Units.Acre, Units.Barn, Units.SurveyAcre,
             
             //--- Volume
             Units.Litre, Units.FluidOunce, Units.ImperialFluidOunce, Units.USCSFluidOunce, Units.Gill,
@@ -497,8 +508,8 @@ namespace FlexibleParser
             Units.TonOfRefrigeration,
                         
             //--- Pressure
-            Units.Atmosphere, Units.Bar, Units.MillimetreMercury, Units.InchMercury32F, Units.InchMercury60F,
-            Units.Torr,
+            Units.Atmosphere, Units.TechnicalAtmosphere, Units.Bar, Units.MillimetreOfMercury, Units.InchOfMercury32F, 
+            Units.InchOfMercury60F, Units.Torr,
                         
             //--- Amount of substance
             Units.PoundMole
@@ -543,6 +554,12 @@ namespace FlexibleParser
                         
             //--- Temperature
             Units.Fahrenheit, Units.Rankine, 
+            
+            //--- Luminance
+            Units.FootLambert,
+
+            //--- Illuminance
+            Units.FootCandle
         };
     }
 }

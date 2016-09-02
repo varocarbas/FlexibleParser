@@ -492,6 +492,19 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.AbsorbedDoseRate, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.Length, 2),
+                            new CompoundPart(UnitTypes.Time, -3)
+                        }
+                    )
+                }
+            },
+            {
                 UnitTypes.EquivalentDose, new Compound[]
                 {
                     new Compound
@@ -1265,7 +1278,8 @@ namespace FlexibleParser
                 UnitTypes.Illuminance, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.Lux },
-                    { UnitSystems.CGS, Units.Phot }
+                    { UnitSystems.CGS, Units.Phot },
+                    { UnitSystems.Imperial, Units.FootCandle }
                 }
             },
             {
@@ -1285,6 +1299,12 @@ namespace FlexibleParser
                 {
                     { UnitSystems.SI, Units.Gray },
                     { UnitSystems.CGS, Units.Rad }
+                }
+            },
+            {
+                UnitTypes.AbsorbedDoseRate, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.GrayPerSecond }
                 }
             },
             {
@@ -1666,6 +1686,14 @@ namespace FlexibleParser
                 { 
                     new UnitPart(Units.Mile),
                     new UnitPart(Units.Gallon, -1)
+                } 
+            },
+            { 
+                Units.AmpereHour, 
+                new UnitPart[] 
+                { 
+                    new UnitPart(Units.Ampere),
+                    new UnitPart(Units.Hour)
                 } 
             }
         };

@@ -29,10 +29,10 @@ namespace FlexibleParser
         ///<para>The "nm" alternative cannot be supported due to its incompatibility with the length unit nanometre.</para>
         ///</summary>                   
         public const string NauticalMile = "M";
-        ///<summary><para>Thou symbol. Imperial/USCS length unit.</para></summary>                  
-        public const string Thou = "th";
-        ///<summary><para>Fathom symbol. Imperial/USCS length unit.</para></summary>
-        public const string Fathom = "ftm";
+        ///<summary><para>Thou string representation. Imperial/USCS length unit.</para></summary>                  
+        public const string Thou = "thou";
+        ///<summary><para>Fathom string representation. Imperial/USCS length unit.</para></summary>
+        public const string Fathom = "fathom";
         ///<summary><para>Rod symbol. Imperial/USCS length unit.</para></summary>
         public const string Rod = "rd";
         ///<summary><para>Perch string representation. Imperial/USCS length unit.</para></summary>
@@ -53,23 +53,27 @@ namespace FlexibleParser
         public const string USCSCable = "usccbl";
         ///<summary><para>Link symbol. Imperial/USCS length unit.</para></summary>
         public const string Link = "li";
-        ///<summary><para>Survey inch abbreviation. USCS length unit.</para></summary>
+        ///<summary><para>U.S. survey inch abbreviation. USCS length unit.</para></summary>
         public const string SurveyInch = "surin";
-        ///<summary><para>Survey foot abbreviation. USCS length unit.</para></summary>
+        ///<summary><para>U.S. survey foot abbreviation. USCS length unit.</para></summary>
         public const string SurveyFoot = "surft";
-        ///<summary><para>Survey yard abbreviation. USCS length unit.</para></summary>
+        ///<summary><para>U.S. survey yard abbreviation. USCS length unit.</para></summary>
         public const string SurveyYard = "suryd";
-        ///<summary><para>Survey rod abbreviation. USCS length unit.</para></summary>
+        ///<summary><para>U.S. survey rod abbreviation. USCS length unit.</para></summary>
         public const string SurveyRod = "surrd";
-        ///<summary><para>Survey chain abbreviation. USCS length unit.</para></summary>
+        ///<summary><para>U.S. survey chain abbreviation. USCS length unit.</para></summary>
         public const string SurveyChain = "surch";
-        ///<summary><para>Survey mile abbreviation. USCS length unit.</para></summary>
+        ///<summary><para>U.S. survey link abbreviation. USCS length unit.</para></summary>
+        public const string SurveyLink = "surli";
+        ///<summary><para>U.S. survey mile abbreviation. USCS length unit.</para></summary>
         public const string SurveyMile = "surmi";
+        ///<summary><para>U.S. survey fathom abbreviation. USCS length unit.</para></summary>
+        public const string SurveyFathom = "surfathom";
         ///<summary><para>Ångström symbol. Length unit.</para></summary>
         public const string Angstrom = "Å";
         ///<summary><para>Fermi symbol. Length unit.</para></summary>
         public const string Fermi = "f";
-        ///<summary><para>Light symbol. Length unit.</para></summary>
+        ///<summary><para>Light year abbreviation. Length unit.</para></summary>
         public const string LightYear = "ly";
         ///<summary><para>Parsec. Length unit.</para></summary>
         public const string Parsec = "pc";
@@ -130,6 +134,8 @@ namespace FlexibleParser
         public const string Hour = "h";
         ///<summary><para>Day symbol. Time unit.</para></summary>  
         public const string Day = "d";
+        ///<summary><para>Shake string representation. Time unit.</para></summary>  
+        public const string Shake = "shake";
 
         //--- Area
         ///<summary><para>Square metre symbol. SI area unit.</para></summary>  
@@ -154,6 +160,8 @@ namespace FlexibleParser
         public const string Acre = "ac";
         ///<summary><para>Barn symbol. Area unit.</para></summary>  
         public const string Barn = "b";
+        ///<summary><para>U.S. survey acre abbreviation. USCS area unit.</para></summary>  
+        public const string SurveyAcre = "surac";
 
         //--- Volume
         ///<summary><para>Cubic metre symbol. SI volume unit.</para></summary>  
@@ -286,7 +294,7 @@ namespace FlexibleParser
         public const string Electronvolt = "eV";
         ///<summary><para>Watt hour abbreviation. Energy unit.</para></summary>   
         public const string WattHour = "Wh";
-        ///<summary><para>IT British thermal unit symbol. Imperial/USCS energy unit.</para></summary>                
+        ///<summary><para>IT British thermal unit abbreviation. Imperial/USCS energy unit.</para></summary>                
         public const string BritishThermalUnit = "BTU";
         ///<summary><para>Thermochemical British thermal unit abbreviation. Imperial/USCS energy unit.</para></summary>                
         public const string ThermochemicalBritishThermalUnit = "thBTU";
@@ -326,6 +334,8 @@ namespace FlexibleParser
         public const string Pascal = "Pa";
         ///<summary><para>Atmosphere symbol. Pressure unit.</para></summary>            
         public const string Atmosphere = "atm";
+        ///<summary><para>Technical atmosphere symbol. Pressure unit.</para></summary>            
+        public const string TechnicalAtmosphere = "at";
         ///<summary><para>Bar symbol. Pressure unit.</para></summary>            
         public const string Bar = "bar";
         ///<summary><para>Pound-force per square inch abbreviation. Imperial/USCS pressure unit.</para></summary>                 
@@ -333,11 +343,11 @@ namespace FlexibleParser
         ///<summary><para>Pound-force per square foot abbreviation. Imperial/USCS pressure unit.</para></summary>                 
         public const string PoundforcePerSquareFoot = "psf";
         ///<summary><para>Millimetre of mercury symbol. Pressure unit.</para></summary>               
-        public const string MillimetreMercury = "mmHg";
+        public const string MillimetreOfMercury = "mmHg";
         ///<summary><para>Inch of mercury 32 °F abbreviation. Pressure unit.</para></summary>               
-        public const string InchMercury32F = "inHg32";
+        public const string InchOfMercury32F = "inHg32";
         ///<summary><para>Inch of mercury 60 °F abbreviation. Pressure unit.</para></summary>               
-        public const string InchMercury60F = "inHg60";
+        public const string InchOfMercury60F = "inHg60";
         ///<summary><para>Barye symbol. CGS pressure unit.</para></summary>               
         public const string Barye = "Ba";
         ///<summary><para>Torr symbol. Pressure unit.</para></summary>               
@@ -356,6 +366,8 @@ namespace FlexibleParser
         //--- Electric Charge
         ///<summary>/<para>Coulomb symbol. SI electric charge unit.</para></summary>
         public const string Coulomb = "C";
+        ///<summary>/<para>Ampere hour symbol. Electric charge unit.</para></summary>
+        public const string AmpereHour = "Ah";
         ///<summary><para>Franklin symbol. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
         public const string Franklin = "Fr";
         ///<summary><para>Statcoulomb symbol. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
@@ -570,12 +582,21 @@ namespace FlexibleParser
         public const string Nit = "nt";
         ///<summary><para>Stilb symbol. CGS luminance unit.</para></summary>                 
         public const string Stilb = "sb";
+        ///<summary>
+        ///<para>Lambert string representation. CGS luminance unit.</para>
+        ///<para>The "L" alternative cannot be supported due to its incompatibility with the volume unit litre.</para>                   
+        ///</summary>                 
+        public const string Lambert = "lambert";
+        ///<summary><para>Foot-lambert abbreviation. Imperial/USCS luminance unit.</para></summary>                 
+        public const string FootLambert = "ftL";
 
         //--- Illuminance
         ///<summary><para>Lux symbol. SI illuminance unit.</para></summary>                 
         public const string Lux = "lx";
         ///<summary><para>Phot symbol. CGS illuminance unit.</para></summary>                 
         public const string Phot = "ph";
+        ///<summary><para>Foot-candle abbreviation. Imperial/USCS illuminance unit.</para></summary>                 
+        public const string FootCandle = "fc";
 
         //--- Logarithmic
         ///<summary><para>Bel symbol. Logarithmic unit.</para></summary>                        
@@ -622,6 +643,10 @@ namespace FlexibleParser
         ///<para>The "rad" alternative cannot be supported due to its incompatibility with the angle unit radian.</para>            
         ///</summary> 
         public const string Rad = "Rad";
+
+        //--- Absorbed Dose Rate
+        ///<summary><para>Gray per second symbol. SI absorbed dose rate unit.</para></summary> 
+        public const string GrayPerSecond = "Gy/s";
 
         //--- Equivalent Dose
         ///<summary><para>Sievert symbol. SI equivalent dose unit.</para></summary> 

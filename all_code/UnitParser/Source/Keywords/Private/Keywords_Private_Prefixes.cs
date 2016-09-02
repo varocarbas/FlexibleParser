@@ -130,6 +130,9 @@ namespace FlexibleParser
             //--- Pressure
             Units.Bar, Units.Torr,
             
+            //--- Electric Charge
+            Units.AmpereHour,
+
             //--- Logarithmic
             Units.Bel, Units.Neper,
             
@@ -162,12 +165,12 @@ namespace FlexibleParser
 
              //--- Pressure
              Units.Pascal, Units.Barye,
-             
+
              //--- Frequency
              Units.Hertz,
 
              //--- Electric Charge
-             Units.Coulomb, 
+             Units.Coulomb, Units.AmpereHour,
 
              //--- Electric Current
              Units.Ampere, 
