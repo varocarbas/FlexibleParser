@@ -73,7 +73,8 @@ namespace FlexibleParser
             { UnitSymbols.Second, Units.Second }, 
             { UnitSymbols.Minute, Units.Minute },  
             { UnitSymbols.Hour, Units.Hour },    
-            { UnitSymbols.Day, Units.Day },    
+            { UnitSymbols.Day, Units.Day },  
+            { UnitSymbols.Shake, Units.Shake }, 
 
             //--- Area
             { UnitSymbols.SquareMetre, Units.SquareMetre }, 
