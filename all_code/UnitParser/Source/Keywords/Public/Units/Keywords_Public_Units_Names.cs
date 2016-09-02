@@ -194,6 +194,11 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>            
         ///</summary>
         Parsec,
+        ///<summary>
+        ///<para>Micron (μ). Length unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
+        ///</summary>
+        Micron,
 
         //--- Mass
         ///<summary>
@@ -1313,6 +1318,18 @@ namespace FlexibleParser
         ///<para>By default, binary prefixes may not be used with this unit.</para>                         
         ///</summary> 
         REM,
+
+        //--- Exposure
+        ///<summary>
+        ///<para>Coulomb per kilogram (C/kg). SI exposure unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///</summary> 
+        CoulombPerKilogram,
+        ///<summary>
+        ///<para>Roentgen (R). CGS exposure unit.</para>
+        ///<para>By default, binary prefixes may not be used with this unit.</para>                         
+        ///</summary> 
+        Roentgen,
 
         //--- Catalytic Activity
         ///<summary>

@@ -219,6 +219,9 @@ namespace FlexibleParser
 
             //--- Equivalent Dose
             Units.Sievert, Units.REM,
+
+            //--- Exposure
+            Units.Roentgen,
             
             //--- Catalytic Activity
             Units.Katal,

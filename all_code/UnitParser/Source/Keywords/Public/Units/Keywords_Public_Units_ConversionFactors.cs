@@ -68,7 +68,7 @@ namespace FlexibleParser
         ///<summary><para>Ångström (Å) conversion factor. Length unit.</para></summary>
         public const decimal Angstrom = 1E-10m;
         ///<summary><para>Fermi (f) conversion factor. Length unit.</para></summary>
-        public const decimal Fermi = 1E-15m;
+        public const decimal Fermi = 1E-15m; //SIPrefixValues.Femto
         ///<summary><para>Light year (ly) conversion factor. Length unit.</para></summary>
         public const decimal LightYear = 9460730472580800m;
         ///<summary>
@@ -76,6 +76,9 @@ namespace FlexibleParser
         ///<para>Source: IAU 2015.</para>
         ///</summary>
         public const decimal Parsec = 30856775814913672.789139379581m; //UnitConversionFactors.AstronomicalUnit * 648000m / MathematicalConstants.Pi
+        ///<summary><para>Micron (μ) conversion factor. Length unit.</para></summary>
+        public const decimal Micron = 1E-6m; //SIPrefixValues.Micro
+
 
         //--- Mass
         ///<summary>
@@ -284,7 +287,7 @@ namespace FlexibleParser
         ///<summary><para>Kilometre per hour (kph) conversion factor. Velocity unit.</para></summary>
         public const decimal KilometrePerHour = 0.2777777777777777777777777778m; //1000m / Hour;
         ///<summary><para>Knot (kn) conversion factor. Velocity unit.</para></summary>
-        public const decimal Knot = 0.5144444444444444444444444445m; //1.852m * KilometrePerHour;
+        public const decimal Knot = 0.5144444444444444444444444444m; //1852m / 3600m;
         ///<summary><para>Mile per hour (mph) conversion factor. Velocity unit.</para></summary>
         public const decimal MilePerHour = 0.44704m; //Mile / Hour;
 
@@ -383,7 +386,7 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Hertz = 1m;
         ///<summary><para>Revolutions per minute (rpm) conversion factor. Frequency unit.</para></summary>
-        public const decimal RevolutionsPerMinute = 1m / 60m;
+        public const decimal RevolutionsPerMinute = 0.0166666666666666666666666667m; //1m / 60m;
         ///<summary><para>Cycles per Second (cps) conversion factor. Frequency unit.</para></summary>
         public const decimal CyclesPerSecond = 1m;
 
@@ -394,11 +397,11 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Coulomb = 1m;
         ///<summary><para>Franklin (Fr) conversion ratio. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
-        public const decimal Franklin = 3.335640951982E-10m;
+        public const decimal Franklin = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Statcoulomb (statC) conversion ratio. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
-        public const decimal Statcoulomb = 3.335640951982E-10m;
+        public const decimal Statcoulomb = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Electrostatic unit of charge (ESUcha) conversion ratio. CGS-Gaussian/CGS-ESU electric charge unit.</para></summary>
-        public const decimal ESUOfCharge = 3.335640951982E-10m;
+        public const decimal ESUOfCharge = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Abcoulomb (abC) conversion ratio. CGS-EMU electric charge unit.</para></summary>
         public const decimal Abcoulomb = 10m;
         ///<summary><para>Electromagnetic unit of charge (EMUcha) conversion ratio. CGS-EMU electric charge unit.</para></summary>
@@ -411,11 +414,11 @@ namespace FlexibleParser
         ///</summary>
         public const decimal Ampere = 1m;
         ///<summary><para>Statampere (statA) conversion factor. CGS-Gaussian/CGS-ESU electric current unit.</para></summary>
-        public const decimal Statampere = 3.335640951982E-10m;
+        public const decimal Statampere = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Electrostatic unit of current (ESUcur) conversion factor. CGS-Gaussian/CGS-ESU electric current unit.</para></summary>
-        public const decimal ESUOfCurrent = 3.335640951982E-10m;
+        public const decimal ESUOfCurrent = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Abampere (abA) conversion factor. CGS-EMU electric current unit.</para></summary>
-        public const decimal Abampere = 3.335640951982E-10m;
+        public const decimal Abampere = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Biot (Bi) conversion factor. CGS-EMU electric current unit.</para></summary>
         public const decimal Biot = 10m;
         ///<summary><para>Electromagnetic unit of current (EMUcur) conversion factor. CGS-EMU electric current unit.</para></summary>
@@ -714,6 +717,15 @@ namespace FlexibleParser
         public const decimal Sievert = 1m;
         ///<summary><para>Roentgen equivalent in man (rem) conversion factor. CGS equivalent dose unit.</para></summary> 
         public const decimal REM = 0.01m;
+
+        //--- Exposure
+        ///<summary>
+        ///<para>Coulomb per kilogram (C/kg) conversion factor. SI exposure unit.</para>
+        ///<para>Reference point for all the exposure units.</para>
+        ///</summary> 
+        public const decimal CoulombPerKilogram = 1m;
+        ///<summary><para>Roentgen (R) conversion factor. CGS exposure unit.</para></summary> 
+        public const decimal Roentgen = 0.000258m;
 
         //--- Catalytic Activity
         ///<summary>

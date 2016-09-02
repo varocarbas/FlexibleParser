@@ -43,6 +43,7 @@ namespace FlexibleParser
             { UnitSymbols.Fermi, Units.Fermi }, 
             { UnitSymbols.LightYear, Units.LightYear }, 
             { UnitSymbols.Parsec, Units.Parsec }, 
+            { UnitSymbols.Micron, Units.Micron }, 
 
             //--- Mass
             { UnitSymbols.Gram, Units.Gram }, 
@@ -344,6 +345,10 @@ namespace FlexibleParser
             //--- Equivalent Dose
             { UnitSymbols.Sievert, Units.Sievert },
             { UnitSymbols.REM, Units.REM },
+
+            //--- Exposure
+            { UnitSymbols.CoulombPerKilogram, Units.CoulombPerKilogram },
+            { UnitSymbols.Roentgen, Units.Roentgen },
 
             //--- Catalytic Activity
             { UnitSymbols.Katal, Units.Katal }, 

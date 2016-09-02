@@ -103,6 +103,8 @@ namespace FlexibleParser
         AbsorbedDose,
         ///<summary><para>Associated with all the (ionising radiation) equivalent dose units.</para></summary>  
         EquivalentDose,
+        ///<summary><para>Associated with all the (ionising radiation) exposure units.</para></summary>  
+        Exposure,
         ///<summary><para>Associated with all the catalytic activity units.</para></summary> 
         CatalyticActivity,
         ///<summary><para>Associated with all the catalytic activity concentration units.</para></summary> 

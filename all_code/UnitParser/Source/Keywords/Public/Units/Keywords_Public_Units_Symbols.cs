@@ -73,6 +73,8 @@ namespace FlexibleParser
         public const string LightYear = "ly";
         ///<summary><para>Parsec. Length unit.</para></summary>
         public const string Parsec = "pc";
+        ///<summary><para>Micron. Length unit.</para></summary>
+        public const string Micron = "μ";
 
         //--- Mass
         ///<summary><para>Gram symbol. SI mass unit.</para></summary>
@@ -626,6 +628,12 @@ namespace FlexibleParser
         public const string Sievert = "Sv";
         ///<summary><para>Roentgen equivalent in man symbol. CGS equivalent dose unit.</para></summary> 
         public const string REM = "rem";
+
+        //--- Exposure
+        ///<summary><para>Coulomb per kilogram. SI exposure unit.</para></summary> 
+        public const string CoulombPerKilogram = "C/kg";
+        ///<summary><para>Roentgen. CGS exposure unit.</para></summary> 
+        public const string Roentgen = "R";
 
         //--- Catalytic Activity
         ///<summary><para>Katal symbol. SI catalytic activity unit.</para></summary> 

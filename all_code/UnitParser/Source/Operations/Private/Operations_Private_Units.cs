@@ -81,7 +81,7 @@ namespace FlexibleParser
             }
             else if (outInfo.Unit != secondInfo.Unit || IsUnnamedUnit(outInfo.Unit))
             {
-                outInfos[1] = ConvertUnit(secondInfo, outInfo);
+                outInfos[1] = ConvertUnit(secondInfo, outInfo, false);
             }
 
             return outInfos;

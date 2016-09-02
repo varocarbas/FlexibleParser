@@ -61,7 +61,7 @@ namespace FlexibleParser
         {
             UnitInfo[] operands2 = new UnitInfo[] 
             {
-                new UnitInfo(firstInfo), new UnitInfo(secondInfo)
+                NormaliseUnitInfo(firstInfo), NormaliseUnitInfo(secondInfo)
             };
 
             if (operands2[0].BaseTenExponent != operands2[1].BaseTenExponent || operands2[0].Prefix.Factor != operands2[1].Prefix.Factor)
@@ -70,12 +70,7 @@ namespace FlexibleParser
                 //For example: 5 and 6 from 5*10^2 and 6*10^7 cannot be added right away; same problem with normalised UnitInfo variables.
                 operands2 = AdaptNormalisedValuesForAddition
                 (
-                    new UnitInfo[] 
-                    { 
-                        NormaliseUnitInfo(operands2[0]), 
-                        NormaliseUnitInfo(operands2[1])
-                    },
-                    operation
+                    operands2, operation
                 );
             }
 

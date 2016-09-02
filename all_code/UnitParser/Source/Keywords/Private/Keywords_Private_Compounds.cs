@@ -505,6 +505,20 @@ namespace FlexibleParser
                 }
             },
             {
+                UnitTypes.Exposure, new Compound[]
+                {
+                    new Compound
+                    (
+                        new List<CompoundPart>()
+                        {
+                            new CompoundPart(UnitTypes.ElectricCurrent),
+                            new CompoundPart(UnitTypes.Time),
+                            new CompoundPart(UnitTypes.Mass, -1)
+                        }
+                    )
+                }
+            },
+            {
                 UnitTypes.SpecificEnergy, new Compound[]
                 {
                     new Compound
@@ -1278,6 +1292,13 @@ namespace FlexibleParser
                 {
                     { UnitSystems.SI, Units.Sievert },
                     { UnitSystems.CGS, Units.REM }
+                }
+            },
+            {
+                UnitTypes.Exposure, new Dictionary<UnitSystems, Units>()
+                {
+                    { UnitSystems.SI, Units.CoulombPerKilogram },
+                    { UnitSystems.CGS, Units.Roentgen }
                 }
             },
             {

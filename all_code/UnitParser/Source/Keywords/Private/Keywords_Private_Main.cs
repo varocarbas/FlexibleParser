@@ -88,7 +88,8 @@ namespace FlexibleParser
                             { Units.Angstrom, UnitConversionFactors.Angstrom },
                             { Units.Fermi, UnitConversionFactors.Fermi },
                             { Units.LightYear, UnitConversionFactors.LightYear },
-                            { Units.Parsec, UnitConversionFactors.Parsec }
+                            { Units.Parsec, UnitConversionFactors.Parsec },
+                            { Units.Micron, UnitConversionFactors.Micron }
                         }
                     }
                 }
@@ -1182,6 +1183,26 @@ namespace FlexibleParser
                         new Dictionary<Units, decimal>()
                         {
                             { Units.REM, UnitConversionFactors.REM }
+                        }
+                    }
+                }
+            },
+            { 
+                UnitTypes.Exposure, 
+                new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
+                {
+                    {
+                        UnitSystems.SI, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.CoulombPerKilogram, UnitConversionFactors.CoulombPerKilogram }
+                        }
+                    },
+                    {
+                        UnitSystems.CGS, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.Roentgen, UnitConversionFactors.Roentgen }
                         }
                     }
                 }

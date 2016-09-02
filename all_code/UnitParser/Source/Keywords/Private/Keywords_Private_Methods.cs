@@ -94,6 +94,8 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("mil", Units.Thou);
             AllUnitSymbols2.Add("lnk", Units.Link);
             AllUnitSymbols2.Add("fm", Units.Fermi);
+            AllUnitSymbols2.Add("M/h", Units.Knot);
+            AllUnitSymbols2.Add("nmi/h", Units.Knot);
             AllUnitSymbols2.Add("l", Units.Litre);
             AllUnitSymbols2.Add("p", Units.Pint);
             AllUnitSymbols2.Add("impp", Units.ImperialPint);
