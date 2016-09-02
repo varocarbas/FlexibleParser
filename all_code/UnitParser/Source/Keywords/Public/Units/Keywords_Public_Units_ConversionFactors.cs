@@ -418,7 +418,7 @@ namespace FlexibleParser
         ///<summary><para>Electrostatic unit of current (ESUcur) conversion factor. CGS-Gaussian/CGS-ESU electric current unit.</para></summary>
         public const decimal ESUOfCurrent = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
         ///<summary><para>Abampere (abA) conversion factor. CGS-EMU electric current unit.</para></summary>
-        public const decimal Abampere = 0.0000000003335640951981520496m; //1m / PhysicalConstants.SpeedOfLight / 10m;
+        public const decimal Abampere = 10m; 
         ///<summary><para>Biot (Bi) conversion factor. CGS-EMU electric current unit.</para></summary>
         public const decimal Biot = 10m;
         ///<summary><para>Electromagnetic unit of current (EMUcur) conversion factor. CGS-EMU electric current unit.</para></summary>
