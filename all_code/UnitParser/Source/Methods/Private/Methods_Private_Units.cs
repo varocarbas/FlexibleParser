@@ -77,6 +77,46 @@ namespace FlexibleParser
             return unitInfo;
         }
 
+        private static bool PrefixCanBeUsedWithUnit(UnitInfo unitInfo, PrefixTypes prefixType)
+        {
+            return 
+            (
+                !PrefixCanBeUsedWithUnitBasicCheck(unitInfo, prefixType) ? false :
+                PrefixCanBeUsedCompound(unitInfo)
+            );
+        }
+
+        private static bool PrefixCanBeUsedWithUnitBasicCheck(UnitInfo unitInfo, PrefixTypes prefixType)
+        {
+            if (unitInfo.Prefix.PrefixUsage == PrefixUsageTypes.AllUnits) return true;
+
+            if (prefixType == PrefixTypes.SI)
+            {
+                if (AllOtherSIPrefixUnits.Contains(unitInfo.Unit)) return true;
+
+                UnitSystems system =
+                (
+                    unitInfo.System == UnitSystems.None ?
+                    GetSystemFromUnitInfo(unitInfo) :
+                    unitInfo.System
+                );
+
+                return (system == UnitSystems.SI || system == UnitSystems.CGS);
+            }
+            else if (prefixType == PrefixTypes.Binary)
+            {
+                UnitTypes type =
+                (
+                    unitInfo.Type == UnitTypes.None ?
+                    GetTypeFromUnitInfo(unitInfo) :
+                    unitInfo.Type
+                );
+                return AllBinaryPrefixTypes.Contains(type);
+            }
+
+            return false;
+        }
+
         private static UnitInfo IncludeRemainingTargetPrefix(UnitInfo unitInfo, UnitInfo expectedTarget, UnitInfo actualTarget)
         {
             UnitInfo remInfo = NormaliseUnitInfo

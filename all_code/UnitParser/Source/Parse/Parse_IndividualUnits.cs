@@ -151,18 +151,23 @@ namespace FlexibleParser
         {
             Units unit = GetUnitFromString(remString);
 
-            if (unit != Units.None && PrefixCanBeUsedBasic(unit, prefixType, parseInfo.UnitInfo.Prefix.PrefixUsage))
+            if (unit != Units.None)
             {
-                parseInfo.UnitInfo = UpdateUnitInformation
-                (
-                    parseInfo.UnitInfo, unit, new Prefix
-                    (
-                        prefix.Value, parseInfo.UnitInfo.Prefix.PrefixUsage
-                    )
-                );
+                parseInfo.UnitInfo.Unit = unit;
 
-                //Useful in case of looking for further prefixes.
-                parseInfo.InputToParse = remString;
+                if (PrefixCanBeUsedWithUnitBasicCheck(parseInfo.UnitInfo, prefixType))
+                {
+                    parseInfo.UnitInfo = UpdateUnitInformation
+                    (
+                        parseInfo.UnitInfo, unit, new Prefix
+                        (
+                            prefix.Value, parseInfo.UnitInfo.Prefix.PrefixUsage
+                        )
+                    );
+
+                    //Useful in case of looking for further prefixes.
+                    parseInfo.InputToParse = remString;
+                }
             }
 
             return parseInfo;
@@ -175,25 +180,6 @@ namespace FlexibleParser
             unitInfo.Parts = GetUnitParts(unitInfo).Parts;
 
             return unitInfo;
-        }
-
-        private static bool PrefixCanBeUsedBasic(Units unit, PrefixTypes prefixType, PrefixUsageTypes prefixUsage)
-        {
-            if (prefixUsage == PrefixUsageTypes.AllUnits) return true;
-            
-            if (prefixType == PrefixTypes.SI)
-            {
-                if (AllOtherSIPrefixUnits.Contains(unit)) return true;
-                
-                UnitSystems system = GetSystemFromUnit(unit);
-                return (system == UnitSystems.SI || system == UnitSystems.CGS);
-            }
-            else if (prefixType == PrefixTypes.Binary)
-            {
-                return AllBinaryPrefixTypes.Contains(GetUnitType(unit));
-            }
-
-            return false;
         }
 
         private static ParseInfo GetIndividualUnitParts(ParseInfo parseInfo)

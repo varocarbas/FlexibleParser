@@ -90,6 +90,11 @@ namespace FlexibleParser
         ///</summary>                  
         Thou,
         ///<summary>
+        ///<para>Mil (mil). Imperial/USCS length unit.</para>
+        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>
+        ///</summary>                  
+        Mil,
+        ///<summary>
         ///<para>Fathom (fathom). Imperial/USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
@@ -119,26 +124,6 @@ namespace FlexibleParser
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         Furlong,
-        ///<summary>
-        ///<para>League (lea). Imperial/USCS length unit.</para>
-        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
-        ///</summary>
-        League,
-        ///<summary>
-        ///<para>International cable (cbl). Length unit.</para>
-        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
-        ///</summary>
-        Cable,
-        ///<summary>
-        ///<para>Imperial cable (impcbl). Imperial length unit.</para>
-        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
-        ///</summary>
-        ImperialCable,
-        ///<summary>
-        ///<para>USCS cable (usccbl). USCS length unit.</para>
-        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
-        ///</summary>
-        USCSCable,
         ///<summary>
         ///<para>Link (li). Imperial/USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            

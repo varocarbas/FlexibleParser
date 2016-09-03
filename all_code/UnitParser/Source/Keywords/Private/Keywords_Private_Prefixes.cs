@@ -125,7 +125,6 @@ namespace FlexibleParser
             
             //--- Energy
             Units.Electronvolt, Units.WattHour, Units.Calorie, Units.ThermochemicalCalorie,
-            Units.FoodCalorie,
             
             //--- Pressure
             Units.Bar, Units.Torr,

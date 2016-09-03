@@ -77,9 +77,9 @@ namespace FlexibleParser
         {
             return
             (
-                //The rad unit cannot be represented as "rad" to avoid confusions with radians. 
-                unit == Units.Rad ? 
-                false : true
+                unit == Units.Rad //rad/radian.
+                || unit == Units.Rutherford //rod/rutherford.
+                ? false : true
             );
         }
 
@@ -91,10 +91,10 @@ namespace FlexibleParser
             
             AllUnitSymbols2.Add("nmi", Units.NauticalMile);
             AllUnitSymbols2.Add("ftm", Units.Fathom);
-            AllUnitSymbols2.Add("mil", Units.Thou);
             AllUnitSymbols2.Add("th", Units.Thou);
             AllUnitSymbols2.Add("lnk", Units.Link);
             AllUnitSymbols2.Add("fm", Units.Fermi);
+            AllUnitSymbols2.Add("psc", Units.Parsec);
             AllUnitSymbols2.Add("M/h", Units.Knot);
             AllUnitSymbols2.Add("nmi/h", Units.Knot);
             AllUnitSymbols2.Add("l", Units.Litre);
@@ -137,12 +137,6 @@ namespace FlexibleParser
 
             unit = Units.AstronomicalUnit;
             AddToAllUnitStrings("ua", unit);
-
-            unit = Units.ImperialCable;
-            AddToAllUnitStrings("ukcbl", unit);
-
-            unit = Units.USCSCable;
-            AddToAllUnitStrings("uscbl", unit);
 
             unit = Units.SurveyInch;
             AddToAllUnitStrings("usin", unit);
@@ -205,6 +199,9 @@ namespace FlexibleParser
             unit = Units.ShortTon;
             AddToAllUnitStrings("shorttn", unit);
             AddToAllUnitStrings("ustn", unit);
+
+            unit = Units.UnifiedAtomicMassUnit;
+            AddToAllUnitStrings("amu", unit);
 
             unit = Units.Second;
             AddToAllUnitStrings("sec", unit);
@@ -295,6 +292,9 @@ namespace FlexibleParser
 
             unit = Units.ThermochemicalBritishThermalUnit;
             AddToAllUnitStrings("thbtu", unit);
+
+            unit = Units.Therm;
+            AddToAllUnitStrings("ecthm", unit);
 
             unit = Units.TonOfRefrigeration;
             AddToAllUnitStrings("tr", unit);

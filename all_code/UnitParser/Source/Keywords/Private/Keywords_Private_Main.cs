@@ -51,6 +51,7 @@ namespace FlexibleParser
                         {
                             { Units.Foot, UnitConversionFactors.Foot }, 
                             { Units.Thou, UnitConversionFactors.Thou }, 
+                            { Units.Mil, UnitConversionFactors.Mil }, 
                             { Units.Inch, UnitConversionFactors.Inch },  
                             { Units.Yard, UnitConversionFactors.Yard }, 
                             { Units.Fathom, UnitConversionFactors.Fathom }, 
@@ -60,17 +61,13 @@ namespace FlexibleParser
                             { Units.Chain, UnitConversionFactors.Chain }, 
                             { Units.Furlong, UnitConversionFactors.Furlong }, 
                             { Units.Mile, UnitConversionFactors.Mile },
-                            { Units.League, UnitConversionFactors.League },
-                            { Units.Link, UnitConversionFactors.Link },
-                            { Units.ImperialCable, UnitConversionFactors.ImperialCable },
-                            { Units.Cable, UnitConversionFactors.Cable }
+                            { Units.Link, UnitConversionFactors.Link }
                         }
                     },
                     { 
                         UnitSystems.USCS, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.USCSCable, UnitConversionFactors.USCSCable },
                             { Units.SurveyInch, UnitConversionFactors.SurveyInch }, 
                             { Units.SurveyFoot, UnitConversionFactors.SurveyFoot }, 
                             { Units.SurveyYard, UnitConversionFactors.SurveyYard }, 

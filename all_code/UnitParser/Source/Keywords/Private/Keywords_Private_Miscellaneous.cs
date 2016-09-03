@@ -11,11 +11,8 @@ namespace FlexibleParser
         //problems by including types to be ignored in these analyses (i.e., neutral types).
         private static UnitTypes[] NeutralTypes = new UnitTypes[]
         {
-            UnitTypes.Time,
-            UnitTypes.Angle,
-            UnitTypes.SolidAngle,
-            UnitTypes.ElectricCurrent,
-            UnitTypes.AmountOfSubstance,
+            UnitTypes.Time, UnitTypes.Angle, UnitTypes.SolidAngle,
+            UnitTypes.ElectricCurrent, UnitTypes.AmountOfSubstance,
             UnitTypes.Temperature
         };
 

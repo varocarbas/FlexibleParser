@@ -1115,6 +1115,7 @@ namespace FlexibleParser
                 {
                     { UnitSystems.SI, Units.Newton },
                     { UnitSystems.CGS, Units.Dyne },
+                    { UnitSystems.Imperial, Units.Poundal },
                 }
             },
             {

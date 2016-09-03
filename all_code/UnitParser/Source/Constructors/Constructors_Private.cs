@@ -313,11 +313,7 @@ namespace FlexibleParser
                     unitInfo.Prefix.Type : PrefixTypes.SI   
                 );
 
-                bool prefixIsOK =
-                (
-                    !PrefixCanBeUsedBasic(unitInfo.Unit, prefixType, unitInfo.Prefix.PrefixUsage) ?
-                    false : PrefixCanBeUsedCompound(unitInfo)
-                );
+                bool prefixIsOK = PrefixCanBeUsedWithUnit(unitInfo, prefixType);
 
                 if (!prefixIsOK || !valueIsOK || unitInfo.BaseTenExponent != 0)
                 {

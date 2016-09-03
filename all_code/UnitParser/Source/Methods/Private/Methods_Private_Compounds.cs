@@ -460,6 +460,16 @@ namespace FlexibleParser
 
         private static UnitInfo GetUnitParts(UnitInfo unitInfo)
         {
+            if (AllNonDividableUnits.Contains(unitInfo.Unit))
+            {
+                unitInfo.Parts = new List<UnitPart>()
+                {
+                    new UnitPart(unitInfo.Unit, 1)
+                };
+
+                return unitInfo;
+            }
+
             unitInfo = ExpandUnitParts(unitInfo);
             if (unitInfo.Parts.Count > 1)
             {
@@ -518,12 +528,7 @@ namespace FlexibleParser
         {
             if (unitInfo.Parts.Count == 0) unitInfo = GetPartsFromUnit(unitInfo);
 
-            if (unitInfo.InitialPositions == null)
-            {
-                unitInfo.InitialPositions = new Dictionary<UnitPart, int>();
-            }
-
-            if (unitInfo.InitialPositions.Count == 0)
+            if (unitInfo.InitialPositions == null || unitInfo.InitialPositions.Count == 0)
             {
                 unitInfo.InitialPositions = GetInitialPositions(unitInfo.Parts);
             }

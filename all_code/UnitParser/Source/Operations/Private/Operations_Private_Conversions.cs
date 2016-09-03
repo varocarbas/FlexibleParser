@@ -259,59 +259,59 @@ namespace FlexibleParser
             return convertInfo;
         }
 
-        private static UnitInfo ConvertTemperature(UnitInfo outUnitInfo, Units targetUnit)
+        private static UnitInfo ConvertTemperature(UnitInfo outInfo, Units targetUnit)
         {
             if (targetUnit == Units.Kelvin)
             {
-                outUnitInfo = ConvertTemperatureToKelvin(outUnitInfo);
+                outInfo = ConvertTemperatureToKelvin(outInfo);
             }
-            else if (outUnitInfo.Unit == Units.Kelvin)
+            else if (outInfo.Unit == Units.Kelvin)
             {
-                outUnitInfo = ConvertTemperatureFromKelvin(new UnitInfo(outUnitInfo) { Unit = targetUnit });
+                outInfo = ConvertTemperatureFromKelvin(new UnitInfo(outInfo) { Unit = targetUnit });
             }
             else
             {
-                outUnitInfo = ConvertTemperatureToKelvin(new UnitInfo(outUnitInfo));
-                outUnitInfo = ConvertTemperatureFromKelvin(new UnitInfo(outUnitInfo) { Unit = targetUnit });
+                outInfo = ConvertTemperatureToKelvin(new UnitInfo(outInfo));
+                outInfo = ConvertTemperatureFromKelvin(new UnitInfo(outInfo) { Unit = targetUnit });
             }
 
-            return outUnitInfo;
+            return outInfo;
         }
 
-        private static UnitInfo ConvertTemperatureToKelvin(UnitInfo outUnitInfo)
+        private static UnitInfo ConvertTemperatureToKelvin(UnitInfo outInfo)
         {
-            if (outUnitInfo.Unit == Units.Celsius)
+            if (outInfo.Unit == Units.Celsius)
             {
-                outUnitInfo = outUnitInfo + 273.15m;
+                outInfo = outInfo + 273.15m;
             }
-            else if (outUnitInfo.Unit == Units.Fahrenheit)
+            else if (outInfo.Unit == Units.Fahrenheit)
             {
-                outUnitInfo = (outUnitInfo + 459.67m) / 1.8m;
+                outInfo = (outInfo + 459.67m) / 1.8m;
             }
-            else if (outUnitInfo.Unit == Units.Rankine)
+            else if (outInfo.Unit == Units.Rankine)
             {
-                outUnitInfo = outUnitInfo / 1.8m;
+                outInfo = outInfo / 1.8m;
             }
 
-            return outUnitInfo;
+            return outInfo;
         }
 
-        private static UnitInfo ConvertTemperatureFromKelvin(UnitInfo outUnitInfo)
+        private static UnitInfo ConvertTemperatureFromKelvin(UnitInfo outInfo)
         {
-            if (outUnitInfo.Unit == Units.Celsius)
+            if (outInfo.Unit == Units.Celsius)
             {
-                outUnitInfo = outUnitInfo - 273.15m;
+                outInfo = outInfo - 273.15m;
             }
-            else if (outUnitInfo.Unit == Units.Fahrenheit)
+            else if (outInfo.Unit == Units.Fahrenheit)
             {
-                outUnitInfo = 1.8m * outUnitInfo - 459.67m;
+                outInfo = 1.8m * outInfo - 459.67m;
             }
-            else if (outUnitInfo.Unit == Units.Rankine)
+            else if (outInfo.Unit == Units.Rankine)
             {
-                outUnitInfo = 1.8m * outUnitInfo;
+                outInfo = 1.8m * outInfo;
             }
 
-            return outUnitInfo;
+            return outInfo;
         }
     }
 }

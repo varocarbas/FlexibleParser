@@ -31,6 +31,8 @@ namespace FlexibleParser
         public const string NauticalMile = "M";
         ///<summary><para>Thou string representation. Imperial/USCS length unit.</para></summary>                  
         public const string Thou = "thou";
+        ///<summary><para>Mil string representation. Imperial/USCS length unit.</para></summary>                  
+        public const string Mil = "mil";
         ///<summary><para>Fathom string representation. Imperial/USCS length unit.</para></summary>
         public const string Fathom = "fathom";
         ///<summary><para>Rod symbol. Imperial/USCS length unit.</para></summary>
@@ -43,14 +45,6 @@ namespace FlexibleParser
         public const string Chain = "ch";
         ///<summary><para>Furlong symbol. Imperial/USCS length unit.</par></summary>
         public const string Furlong = "fur";
-        ///<summary><para>League symbol. Imperial/USCS length unit.</para></summary>
-        public const string League = "lea";
-        ///<summary><para>International cable symbol. Length unit.</para></summary>
-        public const string Cable = "cbl";
-        ///<summary><para>Imperial cable abbreviation. Length unit.</para></summary>
-        public const string ImperialCable = "impcbl";
-        ///<summary><para>USCS cable abbreviation. Length unit.</para></summary>
-        public const string USCSCable = "usccbl";
         ///<summary><para>Link symbol. Imperial/USCS length unit.</para></summary>
         public const string Link = "li";
         ///<summary><para>U.S. survey inch abbreviation. USCS length unit.</para></summary>
@@ -75,9 +69,9 @@ namespace FlexibleParser
         public const string Fermi = "f";
         ///<summary><para>Light year abbreviation. Length unit.</para></summary>
         public const string LightYear = "ly";
-        ///<summary><para>Parsec. Length unit.</para></summary>
+        ///<summary><para>Parsec symbol. Length unit.</para></summary>
         public const string Parsec = "pc";
-        ///<summary><para>Micron. Length unit.</para></summary>
+        ///<summary><para>Micron symbol. Length unit.</para></summary>
         public const string Micron = "μ";
 
         //--- Mass

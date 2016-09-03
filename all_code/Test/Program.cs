@@ -207,8 +207,8 @@ namespace Test
             //--- The system is automatically determined at variable instantiation. Each unit can belong to just one system.
             PrintSampleItem("Sys1", new UnitP("1 m/s2")); //SI acceleration unit (m/s2).
             PrintSampleItem("Sys2", new UnitP("1 cm/s2")); //CGS acceleration unit (Gal).
-            PrintSampleItem("Sys3", new UnitP(1m, UnitSymbols.ImperialCable + "/h2")); //Imperial acceleration unit (impcbl/h2). 
-            PrintSampleItem("Sys4", new UnitP(1m, UnitSymbols.USCSCable + "/s2")); //USCS acceleration unit (usccbl/s2). 
+            PrintSampleItem("Sys3", new UnitP(1m, UnitSymbols.Rod + "/h2")); //Imperial acceleration unit (rd/h2). 
+            PrintSampleItem("Sys4", new UnitP(1m, UnitSymbols.SurveyRod + "/s2")); //USCS acceleration unit (surrd/s2). 
             PrintSampleItem("Sys5", new UnitP(1m, "AU/min2")); //Acceleration unit not belonging to any system (AU/min2). 
 
 

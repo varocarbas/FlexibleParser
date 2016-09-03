@@ -21,17 +21,14 @@ namespace FlexibleParser
             { UnitSymbols.Yard, Units.Yard },            
             { UnitSymbols.Mile, Units.Mile },              
             { UnitSymbols.NauticalMile, Units.NauticalMile },                     
-            { UnitSymbols.Thou, Units.Thou },                  
+            { UnitSymbols.Thou, Units.Thou },         
+            { UnitSymbols.Mil, Units.Mil },          
             { UnitSymbols.Fathom, Units.Fathom },  
             { UnitSymbols.Rod, Units.Rod },
             { UnitSymbols.Perch, Units.Perch },
             { UnitSymbols.Pole, Units.Pole },
             { UnitSymbols.Chain, Units.Chain },         
             { UnitSymbols.Furlong, Units.Furlong }, 
-            { UnitSymbols.League, Units.League }, 
-            { UnitSymbols.Cable, Units.Cable }, 
-            { UnitSymbols.ImperialCable, Units.ImperialCable }, 
-            { UnitSymbols.USCSCable, Units.USCSCable },
             { UnitSymbols.SurveyInch, Units.SurveyInch }, 
             { UnitSymbols.SurveyFoot, Units.SurveyFoot }, 
             { UnitSymbols.SurveyYard, Units.SurveyYard }, 
@@ -497,7 +494,7 @@ namespace FlexibleParser
             Units.Gallon, Units.ImperialGallon, Units.LiquidGallon, Units.DryGallon,
             
             //--- Force
-            Units.Kilopond, Units.PoundForce, Units.Kip, Units.Poundal, Units.OunceForce,
+            Units.Kilopond, Units.PoundForce, Units.Kip, Units.OunceForce,
             
             //--- Energy
             Units.Electronvolt, Units.BritishThermalUnit, Units.ThermochemicalBritishThermalUnit,
@@ -520,9 +517,9 @@ namespace FlexibleParser
         private static Units[] AllImperialAndUSCSUnits = new Units[]
         {
             //--- Length
-            Units.Foot, Units.Yard, Units.Mile, Units.Thou, Units.Fathom,
-            Units.Rod, Units.Perch, Units.Pole, Units.Chain, Units.Furlong,
-            Units.League, Units.Link, 
+            Units.Inch, Units.Foot, Units.Yard, Units.Mile, Units.Thou, Units.Mil, 
+            Units.Fathom, Units.Rod, Units.Perch, Units.Pole, Units.Chain, Units.Furlong,
+            Units.Link, 
 
             //--- Mass
             Units.Grain, Units.Drachm, Units.Ounce, Units.Pound, Units.Stone,
@@ -539,7 +536,7 @@ namespace FlexibleParser
             Units.PoundForce, Units.Poundal, Units.OunceForce,
                         
             //--- Velocity
-            Units.FootPerSecond, Units.InchPerSecond, 
+            Units.FootPerSecond, Units.InchPerSecond, Units.MilePerHour, 
                         
             //--- Acceleration
             Units.FootPerSquareSecond, Units.InchPerSquareSecond, 
