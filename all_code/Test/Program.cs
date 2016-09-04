@@ -327,15 +327,14 @@ namespace Test
             );
         }
 
-        //This method prints the main string representations and some basic information for all the units.
+        //This method prints the main string representations and some basic information for all the named units.
         //In any case, note that UnitParser supports a wide range of variations which aren't referred here.
-        //Examples: plurals of string representation other than symbols or ignoring certain invalid characters,
-        //like blank spaces.
-        //Additionally, bear in mind that these are just the named units (i.e., members of the Units enum), just
-        //a small fraction of all the units supported by UnitParser. All the unit belonging to supported types 
-        //(enum UnitTypes) which are formed by the combination of one or more named units are supported.
-        //For example: the named unit Units.Foot can be part of many other unnamed units, like ft/h (velocity),
-        //rood*ft (volume), tn*ft/s2 (force), etc.
+        //Examples: plurals of string representation other than symbols or ignoring certain invalid characters
+        //(e.g., blank spaces or conventionally-used characters like "^").
+        //Additionally, bear in mind that these are just the members of the Units enum, a small fraction of 
+        //all the units supported by UnitParser. Any unit belonging to a supported type (enum UnitTypes) which 
+        //is formed by the combination of one or more named units is also supported. For example: the named unit 
+        //Units.Foot can be part of many other unnamed units like ft/h (velocity), rood*ft (volume) or tn*ft/s2 (force).
         private static void PrintAllNamedUnits()
         {
             foreach (Units unit in Enum.GetValues(typeof(Units)))
