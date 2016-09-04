@@ -66,26 +66,25 @@ namespace FlexibleParser
                 ErrorTypes.NumericParsingError : ErrorTypes.None
             );
 
-            decimal value = 0m;
-            string unit = "";
-            int bigNumberExponent = 0;
+            UnitInfo unitInfo = new UnitInfo(0m, exceptionHandling, prefixUsage);
+            string unitString = "";
             if (parsingError == ErrorTypes.None)
             {
                 UnitInfo tempInfo = ParseValueAndUnit(valueAndUnit);
                 if (tempInfo.Error.Type == ErrorTypes.None)
                 {
-                    value = tempInfo.Value;
-                    unit = tempInfo.TempString;
-                    bigNumberExponent = tempInfo.BaseTenExponent;
+                    unitString = tempInfo.TempString;
+                    unitInfo.Value = tempInfo.Value;
+                    unitInfo.BaseTenExponent = tempInfo.BaseTenExponent;
                 }
                 else parsingError = tempInfo.Error.Type;
             }
 
-            UnitPConstructor unitP2 = GetUnitP2(value, unit, exceptionHandling, prefixUsage);
+            UnitPConstructor unitP2 = GetUnitP2(unitInfo, unitString);
 
             OriginalUnitString = unitP2.OriginalUnitString;
             Value = unitP2.Value;
-            BaseTenExponent = unitP2.UnitInfo.BaseTenExponent + bigNumberExponent;
+            BaseTenExponent = unitP2.UnitInfo.BaseTenExponent;
             Unit = unitP2.UnitInfo.Unit;
             UnitType = unitP2.UnitType;
             UnitSystem = unitP2.UnitSystem;
@@ -187,7 +186,7 @@ namespace FlexibleParser
         (
             decimal value, string unitString, ExceptionHandlingTypes exceptionHandling
         ) 
-        : this(value, unitString, exceptionHandling, PrefixUsageTypes.DefaultUsage) { }
+        : this (value, unitString, exceptionHandling, PrefixUsageTypes.DefaultUsage) { }
 
         ///<summary>
         ///<para>Initialises a new instance of UnitP.</para>

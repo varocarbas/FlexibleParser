@@ -16,10 +16,8 @@ namespace FlexibleParser
             UnitInfo outInfo = new UnitInfo(first);
             UnitInfo secondInfo = new UnitInfo(second);
 
-            bool unitlessDone = false;
             if (outInfo.Unit != Units.Unitless && secondInfo.Unit != Units.Unitless)
             {
-                unitlessDone = true;
                 if (operation == Operations.Addition || operation == Operations.Subtraction)
                 {
                     UnitInfo[] tempInfos = PerformChecksBeforeAddition(outInfo, secondInfo);
@@ -38,12 +36,10 @@ namespace FlexibleParser
             }
             else if (outInfo.Unit == Units.Unitless && secondInfo.Unit != Units.Unitless)
             {
-                outInfo = new UnitInfo(secondInfo) 
-                { 
-                    Value = outInfo.Value,
-                    Prefix = new Prefix(outInfo.Prefix),
-                    BaseTenExponent = outInfo.BaseTenExponent
-                };
+                outInfo = UnitlessAndUnitBeforeOperation
+                (
+                    outInfo, secondInfo, operation
+                );
             }
 
             if (outInfo.Error.Type != ErrorTypes.None || outInfo.Unit == Units.None)
@@ -58,17 +54,48 @@ namespace FlexibleParser
                 );
             }
 
-            if (outInfo.Unit != Units.Unitless || !unitlessDone)
-            {
-                outInfo = PerformManagedOperationUnits(outInfo, secondInfo, operation);
-            }
+            outInfo = PerformManagedOperationUnits(outInfo, secondInfo, operation);
 
             return 
             (
                 outInfo.Error.Type != ErrorTypes.None ?
                 new UnitP(first, outInfo.Error.Type) :
-                new UnitP(outInfo, first, operationString, false)
+                new UnitP
+                (
+                    outInfo, first, operationString, 
+                    (
+                        //Multiplication/division are likely to provoke situations requiring a correction;
+                        //for example, 1/(1/60) being converted into 60. On the other hand, cases like 
+                        //1.0 - 0.000001 shouldn't be changed (e.g., converting 0.999999 to 1.0 is wrong).
+                        operation == Operations.Multiplication || 
+                        operation == Operations.Division
+                    )
+                )
             );
+        }
+
+        private static UnitInfo UnitlessAndUnitBeforeOperation(UnitInfo outInfo, UnitInfo secondInfo, Operations operation)
+        {
+            outInfo = new UnitInfo(secondInfo)
+            {
+                Value = outInfo.Value,
+                Prefix = new Prefix(outInfo.Prefix),
+                BaseTenExponent = outInfo.BaseTenExponent
+            };
+            if (operation == Operations.Division)
+            {
+                for (int i = 0; i < outInfo.Parts.Count; i++)
+                {
+                    outInfo.Parts[i].Exponent *= -1;
+                }
+
+                outInfo = GetUnitFromParts
+                (
+                    RemoveAllUnitInformation(outInfo)
+                );
+            }
+
+            return outInfo;
         }
 
         private static UnitInfo[] PerformChecksBeforeAddition(UnitInfo outInfo, UnitInfo secondInfo)

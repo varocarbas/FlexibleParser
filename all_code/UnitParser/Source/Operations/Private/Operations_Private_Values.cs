@@ -95,7 +95,17 @@ namespace FlexibleParser
             return
             (
                 outInfo.Error.Type != ErrorTypes.None ? new UnitP(unitP, outInfo.Error.Type) :
-                new UnitP(outInfo, unitP, operationString, false)
+                new UnitP
+                (
+                    outInfo, unitP, operationString,
+                    (
+                        //Multiplication/division are likely to provoke situations requiring a correction;
+                        //for example, 1/(1/60) being converted into 60. On the other hand, cases like 
+                        //1.0 - 0.000001 shouldn't be changed (e.g., converting 0.999999 to 1.0 is wrong).
+                        operation == Operations.Multiplication ||
+                        operation == Operations.Division
+                    )
+                )
             );
         }
 
@@ -126,7 +136,7 @@ namespace FlexibleParser
             {
                 //In some cases, decimal.TryParse might consider valid numbers beyond the actual scope of
                 //decimal type. For example: 0.00000000000000000000000000000001m assumed to be zero.
-                //if (value != 0m) return new UnitInfo(value);
+                if (value != 0m) return new UnitInfo(value);
             }
 
             return ParseDouble(stringToParse);
@@ -160,17 +170,17 @@ namespace FlexibleParser
                 if (temp.Length == 2)
                 {
                     UnitInfo outInfo = ParseDouble(temp[0]);
-                    if (outInfo.Error.Type == ErrorTypes.None)
+                    if (outInfo.Error.Type != ErrorTypes.None)
                     {
-                        int expInt = 0;
-                        if (int.TryParse(temp[1], out expInt))
-                        {
-                            outInfo.BaseTenExponent += expInt;
-
-                            return outInfo;
-                        }
+                        return errorInfo;
                     }
-                    else return errorInfo;
+                    
+                    int expInt = 0;
+                    if (int.TryParse(temp[1], out expInt))
+                    {
+                        outInfo.BaseTenExponent += expInt;
+                        return outInfo;
+                    }
                 }
             }
             else
@@ -217,7 +227,7 @@ namespace FlexibleParser
             {
                 foreach (char item in remString.ToCharArray())
                 {
-                    if (!char.IsDigit(item) || item == '.')
+                    if (!char.IsDigit(item) && item != ',')
                     {
                         //It would mean that it isn't a valid 
                         return 0;

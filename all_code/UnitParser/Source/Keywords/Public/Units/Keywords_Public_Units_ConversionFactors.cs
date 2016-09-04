@@ -398,10 +398,10 @@ namespace FlexibleParser
         ///<para>Reference point for all the frequency units.</para>
         ///</summary>
         public const decimal Hertz = 1m;
-        ///<summary><para>Revolutions per minute (rpm) conversion factor. Frequency unit.</para></summary>
-        public const decimal RevolutionsPerMinute = 0.0166666666666666666666666667m; //= 1m / Minute;
-        ///<summary><para>Cycles per Second (cps) conversion factor. Frequency unit.</para></summary>
-        public const decimal CyclesPerSecond = 1m;
+        ///<summary><para>Revolution per minute (rpm) conversion factor. Frequency unit.</para></summary>
+        public const decimal RevolutionPerMinute = 0.0166666666666666666666666667m; //= 1m / Minute;
+        ///<summary><para>Cycle per second (cps) conversion factor. Frequency unit.</para></summary>
+        public const decimal CyclePerSecond = 1m;
 
         //--- Electric Charge
         ///<summary>

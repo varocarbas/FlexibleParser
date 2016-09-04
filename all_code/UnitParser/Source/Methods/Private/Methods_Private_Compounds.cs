@@ -181,7 +181,7 @@ namespace FlexibleParser
             return AllNonBasicCompounds.ContainsKey(unit);
         }
 
-        private static UnitInfo GetCompoundUnitFromParts(UnitInfo unitInfo)
+        private static UnitInfo GetUnitFromParts(UnitInfo unitInfo)
         {
             //Perhaps just a simple unit.
             unitInfo = GetIndividualUnitFromParts(unitInfo);

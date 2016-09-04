@@ -39,21 +39,17 @@ namespace FlexibleParser
             Error = new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling);
         }
 
-        private UnitP
+        private UnitP(UnitInfo unitInfo, UnitP unitP, bool noPrefixImprovement) : this
         (
-            UnitInfo unitInfo, UnitP unitP, bool noPrefixImprovement
-        )
-        : this
-        (
-            new ParseInfo(unitInfo), "", UnitSystems.None,
-            ExceptionHandlingTypes.NeverTriggerException, unitInfo.Prefix.PrefixUsage,
+            new ParseInfo(unitInfo), unitP.OriginalUnitString, unitP.UnitSystem,
+            unitP.Error.ExceptionHandling, unitP.UnitPrefix.PrefixUsage,
             noPrefixImprovement
         )
         { }
 
         private UnitP
         (
-            UnitInfo unitInfo, UnitP unitP, string originalUnitString = "", 
+            UnitInfo unitInfo, UnitP unitP, string originalUnitString = "",
             bool improveFinalValue = true
         )
         : this
@@ -93,7 +89,7 @@ namespace FlexibleParser
             {
                 Value = 0m;
                 BaseTenExponent = 0;
-                UnitPrefix = new Prefix();
+                UnitPrefix = new Prefix(unitP2.UnitInfo.Prefix.PrefixUsage);
                 UnitParts = new List<UnitPart>().AsReadOnly();
             }
             else
@@ -123,13 +119,21 @@ namespace FlexibleParser
         private UnitPConstructor GetUnitP2
         (
             decimal value, string unitString,
-            ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException, 
+            ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
             PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage
         )
         {
+            return GetUnitP2
+            (
+                new UnitInfo(value, exceptionHandling, prefixUsage), unitString
+            );
+        }
+
+        private UnitPConstructor GetUnitP2(UnitInfo unitInfo, string unitString)
+        {
             ParseInfo parseInfo = ParseInputs
             (
-                value, unitString, prefixUsage
+                new ParseInfo(unitInfo, unitString)
             );
 
             return new UnitPConstructor
@@ -139,28 +143,27 @@ namespace FlexibleParser
                     parseInfo.UnitInfo.Unit == Units.None ?
                     ErrorTypes.InvalidUnit : ErrorTypes.None 
                 ), 
-                exceptionHandling
+                unitInfo.Error.ExceptionHandling, false, (unitInfo.Value != parseInfo.UnitInfo.Value)
             );
         }
 
-        private ParseInfo ParseInputs(decimal value, string unitString, PrefixUsageTypes prefixUsage)
+        private ParseInfo ParseInputs(ParseInfo parseInfo)
         {
-            ParseInfo parseInfo = new ParseInfo(value, unitString, prefixUsage);
             parseInfo = StartUnitParse(parseInfo);
             bool isOK = 
             (
-                parseInfo.UnitInfo.Error.Type != ErrorTypes.None &&
+                parseInfo.UnitInfo.Error.Type == ErrorTypes.None &&
                 parseInfo.UnitInfo.Unit != Units.None
             );
 
-            if (!isOK && unitString.Contains(" "))
+            if (!isOK && parseInfo.InputToParse.Contains(" "))
             {
                 //No intermediate spaces (within the unit) should be expected,
                 //but well...
                 ParseInfo parseInfo2 = new ParseInfo
                 (
                     parseInfo,
-                    string.Join("", unitString.Split(' ').Select(x => x.Trim()))
+                    string.Join("", parseInfo.InputToParse.Split(' ').Select(x => x.Trim()))
                 );
                 parseInfo2.UnitInfo.Error = new ErrorInfo();
                 parseInfo2 = StartUnitParse(parseInfo2);
@@ -174,7 +177,7 @@ namespace FlexibleParser
             return parseInfo;
         }
 
-        //Class helping to deal with various constructors including so many readonly variables.
+        //Class helping to deal with such a big number of constructors including so many readonly variables.
         private class UnitPConstructor
         {
             public decimal Value;
@@ -194,16 +197,15 @@ namespace FlexibleParser
                 bool noPrefixImprovement = false, bool improveFinalValue = true
             )
             {
-
-                if (originalUnitString == null || originalUnitString.Trim().Length < 1)
-                {
-                    originalUnitString = (UnitString != null ? UnitString : "");
-                }
-                OriginalUnitString = originalUnitString.Trim();
+                OriginalUnitString =
+                (
+                    originalUnitString == null ? "" :
+                    originalUnitString.Trim()
+                );
                 ErrorType = errorType;
                 ExceptionHandling = exceptionHandling;
 
-                if (errorType != ErrorTypes.None)
+                if (ErrorType != ErrorTypes.None)
                 {
                     UnitInfo = new UnitInfo();
                 }

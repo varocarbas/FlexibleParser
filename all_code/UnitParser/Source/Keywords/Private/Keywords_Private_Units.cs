@@ -191,8 +191,8 @@ namespace FlexibleParser
 
             //--- Frequency
             { UnitSymbols.Hertz, Units.Hertz },      
-            { UnitSymbols.RevolutionsPerMinute, Units.RevolutionsPerMinute },               
-            { UnitSymbols.CyclesPerSecond, Units.CyclesPerSecond },              
+            { UnitSymbols.RevolutionPerMinute, Units.RevolutionPerMinute },               
+            { UnitSymbols.CyclePerSecond, Units.CyclePerSecond },              
 
             //--- Electric Charge
             { UnitSymbols.Coulomb, Units.Coulomb }, 

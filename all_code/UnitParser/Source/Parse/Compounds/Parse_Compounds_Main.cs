@@ -111,6 +111,11 @@ namespace FlexibleParser
             {
                 return parseInfo;
             }
+            if (parseInfo.ValidCompound == null)
+            {
+                parseInfo.ValidCompound = new StringBuilder();
+            }
+
 
             parseInfo.UnitInfo = RemoveAllUnitInformation(parseInfo.UnitInfo);
 
@@ -132,7 +137,7 @@ namespace FlexibleParser
 
             if (parseInfo.UnitInfo.Type == UnitTypes.None)
             {
-                parseInfo.UnitInfo = GetCompoundUnitFromParts(parseInfo.UnitInfo);
+                parseInfo.UnitInfo = GetUnitFromParts(parseInfo.UnitInfo);
             }
             
             parseInfo.UnitInfo = UpdateMainUnitVariables(parseInfo.UnitInfo);

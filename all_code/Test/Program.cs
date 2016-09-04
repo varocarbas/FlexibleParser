@@ -72,7 +72,7 @@ namespace Test
             }
 
 
-            //------ Format of input strings.
+            //------ Format of input string units.
 
             //--- UnitP constructors without numeric inputs expect strings formed by number, blank space and unit.
             PrintSampleItem("Str1", new UnitP("1 m")); //1 metre (length).
@@ -96,6 +96,21 @@ namespace Test
             //--- Ideally, no blank spaces should be included. The parser can deal with them anyway.
             PrintSampleItem("Str12", new UnitP(1m, "AU/min")); //1 astronomical unit per minute (velocity).
             PrintSampleItem("Str13", new UnitP(1m, "A U/     min")); //1 astronomical unit per minute (velocity).
+
+
+            //------ Format of input string numbers.
+
+            //--- The used culture is always CultureInfo.InvariantCulture (e.g., "." as decimal separator). 
+            PrintSampleItem("StrNum1", new UnitP("1.1 m")); //Always 1.1 m independently upon the applicable culture.
+            PrintSampleItem("StrNum2", new UnitP("1,1 s")); //Always 11 s independently upon the applicable culture.
+
+            //--- The differences between double/decimal types are managed internally.
+            PrintSampleItem("StrNum3", new UnitP("1.0000000000000001 ft")); //1.0000000000000001 ft.
+            PrintSampleItem("StrNum4", new UnitP("1000000000000000000000000000000000000000000000000000000000000 mi")); //1000000*10^54 mi.
+
+            //--- It is also possible to input beyond-double numbers via strings. The exponential format follows the .NET rules.
+            PrintSampleItem("StrNum5", new UnitP("9999.99999E1000 cm")); //999999.99*10^998 cm.
+            PrintSampleItem("StrNum6", new UnitP("1234E1.5 St")); //Error. Equivalently to what happens with .NET numeric parsing, only integer exponents are supported.
 
 
             //------ Errors and exceptions.
@@ -312,6 +327,15 @@ namespace Test
             );
         }
 
+        //This method prints the main string representations and some basic information for all the units.
+        //In any case, note that UnitParser supports a wide range of variations which aren't referred here.
+        //Examples: plurals of string representation other than symbols; ignoring certain invalid characters,
+        //like blank spaces.
+        //Addtionally, bear in mind that these are just the named units (i.e., members of the Units enum), but
+        //they are just a small fraction of all the units supported by UnitParser. That is: any unit belonging
+        //to any of the supported types (enum UnitTypes) formed by the combination of one or more named units.
+        //For example: the named unit Units.Foot can be part of many other unnamed units, like ft/h (velocity),
+        //rood*ft (volume), tn*ft/s2 (force), etc.
         private static void PrintAllNamedUnits()
         {
             foreach (Units unit in Enum.GetValues(typeof(Units)))

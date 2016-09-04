@@ -553,8 +553,8 @@ namespace FlexibleParser
                         UnitSystems.None, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.CyclesPerSecond, UnitConversionFactors.CyclesPerSecond }, 
-                            { Units.RevolutionsPerMinute, UnitConversionFactors.RevolutionsPerMinute }
+                            { Units.CyclePerSecond, UnitConversionFactors.CyclePerSecond }, 
+                            { Units.RevolutionPerMinute, UnitConversionFactors.RevolutionPerMinute }
                          }
                     }
                 }

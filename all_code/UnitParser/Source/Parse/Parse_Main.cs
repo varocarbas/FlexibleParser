@@ -20,7 +20,18 @@ namespace FlexibleParser
 
         private static ParseInfo InitialParseActions(ParseInfo parseInfo)
         {
+            if (parseInfo.InputToParse == null) parseInfo.InputToParse = "";
             parseInfo.InputToParse = parseInfo.InputToParse.Trim();
+
+            if (parseInfo.InputToParse.Length < 1)
+            {
+                if (parseInfo.UnitInfo.Error.Type == ErrorTypes.None)
+                {
+                    parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
+                }
+
+                return parseInfo;
+            }
 
             foreach (string ignored in UnitP.UnitParseIgnored)
             {
@@ -82,9 +93,13 @@ namespace FlexibleParser
 
             public ParseInfo(UnitInfo unitInfo)
             {
-                UnitInfo = new UnitInfo(unitInfo); 
+                UnitInfo = new UnitInfo(unitInfo);
+                InputToParse = "";
             }
-         
+
+            public ParseInfo(UnitInfo unitInfo, string inputToParse = "") :
+            this(new ParseInfo(unitInfo), inputToParse) { }
+            
             public ParseInfo(ParseInfo parseInfo, string inputToParse = "")
             {
                 if (parseInfo == null) parseInfo = new ParseInfo();

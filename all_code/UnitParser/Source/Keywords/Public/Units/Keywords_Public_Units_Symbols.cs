@@ -352,10 +352,10 @@ namespace FlexibleParser
         //--- Frequency
         ///<summary><para>Hertz symbol. SI frequency unit.</para></summary>    
         public const string Hertz = "Hz";
-        ///<summary><para>Revolutions per minute abbreviation. Frequency unit.</para></summary>             
-        public const string RevolutionsPerMinute = "rpm";
-        ///<summary><para>Cycles per second abbreviation. Frequency unit.</para></summary>                
-        public const string CyclesPerSecond = "cps";
+        ///<summary><para>Revolution per minute abbreviation. Frequency unit.</para></summary>             
+        public const string RevolutionPerMinute = "rpm";
+        ///<summary><para>Cycle per second abbreviation. Frequency unit.</para></summary>                
+        public const string CyclePerSecond = "cps";
 
         //--- Electric Charge
         ///<summary>/<para>Coulomb symbol. SI electric charge unit.</para></summary>

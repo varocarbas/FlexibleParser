@@ -65,6 +65,19 @@ namespace FlexibleParser
                 );
             }
 
+            public UnitInfo(decimal value, ExceptionHandlingTypes exceptionHandling, PrefixUsageTypes prefixUsage)
+            {
+                UnitInfo unitInfo = new UnitInfo(value);
+
+                PopulateVariables
+                (
+                    unitInfo.Value, unitInfo.Unit, new Prefix(unitInfo.Prefix.Factor, prefixUsage),
+                    unitInfo.Parts, GetInitialPositions(unitInfo.Parts),
+                    unitInfo.BaseTenExponent, unitInfo.Type, unitInfo.System, 
+                    new ErrorInfo(ErrorTypes.None, exceptionHandling)
+                );
+            }
+
             public UnitInfo(UnitP unitP)
             {
                 if (unitP == null)

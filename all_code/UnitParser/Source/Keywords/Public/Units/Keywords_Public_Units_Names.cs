@@ -813,15 +813,15 @@ namespace FlexibleParser
         ///</summary>    
         Hertz,
         ///<summary>
-        ///<para>Revolutions per minute (rpm). Frequency unit.</para>
+        ///<para>Revolution per minute (rpm). Frequency unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             
         ///</summary>             
-        RevolutionsPerMinute,
+        RevolutionPerMinute,
         ///<summary>
-        ///<para>Cycles per second (cps). Frequency unit.</para>
+        ///<para>Cycle per second (cps). Frequency unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             
         ///</summary>                
-        CyclesPerSecond,
+        CyclePerSecond,
 
         //--- Electric Charge
         ///<summary>

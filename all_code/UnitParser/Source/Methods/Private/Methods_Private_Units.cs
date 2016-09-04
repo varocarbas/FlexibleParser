@@ -327,7 +327,7 @@ namespace FlexibleParser
         private static UnitTypes GetTypeFromUnitInfo(UnitInfo unitInfo)
         {
             UnitTypes outType = UnitTypes.None;
-            if (unitInfo.Parts.Count > 0 && unitInfo.Parts.FirstOrDefault(x => x.Exponent != 1) != null)   
+            if (unitInfo.Parts.Count > 1 || unitInfo.Parts.FirstOrDefault(x => x.Exponent != 1) != null)   
             {
                 outType = GetBasicCompoundType(unitInfo).Type;
             }

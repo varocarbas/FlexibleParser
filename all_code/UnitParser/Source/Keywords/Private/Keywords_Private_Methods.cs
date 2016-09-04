@@ -78,7 +78,8 @@ namespace FlexibleParser
             return
             (
                 unit == Units.Rad //rad/radian.
-                || unit == Units.Rutherford //rod/rutherford.
+                || unit == Units.Rutherford //rutherford/rod.
+                || unit == Units.Gal //gal/gallon.
                 ? false : true
             );
         }
@@ -134,6 +135,9 @@ namespace FlexibleParser
             Units unit = Units.Metre;
             AddToAllUnitStrings("meter", unit);
             AddToAllUnitStrings("mtr", unit);
+
+            unit = Units.Centimetre;
+            AddToAllUnitStrings("centimeter", unit);
 
             unit = Units.AstronomicalUnit;
             AddToAllUnitStrings("ua", unit);
@@ -210,9 +214,11 @@ namespace FlexibleParser
             AddToAllUnitStrings("hr", unit);
 
             unit = Units.SquareMetre;
+            AddToAllUnitStrings("squaremeter", unit);
             AddSqCuToAllUnitStrings(new string[] { "m" }, unit);
             
             unit = Units.SquareCentimetre;
+            AddToAllUnitStrings("squarecentimeter", unit);
             AddSqCuToAllUnitStrings(new string[] { "cm" }, unit);
 
             unit = Units.SquareFoot;
@@ -231,9 +237,11 @@ namespace FlexibleParser
             AddSqCuToAllUnitStrings(new string[] { "pole" }, unit);
 
             unit = Units.CubicMetre;
+            AddToAllUnitStrings("cubicmeter", unit);
             AddSqCuToAllUnitStrings(new string[] { "m" }, unit, false);
 
             unit = Units.CubicCentimetre;
+            AddToAllUnitStrings("cubiccentimeter", unit);
             AddSqCuToAllUnitStrings(new string[] { "cm" }, unit, false);
 
             unit = Units.CubicFoot;
