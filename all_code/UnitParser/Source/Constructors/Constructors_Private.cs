@@ -301,6 +301,11 @@ namespace FlexibleParser
 
             private static UnitInfo ImprovePrefixes(UnitInfo unitInfo)
             {
+                if (unitInfo.Unit == Units.Unitless)
+                {
+                    return NormaliseUnitInfo(unitInfo);
+                }
+
                 decimal absValue = Math.Abs(unitInfo.Value);
                 bool valueIsOK = (absValue >= 0.001m && absValue <= 1000m);                     
 

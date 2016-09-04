@@ -38,6 +38,8 @@ namespace FlexibleParser
                 parseInfo.InputToParse = parseInfo.InputToParse.Replace(ignored, "");
             }
 
+            parseInfo.UnitInfo = RemoveAllUnitInformation(parseInfo.UnitInfo, true);
+
             return parseInfo;
         }
 

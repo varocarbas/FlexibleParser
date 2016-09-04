@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlexibleParser;
@@ -64,6 +64,10 @@ namespace Test
             {
                 //This condition is true.
             }
+
+            //--- It is recommendable to create compounds via strings rather than operations.
+            PrintSampleItem("Comp5", new UnitP("1 m") / new UnitP("1 s2")); //Error because s2 doesn't represent a valid type. Element by element type checks.
+            PrintSampleItem("Comp6", new UnitP("1 m/s2")); //1 m/s2 (acceleration). Glogal type check after all the operations/simplifications.
 
             //--- The unit parts are automatically populated when instantiating a valid UnitP variable.
             if (new UnitP("1 N").UnitParts.FirstOrDefault(x => !new UnitP("1 kg*m/s2").UnitParts.Contains(x)) == null)
@@ -272,7 +276,7 @@ namespace Test
             PrintSampleItem("No5", new UnitP("1 ft/m")); //Units.Unitless is associated with the output of operations where all the units cancel each other (with or without automatic conversions).
 
             //--- Unnamed units (Units.Valid[system]Unit).
-            PrintSampleItem("No6", new UnitP("1 cbl/s")); //All the parsed compounds not matching any named unit are automatically included in this category.
+            PrintSampleItem("No6", new UnitP("1 yd/s")); //All the parsed compounds not matching any named unit are automatically included in this category.
             PrintSampleItem("No7", new UnitP(1m, Units.ValidCGSUnit)); //Error. Unnamed units cannot be used as inputs.
 
 

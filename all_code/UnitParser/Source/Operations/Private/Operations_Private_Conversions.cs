@@ -43,8 +43,13 @@ namespace FlexibleParser
                 (
                     UnitsCanBeConvertedDirectly(outInfo, targetInfo2) ?
                     ConvertUnitValue(outInfo, targetInfo2, inverseOutputs) :
-                    PerformUnitPartConversion(outInfo, targetInfo2)
+                    PerformUnitPartConversion(outInfo, targetInfo2, isInternal)
                 );
+                if (tempInfo.Error.Type != ErrorTypes.None)
+                {
+                    return tempInfo;
+                }
+
                 outInfo = new UnitInfo(targetInfo);
                 outInfo.Prefix = new Prefix(outInfo.Prefix.PrefixUsage);
                 outInfo.Value = tempInfo.Value;
@@ -124,29 +129,47 @@ namespace FlexibleParser
             return false;
         }
 
-        private static UnitInfo PerformUnitPartConversion(UnitInfo convertInfo, UnitInfo target)
+        private static UnitInfo PerformUnitPartConversion(UnitInfo convertInfo, UnitInfo target, bool isInternal = true)
         {
-            return ConvertAllUnitParts
+            Dictionary<UnitPart, UnitPart> allParts = GetAllUnitPartDict
             (
-                convertInfo,
-                GetAllUnitPartDict(convertInfo.Parts, target.Parts)
+                convertInfo.Parts, target.Parts
+            );
+
+            return
+            (
+                allParts.Count == 0 ? new UnitInfo(convertInfo) 
+                { 
+                    Error = new ErrorInfo(ErrorTypes.InvalidUnitConversion) 
+                } : 
+                ConvertAllUnitParts
+                (
+                    convertInfo,
+                    GetAllUnitPartDict(convertInfo.Parts, target.Parts),
+                    isInternal
+                )
             );
         }
 
-        private static UnitInfo ConvertAllUnitParts(UnitInfo convertInfo, Dictionary<UnitPart, UnitPart> allParts)
+        private static UnitInfo ConvertAllUnitParts(UnitInfo convertInfo, Dictionary<UnitPart, UnitPart> allParts, bool isInternal = true)
         {
             foreach (var item in allParts)
             {
                 convertInfo = ConvertUnitPartToTarget
                 (
-                    convertInfo, item.Key, item.Value
+                    convertInfo, item.Key, item.Value, isInternal
                 );
+
+                if (convertInfo.Error.Type != ErrorTypes.None)
+                {
+                    return convertInfo;
+                }
             }
 
             return convertInfo;
         }
 
-        private static UnitInfo ConvertUnitPartToTarget(UnitInfo outInfo, UnitPart originalPart, UnitPart targetPart)
+        private static UnitInfo ConvertUnitPartToTarget(UnitInfo outInfo, UnitPart originalPart, UnitPart targetPart, bool isInternal = true)
         {
             ErrorTypes errorType = GetUnitPartConversionError(originalPart, targetPart);
             if (errorType != ErrorTypes.None)
@@ -158,8 +181,20 @@ namespace FlexibleParser
             UnitPart originalPart2 = new UnitPart(originalPart);
             UnitPart targetPart2 = new UnitPart(targetPart);
 
+            int exponent2 = 1;
             if (originalPart2.Exponent == targetPart2.Exponent)
             {
+                if (!isInternal)
+                {
+                    //In the internal calculations, exponents might be relevant or not when performing
+                    //a unit part conversion; this issue is being managed by the code calling this function.
+                    //With conversions delivered to the user, exponents have to be brought into account.
+                    //NOTE 1: isInternal isn't passed to PerformConversion because the associated modifications
+                    //only make sense for the main prefix (not what this is about).
+                    //NOTE 2: both parts have the same type and that's why there is only two possible scenarios.
+                    //Either same exponent or different exponent which should be ignored (e.g., L & m3).
+                    exponent2 = Math.Abs(targetPart2.Exponent);
+                }
                 //In this situation, exponents don't need to be considered and it is better ignoring them during
                 //the conversion to avoid problems.
                 //For example: the part m2 has associated a specific unit (SquareMetre), but it might be converted
@@ -170,10 +205,10 @@ namespace FlexibleParser
             //Different exponents cannot be removed. For example: conversion between litre and m3, where the exponent
             //does define the unit. 
 
-            return outInfo * PerformConversion
+            UnitInfo info2 = PerformConversion
             (
-                UnitPartToUnitInfo(originalPart2, 1m),
-                UnitPartToUnitInfo(targetPart2, 1m), true,
+                AdaptPartToConversion(originalPart2, originalPart.Exponent),
+                AdaptPartToConversion(targetPart2, targetPart.Exponent), true,
                 //The original part being in the denominator means that the output value has to be inverted.
                 //Note that this value is always expected to modify the main value (= in the numerator).
                 //This is the only conversion where such a scenario is being considered; but the information
@@ -181,6 +216,40 @@ namespace FlexibleParser
                 //can output noticeable differences in cases like 1/(val1/val2) vs. val2/val1.
                 originalPart.Exponent / Math.Abs(originalPart.Exponent) == -1
             );
+
+            return
+            (
+                info2.Error.Type != ErrorTypes.None ? info2 :
+                outInfo *
+                (
+                    exponent2 == 1 ? info2 :
+                    RaiseToIntegerExponent(info2, exponent2)
+                )
+            );
+        }
+
+        private static UnitInfo AdaptPartToConversion(UnitPart unitPart, int exponent)
+        {
+            UnitInfo outInfo = UnitPartToUnitInfo(unitPart, 1m);
+            if (outInfo.Unit == Units.Centimetre)
+            {
+                //To avoid inconsistencies with individual unit conversions.
+                outInfo.Unit = Units.Metre;
+                outInfo.BaseTenExponent -= 2; 
+            }
+
+            if (unitPart.Prefix.Factor != 1 && exponent != 1)
+            {
+                UnitInfo prefixInfo = RaiseToIntegerExponent
+                (
+                    unitPart.Prefix.Factor, exponent
+                );
+
+                outInfo.Prefix = new Prefix();
+                outInfo = outInfo * prefixInfo;
+            }
+
+            return outInfo;
         }
 
         //Relates all the original/target unit parts between each other in order to facilitate the subsequent unit conversion.
@@ -201,7 +270,19 @@ namespace FlexibleParser
                 outParts.Add(original, target);
             }
 
-            return outParts;
+            return
+            (
+                outParts.Count < Math.Max(originals.Count, targets.Count) ?
+                GetUnitPartDictInCommon(originals, targets) : outParts
+            );
+        }
+
+        //In some cases, the direct approach of GetAllUnitPartDict wouldn't work.
+        //For example: BTU/s and Watts. Ignoring the dividable/non-dividable character isn't useful here.
+        //The only solution is trying to find the common parts of both units. In this example, BTU-J and s-s.
+        private static Dictionary<UnitPart, UnitPart> GetUnitPartDictInCommon(List<UnitPart> originals, List<UnitPart> targets)
+        {
+            return new Dictionary<UnitPart, UnitPart>();
         }
 
         //The prefixes of both units are being managed before reaching this point.

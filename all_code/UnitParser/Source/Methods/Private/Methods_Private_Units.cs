@@ -6,11 +6,13 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static UnitInfo RemoveAllUnitInformation(UnitInfo unitInfo)
+        private static UnitInfo RemoveAllUnitInformation(UnitInfo unitInfo, bool partsToo = false)
         {
             unitInfo.Unit = Units.None;
             unitInfo.System = UnitSystems.None;
             unitInfo.Type = UnitTypes.None;
+
+            if (partsToo) unitInfo.Parts = new List<UnitPart>();
 
             return unitInfo;
         }

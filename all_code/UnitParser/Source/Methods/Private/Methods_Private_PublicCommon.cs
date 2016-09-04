@@ -163,12 +163,41 @@ namespace FlexibleParser
             return outList;
         }
 
-        private static UnitP ConvertToCommon(UnitP original, string unitString)
+        private static UnitP ConvertToCommon(UnitP unitP, Units targetUnit, Prefix targetPrefix)
         {
+            Prefix prefix =
+            (
+                targetPrefix != null ? new Prefix(targetPrefix) :
+                new Prefix(1m, unitP.UnitPrefix.PrefixUsage)
+            );
+
             return ConvertToCommon
             (
-                original, StartUnitParse(new ParseInfo(1m, unitString)).UnitInfo
+                //Calling UpdateMainUnitVariables is required to populate the type/system variables.
+                unitP, UpdateMainUnitVariables
+                (
+                    new UnitInfo(0m, targetUnit, prefix, true, unitP.Error.ExceptionHandling)
+                )
             );
+        }
+
+        private static UnitP ConvertToCommon(UnitP original, string unitString)
+        {
+            ParseInfo parseInfo = StartUnitParse
+            (
+                new ParseInfo
+                (
+                    new UnitInfo(original) 
+                    { 
+                        Value = 0m, 
+                        BaseTenExponent = 0,
+                        Prefix = new Prefix(original.UnitPrefix.PrefixUsage)
+                    },
+                    unitString
+                )
+            );
+            
+            return ConvertToCommon(original, parseInfo.UnitInfo);
         }
 
         private static UnitP ConvertToCommon(UnitP original, UnitInfo targetInfo)

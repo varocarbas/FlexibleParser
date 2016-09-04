@@ -43,12 +43,17 @@ namespace FlexibleParser
 
             public UnitInfo(Units unit, decimal prefixFactor) : this(0m, unit, new Prefix(prefixFactor)) { }
             
-            public UnitInfo(decimal value, Units unit, Prefix prefix, bool getParts = true)
+            public UnitInfo
+            (
+                decimal value, Units unit, Prefix prefix, bool getParts = true, 
+                ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException
+            )
             {
                 PopulateVariables
                 (
                     value, unit, prefix, (getParts ? null : new List<UnitPart>()),
-                    new Dictionary<UnitPart, int>(), 0, UnitTypes.None, UnitSystems.None, null
+                    new Dictionary<UnitPart, int>(), 0, UnitTypes.None, UnitSystems.None,
+                    new ErrorInfo(ErrorTypes.None, exceptionHandling)
                 );
             }
 

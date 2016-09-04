@@ -371,6 +371,10 @@ namespace FlexibleParser
 
         private static UnitInfo GetBasicCompoundUnit(UnitInfo unitInfo)
         {
+            if (!AllBasicCompounds.ContainsKey(unitInfo.Type))
+            {
+                return unitInfo;
+            }
             unitInfo.Unit = DefaultUnnamedUnits[unitInfo.System];
             
             UnitSystems system2 = unitInfo.System;

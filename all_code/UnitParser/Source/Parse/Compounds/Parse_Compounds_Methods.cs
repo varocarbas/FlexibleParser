@@ -49,9 +49,12 @@ namespace FlexibleParser
             {
                 foreach (var compound in allCompound.Value)
                 {
-                    if (UnitPartsMatchCompound(unitInfo, compound.Parts))
+                    unitInfo = UnitPartsMatchCompound
+                    (
+                        unitInfo, compound.Parts, allCompound.Key
+                    );
+                    if (unitInfo.Type != UnitTypes.None)
                     {
-                        unitInfo.Type = allCompound.Key;
                         return unitInfo;
                     }
                 }
@@ -60,52 +63,75 @@ namespace FlexibleParser
             return unitInfo;
         }
 
-        private static bool UnitPartsMatchCompound(UnitInfo unitInfo, List<CompoundPart> compoundParts)
+        private static UnitInfo UnitPartsMatchCompound(UnitInfo unitInfo, List<CompoundPart> compoundParts, UnitTypes compoundType)
         {
             int count = 0;
             while (count < 2)
             {
                 count = count + 1;
-                if (UnitPartsMatchCompoundParts(GetCompoundComparisonUnitParts(unitInfo, count), compoundParts))
+                List<UnitPart> unitParts = GetCompoundComparisonUnitParts(unitInfo, count);
+                if (UnitPartsMatchCompoundParts(unitParts, compoundParts))
                 {
-                    return true;
+                    unitInfo.Type = compoundType;
+                    return unitInfo;
+                }
+                else if (count == 2 && unitParts.Count == 1 && unitParts[0].Exponent == 1)
+                {
+                    UnitTypes type = GetTypeFromUnit(unitParts[0].Unit);
+                    if (type != UnitTypes.None)
+                    {
+                        //The modifications in GetCompoundComparisonUnitParts generated an individual unit.
+                        //It might not be recognised anywhere else, so better taken care of it here.
+                        unitInfo.Unit = unitParts[0].Unit;
+                        unitInfo.Prefix = new Prefix
+                        (
+                            unitParts[0].Prefix.Factor, 
+                            unitInfo.Prefix.PrefixUsage
+                        );
+
+                        return unitInfo;
+                    }
                 }
             }
 
-            return false;
+            return unitInfo;
         }
 
         private static List<UnitPart> GetCompoundComparisonUnitParts(UnitInfo unitInfo, int type)
         {
+            return 
+            (
+                type == 1 ?
+                new List<UnitPart>(unitInfo.Parts) :
+                GetUnitPartsForAnyUnit(unitInfo)
+            );
+
+        }
+
+        private static List<UnitPart> GetUnitPartsForAnyUnit(UnitInfo unitInfo)
+        {
             List<UnitPart> outParts = new List<UnitPart>();
 
-            if (type == 1)
+            foreach (UnitPart part in unitInfo.Parts)
             {
-                return unitInfo.Parts;
-            }
-            else
-            {
-                foreach (UnitPart part in unitInfo.Parts)
+                //Under these specific conditions, GetTypeFromUnit is good enough on account of the fact that the
+                //exponent is irrelevant. 
+                //For example: m3 wouldn't go through this part (type 1 match) and the exponent doesn't define litre.
+                //Note that these parts aren't actually correct in many cases, just compatible with the AllCompounds format.
+                UnitTypes type2 = GetTypeFromUnitPart(part, false, true);
+                if (AllCompounds.ContainsKey(type2))
                 {
-                    //Under these specific conditions, GetTypeFromUnit is good enough on account of the fact that the
-                    //exponent is irrelevant. 
-                    //For example: m3 wouldn't go through this part (type 1 match) and the exponent doesn't define litre.
-                    //Note that these parts aren't actually correct in many cases, just compatible with the AllCompounds format.
-                    UnitTypes type2 = GetTypeFromUnitPart(part, false, true);
-                    if (AllCompounds.ContainsKey(type2))
-                    {
-                        outParts.AddRange
+                    outParts.AddRange
+                    (
+                        GetUnitPartsFromBasicCompound
                         (
-                            GetUnitPartsFromBasicCompound
-                            (
-                                AllCompounds[type2][0], 
-                                unitInfo.System, Math.Sign(part.Exponent)
-                            )
-                        );
-                    }
-                    else outParts.Add(new UnitPart(part));
-                    outParts = SimplifyCompoundComparisonUnitParts(outParts);
+                            AllCompounds[type2][0],
+                            unitInfo.System, Math.Sign(part.Exponent)
+                        )
+                    );
                 }
+                else outParts.Add(new UnitPart(part));
+                outParts = SimplifyCompoundComparisonUnitParts(outParts);
             }
 
             return outParts;

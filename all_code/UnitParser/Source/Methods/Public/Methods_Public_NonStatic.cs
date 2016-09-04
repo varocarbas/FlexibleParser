@@ -11,14 +11,7 @@ namespace FlexibleParser
         ///<param name="targetPrefix">Target unit prefix.</param>
         public UnitP ConvertCurrentUnitTo(Units targetUnit, Prefix targetPrefix = null)
         {
-            return ConvertToCommon
-            (
-                //Calling UpdateMainUnitVariables is required to populate the type/system variables.
-                this, UpdateMainUnitVariables 
-                (
-                    new UnitInfo(0m, targetUnit, new Prefix(targetPrefix))
-                )
-            );
+            return ConvertToCommon(this, targetUnit, targetPrefix);
         }
 
         ///<summary><para>Converts the current unit into the target one.</para><para>Warning: different unit types will trigger an error.</para></summary>

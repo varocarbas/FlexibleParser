@@ -116,7 +116,6 @@ namespace FlexibleParser
                 parseInfo.ValidCompound = new StringBuilder();
             }
 
-
             parseInfo.UnitInfo = RemoveAllUnitInformation(parseInfo.UnitInfo);
 
             //Knowing the initial positions of all the unit parts is important because of the defining
