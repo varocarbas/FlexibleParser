@@ -185,8 +185,16 @@ namespace FlexibleParser
         {
             //Perhaps just a simple unit.
             unitInfo = GetIndividualUnitFromParts(unitInfo);
-            if (unitInfo.Unit != Units.None) return unitInfo;
 
+            return
+            (
+                unitInfo.Unit != Units.None ? unitInfo :
+                GetCompoundUnitFromParts(unitInfo)
+            );
+        }
+
+        private static UnitInfo GetCompoundUnitFromParts(UnitInfo unitInfo)
+        {
             //Better starting with the quicker non-basic-compound check.
             unitInfo = GetNonBasicCompoundUnitFromParts(unitInfo);
 
@@ -335,7 +343,7 @@ namespace FlexibleParser
         private static List<UnitPart> GetUnitPartsFromBasicCompound(Compound compound, UnitSystems system, int sign = 1)
         {
             List<UnitPart> outParts = new List<UnitPart>();
-            if (system == UnitSystems.None) return outParts;
+            if (system == UnitSystems.None) system = UnitSystems.SI;
 
             foreach (CompoundPart compoundPart in compound.Parts)
             {
@@ -442,13 +450,13 @@ namespace FlexibleParser
             return unitInfo;
         }
 
-        private static bool UnitPartsMatchCompoundUnitParts(UnitInfo unitInfo, List<UnitPart> basicUnitParts, bool onlyUnits = false)
+        private static bool UnitPartsMatchCompoundUnitParts(UnitInfo unitInfo, List<UnitPart> basicUnitParts, bool noPrefixes = false)
         {
             foreach (UnitPart basic in basicUnitParts)
             {
-                if (onlyUnits)
+                if (noPrefixes)
                 {
-                    if (unitInfo.Parts.FirstOrDefault(x => x.Unit == basic.Unit) == null)
+                    if (unitInfo.Parts.FirstOrDefault(x => x.Unit == basic.Unit && x.Exponent == basic.Exponent) == null)
                     {
                         return false;
                     }
