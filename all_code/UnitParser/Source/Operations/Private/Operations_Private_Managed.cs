@@ -102,7 +102,7 @@ namespace FlexibleParser
             UnitInfo big2 = AdaptBiggerAdditionOperand(unitInfos2, bigSmallI, operation);
             if (big2.Error.Type != ErrorTypes.None)
             {
-                return new UnitInfo[] { unitInfos2[0] };
+                return new UnitInfo[] { unitInfos2[bigSmallI[0]] };
             }
 
             unitInfos2[bigSmallI[0]].Value = big2.Value;

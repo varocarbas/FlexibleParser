@@ -77,9 +77,9 @@ namespace FlexibleParser
             return GetSystemFromUnit(unit, false, true);
         }
 
-        ///<summary><para>Removes all the prefixes of the input UnitP variable.</para></summary>
+        ///<summary><para>Removes the global prefix of the input UnitP variable.</para></summary>
         ///<param name="unitP">UnitP variable.</param>  
-        public static UnitP RemoveGlobalPrefixesFromVariable(UnitP unitP)
+        public static UnitP RemoveGlobalPrefix(UnitP unitP)
         {
             return
             (

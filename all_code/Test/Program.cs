@@ -67,7 +67,7 @@ namespace Test
 
             //--- It is recommendable to create compounds via strings rather than operations.
             PrintSampleItem("Comp5", new UnitP("1 m") / new UnitP("1 s2")); //Error because s2 doesn't represent a valid type. Element by element type checks.
-            PrintSampleItem("Comp6", new UnitP("1 m/s2")); //1 m/s2 (acceleration). Glogal type check after all the operations/simplifications.
+            PrintSampleItem("Comp6", new UnitP("1 m/s2")); //1 m/s2 (acceleration). Global type check after all the operations/simplifications.
 
             //--- The unit parts are automatically populated when instantiating a valid UnitP variable.
             if (new UnitP("1 N").UnitParts.FirstOrDefault(x => !new UnitP("1 kg*m/s2").UnitParts.Contains(x)) == null)
@@ -211,9 +211,13 @@ namespace Test
             PrintSampleItem("Pref13", new UnitP("1 GN")); //SI prefix giga + newton.
             PrintSampleItem("Pref14", new UnitP(1m, SIPrefixSymbols.Giga + Units.MetrePerSecond)); //1000000*10^3 m/s.
 
+            //--- In certain situations, PrefixUsageTypes.AllUnits doesn't allow to use prefixes.
+            PrintSampleItem("Pref15", new UnitP(1m, SIPrefixSymbols.Giga + Units.MetrePerSecond, PrefixUsageTypes.AllUnits)); //Compound with no official name (like, for example, newton) doesn't support prefixes.
+            PrintSampleItem("Pref16", new UnitP("100000000000 unitless", PrefixUsageTypes.AllUnits)); //Unitless doesn't support prefixes.
+
             //--- The unit parts can also have prefixes, which might be compensated with the main prefix.
-            PrintSampleItem("Pref15", new UnitP(1m, SIPrefixSymbols.Kilo + UnitSymbols.Newton)); //SI prefix kilo affecting the compound newton.
-            PrintSampleItem("Pref16", new UnitP("1 Mg*m/s2")); //Parts of the compound newton (kg*m/s2) + SI prefix kilo (kilo-kg = Mg).
+            PrintSampleItem("Pref17", new UnitP(1m, SIPrefixSymbols.Kilo + UnitSymbols.Newton)); //SI prefix kilo affecting the compound newton.
+            PrintSampleItem("Pref18", new UnitP("1 Mg*m/s2")); //Parts of the compound newton (kg*m/s2) + SI prefix kilo (kilo-kg = Mg).
             if (new UnitP(1m, SIPrefixSymbols.Kilo + UnitSymbols.Newton) == new UnitP("1 Mg*m/s2"))
             {
                 //This condition is true.

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace FlexibleParser
 {
@@ -117,6 +118,36 @@ namespace FlexibleParser
             }
 
             return unitInfo;
+        }
+
+        ///<summary>
+        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Automatically assigned values:</para>
+        ///<para>Unit = Units.Unitless</para>
+        ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
+        ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
+        ///</summary>
+        ///<param name="value">Numerical value associated with the given unit.</param>
+        public UnitP(decimal value = 0m) : this(value, Units.Unitless) { }
+
+        ///<summary>
+        ///<para>Initialises a new instance of UnitP.</para>
+        ///</summary>
+        ///<param name="unitP">unitP variable whose information will be used.</param> 
+        ///<param name="prefixUsage">Prefix usage definition.</param> 
+        ///<param name="exceptionHandling">Exception handling definition.</param> 
+        public UnitP(UnitP unitP) 
+        {
+            Value = unitP.Value;
+            Unit = unitP.Unit;
+            UnitType = unitP.UnitType;
+            UnitSystem = unitP.UnitSystem;
+            UnitPrefix = new Prefix(unitP.UnitPrefix);
+            UnitParts = new List<UnitPart>(unitP.UnitParts.ToList()).AsReadOnly();
+            UnitString = unitP.UnitString;
+            OriginalUnitString = unitP.OriginalUnitString;
+            ValueAndUnitString = unitP.ValueAndUnitString;
+            Error = new ErrorInfo(unitP.Error);
         }
 
         ///<summary>

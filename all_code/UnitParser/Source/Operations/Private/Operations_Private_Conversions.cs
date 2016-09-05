@@ -286,7 +286,7 @@ namespace FlexibleParser
         //In some cases, the GetAllUnitPartDict approach doesn't work. For example: BTU/s and W. 
         //Note that ignoring the dividable/non-dividable differences right away (useful in other situations) isn't good here.
         //The only solution is looking for common parts to both units (always the case, by bearing in mind that have the same type). 
-        //In the aforementioned example of BTU/s to W, BTU-J and s-s will be delivered.
+        //In the aforementioned example of BTU/s to W, the two pairs BTU-J and s-s will be returned.
         private static Dictionary<UnitPart, UnitPart> GetUnitPartDictInCommon(ConversionItems conversionItems)
         {
             conversionItems = GetNonDividableUnitPartDictInCommon(conversionItems);
@@ -294,10 +294,11 @@ namespace FlexibleParser
             if (conversionItems.OutDict.Count == 0 || (conversionItems.Originals.Count == conversionItems.Targets.Count && conversionItems.Originals.Count == 0))
             {
                 //Reaching here and not finding a single non-dividable match is a clear error (managed by the calling function).
-                //On the other hand, no originals/targets left means that no further analysis is required.
+                //On the other hand, no originals/targets left would mean that no further analysis is required.
                 return conversionItems.OutDict;
             }
 
+            //Trying to match the remaining parts (i.e., individual units not matching any non-dividable compound).
             Dictionary<UnitPart, UnitPart> outDict2 = GetAllUnitPartDict
             (
                 conversionItems.Originals, conversionItems.Targets, false
@@ -312,10 +313,12 @@ namespace FlexibleParser
             return conversionItems.OutDict;
         }
 
+        //Method looking for proper matches for each non-dividable compound. For example, BTU might be
+        //matched with kg*m/s2 (= N).
         private static ConversionItems GetNonDividableUnitPartDictInCommon(ConversionItems conversionItems)
         {
             int count = 0;
-            while (count < 2)
+            while (count < 2 && (conversionItems.Originals.Count > 0 && conversionItems.Targets.Count > 0))
             {
                 count = count + 1;
                 if (count == 1)
@@ -350,9 +353,10 @@ namespace FlexibleParser
 
         private static ConversionItems UpdateConversionItems(ConversionItems conversionItems, int count, int i)
         {
-            //Originals & Targets are automatically updated with any modifications in Others.
-            //Not the case with NonDividables, that's why having to call this method.
             conversionItems.NonDividables.RemoveAt(i);
+
+            //Originals & Targets are automatically updated with any modification in Others.
+            //Not the case with NonDividables, that's why having to call this method.
             conversionItems = RemoveNonDividableOriginals(conversionItems, count);
 
             return UpdateOutDict(conversionItems, count);
@@ -398,6 +402,11 @@ namespace FlexibleParser
             return conversionItems;
         }
 
+        //Method trying to match each item of conversionItems.NonDividables with parts of conversionItems.Others. 
+        //Bear in mind that the goal isn't just looking for sets of unit parts defining the given type; they have 
+        //also to be associated with a valid compound unit. For example: when trying to match the force unit lbf,
+        //lb*ft/s2 wouldn't a good match; these parts do define a force, but not a supported unit. A good match
+        //would be kg*m/s2, which also defines the supported unit newton.
         private static ConversionItems MatchNonDividableParts(ConversionItems conversionItems, int i)
         {
             conversionItems.TempPair = new KeyValuePair<UnitPart, UnitPart>();
@@ -415,9 +424,6 @@ namespace FlexibleParser
             List<UnitPart> parts2 = new List<UnitPart>();
             foreach (var nonPart in AllCompounds[GetTypeFromUnitPart(conversionItems.NonDividables[i])][0].Parts)
             {
-                //Here, ignoring the dividable/non-dividable differences is useful.
-                //Note that these are basic units in its most basic form (e.g., litre cannot appear).
-                //Additionally, no (type/unit) repetition is possible.
                 matchedPart = conversionItems.Others.FirstOrDefault
                 (
                     x => nonPart.Type == GetTypeFromUnit(x.Unit)
@@ -465,10 +471,7 @@ namespace FlexibleParser
 
             if (tempInfo.Unit != Units.None)
             {
-                //A case like lb*ft/s2 assumed identical to BTU would be wrong.
-                //That's why it isn't possible to perform a part-by-part comparison
-                //right away in these cases. Non-dividable compounds have to match
-                //compound units with the same type, not just their parts.
+                //Condition avoiding situations like assuming that lb*ft/s2 & BTU are identical.
 
                 conversionItems.TempPair = new KeyValuePair<UnitPart, UnitPart>
                 (
