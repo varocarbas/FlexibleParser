@@ -82,12 +82,8 @@ namespace FlexibleParser
                     {
                         //The modifications in GetCompoundComparisonUnitParts generated an individual unit.
                         //It might not be recognised anywhere else, so better taken care of it here.
-                        unitInfo.Unit = unitParts[0].Unit;
-                        unitInfo.Prefix = new Prefix
-                        (
-                            unitParts[0].Prefix.Factor, 
-                            unitInfo.Prefix.PrefixUsage
-                        );
+                        unitInfo.Unit = DefaultUnnamedUnits[unitInfo.System];
+                        unitInfo.Type = type;
 
                         return unitInfo;
                     }
@@ -143,11 +139,19 @@ namespace FlexibleParser
             {
                 for (int i2 = i - 1; i2 >= 0; i2--)
                 {
-                    if (outParts[i].Unit == outParts[i2].Unit && outParts[i].Prefix == outParts[i2].Prefix)
+                    UnitTypes type1 = GetTypeFromUnit(outParts[i].Unit);
+                    UnitTypes type2 = GetTypeFromUnit(outParts[i2].Unit);
+                    if (type1 == type2)
                     {
-                        //The scenario with different prefixes doesn't need to be considered because same-type
-                        //basic units always have the same prefixes. And this is precisely what this method is
-                        //about: simplifying basic units to eventually match a compound.
+                        if (outParts[i].Unit != outParts[i2].Unit)
+                        {
+                            //This method is only called to perform basic unit matching; more specifically, finding
+                            //the (dividable) compounds best matching the non-dividable ones. No direct conversions
+                            //will be performed among the outputs of this function, that's why the exact units aren't
+                            //that important. For example: when dealing with rood/rod, the only output which matters
+                            //is the resulting type (i.e., length). It doesn't matter if it is rod or ft or other unit.
+                            outParts[i].Unit = outParts[i2].Unit;
+                        }
                         outParts[i].Exponent += outParts[i2].Exponent;
 
                         if (outParts[i].Exponent == 0)

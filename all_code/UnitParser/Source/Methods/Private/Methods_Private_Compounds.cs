@@ -214,6 +214,8 @@ namespace FlexibleParser
                     unitInfo.Unit = unitInfo.Parts[0].Unit;
                     unitInfo.Type = AllUnitTypes[unitInfo.Unit];
                     unitInfo.System = AllUnitSystems[unitInfo.Unit];
+                    unitInfo = unitInfo * unitInfo.Parts[0].Prefix.Factor;
+                    unitInfo.Parts[0].Prefix = new Prefix();
                 }
             }
 

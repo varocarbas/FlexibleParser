@@ -113,8 +113,8 @@ namespace Test
             PrintSampleItem("StrNum4", new UnitP("1000000000000000000000000000000000000000000000000000000000000 mi")); //1000000*10^54 mi.
 
             //--- It is also possible to input beyond-double numbers via strings. The exponential format follows the .NET rules.
-            PrintSampleItem("StrNum5", new UnitP("9999.99999E1000 cm")); //999999.99*10^998 cm.
-            PrintSampleItem("StrNum6", new UnitP("1234E1.5 St")); //Error. Equivalently to what happens with .NET numeric parsing, only integer exponents are supported.
+            PrintSampleItem("StrNum5", new UnitP("9999.99999E1000")); //999999.99*10^998 unitless.
+            PrintSampleItem("StrNum6", new UnitP("1234E1.5")); //Error. Equivalently to what happens with .NET numeric parsing, only integer exponents are supported.
 
 
             //------ Errors and exceptions.
