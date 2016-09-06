@@ -1,0 +1,5 @@
+D:\Codes\1_flexible_parser\1_units\1_code\1355\UnitParser\bin\Release\UnitParser.dll
+D:\Codes\1_flexible_parser\1_units\1_code\1355\UnitParser\bin\Release\UnitParser.pdb
+D:\Codes\1_flexible_parser\1_units\1_code\1355\UnitParser\obj\Release\UnitParser.csprojResolveAssemblyReference.cache
+D:\Codes\1_flexible_parser\1_units\1_code\1355\UnitParser\obj\Release\UnitParser.dll
+D:\Codes\1_flexible_parser\1_units\1_code\1355\UnitParser\obj\Release\UnitParser.pdb
