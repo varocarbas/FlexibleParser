@@ -6,6 +6,29 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
+        private UnitP(UnitP unitP, decimal value, int baseTenExponent)
+        {
+            Value = value;
+            BaseTenExponent = baseTenExponent;
+            Unit = unitP.Unit;
+            UnitType = unitP.UnitType;
+            UnitSystem = unitP.UnitSystem;
+            UnitPrefix = new Prefix(unitP.UnitPrefix);
+            UnitParts = new List<UnitPart>(unitP.UnitParts.ToList()).AsReadOnly();
+            UnitString = unitP.UnitString;
+            OriginalUnitString = unitP.Value.ToString() +
+            (
+                unitP.BaseTenExponent != 0 ?
+                "*10^" + unitP.BaseTenExponent.ToString() : ""
+            );
+            ValueAndUnitString = Value.ToString() +
+            (
+                BaseTenExponent != 0 ?
+                "*10^" + BaseTenExponent.ToString() : ""
+            ) + " " + UnitString;
+            Error = new ErrorInfo(unitP.Error);
+        }
+
         private UnitP
         (
             ParseInfo parseInfo, string originalUnitString = "", UnitSystems system = UnitSystems.None,
@@ -237,7 +260,7 @@ namespace FlexibleParser
                         UnitInfo.Value
                     );
 
-                    ValueAndUnitString = Value +
+                    ValueAndUnitString = Value.ToString() +
                     (
                         UnitInfo.BaseTenExponent != 0 ?
                         "*10^" + UnitInfo.BaseTenExponent.ToString() : ""

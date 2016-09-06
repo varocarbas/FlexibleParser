@@ -83,7 +83,9 @@ namespace FlexibleParser
             Division
         };
 
-        private const double MaxValue = 79228162514264337593543950335.0; //Decimal.MaxValue actual value.
-        private const double MinValue = 0.0000000000000000000000000001; //Decimal precision lowest limit.
+        private const double MaxValue = 79228162514264337593543950335.0; //Decimal.MaxValue actual value (double type).
+        private const double MinValue = 0.0000000000000000000000000001; //Decimal precision lowest limit (double type).
+        private const decimal MaxValueDec = 79228162514264337593543950335m; //Decimal.MaxValue actual value (decimal type).
+        private const decimal MinValueDec = 0.0000000000000000000000000001m; //Decimal precision lowest limit (decimal type).
     }
 }

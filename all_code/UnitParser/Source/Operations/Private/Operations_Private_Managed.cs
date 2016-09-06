@@ -102,13 +102,32 @@ namespace FlexibleParser
             UnitInfo big2 = AdaptBiggerAdditionOperand(unitInfos2, bigSmallI, operation);
             if (big2.Error.Type != ErrorTypes.None)
             {
-                return new UnitInfo[] { unitInfos2[bigSmallI[0]] };
+                return TooBigGapAddition(unitInfos2, bigSmallI);
             }
 
             unitInfos2[bigSmallI[0]].Value = big2.Value;
             unitInfos2[bigSmallI[0]].BaseTenExponent = unitInfos2[bigSmallI[1]].BaseTenExponent;
 
             return unitInfos2;
+        }
+
+        //When adding/subtracting two numbers whose gap is bigger than the maximum decimal range, there
+        //is no need to perform any operation (i.e., no change will be observed because of being outside
+        //the maximum supported precision). In these cases, the biggest value is returned, although some
+        //further modifications might be required.
+        private static UnitInfo[] TooBigGapAddition(UnitInfo[] unitInfos2, int[] bigSmallI)
+        {
+            UnitInfo[] outInfos = new UnitInfo[] 
+            {
+                new UnitInfo(unitInfos2[bigSmallI[0]])
+            };
+            
+            if (outInfos[0].Unit == Units.Unitless)
+            {
+                outInfos[0].Unit = unitInfos2[bigSmallI[1]].Unit;
+            }
+
+            return outInfos;
         }
 
         private static UnitInfo AdaptBiggerAdditionOperand(UnitInfo[] unitInfos2, int[] bigSmallI, Operations operation)
@@ -227,33 +246,6 @@ namespace FlexibleParser
             outInfo.Value = outInfoNormalised.Value;
             //Normalised means no prefixes.
             outInfo.Prefix = new Prefix(outInfo.Prefix.PrefixUsage); 
-
-            return outInfo;
-        }
-
-        private static UnitInfo ConvertValueToBaseTen(decimal value)
-        {
-            UnitInfo outInfo = new UnitInfo(Math.Abs(value));
-            if (outInfo.Value < 10m && outInfo.Value > 0.1m)
-            {
-                return outInfo;
-            }
-
-            bool reduceIt = (outInfo.Value >= 10);
-
-            while (outInfo.Value >= 10m || outInfo.Value <= 0.1m)
-            {
-                if (reduceIt)
-                {
-                    outInfo.Value /= 10m;
-                    outInfo.BaseTenExponent += 1;
-                }
-                else
-                {
-                    outInfo.Value *= 10m;
-                    outInfo.BaseTenExponent -= 1;
-                }
-            }
 
             return outInfo;
         }
@@ -389,6 +381,50 @@ namespace FlexibleParser
             return outInfo;
         }
 
+        private static UnitInfo ConvertValueToBaseTen(decimal value)
+        {
+            value = Math.Abs(value);
+            return FromValueToBaseTenExponent
+            (
+                 new UnitInfo(value), Math.Abs(value), false
+            );
+        }
+
+        private static UnitInfo ConvertBaseTenToValue(UnitInfo unitInfo)
+        {
+            if (unitInfo.BaseTenExponent == 0) return unitInfo;
+
+            UnitInfo outInfo = new UnitInfo(unitInfo);
+            bool decrease = unitInfo.BaseTenExponent > 0;
+            decimal absValue = Math.Abs(outInfo.Value);
+
+            while (outInfo.BaseTenExponent != 0m)
+            {
+                if (decrease)
+                {
+                    if (absValue >= MaxValueDec / 10m)
+                    {
+                        return outInfo;
+                    }
+                    outInfo.Value *= 10m;
+                    outInfo.BaseTenExponent -= 1;
+                }
+                else
+                {
+                    if (absValue <= MinValueDec * 10m)
+                    {
+                        return outInfo;
+                    }
+                    outInfo.Value /= 10m;
+                    outInfo.BaseTenExponent += 1;
+                }
+
+                absValue = Math.Abs(outInfo.Value);
+            }
+
+            return outInfo;
+        }
+
         private static UnitInfo NormaliseUnitInfo(UnitInfo unitInfo)
         {
             if (unitInfo.Value == 0 && unitInfo.Prefix.Factor == 1m)
@@ -417,11 +453,12 @@ namespace FlexibleParser
 
         private static UnitInfo FromValueToBaseTenExponent(UnitInfo outInfo, decimal value, bool isPrefix)
         {
+            if (value == 0m) return outInfo;
+
             decimal valueAbs = Math.Abs(value);
             bool decrease = (valueAbs > 1m);
             if (!isPrefix)
             {
-                //When reaching this point, valueAbs cannot be zero.
                 outInfo.Value = outInfo.Value / valueAbs;
             }
 

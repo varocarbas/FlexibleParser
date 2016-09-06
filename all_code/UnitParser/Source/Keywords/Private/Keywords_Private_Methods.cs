@@ -89,7 +89,7 @@ namespace FlexibleParser
         private static void PopulateUnitSymbols2()
         {
             AllUnitSymbols2 = new Dictionary<string, Units>();
-            
+
             AllUnitSymbols2.Add("nmi", Units.NauticalMile);
             AllUnitSymbols2.Add("ftm", Units.Fathom);
             AllUnitSymbols2.Add("th", Units.Thou);
@@ -132,7 +132,13 @@ namespace FlexibleParser
         //with them, case doesn't matter.
         private static void PopulateAllUnitStrings()
         {
-            Units unit = Units.Metre;
+            Units unit = Units.Unitless;
+            AddToAllUnitStrings("nounit", unit);
+            AddToAllUnitStrings("ul", unit);
+            AddToAllUnitStrings("nu", unit);
+            AddToAllUnitStrings("none", unit);
+
+            unit = Units.Metre;
             AddToAllUnitStrings("meter", unit);
             AddToAllUnitStrings("mtr", unit);
 

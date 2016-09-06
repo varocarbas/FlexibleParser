@@ -63,8 +63,7 @@ namespace FlexibleParser
         {
             ErrorTypes parsingError = 
             (
-                valueAndUnit == null || !valueAndUnit.Contains(" ") || valueAndUnit.Trim().Length < 2 ?
-                ErrorTypes.NumericParsingError : ErrorTypes.None
+                valueAndUnit == null ? ErrorTypes.NumericParsingError : ErrorTypes.None
             );
 
             UnitInfo unitInfo = new UnitInfo(0m, exceptionHandling, prefixUsage);
@@ -104,16 +103,25 @@ namespace FlexibleParser
         private UnitInfo ParseValueAndUnit(string valueAndUnit)
         {
             UnitInfo unitInfo = new UnitInfo();
-            string[] parts = valueAndUnit.Split(' ');
+            string[] parts = valueAndUnit.Trim().Split(' ');
 
+            //Note that ParseDecimal can deal with any number (i.e., decimal, double or beyond double).
             if (parts.Length >= 2)
             {
-                //It also takes care of double-type parsing.
                 unitInfo = ParseDecimal(parts[0]);
 
                 if (unitInfo.Error.Type == ErrorTypes.None)
                 {
                     unitInfo.TempString = String.Join(" ", parts, 1, parts.Length - 1);
+                }
+            }
+            else if (parts.Length == 1)
+            {
+                unitInfo = ParseDecimal(valueAndUnit);
+
+                if (unitInfo.Error.Type == ErrorTypes.None)
+                {
+                    unitInfo.TempString = "Unitless";
                 }
             }
 
@@ -139,6 +147,7 @@ namespace FlexibleParser
         public UnitP(UnitP unitP) 
         {
             Value = unitP.Value;
+            BaseTenExponent = unitP.BaseTenExponent;
             Unit = unitP.Unit;
             UnitType = unitP.UnitType;
             UnitSystem = unitP.UnitSystem;
@@ -173,11 +182,7 @@ namespace FlexibleParser
             UnitParts = GetPartsFromUnit(tempInfo).Parts.AsReadOnly();
             UnitString = GetUnitString(tempInfo);
             OriginalUnitString = UnitString;
-            ValueAndUnitString = Value.ToString() + 
-            (
-                BaseTenExponent != 0 ? "*10^" + BaseTenExponent.ToString() : ""
-            );
-            ValueAndUnitString = ValueAndUnitString + " " + UnitString;
+            ValueAndUnitString = Value.ToString() + " " + UnitString;
 
             //If applicable, this instantiation would trigger an exception right away.
             Error = new ErrorInfo

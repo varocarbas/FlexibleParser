@@ -6,16 +6,16 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        ///<summary><para>Converts the current unit into the target one.</para><para>Warning: different unit types will trigger an error.</para></summary>
-        ///<param name="targetUnit">Target unit.</param>
-        ///<param name="targetPrefix">Target unit prefix.</param>
+        ///<summary><para>Converts the current unit into the target one. Different unit types will trigger an error.</para></summary>
+        ///<param name="targetUnit">Conversion target unit.</param>
+        ///<param name="targetPrefix">Prefix of the conversion target unit.</param>
         public UnitP ConvertCurrentUnitTo(Units targetUnit, Prefix targetPrefix = null)
         {
             return ConvertToCommon(this, targetUnit, targetPrefix);
         }
 
-        ///<summary><para>Converts the current unit into the target one.</para><para>Warning: different unit types will trigger an error.</para></summary>
-        ///<param name="targetUnitString">Target unit string.</param>
+        ///<summary><para>Converts the current unit into the target one. Different unit types will trigger an error.</para></summary>
+        ///<param name="targetUnitString">String representation of the conversion target unit.</param>
         public UnitP ConvertCurrentUnitTo(string targetUnitString)
         {
             return ConvertToCommon(this, targetUnitString);
@@ -79,6 +79,14 @@ namespace FlexibleParser
                     NormaliseUnitInfo(new UnitInfo(this)), this, true
                 )
             );
+        }
+
+        ///<summary><para>Transfers all the base-ten exponent information to the Value field (if possible on account of the decimal type range limits).</para></summary>  
+        public UnitP RemoveCurrentBaseTen()
+        {
+            UnitInfo tempInfo = ConvertBaseTenToValue(new UnitInfo(this));
+            
+            return new UnitP(this, tempInfo.Value, tempInfo.BaseTenExponent);
         }
     }
 }
