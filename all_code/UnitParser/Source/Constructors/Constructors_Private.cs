@@ -302,22 +302,27 @@ namespace FlexibleParser
                 decimal maxVal = 1000000m;
                 decimal minVal = 0.0001m;
 
+                int sign = Math.Sign(unitInfo.Value);
+                decimal absValue = Math.Abs(unitInfo.Value);
+
                 if (unitInfo.BaseTenExponent > 0)
                 {
-                    while (unitInfo.BaseTenExponent > 0 && unitInfo.Value <= maxVal / 10)
+                    while (unitInfo.BaseTenExponent > 0 && absValue <= maxVal / 10)
                     {
                         unitInfo.BaseTenExponent -= 1;
-                        unitInfo.Value *= 10;
+                        absValue *= 10;
                     }
                 }
                 else
                 {
-                    while (unitInfo.BaseTenExponent < 0 && unitInfo.Value >= minVal * 10)
+                    while (unitInfo.BaseTenExponent < 0 && absValue >= minVal * 10)
                     {
                         unitInfo.BaseTenExponent += 1;
-                        unitInfo.Value /= 10;
+                        absValue /= 10;
                     }
                 }
+
+                unitInfo.Value = sign * absValue;
 
                 return unitInfo;
             }

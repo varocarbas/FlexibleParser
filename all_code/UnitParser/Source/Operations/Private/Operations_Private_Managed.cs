@@ -102,7 +102,7 @@ namespace FlexibleParser
             UnitInfo big2 = AdaptBiggerAdditionOperand(unitInfos2, bigSmallI, operation);
             if (big2.Error.Type != ErrorTypes.None)
             {
-                return TooBigGapAddition(unitInfos2, bigSmallI);
+                return TooBigGapAddition(unitInfos2, bigSmallI, operation);
             }
 
             unitInfos2[bigSmallI[0]].Value = big2.Value;
@@ -113,15 +113,27 @@ namespace FlexibleParser
 
         //When adding/subtracting two numbers whose gap is bigger than the maximum decimal range, there
         //is no need to perform any operation (i.e., no change will be observed because of being outside
-        //the maximum supported precision). In these cases, the biggest value is returned, although some
-        //further modifications might be required.
-        private static UnitInfo[] TooBigGapAddition(UnitInfo[] unitInfos2, int[] bigSmallI)
+        //the maximum supported precision). This method takes care of these cases and returns the expected
+        //output (i.e., biggest value).
+        private static UnitInfo[] TooBigGapAddition(UnitInfo[] unitInfos2, int[] bigSmallI, Operations operation)
         {
             UnitInfo[] outInfos = new UnitInfo[] 
             {
-                new UnitInfo(unitInfos2[bigSmallI[0]])
+                //First operand (i.e., one whose information defines the operation) together with the
+                //numeric information (i.e., Value and BaseTenExponent, as far as both are normalised)
+                //with is associated with the biggest one.
+                new UnitInfo(unitInfos2[0])
+                {
+                    Value = unitInfos2[bigSmallI[0]].Value,
+                    BaseTenExponent = unitInfos2[bigSmallI[0]].BaseTenExponent
+                }
             };
-            
+
+            if (operation == Operations.Subtraction && bigSmallI[0] == 1)
+            {
+                outInfos[0].Value = -1m * outInfos[0].Value;
+            }
+
             if (outInfos[0].Unit == Units.Unitless)
             {
                 outInfos[0].Unit = unitInfos2[bigSmallI[1]].Unit;
@@ -396,31 +408,26 @@ namespace FlexibleParser
 
             UnitInfo outInfo = new UnitInfo(unitInfo);
             bool decrease = unitInfo.BaseTenExponent > 0;
+            int sign = Math.Sign(outInfo.Value);
             decimal absValue = Math.Abs(outInfo.Value);
 
             while (outInfo.BaseTenExponent != 0m)
             {
                 if (decrease)
                 {
-                    if (absValue >= MaxValueDec / 10m)
-                    {
-                        return outInfo;
-                    }
-                    outInfo.Value *= 10m;
+                    if (absValue >= MaxValueDec / 10m) break;
+                    absValue *= 10m;
                     outInfo.BaseTenExponent -= 1;
                 }
                 else
                 {
-                    if (absValue <= MinValueDec * 10m)
-                    {
-                        return outInfo;
-                    }
-                    outInfo.Value /= 10m;
+                    if (absValue <= MinValueDec * 10m) break;
+                    absValue /= 10m;
                     outInfo.BaseTenExponent += 1;
                 }
-
-                absValue = Math.Abs(outInfo.Value);
             }
+
+            outInfo.Value = sign * absValue;
 
             return outInfo;
         }

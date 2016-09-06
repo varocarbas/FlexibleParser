@@ -95,11 +95,11 @@ namespace FlexibleParser
 
         ///<summary><para>Transfers all the base-ten exponent information to the Value field (if possible on account of the decimal type range limits).</para></summary>  
         ///<param name="unitP">UnitP variable whose base-ten exponent will be removed.</param>  
-        public UnitP RemoveBaseTen(UnitP unitP)
+        public static UnitP RemoveBaseTen(UnitP unitP)
         {
-            UnitInfo tempInfo = ConvertBaseTenToValue(new UnitInfo(this));
+            UnitInfo tempInfo = ConvertBaseTenToValue(new UnitInfo(unitP));
 
-            return new UnitP(this, tempInfo.Value, tempInfo.BaseTenExponent);
+            return new UnitP(unitP, tempInfo.Value, tempInfo.BaseTenExponent);
         }
     }
 }
