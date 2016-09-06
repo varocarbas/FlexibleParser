@@ -75,16 +75,11 @@ namespace FlexibleParser
                         //value/unit is the only scenario value-unit operation where the unit
                         //information needs further analysis.
 
-                        for (int i = 0; i < outInfo.Parts.Count; i++)
-                        {
-                            outInfo.Parts[i].Exponent *= -1;
-                        }
-
                         outInfo = StartCompoundAnalysis
                         (
                             new ParseInfo
                             (
-                                InversePrefix(outInfo)
+                                InversePrefix(InverseUnit(outInfo))
                             )
                         )
                         .UnitInfo;

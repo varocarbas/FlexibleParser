@@ -140,6 +140,16 @@ namespace FlexibleParser
 
         ///<summary>
         ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Automatically assigned values:</para>
+        ///<para>Value = 1m</para>
+        ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
+        ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
+        ///</summary>
+        ///<param name="unit">Unit.</param>
+        public UnitP(Units unit) : this(1m, unit) { }
+
+        ///<summary>
+        ///<para>Initialises a new instance of UnitP.</para>
         ///</summary>
         ///<param name="unitP">unitP variable whose information will be used.</param> 
         ///<param name="prefixUsage">Prefix usage definition.</param> 
@@ -173,25 +183,53 @@ namespace FlexibleParser
             PrefixUsageTypes prefixUsage
         )
         {
-            Value = value;
-            Unit = unit;
-            UnitType = GetTypeFromUnit(Unit);
-            UnitSystem = GetSystemFromUnit(Unit);
-            UnitPrefix = new Prefix(prefix);
-            UnitInfo tempInfo = new UnitInfo(Value, Unit, UnitPrefix);
-            UnitParts = GetPartsFromUnit(tempInfo).Parts.AsReadOnly();
-            UnitString = GetUnitString(tempInfo);
-            OriginalUnitString = UnitString;
-            ValueAndUnitString = Value.ToString() + " " + UnitString;
+            ErrorTypes errorType = 
+            (
+                unit == Units.None || IsUnnamedUnit(unit) ?
+                ErrorTypes.InvalidUnit : ErrorTypes.None
+            );
+
+            UnitInfo tempInfo = null;
+            if (errorType == ErrorTypes.None)
+            {
+                //Getting the unit parts associated with the given unit.
+                tempInfo = new UnitInfo(value, unit, prefix);
+
+                if (tempInfo.Error.Type == ErrorTypes.None)
+                {
+                    //While getting the unit parts, some automatic conversions might have been performed
+                    //and the associated values have to be taken into account.
+                    tempInfo *= value;
+                    tempInfo = ImproveUnitInfo(tempInfo, false);
+                }
+                else errorType = tempInfo.Error.Type;
+            }
+
+            if (errorType != ErrorTypes.None)
+            {
+                Value = 0m;
+                BaseTenExponent = 0;
+                UnitPrefix = new Prefix(prefix.PrefixUsage);
+                UnitParts = new List<UnitPart>().AsReadOnly();
+            }
+            else
+            {
+                Value = tempInfo.Value;
+                BaseTenExponent = tempInfo.BaseTenExponent;
+                Unit = unit;
+                UnitType = GetTypeFromUnit(Unit);
+                UnitSystem = GetSystemFromUnit(Unit);
+                UnitPrefix = new Prefix(prefix);
+                UnitParts = tempInfo.Parts.AsReadOnly();
+                UnitString = GetUnitString(tempInfo);
+                OriginalUnitString = UnitString;
+                ValueAndUnitString = Value.ToString() + " " + UnitString;
+            }
 
             //If applicable, this instantiation would trigger an exception right away.
             Error = new ErrorInfo
             (
-                (
-                    unit == Units.None || IsUnnamedUnit(unit) ?
-                    ErrorTypes.InvalidUnit : ErrorTypes.None
-                ),
-                exceptionHandling
+                errorType, exceptionHandling
             );
         }
 

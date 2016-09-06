@@ -82,16 +82,12 @@ namespace FlexibleParser
                 Prefix = new Prefix(outInfo.Prefix),
                 BaseTenExponent = outInfo.BaseTenExponent
             };
+
             if (operation == Operations.Division)
             {
-                for (int i = 0; i < outInfo.Parts.Count; i++)
-                {
-                    outInfo.Parts[i].Exponent *= -1;
-                }
-
                 outInfo = GetUnitFromParts
                 (
-                    RemoveAllUnitInformation(outInfo)
+                    RemoveAllUnitInformation(InverseUnit(outInfo))
                 );
             }
 

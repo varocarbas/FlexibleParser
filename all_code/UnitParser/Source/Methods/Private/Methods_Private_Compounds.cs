@@ -133,7 +133,7 @@ namespace FlexibleParser
             }
             else if (AllNonBasicCompounds.ContainsKey(unit))
             {
-                unitParts.AddRange(AllNonBasicCompounds[unit]);
+                unitParts.AddRange(new List<UnitPart>(AllNonBasicCompounds[unit]));
             }
 
             return unitParts;
@@ -224,7 +224,7 @@ namespace FlexibleParser
 
         private static UnitInfo GetNonBasicCompoundUnitFromParts(UnitInfo unitInfo)
         {
-            foreach (var compound in AllNonBasicCompounds)
+            foreach (var compound in new Dictionary<Units, UnitPart[]>(AllNonBasicCompounds))
             {
                 if (NonBasicCompoundsToSkip.Contains(compound.Key))
                 {
@@ -297,7 +297,7 @@ namespace FlexibleParser
         {
             if (AllNonBasicCompounds.ContainsKey(unitInfo.Unit))
             {
-                unitInfo.Parts.AddRange(AllNonBasicCompounds[unitInfo.Unit]);
+                unitInfo.Parts.AddRange(new List<UnitPart>(AllNonBasicCompounds[unitInfo.Unit]));
             }
 
             return unitInfo;
@@ -493,6 +493,27 @@ namespace FlexibleParser
             return UpdateInitialPositions(unitInfo);
         }
 
+        private static UnitInfo InverseUnit(UnitInfo unitInfo)
+        {
+            if (unitInfo.Unit == Units.Unitless || unitInfo.Unit == Units.None || unitInfo.Parts.Count == 0)
+            {
+                return unitInfo;
+            }
+            UnitInfo outInfo = new UnitInfo(unitInfo);
+
+            for (int i = 0; i < outInfo.Parts.Count; i++)
+            {
+                outInfo.Parts[i] = new UnitPart
+                (
+                    outInfo.Parts[i].Unit,
+                    outInfo.Parts[i].Prefix.Factor,
+                    -1 * outInfo.Parts[i].Exponent
+                );
+            }
+
+            return outInfo;
+        }
+
         private static UnitInfo UpdateInitialPositions(UnitInfo unitInfo)
         {
             if (unitInfo.Parts.Count < 1) return unitInfo;
@@ -612,14 +633,18 @@ namespace FlexibleParser
                     continue;
                 }
 
-                //Checking non-basic compounds is very quick (+ can avoid some of the subsequent analyses).
-                //Additionally, some of these compounds wouldn't be detected in case of performing a full
-                //simplification. For example: in Wh, all the time parts would be converted into hour or second
-                //and, consequently, recognised as other energy unit (joule or unnamed one).
-                unitInfo = GetNonBasicCompoundUnitFromParts(unitInfo);
-                if(unitInfo.Type != UnitTypes.None)
+                //Bear in mind that this point can also be reached while extract the parts of a known unit.
+                if (unitInfo.Unit == Units.None)
                 {
-                    return unitInfo;
+                    //Checking non-basic compounds is very quick (+ can avoid some of the subsequent analyses).
+                    //Additionally, some of these compounds wouldn't be detected in case of performing a full
+                    //simplification. For example: in Wh, all the time parts would be converted into hour or second
+                    //and, consequently, recognised as other energy unit (joule or unnamed one).
+                    unitInfo = GetNonBasicCompoundUnitFromParts(unitInfo);
+                    if (unitInfo.Type != UnitTypes.None)
+                    {
+                        return unitInfo;
+                    }
                 }
 
                 for (int i2 = i - 1; i2 >= 0; i2--)
@@ -809,7 +834,7 @@ namespace FlexibleParser
             return AddExpandedUnitPart
             (
                 unitInfo, i,
-                AllNonBasicCompounds[partInfo.Unit].ToList()
+                new List<UnitPart>(AllNonBasicCompounds[partInfo.Unit])
             );
         }
         private static UnitInfo ExpandBasicCompoundToUnitPart(UnitInfo unitInfo, UnitInfo partInfo, int i)

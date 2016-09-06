@@ -45,11 +45,28 @@ namespace FlexibleParser
             //Loop iterating through all the digits (up to the maximum decimal precision) and looking
             //for situations with many consecutive irrelevant (i.e., no effect on rounding) digits.
             bool started = false;
+            int startCount = 0;
+            int startTarget = 4;
             for (int i = 2; i < 27; i++)
             {
                 decimal tempVal = RoundExact(value, i, roundType);
-                
-                if (!started && tempVal == outInfo.Value) started = true;
+
+                if (!started)
+                {
+                    if (tempVal == outInfo.Value)
+                    {
+                        startCount += 1;
+                        if (startCount == startTarget) started = true;
+                    }
+                    else
+                    {
+                        //Starting the analysis of consecutive irrelevant digits right away might be counter-producing.
+                        //Once the process is started, any exception (i.e., a non-irrelevant digit) would provoke the
+                        //analysis to immediately fail. That's why better delaying the analysis until seeing some
+                        //consecutive digits (i.e., higher chances of finding what is expected).
+                        startCount = 0;
+                    }
+                }
                 else if (started)
                 {
                     if (tempVal != outInfo.Value) return outInfo;

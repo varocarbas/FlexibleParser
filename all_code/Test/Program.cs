@@ -13,10 +13,10 @@ namespace Test
             PrintSampleItem("Inst1", new UnitP("1 N")); //Unit symbol. Caps does matter.
             PrintSampleItem("Inst2", new UnitP(1m, UnitSymbols.Newton));
             PrintSampleItem("Inst3", new UnitP(1m, "nEwTon")); //Unit secondary string representation. Caps doesn't matter.  
-            PrintSampleItem("Inst4", new UnitP(1m, Units.Newton));
+            PrintSampleItem("Inst4", new UnitP(Units.Newton));
 
             //--- All the public classes support (un)equality comparisons accounting for their peculiaries.
-            if (new UnitP("1 N") == new UnitP(1m, UnitSymbols.Newton) && new UnitP(1m, UnitSymbols.Newton) == new UnitP(1m, "nEwTon") && new UnitP(1m, "nEwTon") == new UnitP(1m, Units.Newton))
+            if (new UnitP("1 N") == new UnitP(1m, UnitSymbols.Newton) && new UnitP(1m, UnitSymbols.Newton) == new UnitP(1m, "nEwTon") && new UnitP(1m, "nEwTon") == new UnitP(Units.Newton))
             {
                 //This condition is true.
             }
@@ -228,7 +228,7 @@ namespace Test
             //------ Systems of units.
 
             //--- The system is automatically determined at variable instantiation. Each unit can belong to just one system.
-            PrintSampleItem("Sys1", new UnitP("1 m/s2")); //SI acceleration unit (m/s2).
+            PrintSampleItem("Sys1", new UnitP(Units.MetrePerSquareSecond)); //SI acceleration unit (m/s2).
             PrintSampleItem("Sys2", new UnitP("1 cm/s2")); //CGS acceleration unit (Gal).
             PrintSampleItem("Sys3", new UnitP(1m, UnitSymbols.Rod + "/h2")); //Imperial acceleration unit (rd/h2). 
             PrintSampleItem("Sys4", new UnitP(1m, UnitSymbols.SurveyRod + "/s2")); //USCS acceleration unit (surrd/s2). 
@@ -239,7 +239,7 @@ namespace Test
 
             //--- Automatic conversions (to the system of the first operand) happen in operations between many different-system units.
             PrintSampleItem("Conv1", new UnitP(1m, Units.Metre) * new UnitP("1 ft")); //After converting ft to metre, SI area unit m2.
-            PrintSampleItem("Conv2", new UnitP("1 lbf") + new UnitP(5m, "N")); //After converting N to lbf, Imperial/USCS force unit lbf.
+            PrintSampleItem("Conv2", new UnitP(Units.PoundForce) + new UnitP(5m, "N")); //After converting N to lbf, Imperial/USCS force unit lbf.
 
             //--- Same rules apply to compounds instantiated via string-parsing.
             PrintSampleItem("Conv3", new UnitP(1m, "m*lb/s2")); //After converting lb to kg, SI force unit N.
