@@ -176,7 +176,7 @@ namespace FlexibleParser
                 //Calling UpdateMainUnitVariables is required to populate the type/system variables.
                 unitP, UpdateMainUnitVariables
                 (
-                    new UnitInfo(0m, targetUnit, prefix, true, unitP.Error.ExceptionHandling)
+                    new UnitInfo(1m, targetUnit, prefix, true, unitP.Error.ExceptionHandling)
                 )
             );
         }

@@ -285,21 +285,10 @@ namespace FlexibleParser
         {
             UnitPart unitPart2 = new UnitPart(unitPart);
 
-            //When comparing unit part types, the exponent is often irrelevant. For example: in the compound
-            //kg*m4, looking for m4 would yield no match (unlikely looking just for m).
-            if (ignoreExponents) unitPart2.Exponent = 1;
-
-            //Negative exponents do not affect type determination. For example, a unit consisting
-            //in just the part m-1 is wavenumber (negative exponent being relevant), but is expected
-            //to be treated as length (-1 doesn't matter) because of being used in internal calculations.
-            unitPart2.Exponent = Math.Abs(unitPart2.Exponent);
-            UnitInfo unitInfo = new UnitInfo(unitPart2.Unit, unitPart2.Prefix.Factor);
-            unitInfo.Parts = new List<UnitPart>() { unitPart2 };
-
             if (simplestApproach)
             {
                 //This is reached when calling from parts of the code likely to provoke an infinite loop. 
-                UnitTypes type2 = GetTypeFromUnit(unitPart.Unit);
+                UnitTypes type2 = GetTypeFromUnit(unitPart2.Unit);
                 
                 if (type2 == UnitTypes.Length)
                 {
@@ -315,6 +304,17 @@ namespace FlexibleParser
 
                 return type2;
             }
+
+            //When comparing unit part types, the exponent is often irrelevant. For example: in the compound
+            //kg*m4, looking for m4 would yield no match (unlikely looking just for m).
+            if (ignoreExponents) unitPart2.Exponent = 1;
+
+            //Negative exponents do not affect type determination. For example, a unit consisting
+            //in just the part m-1 is wavenumber (negative exponent being relevant), but is expected
+            //to be treated as length (-1 doesn't matter) because of being used in internal calculations.
+            unitPart2.Exponent = Math.Abs(unitPart2.Exponent);
+            UnitInfo unitInfo = new UnitInfo(unitPart2.Unit, unitPart2.Prefix.Factor);
+            unitInfo.Parts = new List<UnitPart>() { unitPart2 };
 
             UnitTypes outType = GetTypeFromUnitInfo(unitInfo);
             return 

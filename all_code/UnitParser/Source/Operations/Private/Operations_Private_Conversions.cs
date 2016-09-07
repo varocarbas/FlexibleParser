@@ -592,15 +592,15 @@ namespace FlexibleParser
 
         private static UnitInfo ConvertTemperatureToKelvin(UnitInfo outInfo)
         {
-            if (outInfo.Unit == Units.Celsius)
+            if (outInfo.Unit == Units.DegreeCelsius)
             {
                 outInfo = outInfo + 273.15m;
             }
-            else if (outInfo.Unit == Units.Fahrenheit)
+            else if (outInfo.Unit == Units.DegreeFahrenheit)
             {
                 outInfo = (outInfo + 459.67m) / 1.8m;
             }
-            else if (outInfo.Unit == Units.Rankine)
+            else if (outInfo.Unit == Units.DegreeRankine)
             {
                 outInfo = outInfo / 1.8m;
             }
@@ -610,15 +610,15 @@ namespace FlexibleParser
 
         private static UnitInfo ConvertTemperatureFromKelvin(UnitInfo outInfo)
         {
-            if (outInfo.Unit == Units.Celsius)
+            if (outInfo.Unit == Units.DegreeCelsius)
             {
                 outInfo = outInfo - 273.15m;
             }
-            else if (outInfo.Unit == Units.Fahrenheit)
+            else if (outInfo.Unit == Units.DegreeFahrenheit)
             {
                 outInfo = 1.8m * outInfo - 459.67m;
             }
-            else if (outInfo.Unit == Units.Rankine)
+            else if (outInfo.Unit == Units.DegreeRankine)
             {
                 outInfo = 1.8m * outInfo;
             }

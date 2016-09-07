@@ -342,7 +342,7 @@ namespace FlexibleParser
             );
         }
 
-        private static List<UnitPart> GetUnitPartsFromBasicCompound(Compound compound, UnitSystems system, int sign = 1)
+        private static List<UnitPart> GetUnitPartsFromBasicCompound(Compound compound, UnitSystems system, int exponent = 1)
         {
             List<UnitPart> outParts = new List<UnitPart>();
             if (system == UnitSystems.None) system = UnitSystems.SI;
@@ -355,7 +355,7 @@ namespace FlexibleParser
                     new UnitPart
                     (
                         basic.Unit, basic.PrefixFactor, 
-                        sign * compoundPart.Exponent
+                        exponent * compoundPart.Exponent
                     )
                 );
             }
@@ -633,7 +633,7 @@ namespace FlexibleParser
                     continue;
                 }
 
-                //Bear in mind that this point can also be reached while extract the parts of a known unit.
+                //Bear in mind that this point can also be reached while extracting the parts of a known unit.
                 if (unitInfo.Unit == Units.None)
                 {
                     //Checking non-basic compounds is very quick (+ can avoid some of the subsequent analyses).

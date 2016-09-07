@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlexibleParser
 {
@@ -185,6 +186,24 @@ namespace FlexibleParser
             }
             else if (originalInfo.Type == UnitTypes.None || originalInfo.Type != targetInfo.Type)
             {
+                if (originalInfo.Parts.Count == targetInfo.Parts.Count)
+                {
+                    var partMatchCount = originalInfo.Parts.Count
+                    (
+                        x => targetInfo.Parts.FirstOrDefault
+                        (
+                            y => y.Exponent == x.Exponent &&
+                            y.Unit == x.Unit
+                        )
+                        != null
+                    );
+
+                    if (partMatchCount == originalInfo.Parts.Count)
+                    {
+                        //In some cases, different types might be intrinsically identical (= same unit parts).
+                        return outError;
+                    }
+                }
                 outError = ErrorTypes.InvalidUnitConversion;
             }
 

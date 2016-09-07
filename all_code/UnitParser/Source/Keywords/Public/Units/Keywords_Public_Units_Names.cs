@@ -813,11 +813,6 @@ namespace FlexibleParser
         ///</summary>    
         Hertz,
         ///<summary>
-        ///<para>Revolution per minute (rpm). Frequency unit.</para>
-        ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             
-        ///</summary>             
-        RevolutionPerMinute,
-        ///<summary>
         ///<para>Cycle per second (cps). Frequency unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>             
         ///</summary>                
@@ -1073,17 +1068,17 @@ namespace FlexibleParser
         ///<para>Degree Celsius (°C). SI temperature unit.</para>
         ///<para>By default, binary prefixes may not be used with this unit.</para>                     
         ///</summary>
-        Celsius,
+        DegreeCelsius,
         ///<summary>
         ///<para>Degree Fahrenheit (°F). Imperial/USCS temperature unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>                        
         ///</summary>            
-        Fahrenheit,
+        DegreeFahrenheit,
         ///<summary>
         ///<para>Degree Rankine (°R). Imperial/USCS temperature unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>                         
         ///</summary>   
-        Rankine,
+        DegreeRankine,
 
         //--- Wavenumber
         ///<summary>
@@ -1146,6 +1141,11 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>                         
         ///</summary>                 
         RadianPerSecond,
+        ///<summary>
+        ///<para>Revolution per minute (rpm). Angular velocity unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>           
+        ///</summary>             
+        RevolutionPerMinute,
 
         //--- Angular Acceleration
         ///<summary>

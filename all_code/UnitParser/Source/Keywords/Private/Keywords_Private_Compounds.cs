@@ -643,7 +643,8 @@ namespace FlexibleParser
                         new List<CompoundPart>()
                         {
                             new CompoundPart(UnitTypes.Mass),
-                            new CompoundPart(UnitTypes.Length, -2)
+                            new CompoundPart(UnitTypes.Length, -1),
+                            new CompoundPart(UnitTypes.Time, -2)
                         }
                     )
                 }
@@ -1298,7 +1299,6 @@ namespace FlexibleParser
                 {
                     { UnitSystems.SI, Units.Lux },
                     { UnitSystems.CGS, Units.Phot },
-                    { UnitSystems.Imperial, Units.FootCandle }
                 }
             },
             {
@@ -1316,8 +1316,7 @@ namespace FlexibleParser
             {
                 UnitTypes.AbsorbedDose, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.Gray },
-                    { UnitSystems.CGS, Units.Rad }
+                    { UnitSystems.SI, Units.Gray }
                 }
             },
             {
@@ -1329,8 +1328,7 @@ namespace FlexibleParser
             {
                 UnitTypes.EquivalentDose, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.Sievert },
-                    { UnitSystems.CGS, Units.REM }
+                    { UnitSystems.SI, Units.Sievert }
                 }
             },
             {
@@ -1541,7 +1539,8 @@ namespace FlexibleParser
             {
                 UnitTypes.FuelEconomy, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.InverseSquareMetre },                
+                    { UnitSystems.SI, Units.InverseSquareMetre },    
+                    { UnitSystems.Imperial, Units.MilePerGallon }, 
                 }
             },
             {
@@ -1585,10 +1584,13 @@ namespace FlexibleParser
         //compounds except the ones defined by the given system basic units (included in AllBasicCompounds).
         private static Dictionary<Units, UnitPart[]> AllNonBasicCompounds = new Dictionary<Units, UnitPart[]>()
         {
+            //--- Length
             { 
                 Units.Centimetre, //Not exactly a compound, but required for consistency reasons.
                 new UnitPart[] { new UnitPart(Units.Metre, SIPrefixValues.Centi) } 
             },
+
+            //--- Area
             { 
                 Units.SquareInch, 
                 new UnitPart[] { new UnitPart(Units.Inch, 2) } 
@@ -1605,10 +1607,14 @@ namespace FlexibleParser
                 Units.SquarePole, 
                 new UnitPart[] { new UnitPart(Units.Pole, 2) } 
             },
+
+            //--- Volume
             { 
                 Units.CubicInch, 
                 new UnitPart[] { new UnitPart(Units.Inch, 3) } 
             },
+
+            //--- Velocity
             { 
                 Units.InchPerSecond, 
                 new UnitPart[] 
@@ -1641,6 +1647,8 @@ namespace FlexibleParser
                     new UnitPart(Units.Hour, -1)
                 } 
             },
+
+            //--- Acceleration
             { 
                 Units.InchPerSquareSecond, 
                 new UnitPart[] 
@@ -1649,6 +1657,8 @@ namespace FlexibleParser
                     new UnitPart(Units.Second, -2)
                 } 
             },
+
+            //--- Energy
             { 
                 Units.WattHour, 
                 new UnitPart[] 
@@ -1659,6 +1669,8 @@ namespace FlexibleParser
                     new UnitPart(Units.Hour)
                 } 
             },
+
+            //--- Pressure
             { 
                 Units.TechnicalAtmosphere, 
                 new UnitPart[] 
@@ -1699,6 +1711,8 @@ namespace FlexibleParser
                     new UnitPart(Units.Metre, SIPrefixValues.Centi, -2)
                 } 
             },
+
+            //--- Angular velocity
             { 
                 Units.RevolutionPerMinute, 
                 new UnitPart[] 
@@ -1707,6 +1721,8 @@ namespace FlexibleParser
                     new UnitPart(Units.Minute, -1)
                 } 
             },
+
+            //--- Solid Angle
             { 
                 Units.SquareDegree, 
                 new UnitPart[] 
@@ -1714,6 +1730,28 @@ namespace FlexibleParser
                     new UnitPart(Units.Degree, 2)
                 } 
             },
+
+            //--- Electric Charge
+            { 
+                Units.AmpereHour, 
+                new UnitPart[] 
+                { 
+                    new UnitPart(Units.Ampere),
+                    new UnitPart(Units.Hour)
+                } 
+            },
+
+            //--- Magnetic Field B
+            { 
+                Units.Gauss, 
+                new UnitPart[] 
+                { 
+                    new UnitPart(Units.Maxwell),
+                    new UnitPart(Units.Metre, SIPrefixValues.Centi, -2)
+                } 
+            },
+
+            //--- Luminous Energy
             { 
                 Units.Talbot, 
                 new UnitPart[] 
@@ -1722,6 +1760,8 @@ namespace FlexibleParser
                     new UnitPart(Units.Second)
                 } 
             },
+
+            //--- Luminance
             { 
                 Units.Nit, 
                 new UnitPart[] 
@@ -1730,20 +1770,14 @@ namespace FlexibleParser
                     new UnitPart(Units.Metre, -2)
                 } 
             },
+
+            //--- Fuel Economy
             { 
-                Units.MilePerGallon, 
+                Units.USCSMilePerGallon, 
                 new UnitPart[] 
                 { 
                     new UnitPart(Units.Mile),
-                    new UnitPart(Units.Gallon, -1)
-                } 
-            },
-            { 
-                Units.AmpereHour, 
-                new UnitPart[] 
-                { 
-                    new UnitPart(Units.Ampere),
-                    new UnitPart(Units.Hour)
+                    new UnitPart(Units.LiquidGallon, -1)
                 } 
             }
         };
@@ -1820,7 +1854,7 @@ namespace FlexibleParser
                 UnitTypes.Temperature, new Dictionary<UnitSystems, BasicUnit>()
                 {
                     { UnitSystems.SI, new BasicUnit(Units.Kelvin) },
-                    { UnitSystems.Imperial, new BasicUnit(Units.Fahrenheit) },
+                    { UnitSystems.Imperial, new BasicUnit(Units.DegreeFahrenheit) },
                     { UnitSystems.CGS, new BasicUnit(Units.Kelvin) }
                 }
             },

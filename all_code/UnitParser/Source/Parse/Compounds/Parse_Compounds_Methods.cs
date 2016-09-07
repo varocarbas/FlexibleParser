@@ -53,6 +53,7 @@ namespace FlexibleParser
                     (
                         unitInfo, compound.Parts, allCompound.Key
                     );
+
                     if (unitInfo.Type != UnitTypes.None)
                     {
                         return unitInfo;
@@ -101,7 +102,6 @@ namespace FlexibleParser
                 new List<UnitPart>(unitInfo.Parts) :
                 GetUnitPartsForAnyUnit(unitInfo)
             );
-
         }
 
         private static List<UnitPart> GetUnitPartsForAnyUnit(UnitInfo unitInfo)
@@ -122,7 +122,7 @@ namespace FlexibleParser
                         GetUnitPartsFromBasicCompound
                         (
                             AllCompounds[type2][0],
-                            unitInfo.System, Math.Sign(part.Exponent)
+                            unitInfo.System, part.Exponent
                         )
                     );
                 }

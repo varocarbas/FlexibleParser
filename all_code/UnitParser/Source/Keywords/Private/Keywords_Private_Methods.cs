@@ -133,10 +133,7 @@ namespace FlexibleParser
         private static void PopulateAllUnitStrings()
         {
             Units unit = Units.Unitless;
-            AddToAllUnitStrings("nounit", unit);
             AddToAllUnitStrings("ul", unit);
-            AddToAllUnitStrings("nu", unit);
-            AddToAllUnitStrings("none", unit);
 
             unit = Units.Metre;
             AddToAllUnitStrings("meter", unit);
@@ -313,14 +310,14 @@ namespace FlexibleParser
             unit = Units.TonOfRefrigeration;
             AddToAllUnitStrings("tr", unit);
             AddToAllUnitStrings("rt", unit);
-            
-            unit = Units.Celsius;
+
+            unit = Units.DegreeCelsius;
             AddToAllUnitStrings("degC", unit);
 
-            unit = Units.Fahrenheit;
+            unit = Units.DegreeFahrenheit;
             AddToAllUnitStrings("degF", unit);
 
-            unit = Units.Rankine;
+            unit = Units.DegreeRankine;
             AddToAllUnitStrings("degR", unit);
 
             unit = Units.ReciprocalMetre;

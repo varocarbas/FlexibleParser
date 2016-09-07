@@ -190,8 +190,7 @@ namespace FlexibleParser
             { UnitSymbols.KipPerSquareInch, Units.KipPerSquareInch },                
 
             //--- Frequency
-            { UnitSymbols.Hertz, Units.Hertz },      
-            { UnitSymbols.RevolutionPerMinute, Units.RevolutionPerMinute },               
+            { UnitSymbols.Hertz, Units.Hertz },                   
             { UnitSymbols.CyclePerSecond, Units.CyclePerSecond },              
 
             //--- Electric Charge
@@ -260,9 +259,9 @@ namespace FlexibleParser
 
             //--- Temperature
             { UnitSymbols.Kelvin, Units.Kelvin },  
-            { UnitSymbols.Celsius, Units.Celsius }, 
-            { UnitSymbols.Fahrenheit, Units.Fahrenheit },            
-            { UnitSymbols.Rankine, Units.Rankine },    
+            { UnitSymbols.DegreeCelsius, Units.DegreeCelsius }, 
+            { UnitSymbols.DegreeFahrenheit, Units.DegreeFahrenheit },            
+            { UnitSymbols.DegreeRankine, Units.DegreeRankine },    
 
             //--- Wavenumber
             { UnitSymbols.ReciprocalMetre, Units.ReciprocalMetre }, 
@@ -285,6 +284,7 @@ namespace FlexibleParser
             
             //--- Angular Velocity
             { UnitSymbols.RadianPerSecond, Units.RadianPerSecond },
+            { UnitSymbols.RevolutionPerMinute, Units.RevolutionPerMinute },  
             
             //--- Angular Acceleration
             { UnitSymbols.RadianPerSquareSecond, Units.RadianPerSquareSecond },
@@ -480,8 +480,7 @@ namespace FlexibleParser
             { UnitSymbols.Baud, Units.Baud },
         };
 
-        //Includes all the units with compound (= dividable by default) types which cannot
-        //be divided.
+        //Includes all the units with compound (= dividable by default) types which cannot be divided.
         private static Units[] AllNonDividableUnits = new Units[]
         {
             //--- Area
@@ -510,7 +509,52 @@ namespace FlexibleParser
             Units.InchOfMercury60F, Units.Torr,
                         
             //--- Amount of substance
-            Units.PoundMole
+            Units.PoundMole,
+
+            //Note that all the electricity/magnetism CGS compounds are considered individable.
+            //This is because of the multi sub-system peculiarities and what it entails.
+            //These are old units where the dividable-compound icing isn't expected to be that important.
+            //Compounds which might be defined without directly relying on electricity/magnetism units are
+            //dividable; for example: G (= Mx/cm2).
+            
+            //--- Electric Charge
+            Units.Franklin, Units.Statcoulomb, Units.ESUOfCharge, Units.Abcoulomb, Units.EMUOfCharge,
+
+            //--- Electric Voltage
+            Units.ESUOfElectricPotential, Units.Statvolt, Units.EMUOfElectricPotential, Units.Abvolt,
+
+            //--- Electric Resistance 
+            Units.Statohm, Units.ESUOfResistance, Units.Abohm, Units.EMUOfResistance,
+
+            //--- Electric Conductance
+            Units.Gemmho, Units.Statsiemens, Units.Statmho, Units.Absiemens, Units.Abmho,
+
+            //--- Electric Capacitance
+            Units.Statfarad, Units.ESUOfCapacitance, Units.Abfarad, Units.EMUOfCapacitance,
+
+            //--- Electric Inductance
+            Units.Stathenry, Units.ESUOfInductance, Units.Abhenry, Units.EMUOfInductance,
+
+            //--- Electric Dipole Moment
+            Units.Debye,
+
+            //--- Luminance
+            Units.Lambert, Units.FootLambert,
+
+            //--- Magnetic Flux
+            Units.Maxwell,
+
+            //--- Magnetic Field H
+            Units.Oersted,
+
+            //--- Absorbed Dose
+            Units.Rad,
+
+            //--- Equivalent Dose
+            Units.REM,
+
+            //--- Exposure
+            Units.Roentgen,
         };
 
         //English-system units which are identical in both Imperial and USCS.
@@ -551,13 +595,13 @@ namespace FlexibleParser
             Units.PoundforcePerSquareInch, Units.PoundforcePerSquareFoot,
                         
             //--- Temperature
-            Units.Fahrenheit, Units.Rankine, 
+            Units.DegreeFahrenheit, Units.DegreeRankine, 
             
             //--- Luminance
             Units.FootLambert,
 
             //--- Illuminance
-            Units.FootCandle
+            Units.FootCandle,
         };
     }
 }

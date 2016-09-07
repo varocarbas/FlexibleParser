@@ -58,16 +58,16 @@ namespace Test
             PrintSampleItem("Comp2", new UnitP("1 N")); //Compound with an official name.
 
             //--- Compounds can be formed through string parsing or arithmetic operations.
-            PrintSampleItem("Comp3", new UnitP("1 m") / new UnitP("1 s")); //Unit m/s created by dividing two UnitP variables.
-            PrintSampleItem("Comp4", new UnitP("1 kg*m/s2")); //Unit N (= kg*m/s2) created via string parsing. 
-            if (new UnitP("1 m/sec") == new UnitP("1 m") / new UnitP("1 s") && new UnitP("1 N") == new UnitP("1 kg*m/s2"))
+            PrintSampleItem("Comp3", new UnitP("1 m") / new UnitP("s")); //Unit m/s created by dividing two UnitP variables.
+            PrintSampleItem("Comp4", new UnitP("kg*m/s2")); //Unit N (= kg*m/s2) created via string parsing. 
+            if (new UnitP("1 m/sec") == new UnitP("1 m") / new UnitP("s") && new UnitP("1 N") == new UnitP("1 kg*m/s2"))
             {
                 //This condition is true.
             }
 
             //--- It is recommendable to create compounds via strings rather than operations.
             PrintSampleItem("Comp5", new UnitP("1 m") / new UnitP("1 s2")); //Error because s2 doesn't represent a valid type. Element by element type checks.
-            PrintSampleItem("Comp6", new UnitP("1 m/s2")); //1 m/s2 (acceleration). Global type check after all the operations/simplifications.
+            PrintSampleItem("Comp6", new UnitP("m/s2")); //1 m/s2 (acceleration). Global type check after all the operations/simplifications.
 
             //--- The unit parts are automatically populated when instantiating a valid UnitP variable.
             if (new UnitP("1 N").UnitParts.FirstOrDefault(x => !new UnitP("1 kg*m/s2").UnitParts.Contains(x)) == null)
@@ -81,25 +81,26 @@ namespace Test
             //--- UnitP constructors without numeric inputs expect strings formed by number, blank space and unit.
             PrintSampleItem("Str1", new UnitP("1 m")); //1 metre (length).
             PrintSampleItem("Str2", new UnitP("1m")); //Error.
+            PrintSampleItem("Str3", new UnitP("m")); //1 metre (length).
 
             //--- Multi-part strings are expected to be formed by units, multiplication/division symbols and integer exponents.
-            PrintSampleItem("Str3", new UnitP("1 J/s")); //1 joule per second (power unit).
-            PrintSampleItem("Str4", new UnitP("1 Jxs")); //1 joule second (angular momentum).
-            PrintSampleItem("Str5", new UnitP("1 J⋅s2")); //1 joule square second (moment of inertia).
-            PrintSampleItem("Str6", new UnitP("1 J÷s-2")); //1 joule square second (moment of inertia).
+            PrintSampleItem("Str4", new UnitP("1 J/s")); //1 joule per second (power unit).
+            PrintSampleItem("Str5", new UnitP("1 Jxs")); //1 joule second (angular momentum).
+            PrintSampleItem("Str6", new UnitP("1 J⋅s2")); //1 joule square second (moment of inertia).
+            PrintSampleItem("Str7", new UnitP("J÷s-2")); //1 joule square second (moment of inertia).
 
             //--- Only one division sign is expected. It separates the numerator and denominator parts.
-            PrintSampleItem("Str7", new UnitP("1 J*J/s*J2*J-1*s*s-1")); //1 watt (power).
-            PrintSampleItem("Str8", new UnitP("1 J*J/(s*J2*s)*J*s")); //Error. It is understood as J*J/(s*J2*s*J*s).
+            PrintSampleItem("Str8", new UnitP("1 J*J/s*J2*J-1*s*s-1")); //1 watt (power).
+            PrintSampleItem("Str9", new UnitP("J*J/(s*J2*s)*J*s")); //Error. It is understood as J*J/(s*J2*s*J*s).
 
             //--- Not-supported-but-commonly-used characters are plainly ignored.
-            PrintSampleItem("Str9", new UnitP(1m, "ft.")); //1 foot (length).
-            PrintSampleItem("Str10", new UnitP(1m, "ft^2")); //1 square foot (area).
-            PrintSampleItem("Str11", new UnitP(1m, "ft*(ft*ft)")); //1 cubic foot (volume).
+            PrintSampleItem("Str10", new UnitP(1m, "ft.")); //1 foot (length).
+            PrintSampleItem("Str11", new UnitP(1m, "ft^2")); //1 square foot (area).
+            PrintSampleItem("Str12", new UnitP(1m, "ft*(ft*ft)")); //1 cubic foot (volume).
 
             //--- Ideally, no blank spaces should be included. The parser can deal with them anyway.
-            PrintSampleItem("Str12", new UnitP(1m, "AU/min")); //1 astronomical unit per minute (velocity).
-            PrintSampleItem("Str13", new UnitP(1m, "A U/     min")); //1 astronomical unit per minute (velocity).
+            PrintSampleItem("Str13", new UnitP(1m, "AU/min")); //1 astronomical unit per minute (velocity).
+            PrintSampleItem("Str14", new UnitP(1m, "A U/     min")); //1 astronomical unit per minute (velocity).
 
 
             //------ Format of input string numbers.
@@ -201,10 +202,10 @@ namespace Test
 
             //--- By default, prefixes can only be used with units which officially/commonly support them.
             PrintSampleItem("Pref9", new UnitP("1 Mft")); //Error because the unit foot doesn't support SI prefixes.
-            PrintSampleItem("Pref10", new UnitP("1 Eim")); //Error because the unit metre doesn't support binary prefixes.
+            PrintSampleItem("Pref10", new UnitP("Eim")); //Error because the unit metre doesn't support binary prefixes.
 
             //--- The default behaviour can be modified when instantiating the variable.
-            PrintSampleItem("Pref11", new UnitP("1 Mft", PrefixUsageTypes.AllUnits)); //SI prefix mega + foot.
+            PrintSampleItem("Pref11", new UnitP("Mft", PrefixUsageTypes.AllUnits)); //SI prefix mega + foot.
             PrintSampleItem("Pref12", new UnitP("1 Eim", PrefixUsageTypes.AllUnits)); //Binary prefix exbi + metre.
 
             //--- Same rules apply to officially-named compounds. Non-named compounds recognise prefixes, but don't use them.
@@ -229,7 +230,7 @@ namespace Test
 
             //--- The system is automatically determined at variable instantiation. Each unit can belong to just one system.
             PrintSampleItem("Sys1", new UnitP(Units.MetrePerSquareSecond)); //SI acceleration unit (m/s2).
-            PrintSampleItem("Sys2", new UnitP("1 cm/s2")); //CGS acceleration unit (Gal).
+            PrintSampleItem("Sys2", new UnitP("cm/s2")); //CGS acceleration unit (Gal).
             PrintSampleItem("Sys3", new UnitP(1m, UnitSymbols.Rod + "/h2")); //Imperial acceleration unit (rd/h2). 
             PrintSampleItem("Sys4", new UnitP(1m, UnitSymbols.SurveyRod + "/s2")); //USCS acceleration unit (surrd/s2). 
             PrintSampleItem("Sys5", new UnitP(1m, "AU/min2")); //Acceleration unit not belonging to any system (AU/min2). 
@@ -250,8 +251,8 @@ namespace Test
 
             //--- UnitP variables support two different numeric types: decimal and double. 
             PrintSampleItem("Num1", new UnitP(1.23456m, "m")); //The UnitP constructor overloads only support decimal type.
-            PrintSampleItem("Num2", new UnitP("1 ft") * 7.891011m); //Decimal variables can be used in multiplications/divisions.
-            PrintSampleItem("Num3", new UnitP("1 s") * 1213141516.0); //Double variables can be used in multiplications/divisions.
+            PrintSampleItem("Num2", new UnitP("ft") * 7.891011m); //Decimal variables can be used in multiplications/divisions.
+            PrintSampleItem("Num3", new UnitP("s") * 1213141516.0); //Double variables can be used in multiplications/divisions.
             
             //--- All the numeric inputs are converted into decimal type. UnitPVariable.BaseTenExponent avoids eventual type-conversion overflow problems.          
             PrintSampleItem
@@ -280,7 +281,7 @@ namespace Test
             PrintSampleItem("No5", new UnitP("1 ft/m")); //Units.Unitless is associated with the output of operations where all the units cancel each other (with or without automatic conversions).
 
             //--- Unnamed units (Units.Valid[system]Unit).
-            PrintSampleItem("No6", new UnitP("1 yd/s")); //All the parsed compounds not matching any named unit are automatically included in this category.
+            PrintSampleItem("No6", new UnitP("yd/s")); //All the parsed compounds not matching any named unit are automatically included in this category.
             PrintSampleItem("No7", new UnitP(1m, Units.ValidCGSUnit)); //Error. Unnamed units cannot be used as inputs.
 
 

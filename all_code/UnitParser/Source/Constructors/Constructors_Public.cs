@@ -80,6 +80,14 @@ namespace FlexibleParser
                 else parsingError = tempInfo.Error.Type;
             }
 
+            if (parsingError != ErrorTypes.None && !valueAndUnit.Contains(" "))
+            {
+                //valueAndUnit is assumed to only contain unit information.
+                parsingError = ErrorTypes.None;
+                unitInfo.Value = 1m;
+                unitString = valueAndUnit;
+            }
+
             UnitPConstructor unitP2 = GetUnitP2(unitInfo, unitString);
 
             OriginalUnitString = unitP2.OriginalUnitString;

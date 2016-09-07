@@ -352,8 +352,6 @@ namespace FlexibleParser
         //--- Frequency
         ///<summary><para>Hertz symbol. SI frequency unit.</para></summary>    
         public const string Hertz = "Hz";
-        ///<summary><para>Revolution per minute abbreviation. Frequency unit.</para></summary>             
-        public const string RevolutionPerMinute = "rpm";
         ///<summary><para>Cycle per second abbreviation. Frequency unit.</para></summary>                
         public const string CyclePerSecond = "cps";
 
@@ -493,11 +491,11 @@ namespace FlexibleParser
         ///<summary><para>Kelvin symbol. SI temperature unit.</para></summary>
         public const string Kelvin = "K";
         ///<summary><para>Degree Celsius symbol. SI temperature unit.</para></summary>
-        public const string Celsius = "°C";
+        public const string DegreeCelsius = "°C";
         ///<summary><para>Degree Fahrenheit symbol. Imperial/USCS temperature unit.</para></summary>            
-        public const string Fahrenheit = "°F";
+        public const string DegreeFahrenheit = "°F";
         ///<summary><para>Degree Rankine symbol. Imperial/USCS temperature unit.</para></summary>   
-        public const string Rankine = "°R";
+        public const string DegreeRankine = "°R";
 
         //--- Wavenumber
         ///<summary><para>Reciprocal metre symbol. SI wavenumber unit.</para></summary>  
@@ -533,6 +531,8 @@ namespace FlexibleParser
         //--- Angular Velocity
         ///<summary><para>Radian per second symbol. SI angular velocity unit.</para></summary>  
         public const string RadianPerSecond = "rad/s";
+        ///<summary><para>Revolution per minute abbreviation. Angular velocity unit.</para></summary>             
+        public const string RevolutionPerMinute = "rpm";
 
         //--- Angular Acceleration
         ///<summary><para>Radian per square second symbol. SI angular acceleration unit.</para></summary>  

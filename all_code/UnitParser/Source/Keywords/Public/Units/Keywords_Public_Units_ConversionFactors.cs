@@ -398,8 +398,6 @@ namespace FlexibleParser
         ///<para>Reference point for all the frequency units.</para>
         ///</summary>
         public const decimal Hertz = 1m;
-        ///<summary><para>Revolution per minute (rpm) conversion factor. Frequency unit.</para></summary>
-        public const decimal RevolutionPerMinute = 0.0166666666666666666666666667m; //= 1m / Minute;
         ///<summary><para>Cycle per second (cps) conversion factor. Frequency unit.</para></summary>
         public const decimal CyclePerSecond = 1m;
 
@@ -587,6 +585,8 @@ namespace FlexibleParser
         ///<para>Reference point for all the angular velocity units.</para>
         ///</summary>  
         public const decimal RadianPerSecond = 1m;
+        ///<summary><para>Revolution per minute (rpm) conversion factor. Angular velocity unit.</para></summary>
+        public const decimal RevolutionPerMinute = 0.1047197551196597746154214461m; //= Revolution / Minute;
 
         //--- Angular Acceleration
         ///<summary>
@@ -677,7 +677,7 @@ namespace FlexibleParser
         ///</summary>                        
         public const decimal Bel = 1m;
         ///<summary><para>Neper (Np) conversion factor. Logarithmic unit.</para></summary>      
-        public const decimal Neper = 0.8685889638065035m; //= 20.0 / Math.Log(10);
+        public const decimal Neper = 0.8685889638065035m; //= 2.0 / Math.Log(10);
 
         //--- Magnetic Flux
         ///<summary>

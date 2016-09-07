@@ -553,8 +553,7 @@ namespace FlexibleParser
                         UnitSystems.None, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.CyclePerSecond, UnitConversionFactors.CyclePerSecond }, 
-                            { Units.RevolutionPerMinute, UnitConversionFactors.RevolutionPerMinute }
+                            { Units.CyclePerSecond, UnitConversionFactors.CyclePerSecond }
                          }
                     }
                 }
@@ -788,15 +787,15 @@ namespace FlexibleParser
                         {
                             //Mere Placeholders. Temperature conversions are managed through a function.
                             { Units.Kelvin, 1.0m },
-                            { Units.Celsius, 1.0m } 
+                            { Units.DegreeCelsius, 1.0m } 
                         }
                     },
                     {
                         UnitSystems.Imperial, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.Fahrenheit, 1.0m },
-                            { Units.Rankine, 1.0m }
+                            { Units.DegreeFahrenheit, 1.0m },
+                            { Units.DegreeRankine, 1.0m }
                         }
                     }
                 }
@@ -903,6 +902,13 @@ namespace FlexibleParser
                         new Dictionary<Units, decimal>()
                         {
                             { Units.RadianPerSecond, UnitConversionFactors.RadianPerSecond }
+                        }
+                    },
+                    {
+                        UnitSystems.None,
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.RevolutionPerMinute, UnitConversionFactors.RevolutionPerMinute }
                         }
                     }
                 }
@@ -1066,7 +1072,7 @@ namespace FlexibleParser
                         }
                     },
                     {
-                        UnitSystems.None, 
+                        UnitSystems.CGS, 
                         new Dictionary<Units, decimal>()
                         {
                             { Units.Phot, UnitConversionFactors.Phot }
