@@ -131,20 +131,22 @@ namespace FlexibleParser
 
         private static UnitInfo PerformUnitPartConversion(UnitInfo convertInfo, UnitInfo target, bool isInternal = true)
         {
-            Dictionary<UnitPart, UnitPart> allParts = GetAllUnitPartDict
-            (
-                convertInfo.Parts, target.Parts
-            );
+            ConversionItems conversionItems = GetAllUnitPartDict(convertInfo.Parts, target.Parts);
+
+            if (conversionItems.ConvertInfo != null)
+            {
+                convertInfo *= conversionItems.ConvertInfo;
+            }
 
             return
             (
-                allParts.Count == 0 ? new UnitInfo(convertInfo) 
+                conversionItems.OutDict.Count == 0 ? new UnitInfo(convertInfo) 
                 { 
                     Error = new ErrorInfo(ErrorTypes.InvalidUnitConversion) 
                 } 
                 : ConvertAllUnitParts
                 (
-                    convertInfo, allParts, isInternal
+                    convertInfo, conversionItems.OutDict, isInternal
                 )
             );
         }
@@ -228,7 +230,7 @@ namespace FlexibleParser
 
         private static UnitInfo AdaptPartToConversion(UnitPart unitPart, int exponent)
         {
-            UnitInfo outInfo = UnitPartToUnitInfo(unitPart, 1m);
+            UnitInfo outInfo = UnitPartToUnitInfo(unitPart);
             if (outInfo.Unit == Units.Centimetre)
             {
                 //To avoid inconsistencies with individual unit conversions.
@@ -251,9 +253,9 @@ namespace FlexibleParser
         }
 
         //Relates all the original/target unit parts between each other in order to facilitate the subsequent unit conversion.
-        private static Dictionary<UnitPart, UnitPart> GetAllUnitPartDict(List<UnitPart> originals, List<UnitPart> targets, bool findCommonPartMatches = true)
+        private static ConversionItems GetAllUnitPartDict(List<UnitPart> originals, List<UnitPart> targets, bool findCommonPartMatches = true)
         {
-            Dictionary<UnitPart, UnitPart> outParts = new Dictionary<UnitPart, UnitPart>();
+            ConversionItems conversionItems = new ConversionItems(originals, targets);
 
             foreach (UnitPart original in originals)
             {
@@ -265,52 +267,53 @@ namespace FlexibleParser
                 );
                 if (target == null || target.Unit == Units.None) continue;
 
-                outParts.Add(original, target);
+                conversionItems.OutDict.Add(original, target);
             }
 
-            if (outParts.Count < Math.Max(originals.Count, targets.Count))
+            if (conversionItems.OutDict.Count < Math.Max(originals.Count, targets.Count))
             {
                 if (findCommonPartMatches)
                 {
-                    outParts = GetUnitPartDictInCommon
+                    conversionItems = GetUnitPartDictInCommon
                     (
                         new ConversionItems(originals, targets)
                     );
                 }
-                else outParts = new Dictionary<UnitPart, UnitPart>();
+                else conversionItems.OutDict = new Dictionary<UnitPart, UnitPart>();
             }
 
-            return outParts;
+            return conversionItems;
         }
 
         //In some cases, the GetAllUnitPartDict approach doesn't work. For example: BTU/s and W. 
         //Note that ignoring the dividable/non-dividable differences right away (useful in other situations) isn't good here.
         //The only solution is looking for common parts to both units (always the case, by bearing in mind that have the same type). 
         //In the aforementioned example of BTU/s to W, the two pairs BTU-J and s-s will be returned.
-        private static Dictionary<UnitPart, UnitPart> GetUnitPartDictInCommon(ConversionItems conversionItems)
+        private static ConversionItems GetUnitPartDictInCommon(ConversionItems conversionItems)
         {
             conversionItems = GetNonDividableUnitPartDictInCommon(conversionItems);
-
-            if (conversionItems.OutDict.Count == 0 || (conversionItems.Originals.Count == conversionItems.Targets.Count && conversionItems.Originals.Count == 0))
+            
+            if ((conversionItems.Originals.Count == conversionItems.Targets.Count && conversionItems.Originals.Count == 0))
             {
-                //Reaching here and not finding a single non-dividable match is a clear error (managed by the calling function).
-                //On the other hand, no originals/targets left would mean that no further analysis is required.
-                return conversionItems.OutDict;
+                //No originals/targets left would mean that no further analysis is required.
+                //Not having found anything (conversionItems.OutDict empty) is OK on account of the fact that
+                //unmatched non-dividables might have been converted into a dividable version.
+                return conversionItems;
             }
 
             //Trying to match the remaining parts (i.e., individual units not matching any non-dividable compound).
-            Dictionary<UnitPart, UnitPart> outDict2 = GetAllUnitPartDict
+            ConversionItems conversionItems2 = GetAllUnitPartDict
             (
                 conversionItems.Originals, conversionItems.Targets, false
             );
-            if (outDict2.Count == 0) return outDict2;
+            if (conversionItems2.OutDict.Count == 0) return conversionItems2;
 
-            foreach (var item2 in outDict2)
+            foreach (var item2 in conversionItems2.OutDict)
             {
                 conversionItems.OutDict.Add(item2.Key, item2.Value);
             }
 
-            return conversionItems.OutDict;
+            return conversionItems;
         }
 
         //Method looking for proper matches for each non-dividable compound. For example, BTU might be
@@ -339,7 +342,16 @@ namespace FlexibleParser
                     conversionItems = MatchNonDividableParts(conversionItems, i);
                     if (conversionItems.TempPair.Key == null || conversionItems.TempPair.Key.Unit == Units.None)
                     {
-                        return new ConversionItems();
+                        //After not having found a direct match for the given non-dividable, an indirect
+                        //approach (via its type) will be tried.
+                        conversionItems = ReplaceUnmatchedNonDividable
+                        (
+                            conversionItems, count, i
+                        );
+
+                        if (conversionItems.Originals.Count == 0) return conversionItems;
+
+                        continue;
                     }
 
                     //A proper match for the non-divididable part was found.
@@ -351,33 +363,112 @@ namespace FlexibleParser
             return conversionItems;
         }
 
+        private static ConversionItems ReplaceUnmatchedNonDividable(ConversionItems conversionItems, int count, int i)
+        {
+            UnitTypes type = GetTypeFromUnitPart(conversionItems.NonDividables[i], false, true);
+
+            if (!AllBasicCompounds.ContainsKey(type) || !(AllBasicCompounds[type].ContainsKey(UnitSystems.SI) || AllBasicCompounds[type].ContainsKey(UnitSystems.CGS)))
+            {
+                //A hardcoding mistake is the most likely reason for having reached this point. 
+                //Firstly, all the non-dividable units are supposed to be compounds. On the other hand, all the compounds
+                //are expected to be represented by, at least, one unit (included in AllBasicCompounds). Although it is
+                //possible to have a type with no SI units, such a case shouldn't get here. Note that non-dividable are
+                //expected to be defined as opposed to an existing dividable alternative (e.g., SI compound in that type).
+                return new ConversionItems();
+            }
+
+            Units targetUnit =
+            (
+                AllBasicCompounds[type].ContainsKey(UnitSystems.SI) ?
+                AllBasicCompounds[type][UnitSystems.SI] :
+                AllBasicCompounds[type][UnitSystems.CGS]
+            );
+
+            return RemoveNonDividable
+            (
+                PerformNonDividableReplacement
+                (
+                    conversionItems, count, i, targetUnit
+                ), 
+                count, i
+            );
+        }
+
+        private static ConversionItems PerformNonDividableReplacement(ConversionItems conversionItems, int count, int i, Units targetUnit)
+        {
+            conversionItems.ConvertInfo = ConvertUnit
+            (
+                UnitPartToUnitInfo(conversionItems.NonDividables[i]),
+                UpdateMainUnitVariables(new UnitInfo(targetUnit)), false
+            );
+
+            if (conversionItems.ConvertInfo.Error.Type != ErrorTypes.None)
+            {
+                return new ConversionItems();
+            }
+
+            List<UnitPart> list =
+            (
+                count == 1 ? 
+                conversionItems.Originals :
+                conversionItems.Targets                
+            );
+
+            list.Remove(conversionItems.NonDividables[i]);
+            list.AddRange(GetBasicCompoundUnitParts(targetUnit));
+
+            UnitInfo tempInfo = SimplifyCompoundComparisonUnitParts(list, true);
+            list = new List<UnitPart>(tempInfo.Parts);
+            //The simplification actions might have increased the output value via prefix compensation.
+            conversionItems.ConvertInfo *= tempInfo;
+
+            if (count == 1)
+            {
+                conversionItems.Originals = new List<UnitPart>(list);
+            }
+            else
+            {
+                conversionItems.Targets = new List<UnitPart>(list);
+            }
+
+            return conversionItems;
+        }
+
         private static ConversionItems UpdateConversionItems(ConversionItems conversionItems, int count, int i)
         {
+            return UpdateOutDict
+            (
+                RemoveNonDividable(conversionItems, count, i), count
+            );
+        }
+
+        private static ConversionItems RemoveNonDividable(ConversionItems conversionItems, int count, int i)
+        {
+            if (conversionItems.NonDividables.Count - 1 < i) return conversionItems;
+
             conversionItems.NonDividables.RemoveAt(i);
 
             //Originals & Targets are automatically updated with any modification in Others.
             //Not the case with NonDividables, that's why having to call this method.
-            conversionItems = RemoveNonDividableOriginals(conversionItems, count);
-
-            return UpdateOutDict(conversionItems, count);
+            return RemoveNonDividableOriginals(conversionItems, count);
         }
-        
+
         private static ConversionItems UpdateOutDict(ConversionItems conversionItems, int count)
         {
-            if (count == 1)
-            {
-                conversionItems.OutDict.Add
+            var tempPair =
+            (
+                count == 1 ? 
+                new KeyValuePair<UnitPart, UnitPart>
                 (
                     conversionItems.TempPair.Key, conversionItems.TempPair.Value
-                );
-            }
-            else
-            {
-                conversionItems.OutDict.Add
+                ) :
+                new KeyValuePair<UnitPart, UnitPart>
                 (
                     conversionItems.TempPair.Value, conversionItems.TempPair.Key
-                );
-            }
+                )
+            );
+
+            conversionItems.OutDict.Add(tempPair.Value, tempPair.Key);
 
             return conversionItems;
         }
@@ -419,7 +510,11 @@ namespace FlexibleParser
                 (
                     conversionItems.NonDividables[i], matchedPart
                 );
+
+                return conversionItems;
             }
+
+            ConversionItems origConversionItems = new ConversionItems(conversionItems);
 
             List<UnitPart> parts2 = new List<UnitPart>();
             foreach (var nonPart in AllCompounds[GetTypeFromUnitPart(conversionItems.NonDividables[i])][0].Parts)
@@ -430,7 +525,7 @@ namespace FlexibleParser
                 );
                 if (matchedPart == null)
                 {
-                    return conversionItems;
+                    return origConversionItems;
                 }
 
                 //Exponent of the corresponding conversionItems.Others part after having
@@ -469,19 +564,20 @@ namespace FlexibleParser
                 )
             );
 
-            if (tempInfo.Unit != Units.None)
+            if (tempInfo.Unit == Units.None)
             {
                 //Condition avoiding situations like assuming that lb*ft/s2 & BTU are identical.
-
-                conversionItems.TempPair = new KeyValuePair<UnitPart, UnitPart>
-                (
-                    conversionItems.NonDividables[i], new UnitPart
-                    (
-                        tempInfo.Unit, tempInfo.Prefix.Factor,
-                        conversionItems.NonDividables[i].Exponent
-                    )
-                );
+                return origConversionItems;            
             }
+
+            conversionItems.TempPair = new KeyValuePair<UnitPart, UnitPart>
+            (
+                conversionItems.NonDividables[i], new UnitPart
+                (
+                    tempInfo.Unit, tempInfo.Prefix.Factor,
+                    conversionItems.NonDividables[i].Exponent
+                )
+            );
 
             return conversionItems;
         }
@@ -622,27 +718,37 @@ namespace FlexibleParser
             {
                 outInfo = 1.8m * outInfo;
             }
-
+            
             return outInfo;
         }
-    }
 
-    //Class exclusively meant to ease the communication between different functions in one of the unit part
-    //conversion scenarios.
-    internal class ConversionItems
-    {
-        public List<UnitPart> Originals, Targets, NonDividables, Others;
-        public Dictionary<UnitPart, UnitPart> OutDict;
-        public KeyValuePair<UnitPart, UnitPart> TempPair;
-
-        public ConversionItems() : this(new List<UnitPart>(), new List<UnitPart>()) { }
-        public ConversionItems(List<UnitPart> originals, List<UnitPart> targets)
+        //Class exclusively meant to ease the communication between different functions in one of the unit part
+        //conversion scenarios.
+        private class ConversionItems
         {
-            Originals = new List<UnitPart>(originals);
-            Targets = new List<UnitPart>(targets);
-            OutDict = new Dictionary<UnitPart, UnitPart>();
-            NonDividables = new List<UnitPart>();
-            Others = new List<UnitPart>();
+            public List<UnitPart> Originals, Targets, NonDividables, Others;
+            public Dictionary<UnitPart, UnitPart> OutDict;
+            public KeyValuePair<UnitPart, UnitPart> TempPair;
+            public UnitInfo ConvertInfo;
+
+            public ConversionItems(ConversionItems conversionItems)
+            {
+                Originals = new List<UnitPart>(conversionItems.Originals);
+                Targets = new List<UnitPart>(conversionItems.Targets);
+                OutDict = new Dictionary<UnitPart, UnitPart>(conversionItems.OutDict);
+                NonDividables = new List<UnitPart>(conversionItems.NonDividables);
+                Others = new List<UnitPart>(conversionItems.Others);
+            }
+
+            public ConversionItems() : this(new List<UnitPart>(), new List<UnitPart>()) { }
+            public ConversionItems(List<UnitPart> originals, List<UnitPart> targets)
+            {
+                Originals = new List<UnitPart>(originals);
+                Targets = new List<UnitPart>(targets);
+                OutDict = new Dictionary<UnitPart, UnitPart>();
+                NonDividables = new List<UnitPart>();
+                Others = new List<UnitPart>();
+            }
         }
     }
 }

@@ -554,7 +554,7 @@ namespace FlexibleParser
             Units.REM,
 
             //--- Exposure
-            Units.Roentgen,
+            Units.Roentgen
         };
 
         //English-system units which are identical in both Imperial and USCS.
@@ -601,7 +601,7 @@ namespace FlexibleParser
             Units.FootLambert,
 
             //--- Illuminance
-            Units.FootCandle,
+            Units.FootCandle
         };
     }
 }

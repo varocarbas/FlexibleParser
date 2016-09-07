@@ -41,7 +41,7 @@ namespace FlexibleParser
 
             public UnitInfo() : this(0m) { }
 
-            public UnitInfo(Units unit, decimal prefixFactor) : this(0m, unit, new Prefix(prefixFactor)) { }
+            public UnitInfo(Units unit, decimal prefixFactor = 1m) : this(0m, unit, new Prefix(prefixFactor)) { }
             
             public UnitInfo
             (

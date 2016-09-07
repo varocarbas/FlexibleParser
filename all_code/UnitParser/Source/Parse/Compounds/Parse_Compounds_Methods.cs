@@ -127,49 +127,73 @@ namespace FlexibleParser
                     );
                 }
                 else outParts.Add(new UnitPart(part));
-                outParts = SimplifyCompoundComparisonUnitParts(outParts);
+                outParts = SimplifyCompoundComparisonUnitParts(outParts).Parts;
             }
 
             return outParts;
         }
 
-        private static List<UnitPart> SimplifyCompoundComparisonUnitParts(List<UnitPart> outParts)
+        private static UnitInfo SimplifyCompoundComparisonUnitParts(List<UnitPart> unitParts, bool checkPrefixes = false)
         {
-            for (int i = outParts.Count - 1; i >= 0; i--)
+            UnitInfo outInfo = new UnitInfo(1m) 
+            { 
+                Parts = new List<UnitPart>(unitParts) 
+            };
+
+            for (int i = outInfo.Parts.Count - 1; i >= 0; i--)
             {
                 for (int i2 = i - 1; i2 >= 0; i2--)
                 {
-                    UnitTypes type1 = GetTypeFromUnit(outParts[i].Unit);
-                    UnitTypes type2 = GetTypeFromUnit(outParts[i2].Unit);
+                    UnitTypes type1 = GetTypeFromUnit(outInfo.Parts[i].Unit);
+                    UnitTypes type2 = GetTypeFromUnit(outInfo.Parts[i2].Unit);
                     if (type1 == type2)
                     {
-                        if (outParts[i].Unit != outParts[i2].Unit)
+                        if (outInfo.Parts[i].Unit != outInfo.Parts[i2].Unit)
                         {
                             //This method is only called to perform basic unit matching; more specifically, finding
                             //the (dividable) compounds best matching the non-dividable ones. No direct conversions
                             //will be performed among the outputs of this function, that's why the exact units aren't
                             //that important. For example: when dealing with rood/rod, the only output which matters
                             //is the resulting type (i.e., length). It doesn't matter if it is rod or ft or other unit.
-                            outParts[i].Unit = outParts[i2].Unit;
+                            outInfo.Parts[i].Unit = outInfo.Parts[i2].Unit;
                         }
-                        outParts[i].Exponent += outParts[i2].Exponent;
-
-                        if (outParts[i].Exponent == 0)
+                        else if (checkPrefixes && (outInfo.Parts[i].Prefix.Factor != 1m || outInfo.Parts[i2].Prefix.Factor != 1m))
                         {
-                            outParts.RemoveAt(i);
+                            //Reaching here means that the returned information will be used in an intermediate conversion.
+                            //In such a scenario, unit part prefix might become error sources.
+                            outInfo *= RaiseToIntegerExponent
+                            (
+                                outInfo.Parts[i].Prefix.Factor,
+                                outInfo.Parts[i].Exponent
+                            );
+                            outInfo.Parts[i].Prefix = new Prefix();
+
+                            outInfo *= RaiseToIntegerExponent
+                            (
+                                outInfo.Parts[i2].Prefix.Factor,
+                                outInfo.Parts[i2].Exponent
+                            );
+                            outInfo.Parts[i2].Prefix = new Prefix();
                         }
-                        outParts.RemoveAt(i2);
 
-                        if (outParts.Count == 0 || i > outParts.Count - 1)
+                        outInfo.Parts[i].Exponent += outInfo.Parts[i2].Exponent;
+
+                        if (outInfo.Parts[i].Exponent == 0)
                         {
-                            i = outParts.Count;
+                            outInfo.Parts.RemoveAt(i);
+                        }
+                        outInfo.Parts.RemoveAt(i2);
+
+                        if (outInfo.Parts.Count == 0 || i > outInfo.Parts.Count - 1)
+                        {
+                            i = outInfo.Parts.Count;
                             break;
                         }
                     }
                 }
             }
 
-            return outParts;
+            return outInfo;
         }
 
         private static bool UnitPartsMatchCompoundParts(List<UnitPart> unitParts, List<CompoundPart> compoundParts)

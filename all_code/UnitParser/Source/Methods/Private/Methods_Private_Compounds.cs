@@ -6,7 +6,7 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        private static UnitInfo UnitPartToUnitInfo(UnitPart unitPart, decimal value = 0m)
+        private static UnitInfo UnitPartToUnitInfo(UnitPart unitPart, decimal value = 1m)
         {
             Units unit = unitPart.Unit;
             UnitInfo outUnitInfo = new UnitInfo(value, unit, unitPart.Prefix);

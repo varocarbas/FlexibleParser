@@ -37,7 +37,7 @@ namespace FlexibleParser
             {
                 char bit = inputArray[i];
 
-                if (IsCompoundDescriptive(bit, true))
+                if (IsCompoundDescriptive(bit, true) && !SkipCompoundDescriptive(i, inputArray, previous.ToString()))
                 {
                     if (bit == '-')
                     {
@@ -77,6 +77,32 @@ namespace FlexibleParser
                 previous.Length == 0 ? parseInfo :
                 UpdateUnitParts(parseInfo, previous, isNumerator, symbol)
             );
+        }
+
+        private static bool SkipCompoundDescriptive(int i, char[] inputArray, string sofar)
+        {
+            if (inputArray[i].ToString().ToLower() == "x")
+            {
+                //By default, x is assumed to be a multiplication sign.
+                sofar = sofar.ToLower();
+
+                if (sofar == "ma" || sofar == "lu")
+                {
+                    //It isn't a multiplication sign, but part of the string representations
+                    //of maxwell or lux.
+                    return true;
+                }
+                else if (sofar == "m" || sofar == "l")
+                {
+                    if (i == inputArray.Length - 1 || IsCompoundDescriptive(inputArray[i + 1]))
+                    {
+                        //It isn't a multiplication sign, but part of the symbols Mx or lx.
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         //When parsing a unit, only integer exponents are considered valid numbers (e.g., m2). Inverse units 
