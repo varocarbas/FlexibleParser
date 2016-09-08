@@ -55,7 +55,7 @@ namespace FlexibleParser
                     continue;
                 }
 
-                prefixInfo *= unitInfo.Parts[i].Prefix.Factor;
+                prefixInfo = prefixInfo * unitInfo.Parts[i].Prefix.Factor;
                 unitInfo.Parts[i].Prefix = new Prefix();
             }
 

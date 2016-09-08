@@ -336,7 +336,7 @@ namespace FlexibleParser
             );
         }
 
-        private static List<UnitPart> GetUnitPartsFromBasicCompound(Compound compound, UnitSystems system, int exponent = 1)
+        private static List<UnitPart> GetUnitPartsFromBasicCompound(Compound compound, UnitSystems system, int sign = 1)
         {
             List<UnitPart> outParts = new List<UnitPart>();
             if (system == UnitSystems.None) system = UnitSystems.SI;
@@ -349,7 +349,7 @@ namespace FlexibleParser
                     new UnitPart
                     (
                         basic.Unit, basic.PrefixFactor, 
-                        exponent * compoundPart.Exponent
+                        sign * compoundPart.Exponent
                     )
                 );
             }

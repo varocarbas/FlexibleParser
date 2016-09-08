@@ -117,13 +117,15 @@ namespace FlexibleParser
                 UnitTypes type2 = GetTypeFromUnitPart(part, false, true);
                 if (AllCompounds.ContainsKey(type2))
                 {
+                    List<UnitPart> parts2 = GetUnitPartsFromBasicCompound
+                    (
+                        AllCompounds[type2][0],
+                        unitInfo.System, Math.Sign(part.Exponent)
+                    );
+                    
                     outParts.AddRange
                     (
-                        GetUnitPartsFromBasicCompound
-                        (
-                            AllCompounds[type2][0],
-                            unitInfo.System, part.Exponent
-                        )
+                        AddExponentInformationToParts2(parts2, part)
                     );
                 }
                 else outParts.Add(new UnitPart(part));
@@ -131,6 +133,25 @@ namespace FlexibleParser
             }
 
             return outParts;
+        }
+
+        private static List<UnitPart> AddExponentInformationToParts2(List<UnitPart> parts2, UnitPart part)
+        {
+            int exp2 = Math.Abs(part.Exponent);
+            if (parts2.Count == 1 && parts2[0].Exponent != 1)
+            {
+                exp2 -= Math.Abs(parts2[0].Exponent);
+            }
+
+            if (exp2 != 0)
+            {
+                for (int i = 0; i < parts2.Count; i++)
+                {
+                    parts2[i].Exponent *= Math.Sign(part.Exponent) * exp2;
+                }
+            }
+
+            return parts2;
         }
 
         private static UnitInfo SimplifyCompoundComparisonUnitParts(List<UnitPart> unitParts, bool checkPrefixes = false)
@@ -190,6 +211,14 @@ namespace FlexibleParser
                             break;
                         }
                     }
+                }
+            }
+
+            for (int i = outInfo.Parts.Count - 1; i >= 0; i--)
+            {
+                if (outInfo.Parts[i].Exponent == 0)
+                {
+                    outInfo.Parts.RemoveAt(i);
                 }
             }
 
