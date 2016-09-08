@@ -465,7 +465,7 @@ namespace FlexibleParser
                 )
             );
 
-            conversionItems.OutDict.Add(tempPair.Value, tempPair.Key);
+            conversionItems.OutDict.Add(tempPair.Key, tempPair.Value);
 
             return conversionItems;
         }
