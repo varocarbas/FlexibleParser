@@ -6,7 +6,7 @@ namespace FlexibleParser
     ///<summary><para>All the supported units.</para></summary>
     public enum Units
     {
-        ///<summary><para>No supported unit was found.</para></summary>  
+        ///<summary><para>No supported unit.</para></summary>  
         None = 0,
 
         ///<summary><para>Unitless variable.</para></summary>  
@@ -237,7 +237,7 @@ namespace FlexibleParser
         ///</summary>                      
         Slug,
         ///<summary>
-        ///<para>Long quarter (qr). Imperial mass unit.</para>
+        ///<para>Quarter (qr). Imperial mass unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>              
         ///</summary>          
         Quarter,
@@ -252,7 +252,7 @@ namespace FlexibleParser
         ///</summary>          
         ShortQuarter,
         ///<summary>
-        ///<para>Imperial hundredweight (cwt). Imperial mass unit.</para>
+        ///<para>Hundredweight (cwt). Imperial mass unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>              
         ///</summary>          
         Hundredweight,
@@ -413,7 +413,7 @@ namespace FlexibleParser
         ///</summary>                 
         CubicInch,
         ///<summary>
-        ///<para>Imperial fluid ounce (floz). Imperial volume unit.</para>
+        ///<para>Fluid ounce (floz). Imperial volume unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>              
         ///</summary>  
         FluidOunce,
@@ -1496,10 +1496,15 @@ namespace FlexibleParser
 
         //--- Electric Field Strength
         ///<summary>
-        ///<para>Newton per coulomb (N/C). SI Electric Field Strength unit.</para>
+        ///<para>Newton per coulomb (N/C). SI electric field strength unit.</para>
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         NewtonPerCoulomb,
+        ///<summary>
+        ///<para>Volt per metre (V/m). SI electric field strength unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
+        ///</summary> 
+        VoltPerMetre,
 
         //--- Linear Electric Charge Density
         ///<summary>
@@ -1529,16 +1534,16 @@ namespace FlexibleParser
         ///</summary> 
         AmperePerSquareMetre,
 
-        //--- Permittivity
+        //--- Electromagnetic Permittivity
         ///<summary>
-        ///<para>Farad per metre (F/m). SI permittivity unit.</para>
+        ///<para>Farad per metre (F/m). SI electromagnetic permittivity unit.</para>
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         FaradPerMetre,
 
-        //--- Permeability
+        //--- Electromagnetic Permeability
         ///<summary>
-        ///<para>Henry per metre (H/m). SI permeability unit.</para>
+        ///<para>Henry per metre (H/m). SI electromagnetic permeability unit.</para>
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         HenryPerMetre,
@@ -1606,7 +1611,7 @@ namespace FlexibleParser
         ///</summary> 
         InverseSquareMetre,
         ///<summary>
-        ///<para>Imperial mile per gallon (mpg). Imperial fuel economy unit.</para>
+        ///<para>Mile per gallon (mpg). Imperial fuel economy unit.</para>
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>            
         ///</summary> 
         MilePerGallon,
@@ -1620,6 +1625,11 @@ namespace FlexibleParser
         ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>          
         ///</summary>     
         USCSMilePerGallon,
+        ///<summary>
+        ///<para>Kilometre per litre (km/L). Fuel economy unit.</para>
+        ///<para>No prefix may be used with this unit. This restriction doesn't apply to its constituent parts.</para>          
+        ///</summary>     
+        KilometrePerLitre,
 
         //--- Sound Exposure
         ///<summary>

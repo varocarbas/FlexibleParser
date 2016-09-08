@@ -48,7 +48,7 @@ namespace FlexibleParser
 
         private static UnitInfo PerformManagedOperationAddition(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {   
-            //After being normalised, the operands might be modified further.
+            //After being normalised, the operands might require further modifications.
             UnitInfo[] normalised = GetOperandsAddition(firstInfo, secondInfo, operation);
 
             return PerformManagedOperationNormalisedValues
@@ -67,7 +67,7 @@ namespace FlexibleParser
             if (operands2[0].BaseTenExponent != operands2[1].BaseTenExponent || operands2[0].Prefix.Factor != operands2[1].Prefix.Factor)
             {
                 //The addition/subtraction might not be performed right away even with normalised values.
-                //For example: 5 and 6 from 5*10^2 and 6*10^7 cannot be added right away; same problem with normalised UnitInfo variables.
+                //For example: 5 and 6 from 5*10^2 and 6*10^7 cannot be added right away.
                 operands2 = AdaptNormalisedValuesForAddition
                 (
                     new UnitInfo[] 
@@ -86,8 +86,7 @@ namespace FlexibleParser
         {
             if (unitInfos2[0].BaseTenExponent == unitInfos2[1].BaseTenExponent)
             {
-                //Same BaseTenExponent values means that the given operation can be performed right away 
-                //(bear in mind that normalised implies no prefixes).
+                //Having the same BaseTenExponent values means that the given operation can be performed right away.
                 return unitInfos2;
             }
 
@@ -120,8 +119,8 @@ namespace FlexibleParser
             UnitInfo[] outInfos = new UnitInfo[] 
             {
                 //First operand (i.e., one whose information defines the operation) together with the
-                //numeric information (i.e., Value and BaseTenExponent, as far as both are normalised)
-                //with is associated with the biggest one.
+                //numeric information (i.e., just Value and BaseTenExponent because both are normalised)
+                //which is associated with the biggest one.
                 new UnitInfo(unitInfos2[0])
                 {
                     Value = unitInfos2[bigSmallI[0]].Value,
@@ -156,7 +155,7 @@ namespace FlexibleParser
                 };
             }
 
-            //The reason for using PerformManagedOperationValues is to make sure that the resulting numeric information is stored
+            //PerformManagedOperationValues is used to make sure that the resulting numeric information is stored
             //in Value (if possible).
             UnitInfo big2 = PerformManagedOperationValues
             (
@@ -223,6 +222,38 @@ namespace FlexibleParser
                     NormaliseUnitInfo(secondInfo) 
                 },
                 operation
+            );
+        }
+
+        private static UnitInfo RaiseToIntegerExponent(decimal baseValue, int exponent)
+        {
+            return RaiseToIntegerExponent(new UnitInfo(baseValue), exponent);
+        }
+
+        private static UnitInfo RaiseToIntegerExponent(UnitInfo baseInfo, int exponent)
+        {
+            if (exponent <= 1 && exponent >= 0)
+            {
+                baseInfo.Value = (exponent == 0 ? 1m : baseInfo.Value);
+                return baseInfo;
+            }
+
+            UnitInfo outInfo = new UnitInfo(baseInfo);
+
+            for (int i = 1; i < Math.Abs(exponent); i++)
+            {
+                outInfo = PerformManagedOperationValues
+                (
+                    outInfo, baseInfo, Operations.Multiplication
+                );
+                if (outInfo.Error.Type != ErrorTypes.None) return outInfo;
+            }
+
+            return
+            (
+                exponent < 0 ?
+                PerformManagedOperationValues(new UnitInfo(1m), outInfo, Operations.Division) :
+                outInfo
             );
         }
 

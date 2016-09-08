@@ -75,6 +75,8 @@ namespace FlexibleParser
         
         private static ParseInfo CheckBinaryPrefixes(ParseInfo parseInfo)
         {
+            InitialisePrefixNames(PrefixTypes.Binary);
+
             return CheckPrefixes
             (
                 parseInfo, PrefixTypes.Binary,
@@ -84,6 +86,8 @@ namespace FlexibleParser
 
         private static ParseInfo CheckSIPrefixes(ParseInfo parseInfo)
         {
+            InitialisePrefixNames(PrefixTypes.SI);
+
             return CheckPrefixes
             (
                 parseInfo, PrefixTypes.SI,
@@ -120,7 +124,7 @@ namespace FlexibleParser
 
             if (input.ToLower().StartsWith(prefixName))
             {
-                //String representation. Caps don't matter.
+                //String representation. Case doesn't matter.
                 remString = input.Substring(prefixName.Length);
             }
             else if (input.StartsWith(prefixSymbol))

@@ -70,9 +70,9 @@ namespace FlexibleParser
             );
         }
 
-        //All the unit names are stored in AllUnitStrings, whose elements are always case insensitive.
-        //Not storing one of them means that the string representations of the given unit have always to
-        //be treated case-sensitively.
+        //All the unit names are stored in AllUnitStrings, whose elements are treated case insensitively.
+        //Not storing one of them would mean that all the associated string representations are always
+        //treated case-sensitively to avoid confusions.
         private static bool StoreUnitNameIsOK(Units unit)
         {
             return
@@ -84,8 +84,7 @@ namespace FlexibleParser
             );
         }
 
-        //Populates additional symbols (i.e., unit string representations where case does matter) 
-        //for some units.
+        //Stores additional symbols (case does matter) for some units.
         private static void PopulateUnitSymbols2()
         {
             AllUnitSymbols2 = new Dictionary<string, Units>();
@@ -96,8 +95,6 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("lnk", Units.Link);
             AllUnitSymbols2.Add("fm", Units.Fermi);
             AllUnitSymbols2.Add("psc", Units.Parsec);
-            AllUnitSymbols2.Add("M/h", Units.Knot);
-            AllUnitSymbols2.Add("nmi/h", Units.Knot);
             AllUnitSymbols2.Add("l", Units.Litre);
             AllUnitSymbols2.Add("p", Units.Pint);
             AllUnitSymbols2.Add("impp", Units.ImperialPint);
@@ -109,11 +106,6 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("car", Units.Carat);
             AllUnitSymbols2.Add("kgf", Units.Kilopond);
             AllUnitSymbols2.Add("r", Units.Revolution);
-            AddToAllUnitStrings("km/h", Units.KilometrePerHour);
-            AddToAllUnitStrings("M/h", Units.MilePerHour);
-            AllUnitSymbols2.Add("mi/h", Units.MilePerHour);
-            AllUnitSymbols2.Add("lbf/in2", Units.PoundforcePerSquareInch);
-            AllUnitSymbols2.Add("lbf/ft2", Units.PoundforcePerSquareFoot);
             AllUnitSymbols2.Add("stC", Units.Statcoulomb);
             AllUnitSymbols2.Add("stA", Units.Statampere);
             AllUnitSymbols2.Add("stV", Units.Statvolt);
@@ -122,14 +114,9 @@ namespace FlexibleParser
             AllUnitSymbols2.Add("st℧", Units.Statmho);
             AllUnitSymbols2.Add("stF", Units.Statfarad);
             AllUnitSymbols2.Add("stH", Units.Stathenry);
-            AllUnitSymbols2.Add("lm/ft2", Units.FootCandle);
-            AllUnitSymbols2.Add("mi/gal", Units.MilePerGallon);
-            AllUnitSymbols2.Add("ukmpg", Units.ImperialMilePerGallon);
-            AllUnitSymbols2.Add("usmpg", Units.USCSMilePerGallon);
         }
 
-        //Populates all the unit string representations which aren't symbols. That is: when dealing
-        //with them, case doesn't matter.
+        //Populates all the unit string representations which aren't symbols (case doesn't matter).
         private static void PopulateAllUnitStrings()
         {
             Units unit = Units.Unitless;
@@ -329,6 +316,12 @@ namespace FlexibleParser
             AddToAllUnitStrings("reciprocalsquaremetre", unit);
             AddToAllUnitStrings("inversesquaremeter", unit);
             AddToAllUnitStrings("reciprocalsquaremeter", unit);
+
+            unit = Units.ImperialMilePerGallon;
+            AddToAllUnitStrings("ukmpg", unit);
+
+            unit = Units.USCSMilePerGallon;
+            AddToAllUnitStrings("usmpg", unit);
 
             unit = Units.BitPerSecond;
             AddToAllUnitStrings("bps", unit);

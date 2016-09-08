@@ -7,34 +7,34 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        ///<summary><para>Unit.</para></summary>
+        ///<summary><para>Member of the Units enum which best suits the current conditions.</para></summary>
         public readonly Units Unit;
-        ///<summary><para>Type of the unit.</para></summary>
+        ///<summary><para>Member of the UnitTypes enum which best suits the current conditions.</para></summary>
         public readonly UnitTypes UnitType;
-        ///<summary><para>System of the unit.</para></summary>
+        ///<summary><para>Member of the UnitSystems enum which best suits the current conditions.</para></summary>
         public readonly UnitSystems UnitSystem;        
-        ///<summary><para>Prefix of the unit (if applicable).</para></summary>
+        ///<summary><para>Prefix information affecting all the unit parts.</para></summary>
         public readonly Prefix UnitPrefix = new Prefix();
-        ///<summary><para>Constituent parts of the unit.</para></summary>
+        ///<summary><para>List containing the basic unit parts which define the current unit.</para></summary>
         public ReadOnlyCollection<UnitPart> UnitParts;
-        ///<summary><para>Input string to parse.</para></summary>
+        ///<summary><para>String variable including the unit information which was input at variable instantiation.</para></summary>
         public readonly string OriginalUnitString;
-        ///<summary><para>Unit in string format.</para></summary>
+        ///<summary><para>String variable containing the symbol(s) best describing the current unit.</para></summary>
         public readonly string UnitString;
-        ///<summary><para>Unit and value in string format.</para></summary>
+        ///<summary><para>String variable including both numeric and unit information associated with the current conditions.</para></summary>
         public readonly string ValueAndUnitString;
-        ///<summary><para>Base-10 exponent helping to deal with too small/big numbers.</para></summary>
+        ///<summary><para>Base-ten exponent used when dealing with too small/big numeric values.</para></summary>
         public readonly int BaseTenExponent;
-        ///<summary><para>Error management.</para></summary>
+        ///<summary><para>ErrorInfo variable containing all the error- and exception-related information.</para></summary>
         public readonly ErrorInfo Error;
-        ///<summary><para>Main value associated with the unit.</para></summary>
+        ///<summary><para>Decimal variable storing the primary numeric information under the current conditions.</para></summary>
         public decimal Value { get; set; }
 
-        ///<summary><para>Initialises a new instance of UnitP.</para></summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
+        ///<summary><para>Initialises a new UnitP instance.</para></summary>
+        ///<param name="value">Numeric value to be used.</param>
         ///<param name="unitString">Unit information to be parsed.</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param>
+        ///<param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>
         public UnitP(decimal value, string unitString, ExceptionHandlingTypes exceptionHandling, PrefixUsageTypes prefixUsage)
         {
             UnitPConstructor unitP2 = GetUnitP2(value, unitString, exceptionHandling, prefixUsage);
@@ -54,11 +54,11 @@ namespace FlexibleParser
         }
         
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///</summary>
-        ///<param name="valueAndUnit">String containing the value and unit information to be parsed. Expected format: number, separating space and unit.</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param>       
+        ///<param name="valueAndUnit">String containing the value and unit information to be parsed.</param>
+        ///<param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>       
         public UnitP(string valueAndUnit, ExceptionHandlingTypes exceptionHandling, PrefixUsageTypes prefixUsage)
         {
             ErrorTypes parsingError = 
@@ -108,60 +108,30 @@ namespace FlexibleParser
             );
         }
 
-        private UnitInfo ParseValueAndUnit(string valueAndUnit)
-        {
-            UnitInfo unitInfo = new UnitInfo();
-            string[] parts = valueAndUnit.Trim().Split(' ');
-
-            //Note that ParseDecimal can deal with any number (i.e., decimal, double or beyond double).
-            if (parts.Length >= 2)
-            {
-                unitInfo = ParseDecimal(parts[0]);
-
-                if (unitInfo.Error.Type == ErrorTypes.None)
-                {
-                    unitInfo.TempString = String.Join(" ", parts, 1, parts.Length - 1);
-                }
-            }
-            else if (parts.Length == 1)
-            {
-                unitInfo = ParseDecimal(valueAndUnit);
-
-                if (unitInfo.Error.Type == ErrorTypes.None)
-                {
-                    unitInfo.TempString = "Unitless";
-                }
-            }
-
-            return unitInfo;
-        }
-
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Unit = Units.Unitless</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        public UnitP(decimal value = 0m) : this(value, Units.Unitless) { }
+        ///<param name="value">Numeric value to be used.</param>
+        public UnitP(decimal value = 1m) : this(value, Units.Unitless) { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Value = 1m</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="unit">Unit.</param>
+        ///<param name="unit">Member of the Units enum to be used.</param>
         public UnitP(Units unit) : this(1m, unit) { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///</summary>
-        ///<param name="unitP">unitP variable whose information will be used.</param> 
-        ///<param name="prefixUsage">Prefix usage definition.</param> 
-        ///<param name="exceptionHandling">Exception handling definition.</param> 
+        ///<param name="unitP">unitP variable whose information will be used.</param>
         public UnitP(UnitP unitP) 
         {
             Value = unitP.Value;
@@ -178,18 +148,13 @@ namespace FlexibleParser
         }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefix">Prefix associated with the unit.</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param>     
-        public UnitP
-        (
-            decimal value, Units unit, Prefix prefix, ExceptionHandlingTypes exceptionHandling, 
-            PrefixUsageTypes prefixUsage
-        )
+        ///<param name="value">Numeric value to be used.</param>
+        ///<param name="unit">Member of the Units enum to be used.</param>
+        ///<param name="prefix">Prefix variable whose information will be used.</param>
+        ///<param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param> 
+        public UnitP(decimal value, Units unit, Prefix prefix, ExceptionHandlingTypes exceptionHandling)
         {
             ErrorTypes errorType = 
             (
@@ -205,9 +170,6 @@ namespace FlexibleParser
 
                 if (tempInfo.Error.Type == ErrorTypes.None)
                 {
-                    //While getting the unit parts, some automatic conversions might have been performed
-                    //and the associated values have to be taken into account.
-                    tempInfo *= value;
                     tempInfo = ImproveUnitInfo(tempInfo, false);
                 }
                 else errorType = tempInfo.Error.Type;
@@ -242,12 +204,12 @@ namespace FlexibleParser
         }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
+        ///<param name="value">Numeric value to be used.</param>
         ///<param name="unitString">String containing the unit information to be parsed.</param>
         public UnitP(decimal value, string unitString) : this
         (
@@ -257,13 +219,13 @@ namespace FlexibleParser
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
+        ///<param name="value">Numeric value to be used.</param>
         ///<param name="unitString">String containing the unit information to be parsed.</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param>
+        ///<param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
         public UnitP
         (
             decimal value, string unitString, ExceptionHandlingTypes exceptionHandling
@@ -271,13 +233,13 @@ namespace FlexibleParser
         : this (value, unitString, exceptionHandling, PrefixUsageTypes.DefaultUsage) { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
+        ///<param name="value">Numeric value to be used.</param>
         ///<param name="unitString">String containing the unit information to be parsed.</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param>    
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>    
         public UnitP(decimal value, string unitString, PrefixUsageTypes prefixUsage) : this
         (
             value, unitString, ExceptionHandlingTypes.NeverTriggerException, prefixUsage
@@ -285,12 +247,12 @@ namespace FlexibleParser
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="valueAndUnit">String containing the value and unit information to be parsed. Expected format: number, separating space and unit.</param>
+        ///<param name="valueAndUnit">String containing the value and unit information to be parsed.</param>
         public UnitP(string valueAndUnit) : this
         (
             valueAndUnit, ExceptionHandlingTypes.NeverTriggerException, PrefixUsageTypes.DefaultUsage
@@ -298,12 +260,12 @@ namespace FlexibleParser
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="valueAndUnit">String containing the value and unit information to be parsed. Expected format: number, separating space and unit.</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param>           
+        ///<param name="valueAndUnit">String containing the value and unit information to be parsed.</param>
+        ///<param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>           
         public UnitP(string valueAndUnit, ExceptionHandlingTypes exceptionHandling) : this
         (
             valueAndUnit, exceptionHandling, PrefixUsageTypes.DefaultUsage
@@ -311,12 +273,12 @@ namespace FlexibleParser
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///</summary>
-        ///<param name="valueAndUnit">String containing the value and unit information to be parsed. Expected format: number, separating space and unit.</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param>          
+        ///<param name="valueAndUnit">String containing the value and unit information to be parsed.</param>
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>          
         public UnitP(string valueAndUnit, PrefixUsageTypes prefixUsage) : this
         (
             valueAndUnit, ExceptionHandlingTypes.NeverTriggerException, prefixUsage
@@ -324,144 +286,58 @@ namespace FlexibleParser
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
-        ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefix">Prefix associated with the unit.</param>
+        ///<param name="value">Numeric value to be used.</param>
+        ///<param name="unit">Member of the Units enum to be used.</param>
+        ///<param name="prefix">Prefix variable whose information will be used.</param>
         public UnitP(decimal value, Units unit, Prefix prefix) : this
         (
-            value, unit, prefix, ExceptionHandlingTypes.NeverTriggerException, 
-            PrefixUsageTypes.DefaultUsage
+            value, unit, prefix, ExceptionHandlingTypes.NeverTriggerException
         )
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefixFactor">Factor defining the prefix associated with the unit (Prefix.Factor).</param>
-        public UnitP(decimal value, Units unit, decimal prefixFactor) : this
-        (
-            value, unit, new Prefix(prefixFactor), ExceptionHandlingTypes.NeverTriggerException,
-            PrefixUsageTypes.DefaultUsage
-        )
-        { }
-
-        ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
-        ///<para>Automatically assigned values:</para>
-        ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
-        ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
-        ///<para>Prefix.Factor = 1m</para>
-        ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
+        ///<param name="value">Numeric value to be used.</param>
+        ///<param name="unit">Member of the Units enum to be used.</param>
         public UnitP(decimal value, Units unit) : this
         (
-            value, unit, new Prefix(), ExceptionHandlingTypes.NeverTriggerException,
-            PrefixUsageTypes.DefaultUsage
+            value, unit, new Prefix(), ExceptionHandlingTypes.NeverTriggerException
         )
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefix">Prefix associated with the unit.</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param> 
-        public UnitP(decimal value, Units unit, Prefix prefix, ExceptionHandlingTypes exceptionHandling) : this
-        (
-            value, unit, prefix, exceptionHandling, PrefixUsageTypes.DefaultUsage
-        )
-        { }
-
-        ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
-        ///<para>Automatically assigned values:</para>
-        ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
-        ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefixFactor">Factor defining the prefix associated with the unit (Prefix.Factor).</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param> 
-        public UnitP(decimal value, Units unit, decimal prefixFactor, ExceptionHandlingTypes exceptionHandling) : this
-        (
-            value, unit, new Prefix(prefixFactor), exceptionHandling, 
-            PrefixUsageTypes.DefaultUsage
-        )
-        { }
-
-        ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
-        ///<para>Automatically assigned values:</para>
-        ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
-        ///<para>Prefix.Factor = 1m</para>
-        ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="exceptionHandling">Exception handling definition.</param> 
+        ///<param name="value">Numeric value to be used.</param>
+        ///<param name="unit">Member of the Units enum to be used.</param>
+        ///<param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param> 
         public UnitP(decimal value, Units unit, ExceptionHandlingTypes exceptionHandling) : this
         (
-            value, unit, new Prefix(), exceptionHandling, PrefixUsageTypes.DefaultUsage
+            value, unit, new Prefix(), exceptionHandling
         )
         { }
 
         ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
+        ///<para>Initialises a new UnitP instance.</para>
         ///<para>Automatically assigned values:</para>
         ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
         ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefix">Prefix associated with the unit.</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param> 
-        public UnitP(decimal value, Units unit, Prefix prefix, PrefixUsageTypes prefixUsage) : this
-        (
-            value, unit, prefix, ExceptionHandlingTypes.NeverTriggerException,
-            prefixUsage
-        )
-        { }
-
-        ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
-        ///<para>Automatically assigned values:</para>
-        ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
-        ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefixFactor">Factor defining the prefix associated with the unit (Prefix.Factor).</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param> 
-        public UnitP(decimal value, Units unit, decimal prefixFactor, PrefixUsageTypes prefixUsage) : this
-        (
-            value, unit, new Prefix(prefixFactor),
-            ExceptionHandlingTypes.NeverTriggerException, prefixUsage
-        )
-        { }
-
-        ///<summary>
-        ///<para>Initialises a new instance of UnitP.</para>
-        ///<para>Automatically assigned values:</para>
-        ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
-        ///<para>Prefix.Factor = 1m</para>
-        ///</summary>
-        ///<param name="value">Numerical value associated with the given unit.</param>
-        ///<param name="unit">Unit.</param>
-        ///<param name="prefixUsage">Prefix usage definition.</param> 
+        ///<param name="value">Numeric value to be used.</param>
+        ///<param name="unit">Member of the Units enum to be used.</param>
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param> 
         public UnitP(decimal value, Units unit, PrefixUsageTypes prefixUsage) : this
         (
-            value, unit, new Prefix(), ExceptionHandlingTypes.NeverTriggerException, 
-            prefixUsage
+            value, unit, new Prefix(), ExceptionHandlingTypes.NeverTriggerException
         )
         { }
     }

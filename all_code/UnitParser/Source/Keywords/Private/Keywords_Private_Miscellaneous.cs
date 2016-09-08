@@ -8,7 +8,7 @@ namespace FlexibleParser
     {
         //While determining the system from the contituent parts, some units might be misinterpreted. 
         //For example: in ft/s, assuming SI (because of s) would be wrong. This collection avoids these
-        //problems by including types to be ignored in these analyses (i.e., neutral types).
+        //problems by including the types to be ignored in these analyses, the neutral types.
         private static UnitTypes[] NeutralTypes = new UnitTypes[]
         {
             UnitTypes.Time, UnitTypes.Angle, UnitTypes.SolidAngle,
@@ -24,7 +24,7 @@ namespace FlexibleParser
 
         //Class storing all the unit-related information. 
         //It includes the main numeric variables (Value, Prefix.Factor & BaseTenExponent) and, consequently,
-        //is also the managed operations (i.e., error-free-ly dealing with numbers of any size) basic class.
+        //is also the main class when dealing with managed operations (i.e., error-free-ly dealing with numbers of any size).
         private class UnitInfo
         {
             public decimal Value { get; set; }
@@ -137,7 +137,7 @@ namespace FlexibleParser
 
                     if (tempInfo.Value != 1 || tempInfo.BaseTenExponent != 0)
                     {
-                        //While getting the parts, some automatic conversions might occur;
+                        //While getting the parts, some automatic conversions might occur and
                         //the associated values have to be accounted for.
                         tempInfo = NormaliseUnitInfo(tempInfo);
                         BaseTenExponent += tempInfo.BaseTenExponent;
@@ -152,7 +152,7 @@ namespace FlexibleParser
                                 //Very unlikely scenario, but possible.
                                 Value /= 10;
                                 BaseTenExponent += 1;
-                                Value = Value * tempInfo.Value;
+                                Value *= tempInfo.Value;
                             }
                             catch
                             {

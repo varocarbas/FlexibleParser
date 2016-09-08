@@ -91,19 +91,19 @@ namespace FlexibleParser
         public const string Stone = "st";
         ///<summary><para>Slug symbol. Imperial/USCS mass unit.</para></summary>                      
         public const string Slug = "sl";
-        ///<summary><para>Long quarter symbol. Imperial mass unit.</para></summary>          
+        ///<summary><para>Quarter symbol. Imperial mass unit.</para></summary>          
         public const string Quarter = "qr";
         ///<summary><para>Long quarter abbreviation. Imperial mass unit.</para></summary>         
         public const string LongQuarter = "impqr";
         ///<summary><para>Short quarter abbreviation. USCS mass unit.</para></summary>           
         public const string ShortQuarter = "uscqr";
-        ///<summary><para>Imperial hundredweight symbol. Imperial mass unit.</para></summary>          
+        ///<summary><para>Hundredweight symbol. Imperial mass unit.</para></summary>          
         public const string Hundredweight = "cwt";
         ///<summary><para>Long hundredweight abbreviation. Imperial mass unit.</para></summary>  
         public const string LongHundredweight = "impcwt";
         ///<summary><para>Short hundredweight abbreviation. USCS mass unit.</para></summary>
         public const string ShortHundredweight = "usccwt";
-        ///<summary><para>Long ton symbol. Imperial mass unit.</para></summary>           
+        ///<summary><para>Ton symbol. Imperial mass unit.</para></summary>           
         public const string Ton = "tn";
         ///<summary><para>Long ton abbreviation. Imperial mass unit.</para></summary>           
         public const string LongTon = "imptn";
@@ -168,19 +168,19 @@ namespace FlexibleParser
         public const string CubicFoot = "ft3";
         ///<summary><para>Cubic inch symbol. Imperial/USCS volume unit.</para></summary>  
         public const string CubicInch = "in3";
-        ///<summary><para>Imperial fluid ounce symbol. Imperial volume unit.</para></summary>  
+        ///<summary><para>Fluid ounce symbol. Imperial volume unit.</para></summary>  
         public const string FluidOunce = "floz";
         ///<summary><para>Imperial fluid ounce abbreviation. Imperial volume unit.</para></summary>  
         public const string ImperialFluidOunce = "impfloz";
         ///<summary><para>USCS fluid ounce abbreviation. USCS volume unit.</para></summary>  
         public const string USCSFluidOunce = "uscfloz";
-        ///<summary><para>Imperial gill symbol. Imperial volume unit.</para></summary>            
+        ///<summary><para>Gill symbol. Imperial volume unit.</para></summary>            
         public const string Gill = "gi";
         ///<summary><para>Imperial gill abbreviation. Imperial volume unit.</para></summary>            
         public const string ImperialGill = "impgi";
         ///<summary><para>USCS gill abbreviation. USCS volume unit.</para></summary>  
         public const string USCSGill = "uscgi";
-        ///<summary><para>Imperial pint symbol. Imperial volume unit.</para></summary>             
+        ///<summary><para>Pint symbol. Imperial volume unit.</para></summary>             
         public const string Pint = "pt";
         ///<summary><para>Imperial pint abbreviation. Imperial volume unit.</para></summary>             
         public const string ImperialPint = "imppt";
@@ -188,7 +188,7 @@ namespace FlexibleParser
         public const string LiquidPint = "liquidpt";
         ///<summary><para>Dry pint abbreviation. USCS volume unit.</para></summary>
         public const string DryPint = "drypt";
-        ///<summary><para>Imperial quart symbol. Imperial volume unit.</para>/</summary>            
+        ///<summary><para>Quart symbol. Imperial volume unit.</para>/</summary>            
         public const string Quart = "qt";
         ///<summary><para>Imperial quart abbreviation. Imperial volume unit.</para>/</summary>            
         public const string ImperialQuart = "impqt";
@@ -196,7 +196,7 @@ namespace FlexibleParser
         public const string LiquidQuart = "liquidqt";
         ///<summary><para>Dry quart abbreviation. USCS volume unit.</para></summary>            
         public const string DryQuart = "dryqt";
-        ///<summary><para>Imperial gallon symbol. Imperial volume unit.</para></summary>             
+        ///<summary><para>Gallon symbol. Imperial volume unit.</para></summary>             
         public const string Gallon = "gal";
         ///<summary><para>Imperial gallon abbreviation. Imperial volume unit.</para></summary>             
         public const string ImperialGallon = "impgal";
@@ -561,7 +561,7 @@ namespace FlexibleParser
         public const string Lumen = "lm";
 
         //--- Luminous Energy
-        ///<summary><para>Lumen second symbol. Luminous energy unit.</para></summary>                 
+        ///<summary><para>Lumen second symbol. SI luminous energy unit.</para></summary>                 
         public const string LumenSecond = "lm*s";
         ///<summary>
         ///<para>Talbot string representation. Luminous energy unit.</para>
@@ -723,8 +723,10 @@ namespace FlexibleParser
         public const string JoulePerKelvin = "J/K";
 
         //--- Electric Field Strength
-        ///<summary><para>Newton per coulomb symbol. SI Electric Field Strength unit.</para></summary> 
+        ///<summary><para>Newton per coulomb symbol. SI electric field strength unit.</para></summary> 
         public const string NewtonPerCoulomb = "N/C";
+        ///<summary><para>Volt per metre symbol. SI electric field strength unit.</para></summary> 
+        public const string VoltPerMetre = "V/m";
 
         //--- Linear Electric Charge Density
         ///<summary><para>Coulomb per metre symbol. SI linear electric charge density unit.</para></summary> 
@@ -746,12 +748,12 @@ namespace FlexibleParser
         ///<summary><para>Joule per cubic metre symbol. SI energy density unit.</para></summary> 
         public const string JoulePerCubicMetre = "J/m3";
 
-        //--- Permittivity
-        ///<summary><para>Farad per metre symbol. SI permittivity unit.</para></summary> 
+        //--- Electromagnetic Permittivity
+        ///<summary><para>Farad per metre symbol. SI electromagnetic permittivity unit.</para></summary> 
         public const string FaradPerMetre = "F/m";
 
-        //--- Permeability
-        ///<summary><para>Henry per metre symbol. SI permeability unit.</para></summary> 
+        //--- Electromagnetic Permeability
+        ///<summary><para>Henry per metre symbol. SI electromagnetic permeability unit.</para></summary> 
         public const string HenryPerMetre = "H/m";
 
         //--- Molar Energy
@@ -789,12 +791,14 @@ namespace FlexibleParser
         //--- Fuel Economomy
         ///<summary><para>Inverse square metre symbol. SI fuel economy unit.</para></summary> 
         public const string InverseSquareMetre = "1/m2";
-        ///<summary><para>Imperial mile per gallon abbreviation. Imperial fuel economy unit.</para></summary> 
+        ///<summary><para>Mile per gallon abbreviation. Imperial fuel economy unit.</para></summary> 
         public const string MilePerGallon = "mpg";
         ///<summary><para>Imperial mile per gallon abbreviation. Imperial fuel economy unit.</para></summary> 
         public const string ImperialMilePerGallon = "impmpg";
         ///<summary><para>USCS mile per gallon abbreviation. USCS fuel economy unit.</para></summary> 
         public const string USCSMilePerGallon = "uscmpg";
+        ///<summary><para>Kilometre per litre symbol. Fuel economy unit.</para></summary> 
+        public const string KilometrePerLitre = "km/L";
 
         //--- Sound Exposure
         ///<summary><para>Square pascal second symbol. SI sound exposure unit.</para></summary> 

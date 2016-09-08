@@ -6,7 +6,7 @@ namespace FlexibleParser
     public partial class UnitP
     {
         ///<summary>
-        ///<para>Adds two UnitP variables by giving preference to the first operand configuration.</para>
+        ///<para>Adds two UnitP variables by giving preference to the configuration of the first operand.</para>
         ///<para>Different unit types will trigger an error.</para>        
         ///</summary>
         ///<param name="first">Augend. In case of incompatibilities, its configuration would prevail.</param>
@@ -21,7 +21,7 @@ namespace FlexibleParser
         }
 
         ///<summary>
-        ///<para>Subtracts two UnitP variables by giving preference to the first operand configuration.</para>
+        ///<para>Subtracts two UnitP variables by giving preference to the configuration of the first operand.</para>
         ///<para>Different unit types will trigger an error.</para>       
         ///</summary>
         ///<param name="first">Minuend. In case of incompatibilities, its configuration would prevail.</param>
@@ -36,7 +36,7 @@ namespace FlexibleParser
         }
 
         ///<summary>
-        ///<para>Multiplies two UnitP variables by giving preference to the first operand configuration.</para>
+        ///<para>Multiplies two UnitP variables by giving preference to the configuration of the first operand.</para>
         ///<para>Different unit types will trigger an error.</para>     
         ///</summary>
         ///<param name="first">Multiplicand. In case of incompatibilities, its configuration would prevail.</param>
@@ -54,7 +54,7 @@ namespace FlexibleParser
         ///<para>Multiplies the value of a UnitP variable by a decimal one.</para>
         ///<para>Eventual errors will be managed as defined in first.ExceptionHandling.</para>        
         ///</summary>
-        ///<param name="first">Multiplicand (first.Value).</param>
+        ///<param name="first">Multiplicand.</param>
         ///<param name="second">Multiplier.</param>
         public static UnitP operator *(UnitP first, decimal second)
         {
@@ -70,7 +70,7 @@ namespace FlexibleParser
         ///<para>Eventual errors will be managed as defined by the decimal type.</para>        
         ///</summary>
         ///<param name="first">Multiplicand.</param>
-        ///<param name="second">Multiplier (second.Value).</param>
+        ///<param name="second">Multiplier.</param>
         public static UnitP operator *(decimal first, UnitP second)
         {
             return PerformUnitOperation
@@ -85,8 +85,8 @@ namespace FlexibleParser
         ///<para>Eventual errors will be managed as defined in first.ExceptionHandling.</para>   
         ///<para>Eventual double to decimal conversion errors will be managed internally.</para> 
         ///</summary>
-        ///<param name="first">Multiplicand (first.Value).</param>
-        ///<param name="second">Multiplier (after being converted to decimal type).</param>
+        ///<param name="first">Multiplicand.</param>
+        ///<param name="second">Multiplier.</param>
         public static UnitP operator *(UnitP first, double second)
         {
             return PerformUnitOperation
@@ -101,8 +101,8 @@ namespace FlexibleParser
         ///<para>Eventual errors will be managed as defined by the double type.</para>   
         ///<para>Eventual double to decimal conversion errors will be managed internally.</para> 
         ///</summary>
-        ///<param name="first">Multiplicand (after being converted to decimal type).</param>
-        ///<param name="second">Multiplier (second.Value).</param>
+        ///<param name="first">Multiplicand.</param>
+        ///<param name="second">Multiplier.</param>
         public static UnitP operator *(double first, UnitP second)
         {
             return PerformUnitOperation
@@ -113,7 +113,7 @@ namespace FlexibleParser
         }
 
         ///<summary>
-        ///<para>Divides two UnitP variables by giving preference to the first operand configuration.</para>
+        ///<para>Divides two UnitP variables by giving preference to the configuration of the first operand.</para>
         ///<para>Different unit types will trigger an error.</para>        
         ///</summary>
         ///<param name="first">Dividend. In case of incompatibilities, its configuration would prevail.</param>
@@ -131,7 +131,7 @@ namespace FlexibleParser
         ///<para>Divides the value of a UnitP variable by a decimal one.</para>
         ///<para>Eventual errors will be managed as defined in first.ExceptionHandling.</para>      
         ///</summary>
-        ///<param name="first">Dividend (first.Value).</param>
+        ///<param name="first">Dividend.</param>
         ///<param name="second">Divisor.</param>
         public static UnitP operator /(UnitP first, decimal second)
         {
@@ -147,7 +147,7 @@ namespace FlexibleParser
         ///<para>Eventual errors will be managed as defined by the decimal type.</para>            
         ///</summary>
         ///<param name="first">Multiplicand.</param>
-        ///<param name="second">Multiplier (second.Value).</param>
+        ///<param name="second">Multiplier.</param>
         public static UnitP operator /(decimal first, UnitP second)
         {
             return PerformUnitOperation
@@ -162,8 +162,8 @@ namespace FlexibleParser
         ///<para>Eventual errors will be managed as defined in first.ExceptionHandling.</para>   
         ///<para>Eventual double to decimal conversion errors will be managed internally.</para> 
         ///</summary>
-        ///<param name="first">Multiplicand (first.Value).</param>
-        ///<param name="second">Multiplier (after being converted to decimal type).</param>
+        ///<param name="first">Multiplicand.</param>
+        ///<param name="second">Multiplier.</param>
         public static UnitP operator /(UnitP first, double second)
         {
             return PerformUnitOperation
@@ -178,8 +178,8 @@ namespace FlexibleParser
         ///<para>Eventual errors will be managed as defined by the double type.</para>   
         ///<para>Eventual double to decimal conversion errors will be managed internally.</para> 
         ///</summary>
-        ///<param name="first">Dividend (after being converted to decimal type).</param>
-        ///<param name="second">Divisor (second.Value).</param>
+        ///<param name="first">Dividend.</param>
+        ///<param name="second">Divisor.</param>
         public static UnitP operator /(double first, UnitP second)
         {
             return PerformUnitOperation

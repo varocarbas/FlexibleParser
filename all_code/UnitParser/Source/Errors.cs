@@ -6,24 +6,24 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        ///<summary><para>Determines whether wrong inputs trigger an exception or not.</para></summary>
+        ///<summary><para>Determines whether errors trigger an exception or not.</para></summary>
         public enum ExceptionHandlingTypes
         {
-            ///<summary><para>Wrong inputs never trigger an exception. Similar to standard .NET TryParse methods.</para></summary>
+            ///<summary><para>Errors never trigger an exception. Equivalent to standard .NET TryParse methods.</para></summary>
             NeverTriggerException = 0,
-            ///<summary><para>Wrong inputs always trigger an exception. Similar to standard .NET Parse methods.</para></summary>
+            ///<summary><para>Error always trigger an exception. Equivalent to standard .NET Parse methods.</para></summary>
             AlwaysTriggerException
         };
 
-        ///<summary><para>All the supported error types.</para></summary>
+        ///<summary><para>Contains all the supported error types.</para></summary>
         public enum ErrorTypes 
         {
-            ///<summary><para>No error occurred.</para></summary>
+            ///<summary><para>No error.</para></summary>
             None = 0,
             
             ///<summary>
             ///<para>Associated with invalid operations between UnitP variables not provoked by numeric errors.</para>
-            ///<para>Examples: addition of UnitP variables with different types; multiplication of UnitP variables outputing an unsupported unit.</para>
+            ///<para>Examples: addition of UnitP variables with different types; multiplication of UnitP variables outputting an unsupported unit.</para>
             ///</summary>
             InvalidOperation,
             ///<summary>
@@ -38,11 +38,11 @@ namespace FlexibleParser
             NumericError,
             ///<summary>
             ///<para>Associated with errors triggered when parsing numeric inputs.</para>
-            ///<para>Example: new UnitP("unit") rather than new UnitP("number unit").</para>
+            ///<para>Example: new UnitP("no-number unit") rather than new UnitP("number unit").</para>
             ///</summary>
             NumericParsingError,
             ///<summary>
-            ///<para>Associated with unit conversion errors .</para>
+            ///<para>Associated with invalid or unsupported conversions.</para>
             ///<para>Example: UnitP("1 m/s").ConvertCurrentUnitTo("m/s2").</para>
             ///</summary>
             InvalidUnitConversion,
@@ -58,10 +58,10 @@ namespace FlexibleParser
             ///<summary><para>Error message.</para></summary>
             public readonly string Message;
 
-            ///<summary><para>Initialises a new instance of ErrorInfo.</para></summary>
+            ///<summary><para>Initialises a new ErrorInfo instance.</para></summary>
             public ErrorInfo() { }
 
-            ///<summary><para>Initialises a new instance of ErrorInfo.</para></summary>
+            ///<summary><para>Initialises a new ErrorInfo instance.</para></summary>
             ///<param name="errorInfo">ErrorInfo variable whose information will be used.</param>
             public ErrorInfo(ErrorInfo errorInfo) 
             {
@@ -72,9 +72,9 @@ namespace FlexibleParser
                 Message = errorInfo.Message;
             }
 
-            ///<summary><para>Initialises a new instance of ErrorInfo.</para></summary>
-            ///<param name="type">Error type.</param>
-            ///<param name="exceptionHandling">Exception handling type.</param>
+            ///<summary><para>Initialises a new ErrorInfo instance.</para></summary>
+            ///<param name="type">Member of the ErrorTypes enum to be used.</param>
+            ///<param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
             public ErrorInfo(ErrorTypes type, ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException)
             {
                 Type = type;
@@ -268,8 +268,7 @@ namespace FlexibleParser
             return
             (
                 //unitP always stores the information of the unit operand.
-                unitP.Unit == Units.None ? 
-                ErrorTypes.InvalidUnit :
+                unitP.Unit == Units.None ? ErrorTypes.InvalidUnit :
                 GetOperationError
                 (
                     firstInfo, secondInfo, operation

@@ -21,7 +21,7 @@ namespace FlexibleParser
         {
             //GetUnitParts isn't just meant to get parts, but also to expand/simplify them.
             //That's why calling this method is one of the first steps when improving/analysing
-            //a compound regardless of the fact of unit parts already being present.
+            //a compound regardless of the fact that unit parts are already present.
             return GetUnitParts(unitInfo);
         }
 
@@ -29,13 +29,6 @@ namespace FlexibleParser
         {
             return
             (
-                //During the calculations, ImperialAndUSCS (Units.ValidImperialUSCSUnit) is used for both
-                //Imperial & USCS. Units.ValidImperialUnit/Units.ValidUSCSUnit are only considered when
-                //showing information to the user. 
-                //DefaultUnnamedUnits expects only one unnamed unit per system; Units.ValidImperialUSCSUnit
-                //is already associated with Systems.Imperial, what explains the additional check below.
-                //Logically, this implementation is fine as it is because adding multi-dimensional support to
-                //DefaultUnnamedUnits would provoke an unnecessary waste of resources.
                 unit == Units.ValidImperialUnit || 
                 DefaultUnnamedUnits.ContainsValue(unit)
             );
@@ -136,6 +129,7 @@ namespace FlexibleParser
         {
             IEnumerable<decimal> allPrefixes = null;
 
+            InitialiseBigSmallPrefixValues(prefixType);
             if (prefixType == PrefixTypes.SI)
             {
                 allPrefixes =
@@ -154,22 +148,6 @@ namespace FlexibleParser
             }
 
             return allPrefixes;
-        }
-
-        private static Units GetDefaultEnglishMetricUnit(UnitTypes type, UnitSystems system)
-        {
-            foreach (var item in AllUnitConversionFactors.Where(x => GetTypeFromUnit(x.Key) == type))
-            {
-                UnitSystems system2 = GetSystemFromUnit(item.Key);
-                if (system2 == UnitSystems.None) continue;
-
-                if (AllMetricEnglish[system] == AllMetricEnglish[system2])
-                {
-                    return item.Key;
-                }
-            }
-
-            return Units.None;
         }
 
         private static UnitInfo GetPartsFromUnit(UnitInfo unitInfo)

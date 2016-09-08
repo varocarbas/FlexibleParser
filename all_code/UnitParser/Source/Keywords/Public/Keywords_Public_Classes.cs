@@ -5,27 +5,30 @@ using System.Collections.ObjectModel;
 
 namespace FlexibleParser
 {
-    ///<summary><para>Contains the main information associated with unit constituent parts.</param></summary>
+    ///<summary><para>Contains the main information associated with the constituent parts of each unit.</param></summary>
     public class UnitPart
     {
+        ///<summary><para>Unit associated with the current part.</para></summary>
         public Units Unit { get; set; }
+        ///<summary><para>Prefix information associated with the current part.</para></summary>
         public Prefix Prefix { get; set; }
+        ///<summary><para>Exponent associated with the current part.</para></summary>
         public int Exponent { get; set; }
 
-        ///<summary><para>Initialises a new instance of UnitPart.</para></summary>
-        ///<param name="unit">Input unit.</param>
-        ///<param name="prefixFactor">Multiplying factor eventually associated with the prefix of the given unit.</param>
-        ///<param name="exponent">Exponent associated with the given unit.</param>
-        public UnitPart(Units unit, decimal prefixFactor, int exponent = 1)
+        ///<summary><para>Initialises a new UnitPart instance.</para></summary>
+        ///<param name="unit">Member of the Units enum to be used.</param>
+        ///<param name="prefix">Prefix variable whose information will be used.</param>
+        ///<param name="exponent">Integer exponent to be used.</param>
+        public UnitPart(Units unit, Prefix prefix, int exponent = 1)
         {
             Unit = unit;
-            Prefix = new Prefix(prefixFactor);
+            Prefix = new Prefix(prefix);
             Exponent = exponent;
         }
 
-        ///<summary><para>Initialises a new instance of UnitPart.</para></summary>
-        ///<param name="unit">Input unit.</param>
-        ///<param name="exponent">Exponent associated with the given unit.</param>
+        ///<summary><para>Initialises a new UnitPart instance.</para></summary>
+        ///<param name="unit">Member of the Units enum to be used.</param>
+        ///<param name="exponent">Integer exponent to be used.</param>
         public UnitPart(Units unit, int exponent = 1)
         {
             Unit = unit;
@@ -33,7 +36,7 @@ namespace FlexibleParser
             Exponent = exponent;
         }
 
-        ///<summary><para>Initialises a new instance of UnitPart.</para></summary>
+        ///<summary><para>Initialises a new UnitPart instance.</para></summary>
         ///<param name="unitPart">UnitPart variable whose information will be used.</param>
         public UnitPart(UnitPart unitPart)
         {
@@ -43,6 +46,9 @@ namespace FlexibleParser
             Prefix = new Prefix(unitPart.Prefix);
             Exponent = unitPart.Exponent;
         }
+
+        internal UnitPart(Units unit, decimal prefixFactor, int exponent = 1)
+        : this(unit, new Prefix(prefixFactor), exponent) { }
 
         public static bool operator ==(UnitPart first, UnitPart second)
         {
@@ -86,16 +92,16 @@ namespace FlexibleParser
         ///<summary><para>Usage conditions of the unit prefix.</para></summary>
         public readonly PrefixUsageTypes PrefixUsage;
 
-        ///<summary><para>Initialises a new instance of Prefix.</para></summary>
+        ///<summary><para>Initialises a new Prefix instance.</para></summary>
         public Prefix() { }
 
-        ///<summary><para>Initialises a new instance of Prefix.</para></summary>
-        ///<param name="prefixUsage">Usage conditions of the unit prefix.</param>
+        ///<summary><para>Initialises a new Prefix instance.</para></summary>
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>
         public Prefix(PrefixUsageTypes prefixUsage) { PrefixUsage = prefixUsage; }
 
-        ///<summary><para>Initialises a new instance of Prefix.</para></summary>
-        ///<param name="factor">Multiplying factor associated with the unit prefix.</param>
-        ///<param name="prefixUsage">Usage conditions of the unit prefix.</param>
+        ///<summary><para>Initialises a new Prefix instance.</para></summary>
+        ///<param name="factor">Multiplying factor to be used.</param>
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>
         public Prefix(decimal factor, PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage)
         {
             Factor = factor;
@@ -117,9 +123,9 @@ namespace FlexibleParser
             else Factor = 1m;
         }
 
-        ///<summary><para>Initialises a new instance of Prefix.</para></summary>
-        ///<param name="symbol">Symbol of the unit prefix.</param>
-        ///<param name="prefixUsage">Usage conditions of the unit prefix.</param>
+        ///<summary><para>Initialises a new Prefix instance.</para></summary>
+        ///<param name="symbol">Symbol (case does matter) defining the current prefix.</param>
+        ///<param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>
         public Prefix(string symbol, PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage)
         {
             PrefixUsage = prefixUsage;
@@ -139,7 +145,7 @@ namespace FlexibleParser
             else Factor = 1m;
         }
 
-        ///<summary><para>Initialises a new instance of Prefix.</para></summary>
+        ///<summary><para>Initialises a new Prefix instance.</para></summary>
         ///<param name="prefix">Prefix variable whose information will be used.</param>
         public Prefix(Prefix prefix)
         {

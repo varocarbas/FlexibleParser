@@ -6,7 +6,7 @@ namespace FlexibleParser
     public partial class UnitP
     {
         //This method improves values which have likely been affected by the precision of the calculations.
-        //For example: 1.2999999999999 is likely to actually be 1.3.
+        //For example: 1.2999999999999 actually being 1.3.
         private static decimal ImproveFinalValue(decimal value)
         {
             if (value == 0m) return value;
@@ -62,7 +62,7 @@ namespace FlexibleParser
                     {
                         //Starting the analysis of consecutive irrelevant digits right away might be counter-producing.
                         //Once the process is started, any exception (i.e., a non-irrelevant digit) would provoke the
-                        //analysis to immediately fail. That's why better delaying the analysis until seeing some
+                        //analysis to immediately fail. That's why better delaying the analysis start until seeing some
                         //consecutive digits (i.e., higher chances of finding what is expected).
                         startCount = 0;
                     }
@@ -75,6 +75,39 @@ namespace FlexibleParser
 
                 outInfo.Value = tempVal;
             }
+
+            return outInfo;
+        }
+
+        private static UnitInfo ConvertDoubleToDecimal(double valueDouble)
+        {
+            if (valueDouble == 0.0) return new UnitInfo();
+
+            UnitInfo outInfo = new UnitInfo();
+            if (Math.Abs(valueDouble) < MinValue)
+            {
+                while (Math.Abs(valueDouble) < MinValue)
+                {
+                    outInfo.BaseTenExponent = outInfo.BaseTenExponent - 1;
+                    valueDouble = valueDouble * 10.0;
+                }
+            }
+            else if (Math.Abs(valueDouble) > MaxValue)
+            {
+                while (Math.Abs(valueDouble) > MaxValue)
+                {
+                    outInfo.BaseTenExponent = outInfo.BaseTenExponent + 1;
+                    valueDouble = valueDouble / 10.0;
+                }
+            }
+
+            outInfo.Value = Convert.ToDecimal(valueDouble);
+
+            //Numbers always rely on ExceptionHandlingTypes.AlwaysTriggerException.
+            outInfo.Error = new ErrorInfo
+            (
+                ErrorTypes.None, ExceptionHandlingTypes.AlwaysTriggerException
+            );
 
             return outInfo;
         }

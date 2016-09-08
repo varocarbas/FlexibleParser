@@ -51,8 +51,7 @@ namespace FlexibleParser
             UnitSystem =
             (
                 system != UnitSystems.None ?
-                system : //After some operations, the system cannot be easily determined from the unit.
-                unitP2.UnitSystem
+                system : unitP2.UnitSystem
             );
             UnitPrefix = new Prefix(unitP2.UnitInfo.Prefix);
             UnitParts = unitP2.UnitInfo.Parts.AsReadOnly();
@@ -62,41 +61,13 @@ namespace FlexibleParser
             Error = new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling);
         }
 
-        private UnitP(UnitInfo unitInfo, UnitP unitP, bool noPrefixImprovement) : this
-        (
-            new ParseInfo(unitInfo), unitP.OriginalUnitString, unitP.UnitSystem,
-            unitP.Error.ExceptionHandling, unitP.UnitPrefix.PrefixUsage,
-            noPrefixImprovement
-        )
-        { }
-
-        private UnitP
-        (
-            UnitInfo unitInfo, UnitP unitP, string originalUnitString = "",
-            bool improveFinalValue = true
-        )
-        : this
-        (
-            new ParseInfo(unitInfo), originalUnitString, UnitSystems.None,
-            unitP.Error.ExceptionHandling, unitInfo.Prefix.PrefixUsage, 
-            false, improveFinalValue
-        )
-        { }
-
-        private UnitP
-        (
-            UnitInfo unitInfo, string originalUnitString = "", 
-            ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException
-        ) 
-        : this(new ParseInfo(unitInfo), originalUnitString, UnitSystems.None, exceptionHandling) { }
-
         private UnitP
         (
             UnitP unitP, ErrorTypes errorType,
             ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException
         )
         {
-            if (unitP == null) unitP = new UnitP(new UnitInfo());
+            if (unitP == null) unitP = new UnitP();
 
             UnitPConstructor unitP2 = new UnitPConstructor
             (
@@ -133,141 +104,25 @@ namespace FlexibleParser
             Error = new ErrorInfo(unitP2.ErrorType, unitP2.ExceptionHandling);
         }
 
-        private UnitP(UnitP unitP, ExceptionHandlingTypes exceptionHandling) : this
+        private UnitP(UnitInfo unitInfo, UnitP unitP, bool noPrefixImprovement) : this
         (
-            unitP, ErrorTypes.None, exceptionHandling
-        ) 
+            new ParseInfo(unitInfo), unitP.OriginalUnitString, unitP.UnitSystem,
+            unitP.Error.ExceptionHandling, unitP.UnitPrefix.PrefixUsage,
+            noPrefixImprovement
+        )
         { }
 
-        private UnitPConstructor GetUnitP2
+        private UnitP
         (
-            decimal value, string unitString,
-            ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
-            PrefixUsageTypes prefixUsage = PrefixUsageTypes.DefaultUsage
+            UnitInfo unitInfo, UnitP unitP, string originalUnitString = "",
+            bool improveFinalValue = true
         )
-        {
-            return GetUnitP2
-            (
-                new UnitInfo(value, exceptionHandling, prefixUsage), unitString
-            );
-        }
-
-        private UnitPConstructor GetUnitP2(UnitInfo unitInfo, string unitString)
-        {
-            ParseInfo parseInfo = ParseInputs
-            (
-                new ParseInfo(unitInfo, unitString)
-            );
-
-            return new UnitPConstructor
-            (
-                unitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, parseInfo.UnitInfo.System,
-                (
-                    parseInfo.UnitInfo.Unit == Units.None ?
-                    ErrorTypes.InvalidUnit : ErrorTypes.None 
-                ), 
-                unitInfo.Error.ExceptionHandling, false, (unitInfo.Value != parseInfo.UnitInfo.Value)
-            );
-        }
-
-        private ParseInfo ParseInputs(ParseInfo parseInfo)
-        {
-            parseInfo = StartUnitParse(parseInfo);
-            bool isOK = 
-            (
-                parseInfo.UnitInfo.Error.Type == ErrorTypes.None &&
-                parseInfo.UnitInfo.Unit != Units.None
-            );
-
-            if (!isOK && parseInfo.InputToParse.Contains(" "))
-            {
-                //No intermediate spaces (within the unit) should be expected,
-                //but well...
-                ParseInfo parseInfo2 = new ParseInfo
-                (
-                    parseInfo,
-                    string.Join("", parseInfo.InputToParse.Split(' ').Select(x => x.Trim()))
-                );
-                parseInfo2.UnitInfo.Error = new ErrorInfo();
-                parseInfo2 = StartUnitParse(parseInfo2);
-
-                if (parseInfo2.UnitInfo.Unit != Units.None)
-                {
-                    parseInfo = new ParseInfo(parseInfo2);
-                }
-            }
-
-            return parseInfo;
-        }
-
-        //Class helping to deal with such a big number of constructors including so many readonly variables.
-        private class UnitPConstructor
-        {
-            public decimal Value;
-            public string OriginalUnitString, UnitString, ValueAndUnitString;
-            public UnitTypes UnitType;
-            public UnitSystems UnitSystem;
-            public UnitInfo UnitInfo;
-            public ErrorTypes ErrorType;
-            public ExceptionHandlingTypes ExceptionHandling;
-
-            public UnitPConstructor
-            (
-                string originalUnitString, UnitInfo unitInfo,
-                UnitTypes unitType = UnitTypes.None, UnitSystems unitSystem = UnitSystems.None,
-                ErrorTypes errorType = ErrorTypes.None,
-                ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
-                bool noPrefixImprovement = false, bool improveFinalValue = true
-            )
-            {
-                OriginalUnitString =
-                (
-                    originalUnitString == null ? "" :
-                    originalUnitString.Trim()
-                );
-                ErrorType = errorType;
-                ExceptionHandling = exceptionHandling;
-
-                if (ErrorType != ErrorTypes.None)
-                {
-                    UnitInfo = new UnitInfo();
-                }
-                else
-                {
-                    UnitInfo = ImproveUnitInfo(unitInfo, noPrefixImprovement);
-                    UnitType = 
-                    (
-                        UnitInfo.Type != UnitTypes.None ? UnitInfo.Type :
-                        GetTypeFromUnitInfo(UnitInfo)
-                    );
-                    UnitSystem = 
-                    (
-                        UnitInfo.System != UnitSystems.None && UnitInfo.System != UnitSystems.Imperial ?
-                        UnitInfo.System : GetSystemFromUnit(UnitInfo.Unit, false, true)
-                    );
-                    if (UnitSystem == UnitSystems.Imperial && UnitInfo.Unit == Units.ValidImperialUSCSUnit)
-                    {
-                        UnitInfo.Unit = Units.ValidImperialUnit;
-                    }
-                    UnitString = GetUnitString(UnitInfo);
-
-                    Value =
-                    (
-                        improveFinalValue ? 
-                        //Values like 1.999999 are assumed to be a not-that-good version of 2.0 (+ precision loss).
-                        //This assumption doesn't hold with operations performed by the user (who might want that result).
-                        ImproveFinalValue(UnitInfo.Value) :
-                        UnitInfo.Value
-                    );
-
-                    ValueAndUnitString = Value.ToString() +
-                    (
-                        UnitInfo.BaseTenExponent != 0 ?
-                        "*10^" + UnitInfo.BaseTenExponent.ToString() : ""
-                    )
-                    + " " + UnitString;
-                }
-            }
-        }
+        : this
+        (
+            new ParseInfo(unitInfo), originalUnitString, UnitSystems.None,
+            unitP.Error.ExceptionHandling, unitInfo.Prefix.PrefixUsage, 
+            false, improveFinalValue
+        )
+        { }
     }
 }

@@ -54,13 +54,13 @@ namespace FlexibleParser
             return GetUnitsTypeAndSystemCommon(UnitType, UnitSystem).AsReadOnly();
         }
 
-        ///<summary><para>Returns the type of the current unit.</para></summary>
+        ///<summary><para>Returns the member of the UnitTypes enum which is associated with the current unit.</para></summary>
         public UnitTypes GetCurrentUnitType()
         {
             return GetTypeFromUnit(Unit);
         }
 
-        ///<summary><para>Returns the system of the current unit.</para></summary>  
+        ///<summary><para>Returns the member of the UnitSystems enum which is associated with the current unit.</para></summary>  
         public UnitSystems GetCurrentUnitSystem()
         {
             return GetSystemFromUnit(Unit, false, true);
@@ -69,19 +69,13 @@ namespace FlexibleParser
         ///<summary><para>Removes the global prefix of the current UnitP variable.</para></summary>  
         public UnitP RemoveCurrentGlobalPrefix()
         {
-            return 
+            return new UnitP
             (
-                new UnitP
-                (
-                    //Normalising means converting prefix and value into BaseTenExponent.
-                    //In the final output, the BaseTenExponent will be minimal (within the
-                    //value capabilities) because of the subsequent improvements.
-                    NormaliseUnitInfo(new UnitInfo(this)), this, true
-                )
+                NormaliseUnitInfo(new UnitInfo(this)), this, true
             );
         }
 
-        ///<summary><para>Transfers all the base-ten exponent information to the Value field (if possible on account of the decimal type range limits).</para></summary>  
+        ///<summary><para>Transfers all the base-ten exponent information to the Value field (if possible).</para></summary>  
         public UnitP RemoveCurrentBaseTen()
         {
             UnitInfo tempInfo = ConvertBaseTenToValue(new UnitInfo(this));

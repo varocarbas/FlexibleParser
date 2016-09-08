@@ -8,7 +8,7 @@ namespace FlexibleParser
     {
         //Main classiffication for all the units (type, system and conversion factor).
         //This dictionary represents an easily-modifiable container of well-structured unit information.
-        //After creating more specific/efficient collections from this informations, GetAllMain() deletes it.
+        //After using all this information to create more specific/efficient collections, GetAllMain() deletes it.
         private static Dictionary<UnitTypes, Dictionary<UnitSystems, Dictionary<Units, decimal>>> AllUnits = 
         new Dictionary<UnitTypes, Dictionary<UnitSystems, Dictionary<Units, decimal>>>()
         {
@@ -1492,7 +1492,8 @@ namespace FlexibleParser
                         UnitSystems.SI, 
                         new Dictionary<Units, decimal>()
                         {
-                            { Units.NewtonPerCoulomb, UnitConversionFactors.NewtonPerCoulomb }
+                            { Units.NewtonPerCoulomb, UnitConversionFactors.NewtonPerCoulomb },
+                            { Units.VoltPerMetre, UnitConversionFactors.VoltPerMetre }
                         }
                     }
                 }
@@ -1550,7 +1551,7 @@ namespace FlexibleParser
                 }
             },
             { 
-                UnitTypes.Permittivity, 
+                UnitTypes.ElectromagneticPermittivity, 
                 new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
                 {
                     {
@@ -1563,7 +1564,7 @@ namespace FlexibleParser
                 }
             },
             { 
-                UnitTypes.Permeability, 
+                UnitTypes.ElectromagneticPermeability, 
                 new Dictionary<UnitSystems, Dictionary<Units, decimal>>()
                 {
                     {
@@ -1704,6 +1705,13 @@ namespace FlexibleParser
                         {
                             { Units.USCSMilePerGallon, UnitConversionFactors.USCSMilePerGallon }
                         }
+                    },
+                    {
+                        UnitSystems.None, 
+                        new Dictionary<Units, decimal>()
+                        {
+                            { Units.KilometrePerLitre, UnitConversionFactors.KilometrePerLitre }
+                        }
                     }
                 }
             },
@@ -1775,7 +1783,6 @@ namespace FlexibleParser
         }; 
 
         //Dictionary mostly meant to deal with the Imperial/USCS peculiar relationship.
-        //Imperial is used for all the calculations and USCS just for information-displaying purposes
         private static Dictionary<UnitSystems, UnitSystems> AllBasicSystems = 
         new Dictionary<UnitSystems, UnitSystems>()
         {
@@ -1784,11 +1791,11 @@ namespace FlexibleParser
             { UnitSystems.Imperial, UnitSystems.Imperial },
             { UnitSystems.USCS, UnitSystems.Imperial },
             { UnitSystems.ImperialAndUSCS, UnitSystems.Imperial },
-            
-            { UnitSystems.None, UnitSystems.None } //Each scenario has to be accounted.
+            { UnitSystems.None, UnitSystems.None }
         };
 
-        //Some times, all what matters is knowing whether the system is metric (SI) or English (Imperial)
+        //Some times, all what matters is knowing whether the system is metric (SI/CGS) 
+        //or English (Imperial/USCS).
         private static Dictionary<UnitSystems, UnitSystems> AllMetricEnglish = 
         new Dictionary<UnitSystems, UnitSystems>()
         {
@@ -1797,13 +1804,16 @@ namespace FlexibleParser
             { UnitSystems.Imperial, UnitSystems.Imperial },
             { UnitSystems.USCS, UnitSystems.Imperial },
             { UnitSystems.ImperialAndUSCS, UnitSystems.Imperial },
-
-            { UnitSystems.None, UnitSystems.None } //Each scenario has to be accounted for.
+            { UnitSystems.None, UnitSystems.None }
         };
 
-        //Relates all the unnamed units with their associated systems.
-        //There are many units which don't fit any Units enum case, what this unnamed category addresses.
-        //That is: placeholders avoiding a huge (and not too logical) hardcoding effort.
+        //This collection relates all the unnamed units with their associated systems.
+        //There are many units which don't fit any Units enum case, the unnamed units.
+        //Unnamed units avoid a huge (and not too logical) hardcoding effort.
+        //Note that UnitParser supports much more units than just the members of the Units enum.
+        //By bearing in mind that any combination of named units forming a supported type is also 
+        //supported, the total number of supported units is way too big to even think about facing
+        //it in a hardcoding-all-of-them way.
         private static Dictionary<UnitSystems, Units> DefaultUnnamedUnits = 
         AllUnits[UnitTypes.None].ToDictionary(x => x.Key, x => x.Value.First().Key);    
 
@@ -1817,13 +1827,13 @@ namespace FlexibleParser
         //Relates all the units with their respective conversion factors.
         private static Dictionary<Units, decimal> AllUnitConversionFactors;
 
-        //Includes all the supported unit string representations where case doesn't matter.
+        //Includes all the supported unit string representations (case doesn't matter).
         private static Dictionary<string, Units> AllUnitStrings;
 
         //Includes secondary symbols for some units (case does matter).
         private static Dictionary<string, Units> AllUnitSymbols2;
 
-        //Some conversion factors are too small/big for decimal type.
+        //Some conversion factors are too small/big for the decimal type.
         private static Dictionary<decimal, UnitInfo> AllBeyondDecimalConversionFactors;
     }
 }

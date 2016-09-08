@@ -16,8 +16,6 @@ namespace FlexibleParser
 
             if (GetTypeFromUnit(unit) != type)
             {
-                //unitPart.Unit doesn't account for unitPart.Exponent. That is: it took the basic
-                //unit rather than the compound which it was forming.
                 Dictionary<Units, UnitPart> potentials = new Dictionary<Units, UnitPart>();
                 foreach (var compoundUnit in AllUnitTypes.Where(x => x.Value == type && UnitIsNamedCompound(x.Key)))
                 {
@@ -139,8 +137,8 @@ namespace FlexibleParser
             return unitParts;
         }
 
-        //It is better to avoid using prefixes with some compounds to avoid misinterpretations.
-        //For example: 1000 m2 converted into k m2 is easily misinterpretable as km2 (completely different).
+        //It is better to not use prefixes with some compounds in order to avoid misinterpretations.
+        //For example: 1000 m2 converted into k(m2) is easily misinterpretable as km2 (i.e., (km)^2).
         private static bool PrefixCanBeUsedCompound(UnitInfo unitInfo)
         {
             bool canBeUsed = true;
@@ -183,7 +181,6 @@ namespace FlexibleParser
 
         private static UnitInfo GetUnitFromParts(UnitInfo unitInfo)
         {
-            //Perhaps just a simple unit.
             unitInfo = GetIndividualUnitFromParts(unitInfo);
 
             return
@@ -251,7 +248,6 @@ namespace FlexibleParser
             return unitInfo;
         }
 
-        //Crosschecking the unit parts against all the supported (basic and non-basic) compounds.
         private static UnitInfo GetPartsFromUnitCompound(UnitInfo unitInfo)
         {
             //Always better to start compound analyses with the more-to-the-point non-basic ones.
@@ -307,8 +303,7 @@ namespace FlexibleParser
         {
             UnitSystems outSystem = UnitSystems.None;
 
-            //It helps to avoid misunderstandingg with "neutral types".
-            //For example, to avoid s*ft to be understood as SI.
+            //Neutral types are meant to avoid misunderstandings like s*ft being understood as SI.
             List<UnitSystems> neutralSystems = new List<UnitSystems>();
             bool allNeutral = true;
 
@@ -316,7 +311,6 @@ namespace FlexibleParser
             {
                 Units partUnit = part.Unit;
                 
-                //Both determinations are 100% accurate because of refering to a unit part.
                 UnitTypes partType = GetTypeFromUnit(partUnit);
                 UnitSystems system2 = GetSystemFromUnit(partUnit);
 
@@ -331,7 +325,7 @@ namespace FlexibleParser
 
             if (outSystem == UnitSystems.None && allNeutral && neutralSystems.Count > 0)
             {
-                //When all the units are "neutral", their defining system cannot be ignored.
+                //When all the units are neutral, their defining system cannot be ignored.
                 outSystem = neutralSystems.GroupBy(x => x).OrderByDescending(x => x.Count()).First().Key;
             }
 
@@ -385,6 +379,7 @@ namespace FlexibleParser
             {
                 return unitInfo;
             }
+
             unitInfo.Unit = DefaultUnnamedUnits[unitInfo.System];
             
             UnitSystems system2 = unitInfo.System;
@@ -713,8 +708,8 @@ namespace FlexibleParser
             );
 
             //Firstly, note that GetUnitPartsConversion might have affected the exponent. For example: in m4/L2,
-            //both exponents have to be modified to reach the convertible m3/L.
-            //Secondly, bear in mind that parts2 exponents are always positive.
+            //both exponents have to be modified to reach the convertible m3/L. Secondly, bear in mind that
+            //parts2 exponents are always positive.
             
             int sign = unitInfo.Parts[i].Exponent / Math.Abs(unitInfo.Parts[i].Exponent);
             int exponent = sign * unitInfo.Parts[i].Exponent / parts2[0].Exponent;
@@ -729,8 +724,7 @@ namespace FlexibleParser
                 exponent = sign * unitInfo.Parts[i].Exponent - parts2[0].Exponent * exponent;
                 if (exponent > 0)
                 {
-                    //Account for a case like m4 converted to litre where 1 metre is left
-                    //uncompensated.
+                    //Accounting for cases like m4 converted to litre where 1 metre is left uncompensated.
                     UnitPart newPart = new UnitPart
                     (
                         parts2[0].Unit, parts2[0].Prefix.Factor, sign * exponent
@@ -755,7 +749,7 @@ namespace FlexibleParser
             //outExponent indicates the number of times which the target exponent is
             //repeated to match the original unit. For example: in L to m3, the final
             //unit is m and outExponent is 1 (= the original unit contains 1 target 
-            //unit/exponent); but the output exponent should be 3 (1 * target exponent).
+            //unit/exponent), but the output exponent should be 3 (1 * target exponent).
             unitInfo.Parts[i].Exponent = outExponent * parts2[1].Exponent;
 
             return unitInfo;

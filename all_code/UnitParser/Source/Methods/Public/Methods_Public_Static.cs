@@ -63,14 +63,14 @@ namespace FlexibleParser
             return GetUnitsTypeAndSystemCommon(unitType, unitSystem).AsReadOnly();
         }
 
-        ///<summary><para>Returns the type of the input unit.</para></summary>
+        ///<summary><para>Returns the member of the UnitTypes enum which is associated with the input unit.</para></summary>
         ///<param name="unit">Unit whose type will be returned.</param>  
         public static UnitTypes GetUnitType(Units unit)
         {
             return GetTypeFromUnit(unit);
         }
 
-        ///<summary><para>Returns the system of the input unit.</para></summary>
+        ///<summary><para>Returns the member of the UnitSystems enum which is associated with the input unit.</para></summary>
         ///<param name="unit">Unit whose system will be returned.</param>  
         public static UnitSystems GetUnitSystem(Units unit)
         {
@@ -81,19 +81,13 @@ namespace FlexibleParser
         ///<param name="unitP">UnitP variable whose prefix will be removed.</param>  
         public static UnitP RemoveGlobalPrefix(UnitP unitP)
         {
-            return
+            return new UnitP
             (
-                new UnitP
-                (
-                    //Normalising means converting prefix and value into BaseTenExponent.
-                    //In the final output, the BaseTenExponent will be minimal (within the
-                    //value capabilities) because of the subsequent improvements.
-                    NormaliseUnitInfo(new UnitInfo(unitP)), unitP, true
-                )
+                NormaliseUnitInfo(new UnitInfo(unitP)), unitP, true
             );
         }
 
-        ///<summary><para>Transfers all the base-ten exponent information to the Value field (if possible on account of the decimal type range limits).</para></summary>  
+        ///<summary><para>Transfers all the base-ten exponent information to the Value field (if possible).</para></summary>  
         ///<param name="unitP">UnitP variable whose base-ten exponent will be removed.</param>  
         public static UnitP RemoveBaseTen(UnitP unitP)
         {

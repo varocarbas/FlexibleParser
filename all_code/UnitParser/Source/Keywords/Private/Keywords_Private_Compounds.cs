@@ -15,7 +15,7 @@ namespace FlexibleParser
         //only used internally, never shown to the user.
         //NOTE: the order of the compounds within each type does matter. The first position is reserved for the main
         //fully-expanded version (e.g., mass*length/time2 for force). In the second position, the compound basic 
-        //units (e.g., energy) are expected to have their 1-part version (e.g., 1 energy part for energy).
+        //units (e.g., force) are expected to have their 1-part version (e.g., 1 force part for force).
         private static Dictionary<UnitTypes, Compound[]> AllCompounds = new Dictionary<UnitTypes, Compound[]>()
         {
             {
@@ -875,7 +875,7 @@ namespace FlexibleParser
                 }
             },
             {
-                UnitTypes.Permittivity, new Compound[]
+                UnitTypes.ElectromagneticPermittivity, new Compound[]
                 {
                     new Compound
                     (
@@ -890,7 +890,7 @@ namespace FlexibleParser
                 }
             },
             {
-                UnitTypes.Permeability, new Compound[]
+                UnitTypes.ElectromagneticPermeability, new Compound[]
                 {
                     new Compound
                     (
@@ -1087,8 +1087,7 @@ namespace FlexibleParser
         };
 
         //Contains all the named compounds defined by the basic units for the given type/system.
-        //Example: Newton is formed by kg*m/s^2, the basic mass*length/time units in SI; that's why it belongs here.
-        //NOTE: all these compounds are divided into their most basic constituent parts (againt what some non-SI units expect).
+        //For example, Newton is formed by kg*m/s^2, the basic mass*length/time units in SI, and that's why it belongs here.
         private static Dictionary<UnitTypes, Dictionary<UnitSystems, Units>> AllBasicCompounds = new Dictionary<UnitTypes, Dictionary<UnitSystems, Units>>()
         {
            {
@@ -1150,6 +1149,7 @@ namespace FlexibleParser
                 {
                     { UnitSystems.SI, Units.Pascal },
                     { UnitSystems.CGS, Units.Barye },
+                    { UnitSystems.Imperial, Units.PoundforcePerSquareFoot },
                 }
             },
             {
@@ -1248,13 +1248,13 @@ namespace FlexibleParser
             {
                 UnitTypes.AngularVelocity, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.RadianPerSecond }
+                    { UnitSystems.SI, Units.RadianPerSecond },
                 }
             },
             {
                 UnitTypes.AngularAcceleration, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.RadianPerSquareSecond }
+                    { UnitSystems.SI, Units.RadianPerSquareSecond },
                 }
             },
             {
@@ -1272,7 +1272,7 @@ namespace FlexibleParser
             {
                 UnitTypes.SolidAngle, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.Steradian }
+                    { UnitSystems.SI, Units.Steradian },
                 }
             },
             {
@@ -1291,7 +1291,7 @@ namespace FlexibleParser
                 UnitTypes.Luminance, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.CandelaPerSquareMetre },
-                    { UnitSystems.CGS, Units.Stilb },
+                    { UnitSystems.CGS, Units.Stilb }
                 }
             },
             {
@@ -1299,18 +1299,19 @@ namespace FlexibleParser
                 {
                     { UnitSystems.SI, Units.Lux },
                     { UnitSystems.CGS, Units.Phot },
+                    { UnitSystems.Imperial, Units.FootCandle }
                 }
             },
             {
                 UnitTypes.MagneticFlux, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.Weber },
+                    { UnitSystems.SI, Units.Weber }
                 }
             },
             {
                 UnitTypes.MagneticFieldB, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.Tesla },
+                    { UnitSystems.SI, Units.Tesla }
                 }
             },
             {
@@ -1341,7 +1342,7 @@ namespace FlexibleParser
             {
                 UnitTypes.CatalyticActivity, new Dictionary<UnitSystems, Units>()
                 {
-                    { UnitSystems.SI, Units.Katal }
+                    { UnitSystems.SI, Units.Katal },
                 }
             },
             {
@@ -1477,13 +1478,13 @@ namespace FlexibleParser
                 }
             },
             {
-                UnitTypes.Permittivity, new Dictionary<UnitSystems, Units>()
+                UnitTypes.ElectromagneticPermittivity, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.FaradPerMetre }                  
                 }
             },
             {
-                UnitTypes.Permeability, new Dictionary<UnitSystems, Units>()
+                UnitTypes.ElectromagneticPermeability, new Dictionary<UnitSystems, Units>()
                 {
                     { UnitSystems.SI, Units.HenryPerMetre }                  
                 }
@@ -1571,22 +1572,20 @@ namespace FlexibleParser
             }
         };
 
-        //Roughly speaking, AllNonBasicCompounds is a container of somehow exceptional situations. Ideally,
-        //AllCompounds (+ associated variables) should be enough to deal with this reality by its own. 
-        //Some of these units (e.g., centimetre) shouldn't be matched when looking for valid compounds.
-        //The reason for being here is defining its constituent parts (what cannot be done in AllCompounds).
+        //Roughly speaking, AllNonBasicCompounds is a container of somehow exceptional situations.
+        //Some of these units (e.g., centimetre) shouldn't be matched when looking for valid compounds. 
         private static Units[] NonBasicCompoundsToSkip = new Units[]
         {
             Units.Centimetre
         };
 
         //Contains the definition (i.e., UnitPart[] containing their defining units) of all the supported named 
-        //compounds except the ones defined by the given system basic units (included in AllBasicCompounds).
+        //compounds except the ones defined by the corresponding basic units (included in AllBasicCompounds).
         private static Dictionary<Units, UnitPart[]> AllNonBasicCompounds = new Dictionary<Units, UnitPart[]>()
         {
             //--- Length
             { 
-                Units.Centimetre, //Not exactly a compound, but required for consistency reasons.
+                Units.Centimetre, //Not exactly a compound, but included here for consistency reasons.
                 new UnitPart[] { new UnitPart(Units.Metre, SIPrefixValues.Centi) } 
             },
 
@@ -1665,8 +1664,8 @@ namespace FlexibleParser
                 { 
                     new UnitPart(Units.Metre, 2),
                     new UnitPart(Units.Gram, SIPrefixValues.Kilo),
-                    new UnitPart(Units.Second, -3),
-                    new UnitPart(Units.Hour)
+                    new UnitPart(Units.Hour),
+                    new UnitPart(Units.Second, -3)
                 } 
             },
 
@@ -1778,11 +1777,25 @@ namespace FlexibleParser
                 { 
                     new UnitPart(Units.Mile),
                     new UnitPart(Units.LiquidGallon, -1)
-                } 
+                }
+            },
+            { 
+                Units.KilometrePerLitre, 
+                new UnitPart[] 
+                { 
+                    new UnitPart(Units.Metre, SIPrefixValues.Kilo),
+                    new UnitPart(Units.Litre, -1)
+                }
             }
         };
 
         //Classifies all the basic units on account of their types and systems.
+        //Note that these units don't meet the most intuitive interpretation of the basic unit idea.
+        //That is, they aren't just the most basic constituent of compounds (i.e., impossible to be 
+        //further divided), but also compounds. The reason for this a-priori abnormal configuration
+        //is that they aren't just used to model SI/CGS compounds, but also Imperial/USCS ones. 
+        //For example: the SI force unit (N) can be defined on account of properly-speaking basic units,
+        //but the Imperial/USCS version (lbf) cannot.
         private static Dictionary<UnitTypes, Dictionary<UnitSystems, BasicUnit>> AllBasicUnits =
         new Dictionary<UnitTypes, Dictionary<UnitSystems, BasicUnit>>()
         {

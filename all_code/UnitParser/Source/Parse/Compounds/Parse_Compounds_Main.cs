@@ -27,7 +27,7 @@ namespace FlexibleParser
             
             //Both strings being different would mean that a number-only numerator was removed.
             //For example: the input string 1/m is converted into m, but UpdateUnitParts treats
-            //it as m-1 because isNumerator being false.
+            //it as m-1 because of isNumerator being false.
             bool isNumerator = (origInput == parseInfo.InputToParse);
             
             char symbol = ' ';
@@ -194,9 +194,7 @@ namespace FlexibleParser
                     (
                         unitInfo, part, type, 
                         (
-                            convertEnglish ?
-                            unitInfo.System :
-                            basicSystem
+                            convertEnglish ? unitInfo.System : basicSystem
                         )
                     );
 
@@ -216,7 +214,7 @@ namespace FlexibleParser
 
                     if (tempInfo == null) continue;
                     //AdaptUnitParts doesn't perform an actual conversion, just an adaptation to the target format.
-                    //That's why it doesn't account for the target prefix and this fix is required.
+                    //That's why it doesn't account for the target prefix, what explains the modification below.
                     tempInfo.Parts[0].Prefix = new Prefix(targetPart.Prefix);
 
                     unitInfo = UpdateNewUnitPart
@@ -330,7 +328,7 @@ namespace FlexibleParser
                     (
                         AllBasicUnits[type][system].Unit,
                         AllBasicUnits[type][system].PrefixFactor,
-                        //Note that Exponents aren't relevant to define basic units (= always 1).
+                        //Note that exponents aren't relevant to define basic units (= always 1).
                         //On the other hand, they might be formed by parts where the exponent is
                         //relevant; for example: Units.CubicMetre (1 part with exponent 3).
                         1 
@@ -352,7 +350,7 @@ namespace FlexibleParser
         {
             if (parseInfo.InputToParse == null || parseInfo.ValidCompound.Length < 1)
             {
-                //This part might be reached  when performing different actions than parsing; that's why
+                //This part might be reached when performing different actions than parsing; that's why
                 //InputToParse or ValidCompound might have not be populated.
                 return parseInfo;
             }
@@ -388,6 +386,13 @@ namespace FlexibleParser
             }
 
             return parseInfo;
+        }
+        
+        private static bool CharAreEquivalent(char char1, char char2)
+        {
+            if (char1 == char2) return true;
+
+            return (char1.ToString().ToLower() == char2.ToString().ToLower());
         }
 
         //Certain symbols aren't considered when post-analysing the validity of the input string.

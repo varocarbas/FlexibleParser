@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FlexibleParser
 {
-    ///<summary><para>Conversion factors relating each unit with the reference for the given type.</para></summary>
+    ///<summary><para>Conversion factors relating each unit to the reference for the given type.</para></summary>
     public class UnitConversionFactors
     {
         //--- Length
@@ -97,19 +97,19 @@ namespace FlexibleParser
         public const decimal Stone = 6350.29318m; //= Pound * 14m;
         ///<summary><para>Slug (sl) conversion factor. Imperial/USCS mass unit.</para></summary>
         public const decimal Slug = 14593.902937206364829396325459m; //= Pound * GravityAcceleration / Foot;  
-        ///<summary><para>Long quarter (qr). Imperial mass unit.</para></summary>
+        ///<summary><para>Quarter (qr). Imperial mass unit.</para></summary>
         public const decimal Quarter = 12700.58636m; //= Pound * 28m;
         ///<summary><para>Long quarter (impqr) conversion factor. Imperial length unit.</para></summary>
         public const decimal LongQuarter = 12700.58636m; //= Pound * 28m;
         ///<summary><para>Short quarter (uscqr) conversion factor. USCS length unit.</para></summary>
         public const decimal ShortQuarter = 11339.80925m; //= Pound * 25m;
-        ///<summary><para>Long Hundredweight (cwt) conversion factor. Imperial mass unit.</para></summary>
+        ///<summary><para>Hundredweight (cwt) conversion factor. Imperial mass unit.</para></summary>
         public const decimal Hundredweight = 50802.34544m; //= Pound * 112m;
         ///<summary><para>Long Hundredweight (impcwt) conversion factor. Imperial mass unit.</para></summary>
         public const decimal LongHundredweight = 50802.34544m; //= Pound * 112m;
         ///<summary><para>Short Hundredweight (usccwt) conversion factor. USCS mass unit.</para></summary>
         public const decimal ShortHundredweight = 45359.237m; //= Pound * 100m; 
-        ///<summary><para>Long Ton (tn) conversion factor. Imperial mass unit.</para></summary>
+        ///<summary><para>Ton (tn) conversion factor. Imperial mass unit.</para></summary>
         public const decimal Ton = 1016046.9088m; //= Pound * 2240m;
         ///<summary><para>Long Ton (imptn) conversion factor. Imperial mass unit.</para></summary>
         public const decimal LongTon = 1016046.9088m; //= Pound * 2240m;
@@ -193,19 +193,19 @@ namespace FlexibleParser
         public const decimal CubicFoot = 0.028316846592m; //= Foot * Foot * Foot;
         ///<summary><para>Cubic inch (in3) conversion factor. Imperial/USCS Volume unit.</para></summary>
         public const decimal CubicInch = 0.000016387064m; //= Inch * Inch * Inch;
-        ///<summary><para>Imperial fluid ounce (floz) conversion factor. Imperial volume unit.</para></summary>
+        ///<summary><para>Fluid ounce (floz) conversion factor. Imperial volume unit.</para></summary>
         public const decimal FluidOunce = 0.0000284130625m; //= Pint / 20m;
         ///<summary><para>Imperial fluid ounce (impfloz) conversion factor. Imperial volume unit.</para></summary>
         public const decimal ImperialFluidOunce = 0.0000284130625m; //= ImperialPint / 20m;
         ///<summary><para>USCS fluid ounce (uscfloz) conversion factor. USCS volume unit.</para></summary>
         public const decimal USCSFluidOunce = 0.0000295735295625m; //= LiquidPint / 16m;
-        ///<summary><para>Imperial gill (gi) conversion factor. Imperial volume unit.</para></summary>
+        ///<summary><para>Gill (gi) conversion factor. Imperial volume unit.</para></summary>
         public const decimal Gill = 0.0001420653125m; //= Pint / 4m;
         ///<summary><para>Imperial gill (impgi) conversion factor. Imperial volume unit.</para></summary>
         public const decimal ImperialGill = 0.0001420653125m; //= ImperialPint / 4m;
         ///<summary><para>USCS gill (uscgi) conversion factor. USCS volume unit.</para></summary>
         public const decimal USCSGill = 0.00011829411825m; //= LiquidPint / 4m;
-        ///<summary><para>Imperial pint (pt) conversion factor. Imperial volume unit.</para></summary>
+        ///<summary><para>Pint (pt) conversion factor. Imperial volume unit.</para></summary>
         public const decimal Pint = 0.00056826125m; //= Gallon / 8m;
         ///<summary><para>Imperial pint (imppt) conversion factor. Imperial volume unit.</para></summary>
         public const decimal ImperialPint = 0.00056826125m; //= ImperialGallon / 8m;
@@ -213,7 +213,7 @@ namespace FlexibleParser
         public const decimal LiquidPint = 0.000473176473m; //= LiquidGallon / 8m;
         ///<summary><para>Dry pint (drypt) conversion factor. USCS volume unit.</para></summary>
         public const decimal DryPint = 0.0005506104713575m; //= DryGallon / 8m;
-        ///<summary><para>Imperial quart (qt) conversion factor. Imperial volume unit.</para></summary>
+        ///<summary><para>Quart (qt) conversion factor. Imperial volume unit.</para></summary>
         public const decimal Quart = 0.0011365225m; //= Gallon / 4m;
         ///<summary><para>Imperial quart (impqt) conversion factor. Imperial volume unit.</para></summary>
         public const decimal ImperialQuart = 0.0011365225m; //= ImperialGallon / 4m;
@@ -221,7 +221,7 @@ namespace FlexibleParser
         public const decimal LiquidQuart = 0.000946352946m; //= LiquidGallon / 4m;
         ///<summary><para>Dry quart (dryqt) conversion factor. USCS volume unit.</para></summary>
         public const decimal DryQuart = 0.001101220942715m; //= DryGallon / 4m;
-        ///<summary><para>Imperial gallon (gal) conversion factor. Imperial volume unit.</para></summary>
+        ///<summary><para>Gallon (gal) conversion factor. Imperial volume unit.</para></summary>
         public const decimal Gallon = 0.00454609m; //= 4.54609m * Litre;
         ///<summary><para>Imperial gallon (impgal) conversion factor. Imperial volume unit.</para></summary>
         public const decimal ImperialGallon = 0.00454609m; //= 4.54609m * Litre;
@@ -515,11 +515,11 @@ namespace FlexibleParser
         //--- Electric Inductance
         ///<summary><para>Henry (H) conversion factor. SI electric inductance unit.</para><para>Reference point for all the electric inductance units.</para></summary>
         public const decimal Henry = 1m;
-        ///<summary><para>Stathenry (statH). CGS-Gaussian/CGS-ESU electric inductance unit.</para></summary>
+        ///<summary><para>Stathenry (statH) conversion factor. CGS-Gaussian/CGS-ESU electric inductance unit.</para></summary>
         public const decimal Stathenry = 8.987551787E11m;
         ///<summary><para>Electrostatic unit of inductance (ESUind) conversion factor. CGS-Gaussian/CGS-ESU electric inductance unit.</para></summary>
         public const decimal ESUOfInductance = 8.987551787E11m;
-        ///<summary><para>Abhenry (abH). CGS-EMU electric inductance unit.</para></summary>
+        ///<summary><para>Abhenry (abH) conversion factor. CGS-EMU electric inductance unit.</para></summary>
         public const decimal Abhenry = 1E-9m;
         ///<summary><para>Electromagnetic unit of inductance (EMUind) conversion factor. CGS-EMU electric inductance unit.</para></summary>
         public const decimal EMUOfInductance = 1E-9m;
@@ -531,7 +531,7 @@ namespace FlexibleParser
         ///</summary>   
         public const decimal CoulombMetre = 1m;
         ///<summary>
-        ///<para>Debye (D). CGS-Gaussian electric dipole moment unit.</para>
+        ///<para>Debye (D) conversion factor. CGS-Gaussian electric dipole moment unit.</para>
         ///<para>The decimal type cannot deal directly with the actual conversion factor (3.33564095E-30m).</para>  
         ///</summary>
         public const decimal Debye = -2m;
@@ -887,6 +887,10 @@ namespace FlexibleParser
         ///<para>Reference point for all the Electric Field Strength units.</para>              
         ///</summary> 
         public const decimal NewtonPerCoulomb = 1m;
+        ///<summary>
+        ///<para>Volt per metre (V/m) conversion factor. SI Electric Field Strength unit.</para>              
+        ///</summary> 
+        public const decimal VoltPerMetre = 1m;
 
         //--- Linear Electric Charge Density
         ///<summary>
@@ -916,17 +920,17 @@ namespace FlexibleParser
         ///</summary> 
         public const decimal AmperePerSquareMetre = 1m;
 
-        //--- Permittivity
+        //--- Electromagnetic Permittivity
         ///<summary>
-        ///<para>Farad per metre (F/m) conversion factor. SI permittivity unit.</para>
-        ///<para>Reference point for all the permittivity units.</para>              
+        ///<para>Farad per metre (F/m) conversion factor. SI electromagnetic permittivity unit.</para>
+        ///<para>Reference point for all the electromagnetic permittivity units.</para>              
         ///</summary> 
         public const decimal FaradPerMetre = 1m;
 
-        //--- Permeability
+        //--- Electromagnetic Permeability
         ///<summary>
-        ///<para>Henry per metre (H/m) conversion factor. SI permeability unit.</para>
-        ///<para>Reference point for all the permeability units.</para>              
+        ///<para>Henry per metre (H/m) conversion factor. SI electromagnetic permeability unit.</para>
+        ///<para>Reference point for all the electromagnetic permeability units.</para>              
         ///</summary> 
         public const decimal HenryPerMetre = 1m;
 
@@ -992,13 +996,15 @@ namespace FlexibleParser
         ///<para>Reference point for all the fuel economy units.</para>            
         ///</summary> 
         public const decimal InverseSquareMetre = 1m;
-        ///<summary><para>Imperial mile per gallon (mpg) conversion factor. Imperial fuel economy unit.</para></summary> 
+        ///<summary><para>Mile per gallon (mpg) conversion factor. Imperial fuel economy unit.</para></summary> 
         public const decimal MilePerGallon = 354006.18993464713633034101833m; //= Mile / Gallon;
         ///<summary><para>Imperial mile per gallon (impmpg) conversion factor. Imperial fuel economy unit.</para></summary> 
         public const decimal ImperialMilePerGallon = 354006.18993464713633034101833m; //= Mile / Gallon;
         ///<summary><para>USCS mile per gallon (uscmpg) conversion factor. USCS fuel economy unit.</para></summary> 
         public const decimal USCSMilePerGallon = 425143.70743027200340114965944m; //= Mile / LiquidGallon;
-       
+        ///<summary><para>Kilometre per litre (km/L) conversion factor. Fuel economy unit.</para></summary> 
+        public const decimal KilometrePerLitre = 1000000m; //= SIPrefixValues.Kilo / Litre;
+
         //--- Sound Exposure
         ///<summary>
         ///<para>Square pascal second (Pa2*s) conversion factor. SI sound exposure unit.</para>

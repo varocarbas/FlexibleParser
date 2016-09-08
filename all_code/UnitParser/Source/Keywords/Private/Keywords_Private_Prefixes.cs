@@ -86,24 +86,6 @@ namespace FlexibleParser
             { BinaryPrefixSymbols.Yobi, BinaryPrefixValues.Yobi }
         };
 
-        private static Dictionary<string, string> AllSIPrefixNames = 
-        AllSIPrefixSymbols.ToDictionary(x => x.Key, x => AllSIPrefixes.First(y => y.Value == x.Value).Key.ToString().ToLower());
-
-        private static IEnumerable<decimal> BigSIPrefixValues = 
-        AllSIPrefixes.Where(x => x.Value > 1m).Select(x => x.Value).OrderByDescending(x => x);
-
-        private static IEnumerable<decimal> SmallSIPrefixValues =
-        AllSIPrefixes.Where(x => x.Value < 1m).Select(x => x.Value).OrderBy(x => x);
-
-        private static Dictionary<string, string> AllBinaryPrefixNames =
-        AllBinaryPrefixSymbols.ToDictionary(x => x.Key, x => AllBinaryPrefixes.First(y => y.Value == x.Value).Key.ToString().ToLower());
-
-        private static IEnumerable<decimal> BigBinaryPrefixValues =
-        AllBinaryPrefixes.Where(x => x.Value > 1m).Select(x => x.Value).OrderByDescending(x => x);
-
-        private static IEnumerable<decimal> SmallBinaryPrefixValues =
-        AllBinaryPrefixes.Where(x => x.Value < 1m).Select(x => x.Value).OrderBy(x => x);
-
         //Contains all the units outside the SI-prefix-supporting systems (i.e., UnitSystems.SI & UnitSystems.CGS)
         //which do support SI prefixes by default.
         private static Units[] AllOtherSIPrefixUnits = new Units[]
@@ -145,9 +127,8 @@ namespace FlexibleParser
             Units.Baud
         };
 
-        //By default, global prefixes aren't used with compounds to avoid misunderstandings.
-        //For example: 1000 m2 converted into k m2 confused as km2.
-        //This collection includes the only compounds which might use prefixes.
+        //By default, global prefixes aren't used with compounds to avoid misunderstandings. For example: 1000 m^2 converted
+        //into k m^2 confused as km2. This collection includes all the compounds which might use prefixes.
         private static Units[] AllCompoundsUsingPrefixes = new Units[]
         {
             //--- Acceleration
@@ -237,5 +218,15 @@ namespace FlexibleParser
         {
             UnitTypes.Information, UnitTypes.BitRate, UnitTypes.SymbolRate
         };
+
+        //All the collections below this line are secondary/used for very specific purposes. That's why they 
+        //are only populated when being used for the first time.
+
+        //The full names of all the SI/binary prefixes.
+        private static Dictionary<string, string> AllSIPrefixNames, AllBinaryPrefixNames;
+
+        //Various collections used in prefix-related calculations.
+        private static IEnumerable<decimal> BigSIPrefixValues, SmallSIPrefixValues, BigBinaryPrefixValues, SmallBinaryPrefixValues;
+
     }
 }

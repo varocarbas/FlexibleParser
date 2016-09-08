@@ -58,9 +58,8 @@ namespace FlexibleParser
                 if (!isInternal)
                 {
                     //When the target unit has a prefix, the conversion is adapted to it (e.g., lb to kg is 0.453).
-                    //Such an output isn't always desirable (kg isn't a valid unit, but g + kilo).
-                    //That's why the output value has to be multiplied by the prefix when reaching this point 
-                    //(i.e., conversion delivered to the user).
+                    //Such an output isn't always desirable (kg isn't a valid unit, but g + kilo); that's why the output
+                    //value has to be multiplied by the prefix when reaching this point (i.e., result delivered to the user).
                     outInfo = outInfo * targetInfo.Prefix.Factor;
                 }
             }
@@ -68,16 +67,16 @@ namespace FlexibleParser
             return outInfo;
         }
 
-
         private static UnitInfo NormaliseTargetUnit(UnitInfo targetInfo, bool isInternal)
         {
             UnitInfo outInfo = new UnitInfo(targetInfo);
 
             if (isInternal)
             {
-                //The only relevant part of the target unit value should always be the prefix.
-                //But this isn't always compatible with external conversions, where the target
-                //unit might have been parsed and made the other values relevant too (e.g., conversion).
+                //The only relevant part of the target unit value should ideally be the prefix.
+                //Such an assumption isn't always compatible with external conversions; in these cases,
+                //the target unit might have been parsed (+ auto-converted) and, consequently, other
+                //values might have to be also considered.
                 outInfo.Value = 1;
                 outInfo.BaseTenExponent = 0;
             }
@@ -189,10 +188,8 @@ namespace FlexibleParser
                     //In the internal calculations, exponents might be relevant or not when performing
                     //a unit part conversion; this issue is being managed by the code calling this function.
                     //With conversions delivered to the user, exponents have to be brought into account.
-                    //NOTE 1: isInternal isn't passed to PerformConversion because the associated modifications
+                    //NOT: isInternal isn't passed to PerformConversion because the associated modifications
                     //only make sense for the main prefix (not what this is about).
-                    //NOTE 2: both parts have the same type and that's why there is only two possible scenarios.
-                    //Either same exponent or different exponent which should be ignored (e.g., L & m3).
                     exponent2 = Math.Abs(targetPart2.Exponent);
                 }
                 //In this situation, exponents don't need to be considered and it is better ignoring them during
@@ -496,8 +493,11 @@ namespace FlexibleParser
         //Method trying to match each item of conversionItems.NonDividables with parts of conversionItems.Others. 
         //Bear in mind that the goal isn't just looking for sets of unit parts defining the given type; they have 
         //also to be associated with a valid compound unit. For example: when trying to match the force unit lbf,
-        //lb*ft/s2 wouldn't a good match; these parts do define a force, but not a supported unit. A good match
-        //would be kg*m/s2, which also defines the supported unit newton.
+        //lb*ft/s2 wouldn't be a good match; these parts do define a force, but not a supported unit. A good match
+        //would be kg*m/s2, which also defines the supported unit newton. 
+        //It is necessary to find a supported unit because this is the way to get a conversion factor; just converting 
+        //the parts would output a wrong result. In the aforementioned example, lb*ft/s2 doesn't equal lbf (otherwise,
+        //lbf would be defined as a compound precisely formed by these parts).
         private static ConversionItems MatchNonDividableParts(ConversionItems conversionItems, int i)
         {
             conversionItems.TempPair = new KeyValuePair<UnitPart, UnitPart>();
@@ -566,7 +566,7 @@ namespace FlexibleParser
 
             if (tempInfo.Unit == Units.None)
             {
-                //Condition avoiding situations like assuming that lb*ft/s2 & BTU are identical.
+                //Condition avoiding situations like assuming that lb*ft/s2 & lbf are identical.
                 return origConversionItems;            
             }
 

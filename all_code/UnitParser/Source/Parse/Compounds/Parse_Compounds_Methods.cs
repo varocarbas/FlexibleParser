@@ -160,7 +160,7 @@ namespace FlexibleParser
                         else if (checkPrefixes && (outInfo.Parts[i].Prefix.Factor != 1m || outInfo.Parts[i2].Prefix.Factor != 1m))
                         {
                             //Reaching here means that the returned information will be used in an intermediate conversion.
-                            //In such a scenario, unit part prefix might become error sources.
+                            //In such a scenario, unit part prefixes might become error sources.
                             outInfo *= RaiseToIntegerExponent
                             (
                                 outInfo.Parts[i].Prefix.Factor,

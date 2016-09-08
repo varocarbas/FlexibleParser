@@ -415,6 +415,7 @@ namespace FlexibleParser
 
             //--- Electric Field Strength
             { UnitSymbols.NewtonPerCoulomb, Units.NewtonPerCoulomb },
+            { UnitSymbols.VoltPerMetre, Units.VoltPerMetre },
 
             //--- Linear Electric Charge Density
             { UnitSymbols.CoulombPerMetre, Units.CoulombPerMetre },
@@ -428,10 +429,10 @@ namespace FlexibleParser
             //--- Current Density
             { UnitSymbols.AmperePerSquareMetre, Units.AmperePerSquareMetre },
 
-            //--- Permittivity
+            //--- Electromagnetic Permittivity
             { UnitSymbols.FaradPerMetre, Units.FaradPerMetre },
 
-            //--- Permeability
+            //--- Electromagnetic Permeability
             { UnitSymbols.HenryPerMetre, Units.HenryPerMetre },
 
             //--- Molar Energy
@@ -463,6 +464,7 @@ namespace FlexibleParser
             { UnitSymbols.MilePerGallon, Units.MilePerGallon },
             { UnitSymbols.ImperialMilePerGallon, Units.ImperialMilePerGallon },
             { UnitSymbols.USCSMilePerGallon, Units.USCSMilePerGallon },
+            { UnitSymbols.KilometrePerLitre, Units.KilometrePerLitre },
 
             //--- Sound Exposure
             { UnitSymbols.SquarePascalSecond, Units.SquarePascalSecond },
@@ -511,11 +513,11 @@ namespace FlexibleParser
             //--- Amount of substance
             Units.PoundMole,
 
-            //Note that all the electricity/magnetism CGS compounds are considered individable.
-            //This is because of the multi sub-system peculiarities and what it entails.
+            //Note that all the electricity/magnetism CGS compounds are considered non-dividable.
+            //This is because of its multi-system peculiarities and what it entails.
             //These are old units where the dividable-compound icing isn't expected to be that important.
-            //Compounds which might be defined without directly relying on electricity/magnetism units are
-            //dividable; for example: G (= Mx/cm2).
+            //Compounds which might be defined without a direct reliance on electricity/magnetism units are
+            //dividable. For example, G (= Mx/cm2).
             
             //--- Electric Charge
             Units.Franklin, Units.Statcoulomb, Units.ESUOfCharge, Units.Abcoulomb, Units.EMUOfCharge,

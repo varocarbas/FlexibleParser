@@ -17,7 +17,7 @@ namespace FlexibleParser
         Volume,
         ///<summary><para>Associated with all the time units.</para></summary>                       
         Time,
-        ///<summary><para>Associated with all the velocity units.</para></summary>                                  
+        ///<summary><para>Associated with all the velocity and speed units.</para></summary>                                  
         Velocity,
         ///<summary><para>Associated with all the acceleration units.</para></summary>                                              
         Acceleration,
@@ -155,10 +155,10 @@ namespace FlexibleParser
         VolumeElectricChargeDensity,
         ///<summary><para>Associated with all the current density units.</para></summary> 
         CurrentDensity,
-        ///<summary><para>Associated with all the permittivity units.</para></summary> 
-        Permittivity,
-        ///<summary><para>Associated with all the permeability units.</para></summary> 
-        Permeability,
+        ///<summary><para>Associated with all the electromagnetic permittivity units.</para></summary> 
+        ElectromagneticPermittivity,
+        ///<summary><para>Associated with all the electromagnetic permeability units.</para></summary> 
+        ElectromagneticPermeability,
         ///<summary><para>Associated with all the molar energy units.</para></summary> 
         MolarEnergy,
         ///<summary><para>Associated with all the molar entropy units.</para></summary> 

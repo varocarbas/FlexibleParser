@@ -12,7 +12,7 @@ namespace FlexibleParser
         AllUnits,
     };
 
-    ///<summary><para>All the types of unit prefixes.</para></summary>
+    ///<summary><para>Types of unit prefixes.</para></summary>
     public enum PrefixTypes
     {
         ///<summary><para>No unit prefix.</para>
@@ -20,12 +20,12 @@ namespace FlexibleParser
 
         ///<summary>
         ///<para>Refers to all the International System of Units prefixes.</para>
-        ///<para>By default, these prefixes may only be used with SI, CGS and related units.</para>
+        ///<para>By default, these prefixes may only be used with SI, CGS or related units.</para>
         ///</summary>
         SI,
         ///<summary>
         ///<para>Refers to all the binary prefixes.</para>
-        ///<para>By default, these prefixes may only be used with information units.</para>
+        ///<para>By default, these prefixes may only be used with information or related units.</para>
         ///</summary>
         Binary
     }
