@@ -86,18 +86,27 @@ namespace FlexibleParser
                 //By default, x is assumed to be a multiplication sign.
                 sofar = sofar.ToLower();
 
-                if (sofar == "ma" || sofar == "lu")
+                if (sofar.Length >= 2)
                 {
-                    //It isn't a multiplication sign, but part of the string representations
-                    //of maxwell or lux.
-                    return true;
-                }
-                else if (sofar == "m" || sofar == "l")
-                {
-                    if (i == inputArray.Length - 1 || IsCompoundDescriptive(inputArray[i + 1]))
+                    string sofar2 = sofar.Substring(sofar.Length - 2, 2);
+                    if (sofar2 == "ma" || sofar2 == "lu")
                     {
-                        //It isn't a multiplication sign, but part of the symbols Mx or lx.
+                        //It isn't a multiplication sign, but part of the string representations
+                        //of maxwell or lux.
                         return true;
+                    }
+                }
+
+                if (sofar.Length >= 1)
+                {
+                    string sofar2 = sofar.Substring(sofar.Length - 1, 1);
+                    if (sofar2 == "m" || sofar2 == "l")
+                    {
+                        if (i == inputArray.Length - 1 || IsCompoundDescriptive(inputArray[i + 1]))
+                        {
+                            //It isn't a multiplication sign, but part of the symbols Mx or lx.
+                            return true;
+                        }
                     }
                 }
             }

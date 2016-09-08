@@ -131,44 +131,64 @@ namespace FlexibleParser
         //into k m^2 confused as km2. This collection includes all the compounds which might use prefixes.
         private static Units[] AllCompoundsUsingPrefixes = new Units[]
         {
+             //--- Area
+             Units.Rood, Units.Acre, Units.SurveyAcre,
+             
+             //--- Volume
+             Units.FluidOunce, Units.ImperialFluidOunce, Units.USCSFluidOunce, Units.Gill,
+             Units.ImperialGill, Units.USCSGill, Units.Pint, Units.ImperialPint, Units.LiquidPint,
+             Units.DryPint, Units.Quart, Units.ImperialQuart, Units.LiquidQuart, Units.DryQuart,
+             Units.Gallon, Units.LiquidGallon, Units.DryGallon,
+            
+             //--- Velocity
+             Units.Knot,
+
             //--- Acceleration
              Units.Gal,
  
              //--- Force
-             Units.Newton, Units.Dyne, 
+             Units.Newton, Units.Dyne, Units.PoundForce, Units.Poundal, Units.OunceForce,
              
              //--- Energy
-             Units.Joule, Units.Erg, Units.WattHour,
+             Units.Joule, Units.Erg, Units.WattHour, Units.Calorie, Units.ThermochemicalCalorie, 
+             Units.FoodCalorie, Units.BritishThermalUnit, Units.ThermochemicalBritishThermalUnit, 
+             Units.Therm, Units.UKTherm, Units.USTherm,
              
              //--- Power
-             Units.Watt,
+             Units.Watt, Units.Horsepower, Units.MetricHorsepower, Units.ElectricHorsepower, 
+             Units.BoilerHorsepower, Units.TonOfRefrigeration,
 
              //--- Pressure
-             Units.Pascal, Units.Barye,
+             Units.Pascal, Units.Barye, Units.Atmosphere, Units.TechnicalAtmosphere, Units.Bar,
+             Units.Torr,
 
              //--- Frequency
              Units.Hertz,
 
              //--- Electric Charge
-             Units.Coulomb, Units.AmpereHour,
+             Units.AmpereHour,
 
              //--- Electric Current
-             Units.Ampere, 
+             Units.Ampere, Units.Statampere, Units.Abampere, Units.Biot,
 
              //--- Electric Voltage
-             Units.Volt, 
+             Units.Volt, Units.Statvolt, Units.Abvolt, 
 
              //--- Electric Resitance
-             Units.Ohm, 
+             Units.Ohm, Units.Statohm, Units.Abohm, 
 
              //--- Electric Conductance
-             Units.Siemens,
+             Units.Siemens, Units.Mho, Units.Gemmho, Units.Statsiemens, Units.Statmho,
+             Units.Absiemens, Units.Abmho,
 
              //--- Electric Capacitance
-             Units.Farad,
+             Units.Farad, Units.Statfarad, Units.Abfarad,
 
              //--- Electric Inductance
-             Units.Henry,
+             Units.Henry, Units.Stathenry, Units.Abhenry,
+
+             //--- Electric Dipole Moment
+             Units.Debye,
 
              //--- Wavenumber
             Units.Kayser,
@@ -179,6 +199,9 @@ namespace FlexibleParser
             //--- Kinematic Viscosity
             Units.Stokes,
 
+            //--- Solid Angle
+            Units.Steradian,
+
             //--- Luminous Flux
             Units.Lumen,
 
@@ -186,16 +209,19 @@ namespace FlexibleParser
             Units.Talbot,
 
             //--- Luminance
-            Units.Stilb,
+            Units.Stilb, Units.Nit, Units.Lambert, Units.FootLambert,
 
             //--- Illuminance
-            Units.Lux, Units.Phot,
+            Units.Lux, Units.Phot, Units.FootCandle,
 
             //--- Magnetic Flux
-            Units.Weber,
+            Units.Weber, Units.Maxwell,
+
+            //--- Magnetic Field H
+            Units.Oersted,
 
             //--- Magnetic Field B
-            Units.Tesla,
+            Units.Tesla, Units.Gauss,
 
             //--- Absorbed Dose
             Units.Gray, Units.Rad,
