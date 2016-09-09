@@ -49,19 +49,38 @@ namespace FlexibleParser
             {
                 if (unitInfo.Parts[i].Prefix.Factor == 1m) continue;
 
-                if (AllBasicUnits.Values.FirstOrDefault(x => x.ContainsValue(new BasicUnit(unitInfo.Parts[i].Unit, unitInfo.Parts[i].Prefix.Factor))) != null)
+                if (isBasicPrefixUnit(unitInfo.Parts[i]))
                 {
                     //Better keeping the prefixes of the basic units (e.g., kg).
                     continue;
                 }
 
-                prefixInfo = prefixInfo * unitInfo.Parts[i].Prefix.Factor;
+                prefixInfo *= RaiseToIntegerExponent
+                (
+                    unitInfo.Parts[i].Prefix.Factor, unitInfo.Parts[i].Exponent
+                );
                 unitInfo.Parts[i].Prefix = new Prefix();
             }
 
             unitInfo *= prefixInfo;
 
             return unitInfo;
+        }
+
+        private static bool isBasicPrefixUnit(UnitPart unitPart)
+        {
+            foreach (var item in AllBasicUnits.Values)
+            {
+                foreach (var item2 in item.Values)
+                {
+                    if (item2.Unit == unitPart.Unit && item2.PrefixFactor == unitPart.Prefix.Factor)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private static UnitInfo ReduceBigValueExp(UnitInfo unitInfo)

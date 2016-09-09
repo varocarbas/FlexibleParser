@@ -28,11 +28,11 @@ namespace FlexibleParser
                 else if (outUnitString != "") outUnitString = outUnitString + "*";
 
                 string unitString = "";
-                if (unitPart.Prefix.Symbol != "" && unitPart.Unit.ToString().ToLower().StartsWith(unitPart.Prefix.Name.ToLower()))
+                if (unitPart.Prefix.Symbol != "" && !unitPart.Unit.ToString().ToLower().StartsWith(unitPart.Prefix.Name.ToLower()))
                 {
                     unitString = unitPart.Prefix.Symbol;
                 }
-                unitString = AllUnitSymbols.First(x => x.Value == unitPart.Unit).Key;
+                unitString += AllUnitSymbols.First(x => x.Value == unitPart.Unit).Key;
                 
                 int exponent = Math.Abs(unitPart.Exponent);
                 if (exponent != 1) unitString = unitString + exponent.ToString();
@@ -129,6 +129,7 @@ namespace FlexibleParser
                     );
                 }
                 else outParts.Add(new UnitPart(part));
+
                 outParts = SimplifyCompoundComparisonUnitParts(outParts).Parts;
             }
 
@@ -137,18 +138,15 @@ namespace FlexibleParser
 
         private static List<UnitPart> AddExponentInformationToParts2(List<UnitPart> parts2, UnitPart part)
         {
-            int exp2 = Math.Abs(part.Exponent);
-            if (parts2.Count == 1 && parts2[0].Exponent != 1)
-            {
-                exp2 -= Math.Abs(parts2[0].Exponent);
-            }
+            if (part.Exponent == 1) return parts2;
 
-            if (exp2 != 0)
+            //pint^2 converted into (ft3)^2 represents a descriptive example of the kind of situations
+            //which reach this point. That is, part.Exponent doesn't participate in the definition of 
+            //the given unit/part. The definitory exponents are already stored in parts2.
+
+            for (int i = 0; i < parts2.Count; i++)
             {
-                for (int i = 0; i < parts2.Count; i++)
-                {
-                    parts2[i].Exponent *= Math.Sign(part.Exponent) * exp2;
-                }
+                parts2[i].Exponent *= part.Exponent;
             }
 
             return parts2;

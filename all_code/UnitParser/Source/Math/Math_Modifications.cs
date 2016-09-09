@@ -12,11 +12,10 @@ namespace FlexibleParser
             if (value == 0m) return value;
             decimal sign = value / Math.Abs(value);
             decimal absValue = Math.Abs(value);
-            decimal maxGapVal = 0.0000001m;
-            int maxGapDigits = 6;
+            int minGapDigits = 6;
             
             UnitInfo infoUp = GetTargetRoundedValue(absValue, RoundType.MidpointAwayFromZero);
-            if (infoUp.Value > absValue && infoUp.BaseTenExponent >= maxGapDigits && infoUp.Value - absValue <= maxGapVal)
+            if (infoUp.Value > absValue && infoUp.BaseTenExponent >= minGapDigits)
             {
                 //Performs improvements like converting 0.23459999999999999999 into 0.2346.
                 value = sign * infoUp.Value;
@@ -24,9 +23,9 @@ namespace FlexibleParser
             else
             {
                 UnitInfo infoDown = GetTargetRoundedValue(absValue, RoundType.MidpointToZero);
-                if (infoDown.Value < absValue && infoDown.BaseTenExponent >= maxGapDigits && infoDown.Value - absValue <= maxGapVal)
+                if (infoDown.Value < absValue && infoDown.BaseTenExponent >= minGapDigits)
                 {
-                    //Performs improvements like converting 0.23450000000000001 into 0.2345.
+                    //Performs improvements like converting 0.23450000000000004 into 0.2345.
                     value = sign * infoDown.Value;
                 }
             }

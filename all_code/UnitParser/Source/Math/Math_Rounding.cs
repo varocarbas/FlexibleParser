@@ -30,10 +30,31 @@ namespace FlexibleParser
 
             return 
             (
-                length2 - digits < 1 ? d : Math.Floor(d) + 
+                length2 - digits < 1 ? 
+                RoundDecInternalAfterLimit(d, digits, type, d2, length2) : 
+                RoundDecInternalAfterOutput(d, digits, type, d2, length2)
+            );
+        }
+
+        private static decimal RoundDecInternalAfterOutput(decimal d, int digits, RoundType type, decimal d2, int length2)
+        {
+            return
+            (
+                Math.Floor(d) +
                 (
                     RoundDecInternalBefore(d2, digits, type) / roundPower10Decimal[length2]
                 )
+            );
+        }
+
+        private static decimal RoundDecInternalAfterLimit(decimal d, int digits, RoundType type, decimal d2, int length2)
+        {
+            decimal d22 = Math.Floor(d2);
+
+            return
+            (
+                d22 == d2 ? d : 
+                RoundDecInternalAfterOutput(d, digits, type, d22, length2)
             );
         }
 
