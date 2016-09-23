@@ -1,6 +1,6 @@
 # UnitParser 
 
- [UnitParser in customsolvers.com](http://customsolvers.com/unit_parser/) -- [UnitParser in varocarbas.com](http://varocarbas.com/unit_parser_code/) -- [UnitParser.dll](http://customsolvers.com/downloads/flexible_parser/unit_parser/) -- [UnitParser.XML](https://github.com/varocarbas/FlexibleParser/tree/master/all_comments/UnitParser.XML) -- [NuGet package](https://www.nuget.org/packages/UnitParser/) -- [Short video](https://www.youtube.com/watch?v=8LJptIg3Z4Y&feature=youtu.be)
+ [Section in customsolvers.com](http://customsolvers.com/unit_parser/) ([Sección en customsolvers.com](http://customsolvers.com/unit_parser_es/)) -- [Section in varocarbas.com](http://varocarbas.com/unit_parser_code/) -- [UnitParser.dll](http://customsolvers.com/downloads/flexible_parser/unit_parser/) ([UnitParser.XML](https://github.com/varocarbas/FlexibleParser/tree/master/all_comments/UnitParser.XML)) -- [NuGet package](https://www.nuget.org/packages/UnitParser/) -- [Short video](https://www.youtube.com/watch?v=8LJptIg3Z4Y&feature=youtu.be)
 
 ##Introduction
 The main class is called ```UnitP``` (```FlexibleParser``` namespace). It can be instantiated in many different ways.
