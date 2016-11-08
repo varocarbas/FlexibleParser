@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parts\NumberParser.cs" />
+    <Compile Include="Parts\UnitParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -49,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NumberParser\NumberParser.csproj">
+      <Project>{7b07eeb7-8504-4b0d-8733-065d3cce70ab}</Project>
+      <Name>NumberParser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UnitParser\UnitParser.csproj">
       <Project>{66ed39c1-c01c-43f1-85a1-f1a4b5422f7f}</Project>
       <Name>UnitParser</Name>
