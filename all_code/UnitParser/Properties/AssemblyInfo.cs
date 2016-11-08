@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Custom Solvers 2.0")]
 [assembly: AssemblyProduct("FlexibleParser")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyTrademark("varocarbas")]
 [assembly: AssemblyCulture("")]
 
