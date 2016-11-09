@@ -27,7 +27,7 @@ NumberP numberP = new NumberP("1.23", new ParseConfig(typeof(long)));
 ##Common Features
 
 All the NumberX classes have various characteristics in common.
-- Main definition according to two fields: ```Value``` (```decimal``` or ```dynamic```) and ```BaseTenExponent``` (```int```). That's why all these classes support ranges beyond [-1, 1] * 10^2147483647. 
+- Defined according to the fields ```Value``` (```decimal``` or ```dynamic```) and ```BaseTenExponent``` (```int```). All of them support ranges beyond [-1, 1] * 10^2147483647. 
 - Most common arithmetic and comparison operator support.
 - Errors managed internally and no exceptions thrown.
 - Numerous instantiating alternatives. Implicitly convertible between each other and to related types.
