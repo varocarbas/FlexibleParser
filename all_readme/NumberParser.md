@@ -18,7 +18,7 @@ Number number = new Number(1.23m);
 NumberD numberD = new NumberD(123);
 
 //1.23 (decimal). Others: 1 (int) and ' ' (char).
-NumberO numberO = new NumberO(1.23m, new Type[] { typeof(int), typeof(char) });```. 
+NumberO numberO = new NumberO(1.23m, new Type[] { typeof(int), typeof(char) }); 
 
 //1 (long).
 NumberP numberP = new NumberP("1.23", new ParseConfig(typeof(long)));
@@ -26,10 +26,10 @@ NumberP numberP = new NumberP("1.23", new ParseConfig(typeof(long)));
 
 ##Common Features
 
-All the NumberX classes have some characteristics in common.
+All the NumberX classes have various characteristics in common.
 - Main definition according to two fields: ```Value``` (```decimal``` or ```dynamic```) and ```BaseTenExponent``` (```int```). That's why all these classes support ranges beyond [-1, 1] * 10^2147483647. 
-- Basic arithmetic and comparison operators support.
-- All the errors managed internally and no exceptions.
+- Most common arithmetic and comparison operator support.
+- Errors managed internally and no exceptions thrown.
 - Numerous instantiating alternatives. Implicitly convertible between each other and to related types.
 
 ```C#
@@ -53,7 +53,7 @@ NumberO numberO = new NumberO(123m, OtherTypes.IntegerTypes) / 0m;
 NumberP numberP = (NumberP)"1234e5678";
 ```
 
-##Math2
+##Math2 Class
 
 This class includes all the NumberParser mathematical functionalities.
 
@@ -68,7 +68,7 @@ This class includes all the NumberParser mathematical functionalities.
 //158250272872244.91791560253776 (decimal).
 Number number = Math2.PowDecimal(123.45m, 6.789101112131415161718m);
 
-//123000 (```decimal```).
+//123000 (decimal).
 Number number = Math2.RoundExact
 (
     123456.789m, 3, RoundType.AlwaysToZero, 
