@@ -22,6 +22,7 @@ NumberO numberO = new NumberO(1.23m, new Type[] { typeof(int), typeof(char) });`
 
 //1 (long).
 NumberP numberP = new NumberP("1.23", new ParseConfig(typeof(long)));
+```
 
 ##Common Features
 
