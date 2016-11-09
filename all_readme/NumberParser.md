@@ -59,7 +59,7 @@ This class includes all the NumberParser mathematical functionalities.
 
 ###Custom Functionalities
 
-- ```PowDecimal```/```SqrtDecimal``` whose algorithms are exclusively relying on the ```decimal``` type, what makes them more precise than the ```System.Math``` versions. The whole [varocarbas.com Project 10](http://varocarbas.com/fractional_exponentiation) explains their underlying calculation approach. 
+- ```PowDecimal```/```SqrtDecimal``` whose ```decimal```-based algorithms are more precise than the ```System.Math``` versions. The whole [varocarbas.com Project 10](http://varocarbas.com/fractional_exponentiation) explains their underlying calculation approach. 
 - ```RoundExact```/```TruncateExact``` can deal with multiple rounding/truncating scenarios not supported by the native methods.
 - ```GetPolynomialFit```/```ApplyPolynomialFit``` allow to deal with second degree polynomial fits. 
 - ```Factorial``` calculates the factorial of any integer number up to 100000. 
