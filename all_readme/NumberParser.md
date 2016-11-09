@@ -39,7 +39,7 @@ Number number = new Number(12.3m, 456);
 //123 (int).
 Number numberD = 
 (
-    new NumberD(123) < new NumberD(456) ?
+    new NumberD(123) < (NumberD)new Number(456) ?
 	//123 (int)
     new NumberD(123.456, typeof(int)) :
     //123.456 (double)
@@ -98,8 +98,10 @@ NumberD numberD = Math2.Pow(123.45, 6.789101112131415161718);
 
 //4.81583621579119 (double). 
 NumberD numberD = Math2.Log(123.45m);
-
 ```
+
+##Further Code Samples
+The [test application](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/Test/Parts/NumberParser.cs) includes a relevant number of descriptive code samples. 
 
 ## Authorship & Copyright
 I, Alvaro Carballo Garcia (varocarbas), am the sole author of each single bit of this code.
