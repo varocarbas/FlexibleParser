@@ -4,7 +4,7 @@
 
 ##Introduction
 
-NumberParser (inside the ```FlexibleParser``` namespace) provides a common framework to deal with all the .NET numeric types. It relies on the following 4 classes (NumberX):
+NumberParser (inside the ```FlexibleParser``` namespace) provides a common framework to deal with all the .NET numeric types. It relies on the following four classes (NumberX):
 - ```Number``` only supports the ```decimal``` type.
 - ```NumberD``` can support any numeric type via ```dynamic```. 
 - ```NumberO``` can support different numeric types simultaneously. 
