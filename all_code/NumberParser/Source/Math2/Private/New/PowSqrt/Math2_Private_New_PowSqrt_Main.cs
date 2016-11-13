@@ -222,7 +222,7 @@ namespace FlexibleParser
             {
                 fx[0] = new Number(fx[1]);
 
-                //fx[1] = (((n - 1) * fx[0]) + (number2 / PowIntegerPositive(fx[0], n - 1))) / n;
+                //fx[1] = ((n_1N * fx[0]) + (valueN / PowIntegerPositive(fx[0], n_1))) / n;
                 fx[1] = Operations.DivideInternal
                 (
                     Operations.AddInternal
