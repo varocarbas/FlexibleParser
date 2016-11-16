@@ -41,81 +41,114 @@ namespace FlexibleParser
             return output;
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(decimal input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(double input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(float input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(long input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(ulong input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(int input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(uint input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(short input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(ushort input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(byte input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(sbyte input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(char input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(Number input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(NumberD input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberO.</param>
         public static implicit operator NumberO(NumberP input)
         {
             return new NumberO(input);
         }
 
+        ///<summary><para>Adds two NumberO variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberO operator +(NumberO first, NumberO second)
         {
             return Operations.PerformArithmeticOperation
@@ -124,6 +157,9 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Subtracts two NumberO variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberO operator -(NumberO first, NumberO second)
         {
             return Operations.PerformArithmeticOperation
@@ -132,6 +168,9 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Multiplies two NumberO variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberO operator *(NumberO first, NumberO second)
         {
             return Operations.PerformArithmeticOperation
@@ -140,6 +179,9 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Divides two NumberO variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberO operator /(NumberO first, NumberO second)
         {
             return Operations.PerformArithmeticOperation
@@ -148,11 +190,17 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Calculates the modulo of two NumberO variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static decimal operator %(NumberO first, NumberO second)
         {
             return first.Value % second.Value;
         }
 
+        ///<summary><para>Determines whether a NumberO variable is greater than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator >(NumberO first, NumberO second)
         {
             return Operations.PerformOtherOperation
@@ -162,6 +210,9 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether a NumberO variable is greater or equal than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator >=(NumberO first, NumberO second)
         {
             return Operations.PerformOtherOperation
@@ -171,6 +222,9 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether a NumberO variable is smaller than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator <(NumberO first, NumberO second)
         {
             return Operations.PerformOtherOperation
@@ -180,6 +234,9 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether a NumberO variable is smaller or equal than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator <=(NumberO first, NumberO second)
         {
             return Operations.PerformOtherOperation
@@ -189,16 +246,24 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether two NumberO variables are equal.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator ==(NumberO first, NumberO second)
         {
             return Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether two NumberO variables are different.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator !=(NumberO first, NumberO second)
         {
             return !Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether the current NumberO variable is equal to other one.</para></summary>
+        ///<param name="other">Other variable.</param>
         public bool Equals(NumberO other)
         {
             return
@@ -208,11 +273,14 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether the current NumberO variable is equal to other one.</para></summary>
+        ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
             return Equals(obj as NumberO);
         }
 
+        ///<summary><para>Returns the hash code for this NumberO variable.</para></summary>
         public override int GetHashCode()
         {
             return 0;

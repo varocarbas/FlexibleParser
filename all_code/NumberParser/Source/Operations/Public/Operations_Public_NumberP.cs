@@ -31,26 +31,37 @@ namespace FlexibleParser
             + " (" + OriginalString + ")" + Environment.NewLine + Config.ToString();
         }
 
+        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberP.</param>
         public static implicit operator NumberP(string input)
         {
             return new NumberP(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberP.</param>
         public static implicit operator NumberP(Number input)
         {
             return new NumberP(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberP.</param>
         public static implicit operator NumberP(NumberD input)
         {
             return new NumberP(input);
         }
 
+        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
+        ///<param name="input">Variable to be converted to NumberP.</param>
         public static implicit operator NumberP(NumberO input)
         {
             return new NumberP(input);
         }
 
+        ///<summary><para>Adds two NumberP variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberP operator +(NumberP first, NumberP second)
         {
             return Operations.PerformArithmeticOperation
@@ -59,6 +70,9 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Subtracts two NumberP variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberP operator -(NumberP first, NumberP second)
         {
             return Operations.PerformArithmeticOperation
@@ -67,6 +81,9 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Multiplies two NumberP variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberP operator *(NumberP first, NumberP second)
         {
             return Operations.PerformArithmeticOperation
@@ -75,6 +92,9 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Divides two NumberP variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static NumberP operator /(NumberP first, NumberP second)
         {
             return Operations.PerformArithmeticOperation
@@ -83,11 +103,17 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Calculates the modulo of two NumberP variables.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static decimal operator %(NumberP first, NumberP second)
         {
             return first.Value % second.Value;
         }
 
+        ///<summary><para>Determines whether a NumberP variable is greater than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator >(NumberP first, NumberP second)
         {
             return Operations.PerformOtherOperation
@@ -97,6 +123,9 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether a NumberP variable is greater or equal than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator >=(NumberP first, NumberP second)
         {
             return Operations.PerformOtherOperation
@@ -106,6 +135,9 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether a NumberP variable is smaller than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator <(NumberP first, NumberP second)
         {
             return Operations.PerformOtherOperation
@@ -115,6 +147,9 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether a NumberP variable is smaller or equal than other.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator <=(NumberP first, NumberP second)
         {
             return Operations.PerformOtherOperation
@@ -124,16 +159,24 @@ namespace FlexibleParser
             .Value == 1m;
         }
 
+        ///<summary><para>Determines whether two NumberP variables are equal.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator ==(NumberP first, NumberP second)
         {
             return Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether two NumberP variables are different.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator !=(NumberP first, NumberP second)
         {
             return !Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether the current NumberP variable is equal to other one.</para></summary>
+        ///<param name="other">Other variable.</param>
         public bool Equals(NumberP other)
         {
             return
@@ -143,11 +186,14 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether the current NumberP variable is equal to other one.</para></summary>
+        ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
             return Equals(obj as NumberP);
         }
 
+        ///<summary><para>Returns the hash code for this NumberP variable.</para></summary>
         public override int GetHashCode()
         {
             return 0;
