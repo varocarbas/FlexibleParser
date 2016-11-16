@@ -52,6 +52,132 @@
             </summary>
             <param name="culture">Culture.</param>
         </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Decimal)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Double)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Single)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Int64)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.UInt64)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Int32)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.UInt32)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Int16)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.UInt16)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Byte)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.SByte)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(System.Char)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(FlexibleParser.NumberD)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(FlexibleParser.NumberO)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Implicit(FlexibleParser.NumberP)~FlexibleParser.Number">
+            <summary><para>Converts the input variable into a Number one.</para></summary>
+            <param name="input">Variable to be converted to Number.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Addition(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Adds two Number variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Subtraction(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Subtracts two Number variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Multiply(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Multiplies two Number variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Division(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Divides two Number variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Modulus(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Calculates the modulo of two Number variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_GreaterThan(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Determines whether a Number variable is greater than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_GreaterThanOrEqual(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Determines whether a Number variable is greater or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_LessThan(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Determines whether a Number variable is smaller than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_LessThanOrEqual(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Determines whether a Number variable is smaller or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Equality(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Determines whether two Number variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.op_Inequality(FlexibleParser.Number,FlexibleParser.Number)">
+            <summary><para>Determines whether two Number variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.Equals(FlexibleParser.Number)">
+            <summary><para>Determines whether the current Number variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.Equals(System.Object)">
+            <summary><para>Determines whether the current Number variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Number.GetHashCode">
+            <summary><para>Returns the hash code for this Number variable.</para></summary>
+        </member>
         <member name="P:FlexibleParser.Number.Value">
             <summary><para>Decimal variable storing the primary value.</para></summary>
         </member>
@@ -101,6 +227,132 @@
             <para>Outputs an error or "Value*10^BaseTenExponent (Type)" (BaseTenExponent different than zero sample).</para>
             </summary>
             <param name="culture">Culture.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Decimal)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Double)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Single)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Int64)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.UInt64)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Int32)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.UInt32)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Int16)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.UInt16)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Byte)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.SByte)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(System.Char)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(FlexibleParser.Number)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(FlexibleParser.NumberO)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Implicit(FlexibleParser.NumberP)~FlexibleParser.NumberD">
+            <summary><para>Converts the input variable into a NumberD one.</para></summary>
+            <param name="input">Variable to be converted to NumberD.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Addition(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Adds two NumberD variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Subtraction(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Subtracts two NumberD variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Multiply(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Multiplies two NumberD variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Division(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Divides two NumberD variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Modulus(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Calculates the modulo of two NumberD variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_GreaterThan(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Determines whether a NumberD variable is greater than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_GreaterThanOrEqual(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Determines whether a NumberD variable is greater or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_LessThan(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Determines whether a NumberD variable is smaller than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_LessThanOrEqual(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Determines whether a NumberD variable is smaller or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Equality(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Determines whether two NumberD variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.op_Inequality(FlexibleParser.NumberD,FlexibleParser.NumberD)">
+            <summary><para>Determines whether two NumberD variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.Equals(FlexibleParser.NumberD)">
+            <summary><para>Determines whether the current NumberD variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.Equals(System.Object)">
+            <summary><para>Determines whether the current NumberD variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.GetHashCode">
+            <summary><para>Returns the hash code for this NumberD variable.</para></summary>
         </member>
         <member name="P:FlexibleParser.NumberD.Value">
             <summary><para>Numeric variable storing the primary value.</para></summary>
@@ -189,6 +441,132 @@
             </summary>
             <param name="culture">Culture.</param>
         </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Decimal)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Double)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Single)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Int64)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.UInt64)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Int32)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.UInt32)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Int16)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.UInt16)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Byte)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.SByte)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(System.Char)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(FlexibleParser.Number)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(FlexibleParser.NumberD)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Implicit(FlexibleParser.NumberP)~FlexibleParser.NumberO">
+            <summary><para>Converts the input variable into a NumberO one.</para></summary>
+            <param name="input">Variable to be converted to NumberO.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Addition(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Adds two NumberO variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Subtraction(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Subtracts two NumberO variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Multiply(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Multiplies two NumberO variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Division(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Divides two NumberO variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Modulus(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Calculates the modulo of two NumberO variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_GreaterThan(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Determines whether a NumberO variable is greater than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_GreaterThanOrEqual(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Determines whether a NumberO variable is greater or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_LessThan(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Determines whether a NumberO variable is smaller than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_LessThanOrEqual(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Determines whether a NumberO variable is smaller or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Equality(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Determines whether two NumberO variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.op_Inequality(FlexibleParser.NumberO,FlexibleParser.NumberO)">
+            <summary><para>Determines whether two NumberO variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.Equals(FlexibleParser.NumberO)">
+            <summary><para>Determines whether the current NumberO variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.Equals(System.Object)">
+            <summary><para>Determines whether the current NumberO variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberO.GetHashCode">
+            <summary><para>Returns the hash code for this NumberO variable.</para></summary>
+        </member>
         <member name="P:FlexibleParser.NumberO.Value">
             <summary><para>Decimal variable storing the primary value.</para></summary>
         </member>
@@ -251,6 +629,88 @@
             <para>Outputs an error or "Value*10^BaseTenExponent (OriginalString)" together with all the Config information via invoking its ToString() method (BaseTenExponent different than zero).</para>
             </summary>
             <param name="culture">Culture.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Implicit(System.String)~FlexibleParser.NumberP">
+            <summary><para>Converts the input variable into a NumberP one.</para></summary>
+            <param name="input">Variable to be converted to NumberP.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Implicit(FlexibleParser.Number)~FlexibleParser.NumberP">
+            <summary><para>Converts the input variable into a NumberP one.</para></summary>
+            <param name="input">Variable to be converted to NumberP.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Implicit(FlexibleParser.NumberD)~FlexibleParser.NumberP">
+            <summary><para>Converts the input variable into a NumberP one.</para></summary>
+            <param name="input">Variable to be converted to NumberP.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Implicit(FlexibleParser.NumberO)~FlexibleParser.NumberP">
+            <summary><para>Converts the input variable into a NumberP one.</para></summary>
+            <param name="input">Variable to be converted to NumberP.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Addition(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Adds two NumberP variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Subtraction(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Subtracts two NumberP variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Multiply(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Multiplies two NumberP variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Division(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Divides two NumberP variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Modulus(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Calculates the modulo of two NumberP variables.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_GreaterThan(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Determines whether a NumberP variable is greater than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_GreaterThanOrEqual(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Determines whether a NumberP variable is greater or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_LessThan(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Determines whether a NumberP variable is smaller than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_LessThanOrEqual(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Determines whether a NumberP variable is smaller or equal than other.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Equality(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Determines whether two NumberP variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.op_Inequality(FlexibleParser.NumberP,FlexibleParser.NumberP)">
+            <summary><para>Determines whether two NumberP variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.Equals(FlexibleParser.NumberP)">
+            <summary><para>Determines whether the current NumberP variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.Equals(System.Object)">
+            <summary><para>Determines whether the current NumberP variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberP.GetHashCode">
+            <summary><para>Returns the hash code for this NumberP variable.</para></summary>
         </member>
         <member name="T:FlexibleParser.ParseConfig">
             <summary>
