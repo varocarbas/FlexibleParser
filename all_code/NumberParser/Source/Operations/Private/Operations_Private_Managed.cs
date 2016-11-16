@@ -384,15 +384,11 @@ namespace FlexibleParser
 
         private static Number OperationValuesManageError(Number outNumber, Number second, ExistingOperations operation)
         {
-            if (operation != ExistingOperations.Multiplication && operation != ExistingOperations.Division)
-            {
-                //This condition should never be true on account of the fact that the pre-modifications performed before
-                //adding/subtracting should avoid erroneous situations.
-                return outNumber;
-            }
+            Number tempVar = OperationValuesManageErrorPreAnalysis(outNumber, second, operation);
+            if (tempVar != null) return tempVar;
 
             Number second2 = Math.Abs(second.Value);
-            second2 = FromValueToBaseTenExponent(second2.Value);
+            second2 = FromValueToBaseTenExponent(second2.Value, second2.BaseTenExponent);
 
             outNumber = Operations.VaryBaseTenExponent
             (
@@ -424,6 +420,28 @@ namespace FlexibleParser
             }
 
             return outNumber;
+        }
+
+        private static Number OperationValuesManageErrorPreAnalysis(Number outNumber, Number second, ExistingOperations operation)
+        {
+            if (operation != ExistingOperations.Multiplication && operation != ExistingOperations.Division)
+            {
+                //This condition should never be true on account of the fact that the pre-modifications performed before
+                //adding/subtracting should avoid erroneous situations.
+                return new Number(ErrorTypesNumber.NumericOverflow);
+            }
+
+            //Accounting for some limit cases which might reach this point and provoke and infinite set of recursive calls.
+            if (operation == ExistingOperations.Multiplication && Math.Abs(outNumber.BaseTenExponent + second.BaseTenExponent) == int.MaxValue)
+            {
+                return new Number(ErrorTypesNumber.NumericOverflow);
+            }
+            if (operation == ExistingOperations.Division && (outNumber.BaseTenExponent - second.BaseTenExponent) == int.MinValue)
+            {
+                return new Number(ErrorTypesNumber.NumericOverflow);
+            }
+
+            return null;
         }
 
         //This method is called when performing an arithmetic operation between two variables of a random
@@ -575,40 +593,44 @@ namespace FlexibleParser
 
         internal static NumberD NormaliseNumber(NumberD numberD)
         {
-            Number tempVar = new Number(numberD);
-            Number tempVar2 = FromValueToBaseTenExponent
-            (
-                tempVar.Value, Basic.AllDecimalTypes.Contains(numberD.Type)
-            );
-            
-            tempVar.Value = tempVar2.Value;
-            tempVar = Operations.VaryBaseTenExponent(tempVar, tempVar2.BaseTenExponent);
+            if (numberD.BaseTenExponent == int.MaxValue)
+            {
+                return new NumberD(numberD);
+            }
 
-            return
+            Number tempVar = new Number(numberD);
+            tempVar = FromValueToBaseTenExponent
             (
-                tempVar.Error != ErrorTypesNumber.None ? new NumberD(tempVar.Error) :
-                new NumberD(tempVar.Value, tempVar.BaseTenExponent, numberD.Type)
+                tempVar.Value, tempVar.BaseTenExponent, 
+                Basic.AllDecimalTypes.Contains(numberD.Type)
+            );
+
+            return new NumberD
+            (
+                tempVar.Value, tempVar.BaseTenExponent, numberD.Type
             );
         }
 
         internal static Number NormaliseNumber(Number number)
         {
             Number outNumber = new Number(number);
-            Number tempVar = FromValueToBaseTenExponent(outNumber.Value);
-            outNumber.Value = tempVar.Value;
+            if (outNumber.BaseTenExponent == int.MaxValue) return outNumber;
 
-            return Operations.VaryBaseTenExponent(outNumber, tempVar.BaseTenExponent);
+            return FromValueToBaseTenExponent
+            (
+                outNumber.Value, outNumber.BaseTenExponent
+            );
         }
 
-        private static Number FromValueToBaseTenExponent(decimal value, bool decimals = true)
+        private static Number FromValueToBaseTenExponent(decimal value, int baseTenExponent, bool decimals = true)
         {
-            Number outNumber = new Number(value);
+            Number outNumber = new Number(value, baseTenExponent);
             if (value == 0m) return outNumber;
 
             decimal valueAbs = Math.Abs(value);
             bool decrease = (valueAbs > 1m);
 
-            while (valueAbs != 1m)
+            while (valueAbs != 1m && ((decrease && outNumber.BaseTenExponent <= int.MaxValue - 1) || (!decrease && outNumber.BaseTenExponent >= int.MinValue + 1)))
             {
                 if ((decrease && valueAbs < 10m) || (!decrease && valueAbs >= 1m))
                 {

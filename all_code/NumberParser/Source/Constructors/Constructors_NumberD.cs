@@ -282,7 +282,7 @@ namespace FlexibleParser
                 {
                     numberD = Conversions.ConvertNumberToAny
                     (
-                        Conversions.ConvertAnyValueToDecimal(value, type), type
+                        Conversions.ConvertAnyValueToDecimal(value), type
                     );
 
                     return Operations.VaryBaseTenExponent(numberD, baseTenExponent);
