@@ -233,16 +233,24 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether two ParseConfig variables are equal.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator ==(ParseConfig first, ParseConfig second)
         {
             return Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether two ParseConfig variables are different.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator !=(ParseConfig first, ParseConfig second)
         {
             return !Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether the current ParseConfig variable is equal to other one.</para></summary>
+        ///<param name="other">Other variable.</param>
         public bool Equals(ParseConfig other)
         {
             return
@@ -252,11 +260,14 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether the current ParseConfig variable is equal to other one.</para></summary>
+        ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
             return Equals(obj as ParseConfig);
         }
 
+        ///<summary><para>Returns the hash code for this ParseConfig variable.</para></summary>
         public override int GetHashCode()
         {
             return 0;

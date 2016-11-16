@@ -736,6 +736,27 @@
             <summary><para>Initialises a new ParseConfig instance.</para></summary>
             <param name="config">ParseConfig variable whose information will be used.</param>  
         </member>
+        <member name="M:FlexibleParser.ParseConfig.op_Equality(FlexibleParser.ParseConfig,FlexibleParser.ParseConfig)">
+            <summary><para>Determines whether two ParseConfig variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.ParseConfig.op_Inequality(FlexibleParser.ParseConfig,FlexibleParser.ParseConfig)">
+            <summary><para>Determines whether two ParseConfig variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.ParseConfig.Equals(FlexibleParser.ParseConfig)">
+            <summary><para>Determines whether the current ParseConfig variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.ParseConfig.Equals(System.Object)">
+            <summary><para>Determines whether the current ParseConfig variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.ParseConfig.GetHashCode">
+            <summary><para>Returns the hash code for this ParseConfig variable.</para></summary>
+        </member>
         <member name="P:FlexibleParser.ParseConfig.Culture">
             <summary><para>CultureInfo variable to be used while parsing. Its default value is CultureInfo.InvariantCulture.</para></summary>
         </member>
@@ -1121,6 +1142,27 @@
             <param name="a">Coefficient A in y = A + B*x + C*x^2.</param>
             <param name="b">Coefficient B in y = A + B*x + C*x^2.</param>
             <param name="c">Coefficient C in y = A + B*x + C*x^2.</param>
+        </member>
+        <member name="M:FlexibleParser.Polynomial.op_Equality(FlexibleParser.Polynomial,FlexibleParser.Polynomial)">
+            <summary><para>Determines whether two Polynomial variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Polynomial.op_Inequality(FlexibleParser.Polynomial,FlexibleParser.Polynomial)">
+            <summary><para>Determines whether two Polynomial variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Polynomial.Equals(FlexibleParser.Polynomial)">
+            <summary><para>Determines whether the current Polynomial variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Polynomial.Equals(System.Object)">
+            <summary><para>Determines whether the current Polynomial variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Polynomial.GetHashCode">
+            <summary><para>Returns the hash code for this Polynomial variable.</para></summary>
         </member>
         <member name="P:FlexibleParser.Polynomial.A">
             <summary><para>Polynomial coefficient A, as defined by y = A + B*x + C*x^2.</para></summary>

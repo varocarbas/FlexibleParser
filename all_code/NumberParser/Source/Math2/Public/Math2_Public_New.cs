@@ -252,16 +252,24 @@ namespace FlexibleParser
 
         internal Polynomial(ErrorTypesNumber error) { Error = error; }
 
+        ///<summary><para>Determines whether two Polynomial variables are equal.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator ==(Polynomial first, Polynomial second)
         {
             return Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether two Polynomial variables are different.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator !=(Polynomial first, Polynomial second)
         {
             return !Operations.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether the current Polynomial variable is equal to other one.</para></summary>
+        ///<param name="other">Other variable.</param>
         public bool Equals(Polynomial other)
         {
             return
@@ -271,11 +279,14 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether the current Polynomial variable is equal to other one.</para></summary>
+        ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
             return Equals(obj as ParseConfig);
         }
 
+        ///<summary><para>Returns the hash code for this Polynomial variable.</para></summary>
         public override int GetHashCode()
         {
             return 0;
