@@ -14,8 +14,12 @@ FlexibleParser is a multi-purpose .NET parsing library based upon the following 
 
 At the moment, FlexibleParser is formed by the following independent parts:
 
-[UnitParser](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/UnitParser.md) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source) and [all_binaries](https://github.com/varocarbas/FlexibleParser/tree/master/all_binaries)/UnitParser.dll). It allows to easily deal with a wide variety of situations involving units of measurement.
-Among its most salient features are: [user-defined exception triggering](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/UnitParser.md#general-rules) and [gracefully managing numeric values of any size](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/UnitParser.md#numeric-support).
+[UnitParser](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/UnitParser.md) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source), [all_binaries](https://github.com/varocarbas/FlexibleParser/tree/master/all_binaries)/UnitParser.dll and https://github.com/varocarbas/FlexibleParser/blob/master/all_comments/UnitParser.XML with the IntelliSense information). It allows to easily deal with a wide variety of situations involving units of measurement.
+Among its most salient features are: user-defined exception triggering and gracefully managing numeric values of any size.
+
+
+[NumberParser](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/NumberParser.md) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source), [all_binaries](https://github.com/varocarbas/FlexibleParser/tree/master/all_binaries)/NumberParser.dll and https://github.com/varocarbas/FlexibleParser/blob/master/all_comments/NumberParser.XML with the IntelliSense information). It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
+
 
 ## Authorship & Copyright
 
