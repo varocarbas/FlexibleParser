@@ -30,6 +30,8 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Converts the input variable into a Number one.</para></summary>
+        ///<param name="input">Decimal variable to be converted to Number.</param>
         public static implicit operator Number(decimal input)
         {
             return new Number(input);
