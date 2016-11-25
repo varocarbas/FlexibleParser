@@ -136,8 +136,6 @@ namespace FlexibleParser
 
         private static decimal PerformRound(decimal d, int remDigits, RoundType type, decimal rounded)
         {
-            int lastDigit = (int)(d / Power10Decimal[remDigits] % 10m);
-
             int greaterEqual = MidPointGreaterEqual(d, remDigits, rounded);
 
             if (greaterEqual == 1) rounded += 1m;
