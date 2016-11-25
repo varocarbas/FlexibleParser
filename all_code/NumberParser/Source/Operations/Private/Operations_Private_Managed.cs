@@ -331,17 +331,6 @@ namespace FlexibleParser
             Number first2 = new Number(first);
             Number second2 = new Number(second);
 
-            //The reason for checking whether BaseTenExponent is inside/outside the int range before performing 
-            //the operation (rather than going ahead and eventually catching the resulting exception) isn't just
-            //being quicker, but also the only option in many situations. Note that an addition/subtraction between
-            //two int variables whose result is outside the int range might not trigger an exception (+ random 
-            //negative value as output).
-            Number tempVar = Operations.VaryBaseTenExponent
-            (
-                output, second.BaseTenExponent, operation == ExistingOperations.Division
-            );
-            if (tempVar.Error != ErrorTypesNumber.None) return tempVar;
-
             bool isWrong = false;
             try
             {
@@ -355,6 +344,18 @@ namespace FlexibleParser
                 }
                 else
                 {
+                    //The reason for checking whether BaseTenExponent is inside/outside the int range before performing 
+                    //the operation (rather than going ahead and eventually catching the resulting exception) isn't just
+                    //being quicker, but also the only option in many situations. Note that an addition/subtraction between
+                    //two int variables whose result is outside the int range might not trigger an exception (+ random 
+                    //negative value as output).
+                    Number tempVar = Operations.VaryBaseTenExponent
+                    (
+                        output, second.BaseTenExponent, 
+                        operation == ExistingOperations.Division
+                    );
+                    if (tempVar.Error != ErrorTypesNumber.None) return tempVar;
+
                     if (operation == ExistingOperations.Multiplication)
                     {
                         output.Value *= second2.Value;

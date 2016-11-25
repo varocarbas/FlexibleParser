@@ -96,9 +96,33 @@ namespace FlexibleParser
                             );
                         }
 
+                        //Accounting for the differences 0.001/1000 -> 10^-3/10^3.
+                        int sign = (Math.Abs(startNumber) < 1.0 ? -1 : 1);
+                        if (startNumber == 0.0 && sign == -1)
+                        {
+                            //Fix for a situation like like 0.00000[...]00001 being misinterpreted as 0 by the 
+                            //aforementioned double.TryParse.
+                            bool found = false;
+                            int length2 = (remString.Length > 299 ? 299 : remString.Length);
+                            for (int i = 0; i < remString.Length; i++)
+                            {
+                                if (remString[i] != '0' && !InputIsCultureFeature(remString[i].ToString(), CultureFeatures.ThousandSeparator, culture))
+                                {
+                                    //A case like 0.00000000523456, originally interpreted as 10^-14, is now redefined as
+                                    //523456*10^-8
+                                    found = true;
+                                    startNumber = double.Parse(remString.Substring(0, length2));
+                                    beyondCount = i + 298;
+                                    break;
+                                }
+                            }
+
+                            if(!found) return new Number(0m);
+                        }
+
                         return Operations.VaryBaseTenExponent
                         (
-                            Conversions.ConvertFloatingToDecimal(startNumber), beyondCount
+                            Conversions.ConvertFloatingToDecimal(startNumber), sign * beyondCount
                         );
                     }
                 }
