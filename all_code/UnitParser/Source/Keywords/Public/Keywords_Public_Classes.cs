@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace FlexibleParser
 {
-    ///<summary><para>Contains the main information associated with the constituent parts of each unit.</param></summary>
+    ///<summary><para>Contains the main information associated with the constituent parts of each unit.</para></summary>
     public class UnitPart
     {
         ///<summary><para>Unit associated with the current part.</para></summary>

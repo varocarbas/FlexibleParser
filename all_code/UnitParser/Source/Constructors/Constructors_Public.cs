@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace FlexibleParser
 {
+    ///<summary><para>Basic UnitParser class containing all the information about units and values.</para></summary>
     public partial class UnitP
     {
         ///<summary><para>Member of the Units enum which best suits the current conditions.</para></summary>

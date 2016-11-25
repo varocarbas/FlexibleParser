@@ -107,24 +107,24 @@ namespace FlexibleParser
                 );
             }
 
-            public UnitInfo(decimal value, int bigNumberExponent = 0)
+            public UnitInfo(decimal value, int baseTenExponent = 0)
             {
                 PopulateVariables
                 (
-                    value, Units.None, new Prefix(), null, null, BaseTenExponent
+                    value, Units.None, new Prefix(), null, null, baseTenExponent
                 );
             }
 
             private void PopulateVariables
             (
                 decimal value, Units unit, Prefix prefix, List<UnitPart> parts,
-                Dictionary<UnitPart, int> initialPositions, int bigNumberExponent = 0,
+                Dictionary<UnitPart, int> initialPositions, int baseTenExponent = 0,
                 UnitTypes type = UnitTypes.None, UnitSystems system = UnitSystems.None, 
                 ErrorInfo errorInfo = null
             )
             {
                 Value = value;
-                BaseTenExponent = bigNumberExponent;
+                BaseTenExponent = baseTenExponent;
                 Unit = unit;
                 Prefix = new Prefix(prefix);
                 if (parts == null)

@@ -27,7 +27,9 @@ namespace FlexibleParser
 
             return
             (
-                double.TryParse(stringToParse, NumberStyles.Any, CultureInfo.InvariantCulture, out valueDouble) ?
+                //Bear in mind that double.TryParse might misunderstand very small numbers, that's why 0.0 is treated as an error.
+                //GetInfoBeyondDouble will undoubtedly determine whether it is a real zero or not.
+                double.TryParse(stringToParse, NumberStyles.Any, CultureInfo.InvariantCulture, out valueDouble) && valueDouble != 0.0 ?
                 ConvertDoubleToDecimal(valueDouble) : GetInfoBeyondDouble(stringToParse)
             );
         }
@@ -48,6 +50,8 @@ namespace FlexibleParser
                 string[] temp = stringToParse.Split('e');
                 if (temp.Length == 2)
                 {
+                    if (temp[0].Contains("e")) return errorInfo;
+                    
                     UnitInfo outInfo = ParseDouble(temp[0]);
                     if (outInfo.Error.Type != ErrorTypes.None)
                     {
@@ -85,12 +89,39 @@ namespace FlexibleParser
                             //in mind the exponential alternative above.
                             return errorInfo;
                         }
-                        UnitInfo outInfo = ConvertDoubleToDecimal(startNumber);
-                        outInfo.BaseTenExponent += GetBeyondDoubleCharacterCount
+                        
+                        int beyondCount = GetBeyondDoubleCharacterCount(stringToParse.Substring(299));
+                        if (beyondCount < 0) return errorInfo;
+
+                        //Accounting for the differences 0.001/1000 -> 10^-3/10^3.
+                        int sign = (Math.Abs(startNumber) < 1.0 ? -1 : 1);
+                        if (startNumber == 0.0 && sign == -1)
+                        {
+                            //Fix for a situation like like 0.00000[...]00001 being misinterpreted as 0 by the 
+                            //aforementioned double.TryParse.
+                            bool found = false;
+                            int length2 = (remString.Length > 299 ? 299 : remString.Length);
+                            for (int i = 0; i < remString.Length; i++)
+                            {
+                                if (remString[i] != '0' && remString[i] != ',')
+                                {
+                                    //A case like 0.00000000523456, originally interpreted as 10^-14, is now redefined as
+                                    //523456*10^-8
+                                    found = true;
+                                    startNumber = double.Parse(remString.Substring(0, length2));
+                                    beyondCount = i + 298;
+                                    break;
+                                }
+                            }
+
+                            if (!found) return new UnitInfo(0m);
+                        }
+
+                        return VaryBaseTenExponent
                         (
-                            stringToParse.Substring(299)
+                            ConvertDoubleToDecimal(startNumber), 
+                            sign * beyondCount
                         );
-                        return outInfo;
                     }
                 }
             }
@@ -116,7 +147,7 @@ namespace FlexibleParser
             catch
             {
                 //The really unlikely scenario of hitting int.MaxValue.
-                outCount = 0;
+                outCount = -1;
             }
 
             return outCount;

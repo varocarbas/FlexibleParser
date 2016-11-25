@@ -64,12 +64,12 @@ namespace FlexibleParser
                 }
             }
 
-            if (modifyBaseTenExponent)
-            {
-                unitInfo.BaseTenExponent -= targetExponent;
-            }
-
-            return unitInfo;
+            return
+            (
+                modifyBaseTenExponent ?
+                VaryBaseTenExponent(unitInfo, -targetExponent) :
+                unitInfo
+            );
         }
 
         private static bool PrefixCanBeUsedWithUnit(UnitInfo unitInfo, PrefixTypes prefixType)

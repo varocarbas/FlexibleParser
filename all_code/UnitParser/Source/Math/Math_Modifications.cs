@@ -80,9 +80,28 @@ namespace FlexibleParser
 
         private static UnitInfo ConvertDoubleToDecimal(double valueDouble)
         {
-            if (valueDouble == 0.0) return new UnitInfo();
+            UnitInfo outInfo = new UnitInfo()
+            {
+                //Numbers always rely on ExceptionHandlingTypes.AlwaysTriggerException.
+                Error = new ErrorInfo
+                (
+                    ErrorTypes.None, 
+                    ExceptionHandlingTypes.AlwaysTriggerException
+                )
+            };
 
-            UnitInfo outInfo = new UnitInfo();
+            if (valueDouble == 0.0) return outInfo;
+            if (double.IsInfinity(valueDouble) || double.IsNaN(valueDouble))
+            {
+                outInfo.Error = new ErrorInfo
+                (
+                    ErrorTypes.NumericError, 
+                    ExceptionHandlingTypes.AlwaysTriggerException
+                );
+
+                return outInfo;
+            }
+
             if (Math.Abs(valueDouble) < MinValue)
             {
                 while (Math.Abs(valueDouble) < MinValue)
@@ -101,12 +120,6 @@ namespace FlexibleParser
             }
 
             outInfo.Value = Convert.ToDecimal(valueDouble);
-
-            //Numbers always rely on ExceptionHandlingTypes.AlwaysTriggerException.
-            outInfo.Error = new ErrorInfo
-            (
-                ErrorTypes.None, ExceptionHandlingTypes.AlwaysTriggerException
-            );
 
             return outInfo;
         }

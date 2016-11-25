@@ -4,6 +4,9 @@
         <name>UnitParser</name>
     </assembly>
     <members>
+        <member name="T:FlexibleParser.UnitP">
+            <summary><para>Basic UnitParser class containing all the information about units and values.</para></summary>
+        </member>
         <member name="F:FlexibleParser.UnitP.Unit">
             <summary><para>Member of the Units enum which best suits the current conditions.</para></summary>
         </member>
@@ -444,7 +447,9 @@
             <param name="type">Member of the ErrorTypes enum to be used.</param>
             <param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:FlexibleParser.UnitPart" -->
+        <member name="T:FlexibleParser.UnitPart">
+            <summary><para>Contains the main information associated with the constituent parts of each unit.</para></summary>
+        </member>
         <member name="M:FlexibleParser.UnitPart.#ctor(FlexibleParser.Units,FlexibleParser.Prefix,System.Int32)">
             <summary><para>Initialises a new UnitPart instance.</para></summary>
             <param name="unit">Member of the Units enum to be used.</param>

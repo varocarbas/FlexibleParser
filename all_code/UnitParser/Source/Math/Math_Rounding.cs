@@ -5,159 +5,251 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        public enum RoundType { MidpointAwayFromZero, MidpointToZero };
+        private enum RoundType { MidpointAwayFromZero, MidpointToZero };
 
-        private static decimal[] roundPower10Decimal = new decimal[] 
-    	{ 
-            1m, 1E1m, 1E2m, 1E3m, 1E4m, 1E5m, 1E6m, 1E7m, 1E8m, 1E9m, 1E10m, 1E11m, 1E12m,
-            1E13m, 1E14m, 1E15m, 1E16m, 1E17m, 1E18m, 1E19m, 1E20m, 1E21m, 1E22m, 1E23m, 1E24m,
-            1E25m, 1E26m, 1E27m, 1E28m
-        };
+        //The current implementation only needs the decimal type and that's why all this part
+        //of the algorithm is declared as decimal. 
+        //Nevertheless, the original version of this code (i.e., an improved version of the one 
+        //I submitted for the CoreFX issue https://github.com/dotnet/corefx/issues/6308) was built
+        //on dynamic. Thus, the current structure can be easily adapted to deal with as many types
+        //as required.
+        private static decimal[] Power10Decimal = PopulateRoundPower10Array();
 
-        //This function (+ all the related code) is a version of my CoreFX proposal to improve Math.Round (https://github.com/dotnet/corefx/issues/6308).
+        internal static decimal[] PopulateRoundPower10Array()
+        {
+            return new decimal[]
+            { 
+                1e0m, 1e1m, 1e2m, 1e3m, 1e4m, 1e5m, 1e6m, 1e7m, 
+                1e8m, 1e9m, 1e10m, 1e11m, 1e12m, 1e13m, 1e14m, 
+                1e15m, 1e16m, 1e17m, 1e18m, 1e19m, 1e20m, 1e21m,
+                1e22m, 1e23m, 1e24m, 1e25m, 1e26m, 1e27m, 1e28m    
+	        };
+        }
+        
+        //This function (+ all the related code) is a version of NumberParser's Math2.RoundExact
+        //(https://github.com/varocarbas/FlexibleParser/blob/master/all_code/NumberParser/Source/Math2/Private/New/Math2_Private_New_RoundTruncate.cs).
         //Note that Math.Round cannot deal with the rounding-down expectations of ImproveFinalValue.
         private static decimal RoundExact(decimal d, int digits, RoundType type)
         {
-            if (d == 0m) return 0m;
-
-            return (d > 0m ? 1m : -1m) * RoundDecInternalAfter(Math.Abs(d), digits, type);
-        }
-
-        private static decimal RoundDecInternalAfter(decimal d, int digits, RoundType type)
-        {
-            decimal d2 = DecimalPartToInteger(d, digits);
-            int length2 = GetIntegerLength(d2);
-
-            return 
+            return
             (
-                length2 - digits < 1 ? 
-                RoundDecInternalAfterLimit(d, digits, type, d2, length2) : 
-                RoundDecInternalAfterOutput(d, digits, type, d2, length2)
+                d == 0m ? 0m : (d > 0m ? 1m : -1m) * 
+                RoundInternalAfter(Math.Abs(d), digits, type)
             );
         }
 
-        private static decimal RoundDecInternalAfterOutput(decimal d, int digits, RoundType type, decimal d2, int length2)
+        private static decimal RoundInternalAfter(decimal d, int digits, RoundType type)
         {
+            decimal d2 = d - Math.Floor(d);
+            int zeroCount = GetHeadingDecimalZeroCount(d2);
+
             return
             (
-                Math.Floor(d) +
+                zeroCount == 0 ? RoundInternalAfterNoZeroes(d, d2, digits, type) :
+                RoundInternalAfterZeroes(d, digits, type, d2, zeroCount)
+            );
+        }
+
+        private static decimal RoundInternalAfterZeroes(decimal d, int digits, RoundType type, decimal d2, int zeroCount)
+        {
+            if (digits < zeroCount)
+            {
+                //Cases like 0.001 with 1 digit or 0.0001 with 2 digits can reach this point.
+                //On the other hand, something like 0.001 with 2 digits requires further analysis.
+                return Math.Floor(d);
+            }
+
+            //d3 represent the decimal part after all the heading zeroes.
+            decimal d3 = d2 * Power10Decimal[zeroCount];
+            d3 = DecimalPartToInteger(d3 - Math.Floor(d3), 0, true);
+            int length3 = GetIntegerLength(d3);
+
+            decimal headingBit = 0;
+            digits -= zeroCount;
+            if (digits == 0)
+            {
+                //In a situation like 0.005 with 2 digits, the number to be analysed would be
+                //05 what cannot be (i.e., treated as 5, something different). That's why, in 
+                //these cases, adding a heading number is required.
+                headingBit = 2; //2 avoids the ...ToEven types to be misinterpreted.
+                d3 = headingBit * Power10Decimal[length3] + d3;
+                digits = 0;
+            }
+
+            decimal output =
+            (
+                RoundExactInternal(d3, length3 - digits, type)
+                / Power10Decimal[length3]
+            )
+            - headingBit;
+
+            return Math.Floor(d) +
+            (
+                output == 0m ? 0m :
+                output /= Power10Decimal[zeroCount]
+            );
+        }
+
+        //This method expects the input value to always be positive.
+        private static int GetIntegerLength(decimal d)
+        {
+            if (d == 0) return 0;
+
+            for (int i = 0; i < Power10Decimal.Length - 1; i++)
+            {
+                if (d < Power10Decimal[i + 1]) return i + 1;
+            }
+
+            return Power10Decimal.Length;
+        }
+     
+        private static decimal RoundInternalAfterNoZeroes(decimal d, decimal d2, int digits, RoundType type)
+        {
+            d2 = DecimalPartToInteger(d2, digits);
+            int length2 = GetIntegerLength(d2);
+
+            return
+            (
+                digits >= length2 ? d : Math.Floor(d) +
                 (
-                    RoundDecInternalBefore(d2, digits, type) / roundPower10Decimal[length2]
+                    RoundExactInternal(d2, length2 - digits, type)
+                    / Power10Decimal[length2]
                 )
             );
         }
 
-        private static decimal RoundDecInternalAfterLimit(decimal d, int digits, RoundType type, decimal d2, int length2)
+        private static decimal RoundExactInternal(decimal d, int remDigits, RoundType type)
         {
-            decimal d22 = Math.Floor(d2);
+            decimal rounded = PerformRound
+            (
+                d, remDigits, type,
+                Math.Floor(d / Power10Decimal[remDigits])
+            );
 
+            decimal rounded2 = rounded * Power10Decimal[remDigits];
             return
             (
-                d22 == d2 ? d : 
-                RoundDecInternalAfterOutput(d, digits, type, d22, length2)
+                rounded2 > rounded ? rounded2 :
+                d //A numeric overflow occurred.
             );
         }
 
-        private static decimal DecimalPartToInteger(decimal d, int digits)
+        private static decimal PerformRound(decimal d, int remDigits, RoundType type, decimal rounded)
         {
-            decimal d2 = d - Math.Floor(d);
+            int lastDigit = (int)(d / Power10Decimal[remDigits] % 10m);
 
-            if (digits + 1 >= roundPower10Decimal.Length - 1)
+            int greaterEqual = MidPointGreaterEqual(d, remDigits, rounded);
+
+            if (greaterEqual == 1) rounded += 1m;
+            else if (greaterEqual == 0)
             {
-                d2 = d2 * roundPower10Decimal[roundPower10Decimal.Length - 1];
-            }
-            else
-            {
-                d2 = d2 * roundPower10Decimal[digits + 1];
-                decimal lastDigit = Math.Floor(d2 / roundPower10Decimal[0] % 10);
-                while (d2 < roundPower10Decimal[roundPower10Decimal.Length - 2] && lastDigit <= 5m && lastDigit > 0)
+                if (type == RoundType.MidpointAwayFromZero)
                 {
-                    d2 = d2 * 10;
-                    lastDigit = Math.Floor(d2 / roundPower10Decimal[0] % 10);
-                }
-            }
-
-            return d2;
-        }
-
-        //The argument value is always positive.
-        private static int GetIntegerLength(decimal value)
-        {
-            for (int i = 0; i < roundPower10Decimal.Length - 1; i++)
-            {
-                if (value < roundPower10Decimal[i + 1])
-                {
-                    return i + 1;
-                }
-            }
-
-            return roundPower10Decimal.Length + 1;
-        }
-
-        private static decimal RoundDecInternalBefore(decimal d, int digits, RoundType type)
-        {
-            int remDigits = GetIntegerLength(d) - digits;
-
-            return 
-            (
-                remDigits < 1 ? d : 
-                RoundIntegerInternal(d, type, remDigits)
-            );
-        }
-
-        private static decimal RoundIntegerInternal(decimal d, RoundType type, int remDigits)
-        {
-            decimal rounded = RoundIntegerTypes
-            (
-                d, type, remDigits, 
-                Math.Floor(d / roundPower10Decimal[remDigits])
-            );
-            
-            return
-            (
-                //The only way to meet this condition is if an overflow occurs.
-                roundPower10Decimal[remDigits] * rounded < rounded ? d :
-                rounded * roundPower10Decimal[remDigits]
-            );
-        }
-
-        private static decimal RoundIntegerTypes(decimal d, RoundType type, int remDigits, decimal rounded)
-        {
-            if (remDigits >= 1)
-            {
-                int greaterEqual = MidPointGreaterEqual
-                (
-                    d, remDigits, rounded, 
-                    Math.Floor(d / roundPower10Decimal[remDigits - 1] % 10)
-                );
-
-                if (greaterEqual == 1) rounded = rounded + 1;
-                else if (greaterEqual == 0)
-                {
-                    if (type == RoundType.MidpointAwayFromZero)
-                    {
-                        rounded = rounded + 1;
-                    }
+                    rounded += 1m;
                 }
             }
 
             return rounded;
         }
 
-        private static int MidPointGreaterEqual(decimal d, int remDigits, decimal rounded, decimal nextDigit)
+        private static int MidPointGreaterEqual(decimal d, int remDigits, decimal rounded)
         {
-            int greaterEqual = (nextDigit < 5 ? -1 : 1);
+            return
+            (
+                remDigits > 0 ?
+                //There are some additional digits after the last rounded one. It can be before or after. 
+                //Example: 12345.6789 being rounded to 12000 or to 12345.68.
+                MidPointGreaterEqualRem(d, remDigits, rounded) :
+                //No additional digits after the last rounded one and the decimal digits have to be considered.
+                //Only before is relevant here. Example: 12345.6789 rounded to 12345 and considering .6789.
+                MidPointGreaterEqualNoRem(d, rounded)
+            );
+        }
 
-            if (nextDigit == 5)
+        private static int MidPointGreaterEqualNoRem(decimal d, decimal rounded)
+        {
+            decimal d2 = d - rounded;
+            d2 = DecimalPartToInteger(d2 - Math.Floor(d2));
+            int length2 = GetIntegerLength(d2);
+            if (length2 < 1) return 0;
+
+            int nextDigit = (int)(d2 / Power10Decimal[length2 - 1] % 10);
+            if (nextDigit != 5) return (nextDigit < 5 ? -1 : 1);
+
+            while (Math.Floor(d2) != d2 && d2 < Power10Decimal[Power10Decimal.Length - 1])
             {
-                decimal middle = nextDigit * roundPower10Decimal[remDigits - 1];
-                if (d - (rounded * roundPower10Decimal[remDigits]) == middle)
+                d2 *= 10;
+                length2++;
+            }
+
+            int count = length2 - 1;
+            while (count > 0)
+            {
+                count--;
+                if ((int)(d2 / Power10Decimal[count] % 10) != 0)
                 {
-                    greaterEqual = 0;
+                    //Just one digit different than zero is enough to conclude that is greater.
+                    return 1;
                 }
             }
 
-            return greaterEqual;
+            return 0;
+        }
+
+        private static int MidPointGreaterEqualRem(decimal d, int remDigits, decimal rounded)
+        {
+            int nextDigit = (int)(d / Power10Decimal[remDigits - 1] % 10);
+            if (nextDigit != 5) return (nextDigit < 5 ? -1 : 1);
+
+            decimal middle = nextDigit * Math.Floor(Power10Decimal[remDigits - 1]);
+            return
+            (
+                d - rounded * Math.Floor(Power10Decimal[remDigits]) == middle ? 0 : 1
+            );
+        }
+
+        //This method expects the input value to always be positive.
+        private static decimal DecimalPartToInteger(decimal d2, int digits = 0, bool untilEnd = false)
+        {
+            if (digits + 1 >= Power10Decimal.Length - 1)
+            {
+                d2 *= Power10Decimal[Power10Decimal.Length - 1];
+            }
+            else
+            {
+                d2 *= Power10Decimal[digits + 1];
+                decimal lastDigit = Math.Floor(d2 / Power10Decimal[0] % 10);
+                while (d2 < Power10Decimal[Power10Decimal.Length - 3] && (untilEnd || (lastDigit > 0 && lastDigit <= 5m)))
+                {
+                    d2 *= 10;
+                    lastDigit = Math.Floor(d2 / Power10Decimal[0] % 10);
+                }
+            }
+
+            return d2;
+        }
+
+        //This method depends upon the decimal-type native precision/Math.Floor and, consequently,
+        //some extreme cases might be misunderstood. Example: 100000000000000000.00000000000001m
+        //outputting zero because of being automatically converted into 100000000000000000m.
+        //This method expects the input value to always be positive.
+        private static int GetHeadingDecimalZeroCount(decimal d)
+        {
+            decimal d2 = (d > 1m ? d - Math.Floor(d) : d);
+            if (d2 == 0) return 0;
+
+            int zeroCount = 0;
+            while (d2 <= decimal.MaxValue / 10m)
+            {
+                d2 *= 10m;
+                if (Math.Floor(d2 / Power10Decimal[0] % 10) != 0m)
+                {
+                    return zeroCount;
+                }
+                zeroCount++;
+            }
+
+            return zeroCount;
         }
     }
 }

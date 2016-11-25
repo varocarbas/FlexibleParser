@@ -96,7 +96,7 @@ namespace FlexibleParser
         ///<summary><para>Stone (st) conversion factor. Imperial/USCS mass unit.</para></summary>
         public const decimal Stone = 6350.29318m; //= Pound * 14m;
         ///<summary><para>Slug (sl) conversion factor. Imperial/USCS mass unit.</para></summary>
-        public const decimal Slug = 14593.902937206364829396325459m; //= Pound * GravityAcceleration / Foot;  
+        public const decimal Slug = 14593.902937206364829396325459m; //= Pound * PhysicalConstants.GravityAcceleration / Foot;  
         ///<summary><para>Quarter (qr). Imperial mass unit.</para></summary>
         public const decimal Quarter = 12700.58636m; //= Pound * 28m;
         ///<summary><para>Long quarter (impqr) conversion factor. Imperial length unit.</para></summary>
@@ -273,7 +273,7 @@ namespace FlexibleParser
         ///<summary><para>Kilopond (kp) conversion factor. Force unit.</para></summary>
         public const decimal Kilopond = 9.80665m; //= PhysicalConstants.GravityAcceleration;
         ///<summary><para>Pound-force (lbf) conversion factor. Imperial/USCS force unit.</para></summary>
-        public const decimal PoundForce = 4.4482216152605m; //= Pound * GravityAcceleration / 1000m;
+        public const decimal PoundForce = 4.4482216152605m; //= Pound * PhysicalConstants.GravityAcceleration / 1000m;
         ///<summary><para>Kip (kip) conversion factor. Force unit.</para></summary>
         public const decimal Kip = 4448.2216152605m; //= 1000m * PoundForce;
         ///<summary><para>Poundal (pdl) conversion factor. Imperial/USCS force unit.</para></summary>

@@ -344,6 +344,16 @@ namespace FlexibleParser
                 }
                 else
                 {
+                    //The reason for checking whether BaseTenExponent is inside/outside the int range before performing 
+                    //the operation (rather than going ahead and eventually catching the resulting exception) isn't just
+                    //being quicker, but also the only option in many situations. Note that an addition/subtraction between
+                    //two int variables whose result is outside the int range might not trigger an exception (+ random 
+                    //negative value as output).
+                    if (VaryBaseTenExponent(outInfo, secondInfo0.BaseTenExponent, operation == Operations.Division).Error.Type != ErrorTypes.None)
+                    {
+                        return new UnitInfo(outInfo, ErrorTypes.InvalidOperation);
+                    }
+
                     if (operation == Operations.Multiplication)
                     {
                         outInfo.Value *= secondInfo.Value;
@@ -383,16 +393,12 @@ namespace FlexibleParser
             {
                 //This condition should never be true on account of the fact that the pre-modifications performed before
                 //adding/subtracting should avoid erroneous situations.
-                return outInfo;
+                return new UnitInfo(outInfo, ErrorTypes.InvalidOperation);
             }
 
             UnitInfo secondInfo2 = ConvertValueToBaseTen(secondInfo.Value);
-            outInfo.BaseTenExponent += 
-            (
-                (operation == Operations.Multiplication ? 1 : -1) * secondInfo2.BaseTenExponent
-            );
-
-            if (Math.Abs(secondInfo2.Value) == 1m) return outInfo;
+            outInfo = VaryBaseTenExponent(outInfo, secondInfo2.BaseTenExponent, operation == Operations.Division);
+            if (Math.Abs(secondInfo2.Value) == 1m || outInfo.Error.Type != ErrorTypes.None) return outInfo;
             
             try
             {
@@ -531,6 +537,27 @@ namespace FlexibleParser
             }
 
             return outInfo;
+        }
+
+        //Method used to vary BaseTenExponent without provoking unhandled exceptions (i.e., bigger than int.MaxValue).
+        private static UnitInfo VaryBaseTenExponent(UnitInfo info, int baseTenIncrease, bool isDivision = false)
+        {
+            long val1 = info.BaseTenExponent;
+            long val2 = baseTenIncrease;
+
+            if (isDivision)
+            {
+                //Converting a negative value into positive might provoke an overflow error for the int type
+                //(e.g., Math.Abs(int.MinValue)). Converting both variables to long is a quick and effective
+                //way to avoid this problem.
+                val2 *= -1;
+            }
+
+            return
+            (
+                 ((val2 > 0 && val1 > int.MaxValue - val2) || (val2 < 0 && val1 < int.MinValue - val2)) ?
+                new UnitInfo(info, ErrorTypes.NumericError) : new UnitInfo(info){ BaseTenExponent = (int)(val1 + val2) }
+            );
         }
     }
 }
