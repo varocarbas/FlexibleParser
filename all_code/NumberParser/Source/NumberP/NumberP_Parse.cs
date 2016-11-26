@@ -98,21 +98,24 @@ namespace FlexibleParser
 
                         //Accounting for the differences 0.001/1000 -> 10^-3/10^3.
                         int sign = (Math.Abs(startNumber) < 1.0 ? -1 : 1);
+
                         if (startNumber == 0.0 && sign == -1)
                         {
-                            //Fix for a situation like like 0.00000[...]00001 being misinterpreted as 0 by the 
-                            //aforementioned double.TryParse.
+                            //This code accounts for situations like 0.00000[...]00001 where, for the aforementioned double.TryParse, startNumber is zero.
                             bool found = false;
                             int length2 = (remString.Length > 299 ? 299 : remString.Length);
                             for (int i = 0; i < remString.Length; i++)
                             {
                                 if (remString[i] != '0' && !InputIsCultureFeature(remString[i].ToString(), CultureFeatures.ThousandSeparator, culture))
                                 {
-                                    //A case like 0.00000000523456, originally interpreted as 10^-14, is now redefined as
-                                    //523456*10^-8
+                                    //The default interpretation is initial_part*10^remString.Length (up to the maximum length natively supported by double). 
+                                    //For example, 0.0000012345[...]4565879561424 is correctly understood as 0.0000012345*10^length-after-[...]. In this specific 
+                                    //situation (i.e., initial_part understood as zero), some digits after [...] have to also be considered to form initial_part. 
+                                    //Thus, startNumber is being redefined as all the digits (up to the maximum length natively supported by double) after the 
+                                    //first non-zero one; and beyondCount (i.e., the associated 10-base exponent) such that it also includes all the digits since the start.
                                     found = true;
-                                    startNumber = double.Parse(remString.Substring(0, length2));
-                                    beyondCount = i + 298;
+                                    startNumber = double.Parse(remString.Substring(i, length2 - i));
+                                    beyondCount = 297 + length2;
                                     break;
                                 }
                             }
