@@ -14,11 +14,11 @@ FlexibleParser is a multi-purpose .NET parsing library based upon the following 
 
 At the moment, FlexibleParser is formed by the following independent parts:
 
-[UnitParser](https://customsolvers.com/unit_parser/) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source/), [UnitParser.dll, UnitParser.XML and UnitParser.pdf](https://customsolvers.com/downloads/flexible_parser/unit_parser/), [code analysis](https://varocarbas.com/unit_parser_code/)). It allows to easily deal with a wide variety of situations involving units of measurement.
+[UnitParser](https://customsolvers.com/unit_parser/) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source/), [last binaries](https://customsolvers.com/downloads/flexible_parser/unit_parser/), [code analysis](https://varocarbas.com/unit_parser_code/)). It allows to easily deal with a wide variety of situations involving units of measurement.
 Among its most salient features are: user-defined exception triggering and gracefully managing numeric values of any size.
 
 
-[NumberParser](https://customsolvers.com/number_parser/) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source/), [NumberParser.dll, NumberParser.XML and NumberParser.pdf](https://customsolvers.com/downloads/flexible_parser/number_parser/), [code analysis](https://varocarbas.com/number_parser_code/)). It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
+[NumberParser](https://customsolvers.com/number_parser/) ([C# code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source/), [last binaries](https://customsolvers.com/downloads/flexible_parser/number_parser/), [code analysis](https://varocarbas.com/number_parser_code/)). It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
 
 
 ## Authorship & Copyright
