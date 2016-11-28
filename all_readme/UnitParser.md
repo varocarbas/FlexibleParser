@@ -1,6 +1,6 @@
 # UnitParser 
 
- [http://customsolvers.com/unit_parser/](http://customsolvers.com/unit_parser/) (ES: [http://customsolvers.com/unit_parser_es/](http://customsolvers.com/unit_parser_es/)) -- [http://varocarbas.com/unit_parser_code/](http://varocarbas.com/unit_parser_code/) -- [UnitParser.dll](http://customsolvers.com/downloads/flexible_parser/unit_parser/) ([UnitParser.XML](https://github.com/varocarbas/FlexibleParser/tree/master/all_comments/UnitParser.XML)) -- [NuGet package](https://www.nuget.org/packages/UnitParser/) -- [Short video](https://www.youtube.com/watch?v=8LJptIg3Z4Y&feature=youtu.be)
+ [https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source/](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source/) -- [https://customsolvers.com/unit_parser/](https://customsolvers.com/unit_parser/) (ES: [https://customsolvers.com/unit_parser_es/](https://customsolvers.com/unit_parser_es/)) -- [https://varocarbas.com/unit_parser_code/](https://varocarbas.com/unit_parser_code/) -- [UnitParser.dll + UnitParser.XML + UnitParser.pdf](https://customsolvers.com/downloads/flexible_parser/unit_parser/) -- [NuGet package](https://www.nuget.org/packages/UnitParser/) -- [Short video](https://www.youtube.com/watch?v=8LJptIg3Z4Y)
 
 ##Introduction
 The main class is called ```UnitP``` (```FlexibleParser``` namespace). It can be instantiated in many different ways.
@@ -87,13 +87,13 @@ unitP = new UnitP("1 J*J/(s*J2*s)*J*s");
 Formally, two numeric types are supported: ```decimal```, almost everywhere; and ```double```, only in multiplication/division with ```UnitP``` variables. Practically, ```UnitP``` variables implement a mixed system delivering ```decimal``` precision and beyond-```double```-range support. 
 
 ```C#
-//7.81011 ft.
+//7.891011 ft.
 unitP = new UnitP("1 ft") * 7.891011m;
 
-//1213141516 s.
+//1.213141516 Gs.
 unitP = new UnitP("1 s") * 1213141516.0;
 
-//0.0003094346047382564187534467*10^-749 ym.
+//0.0003094346047382564187534467*10^-752 ym.
 unitP = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000000000000000001m, "ym2") / 
 new UnitP("999999999999999999999 Ym") / double.MaxValue / double.MaxValue; 
 ```
@@ -106,6 +106,6 @@ The [test application](https://github.com/varocarbas/FlexibleParser/blob/master/
 I, Alvaro Carballo Garcia (varocarbas), am the sole author of each single bit of this code.
 
 Equivalently to what happens with all my other online contributions, this code can be considered public domain. For more information about my copyright/authorship attribution ideas, visit the corresponding pages of my sites:
-- http://customsolvers.com/en/pages/company/legal/copyright/<br/> 
-ES: http://customsolvers.com/es/paginas/empresa/legal/copyright/
-- http://varocarbas.com/copyright/<br/>ES: http://varocarbas.com/copyright_es/
+- https://customsolvers.com/copyright/<br/> 
+ES: https://customsolvers.com/copyright_es/
+- https://varocarbas.com/copyright/<br/>ES: https://varocarbas.com/copyright_es/
