@@ -1,6 +1,6 @@
 # NumberParser
 
-[http://customsolvers.com/number_parser/](http://customsolvers.com/number_parser/) (ES: [http://customsolvers.com/number_parser_es/](http://customsolvers.com/number_parser_es/))
+[https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source/](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source/) -- [https://customsolvers.com/number_parser/](https://customsolvers.com/number_parser/) (ES: [https://customsolvers.com/number_parser_es/](https://customsolvers.com/number_parser_es/)) -- [https://varocarbas.com/number_parser_code/](https://varocarbas.com/number_parser_code/) -- [NumberParser.dll + NumberParser.XML + NumberParser.pdf](https://customsolvers.com/downloads/flexible_parser/number_parser/) -- [NuGet package](https://www.nuget.org/packages/NumberParser/) -- [Video](https://www.youtube.com/watch?v=hibR1gjuZmg)
 
 ##Introduction
 
@@ -33,7 +33,7 @@ All the NumberX classes have various characteristics in common.
 - Numerous instantiating alternatives. Implicitly convertible between each other and to related types.
 
 ```C#
-//12300000000000000000000000000*10^429 (decimal).
+//12.3*10^456 (decimal).
 Number number = new Number(12.3m, 456); 
 
 //123 (int).
@@ -49,7 +49,7 @@ Number numberD =
 //Error (ErrorTypesNumber.InvalidOperation) provoked when dividing by zero.
 NumberO numberO = new NumberO(123m, OtherTypes.IntegerTypes) / 0m;
 
-//12340000000000000000000000000*10^5653 (decimal).
+//1234*10^5678 (decimal).
 NumberP numberP = (NumberP)"1234e5678";
 ```
 
@@ -96,7 +96,7 @@ NumberD numberD = Math2.Factorial(10);
 //158250289837968.16 (double). 
 NumberD numberD = Math2.Pow(123.45, 6.789101112131415161718);
 
-//4.81583621579119 (double). 
+//4.8158362157911885 (double). 
 NumberD numberD = Math2.Log(123.45m);
 ```
 
@@ -107,6 +107,7 @@ The [test application](https://github.com/varocarbas/FlexibleParser/blob/master/
 I, Alvaro Carballo Garcia (varocarbas), am the sole author of each single bit of this code.
 
 Equivalently to what happens with all my other online contributions, this code can be considered public domain. For more information about my copyright/authorship attribution ideas, visit the corresponding pages of my sites:
-- http://customsolvers.com/en/pages/company/legal/copyright/<br/> 
-ES: http://customsolvers.com/es/paginas/empresa/legal/copyright/
-- http://varocarbas.com/copyright/<br/>ES: http://varocarbas.com/copyright_es/
+- https://customsolvers.com/copyright/<br/> 
+ES: https://customsolvers.com/copyright_es/
+- https://varocarbas.com/copyright/<br/>
+ES: https://varocarbas.com/copyright_es/
