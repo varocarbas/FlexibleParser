@@ -19,6 +19,6 @@
   "description": "UnitParser is a comprehensive .NET unit parsing library. It can recognise, simplify, classify and convert a wide variety of scenarios involving units of measurement. Additionally, it manages all the errors internally, supports big numbers and includes high quality hardcoded information.",
   "keywords": "units, measurement, metrology, parse, conversion, magnitude, physics, C#, .NET",
   "license": "CC0 1.0 Universal",
-  "title": "UnitParser",
+  "title": "UnitParser, a comprehensive unit parsing library",
   "version": "1.0.6174.20320"
 }
