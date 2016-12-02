@@ -1,6 +1,6 @@
 # NumberParser
 
-[![DOI](https://zenodo.org/badge/64607240.svg)](https://zenodo.org/badge/latestdoi/64607240)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.192347.svg)](https://doi.org/10.5281/zenodo.192347)
 
 [NumberParser v. 1.0.6174.19926 source code](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6174.19926) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source)
 
