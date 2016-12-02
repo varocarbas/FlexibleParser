@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.192338.svg)](https://doi.org/10.5281/zenodo.192338)
 
-[UnitParser v. 1.0.6174.20320 source code](https://github.com/varocarbas/FlexibleParser/releases/tag/1.0.6174.20320) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source)
+[Last release](https://github.com/varocarbas/FlexibleParser/releases/tag/1.0.6174.20320) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/UnitParser/Source)
 
 [https://customsolvers.com/unit_parser/](https://customsolvers.com/unit_parser/) (ES: [https://customsolvers.com/unit_parser_es/](https://customsolvers.com/unit_parser_es/)) -- [https://varocarbas.com/unit_parser_code/](https://varocarbas.com/unit_parser_code/) -- [NuGet package](https://www.nuget.org/packages/UnitParser/) -- [Video](https://www.youtube.com/watch?v=8LJptIg3Z4Y)
 
