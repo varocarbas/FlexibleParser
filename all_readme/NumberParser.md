@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/64607240.svg)](https://zenodo.org/badge/latestdoi/64607240)
 
-[NumberParser.dll v. 1.0.6174.19926](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6174.19926) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source)
+[NumberParser v. 1.0.6174.19926 source code](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6174.19926) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source)
 
 [https://customsolvers.com/number_parser/](https://customsolvers.com/number_parser/) (ES: [https://customsolvers.com/number_parser_es/](https://customsolvers.com/number_parser_es/)) -- [https://varocarbas.com/number_parser_code/](https://varocarbas.com/number_parser_code/) -- [NuGet package](https://www.nuget.org/packages/NumberParser/) -- [Video](https://www.youtube.com/watch?v=hibR1gjuZmg)
 
