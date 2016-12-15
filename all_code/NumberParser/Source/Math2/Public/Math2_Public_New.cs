@@ -195,8 +195,24 @@ namespace FlexibleParser
     ///<summary>
     ///<para>Stores the coefficients defining a second degree polynomial fit via y = A + B*x + C*x^2.</para>
     ///</summary>
-    public class Polynomial
+    public class Polynomial : IComparable<Polynomial>
     {
+        ///<summary><para>Compares the current instance against another Polynomial one.</para></summary>
+        ///<param name="other">The other Polynomial instance.</param>
+        public int CompareTo(Polynomial other)
+        {
+            if (this.A != other.A)
+            {
+                return Operations.CompareDynamic(this.A, other.A);
+            }
+            if (this.B != other.B)
+            {
+                return Operations.CompareDynamic(this.B, other.B);
+            }
+
+            return Operations.CompareDynamic(this.C, other.C);
+        }
+
         ///<summary>
         ///<para>Outputs the values of all the polynomial coefficients by invoking the NumberD ToString() method.</para>
         ///</summary>
@@ -283,7 +299,7 @@ namespace FlexibleParser
         ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
-            return Equals(obj as ParseConfig);
+            return Equals(obj as Polynomial);
         }
 
         ///<summary><para>Returns the hash code for this Polynomial variable.</para></summary>

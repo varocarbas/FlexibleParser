@@ -4,8 +4,15 @@ using System.Globalization;
 
 namespace FlexibleParser
 {
-    public partial class NumberP
+    public partial class NumberP : IComparable<NumberP>
     {
+        ///<summary><para>Compares the current instance against another NumberP one.</para></summary>
+        ///<param name="other">The other NumberP instance.</param>
+        public int CompareTo(NumberP other)
+        {
+            return Operations.CompareDynamic(this, other);
+        }
+
         ///<summary>
         ///<para>Outputs an error or "Value*10^BaseTenExponent (OriginalString)" together with all the Config information via invoking its ToString() method (BaseTenExponent different than zero).</para>
         ///</summary>

@@ -4,8 +4,15 @@ using System.Globalization;
 
 namespace FlexibleParser
 {
-    public partial class Number
+    public partial class Number : IComparable<Number>
     {
+        ///<summary><para>Compares the current instance against another Number one.</para></summary>
+        ///<param name="other">The other Number instance.</param>
+        public int CompareTo(Number other)
+        {
+            return Operations.CompareDecimal(this, other);
+        }
+
         ///<summary>
         ///<para>Outputs an error or "Value*10^BaseTenExponent" (BaseTenExponent different than zero sample).</para>
         ///</summary>

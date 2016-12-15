@@ -153,7 +153,7 @@ namespace FlexibleParser
     }
 
     ///<summary>
-    ///<para>ParseConfig defines the way in which the NumberP parsing actions are being performed.</para>
+    ///<para>ParseConfig defines the way in which the ParseConfig parsing actions are being performed.</para>
     ///</summary>
     public class ParseConfig
     {

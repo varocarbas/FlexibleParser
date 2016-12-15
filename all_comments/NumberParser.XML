@@ -41,6 +41,10 @@
             <summary><para>Initialises a new Number instance.</para></summary>
             <param name="numberP">NumberP variable whose information will be used.</param>
         </member>
+        <member name="M:FlexibleParser.Number.CompareTo(FlexibleParser.Number)">
+            <summary><para>Compares the current instance against another Number one.</para></summary>
+            <param name="other">The other Number instance.</param>
+        </member>
         <member name="M:FlexibleParser.Number.ToString">
             <summary>
             <para>Outputs an error or "Value*10^BaseTenExponent" (BaseTenExponent different than zero sample).</para>
@@ -216,6 +220,10 @@
         <member name="M:FlexibleParser.NumberD.#ctor(System.Object)">
             <summary><para>Initialises a new NumberD instance.</para></summary>
             <param name="input">Variable whose information will be used. Only NumberD, Number, NumberO, NumberP and numeric variables are valid.</param>
+        </member>
+        <member name="M:FlexibleParser.NumberD.CompareTo(FlexibleParser.NumberD)">
+            <summary><para>Compares the current instance against another NumberD one.</para></summary>
+            <param name="other">The other NumberD instance.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.ToString">
             <summary>
@@ -430,6 +438,10 @@
             <param name="baseTenExponent">Base-ten exponent to be used.</param>
             <param name="otherTypes">Array containing the types to be considered.</param>
         </member>
+        <member name="M:FlexibleParser.NumberO.CompareTo(FlexibleParser.NumberO)">
+            <summary><para>Compares the current instance against another NumberO one.</para></summary>
+            <param name="other">The other NumberO instance.</param>
+        </member>
         <member name="M:FlexibleParser.NumberO.ToString">
             <summary>
             <para>Outputs an error or "Value*10^BaseTenExponent (Type)" (BaseTenExponent different than zero sample) for the main information and all the items in Others.</para>
@@ -619,6 +631,10 @@
             <summary><para>Initialises a new NumberP instance.</para></summary>
             <param name="numberO">NumberO variable whose information will be used.</param>   
         </member>
+        <member name="M:FlexibleParser.NumberP.CompareTo(FlexibleParser.NumberP)">
+            <summary><para>Compares the current instance against another NumberP one.</para></summary>
+            <param name="other">The other NumberP instance.</param>
+        </member>
         <member name="M:FlexibleParser.NumberP.ToString">
             <summary>
             <para>Outputs an error or "Value*10^BaseTenExponent (OriginalString)" together with all the Config information via invoking its ToString() method (BaseTenExponent different than zero).</para>
@@ -714,7 +730,7 @@
         </member>
         <member name="T:FlexibleParser.ParseConfig">
             <summary>
-            <para>ParseConfig defines the way in which the NumberP parsing actions are being performed.</para>
+            <para>ParseConfig defines the way in which the ParseConfig parsing actions are being performed.</para>
             </summary>
         </member>
         <member name="F:FlexibleParser.ParseConfig.Target">
@@ -1122,6 +1138,10 @@
             <summary>
             <para>Stores the coefficients defining a second degree polynomial fit via y = A + B*x + C*x^2.</para>
             </summary>
+        </member>
+        <member name="M:FlexibleParser.Polynomial.CompareTo(FlexibleParser.Polynomial)">
+            <summary><para>Compares the current instance against another Polynomial one.</para></summary>
+            <param name="other">The other Polynomial instance.</param>
         </member>
         <member name="M:FlexibleParser.Polynomial.ToString">
             <summary>
