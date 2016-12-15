@@ -63,6 +63,7 @@
     <Compile Include="Source\NumberP\NumberP_Culture.cs" />
     <Compile Include="Source\NumberP\NumberP_Main.cs" />
     <Compile Include="Source\NumberP\NumberP_Parse.cs" />
+    <Compile Include="Source\Operations\Private\Operations_Private_CompareTo.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Equals.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Main.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Managed.cs" />
