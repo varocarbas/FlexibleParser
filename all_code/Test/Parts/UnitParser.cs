@@ -86,9 +86,9 @@ namespace Test
 
             //------ Format of input string units.
 
-            //--- UnitP constructors without numeric inputs expect strings formed by number (it might be missing), blank space and unit.
+            //--- UnitP constructors without numeric inputs expect strings formed by a number (it might be missing) and a unit.
             PrintSampleItem("Str1", new UnitP("10 m")); //10 metre (length).
-            PrintSampleItem("Str2", new UnitP("1m")); //Error.
+            PrintSampleItem("Str2", new UnitP("1m")); //1 metre (length). Since UnitParser.dll v.1.0.6301.23655, there is no need to include a blank space between value and unit.
             PrintSampleItem("Str3", new UnitP("m")); //1 metre (length).
 
             //--- Multi-part strings are expected to be formed by units, multiplication/division symbols and integer exponents.
@@ -314,7 +314,18 @@ namespace Test
             PrintSampleItem("Func5", new UnitP("1 m").ConvertCurrentUnitTo(Units.Gram)); //Error. No conversion is possible between different-type units.
 
 
+            //------ Other FlexibleParser parts.
+            //All the FlexibleParser parts are independent among each other and only the corresponding DLL file needs to be referred.
+            //On the other, codes relying on various parts can take advantage of certain compatibility among their main classes. 
+
+            //--- NumberParser.
+            PrintSampleItem("NP1", new UnitP(new Number(123m, 5), Units.Abampere)); //12.3 MabA.
+            PrintSampleItem("NP2", new UnitP(new NumberD(0.000000000001, -5), "Gs")); //0.01 µs.
+            PrintSampleItem("NP3", new UnitP(new NumberP("Error"), "m/s")); //Error.
+           
+            
             //-------------------------------------------------------------
+
 
             Console.WriteLine();
             Console.WriteLine();

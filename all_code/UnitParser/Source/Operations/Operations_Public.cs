@@ -1,10 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlexibleParser
 {
-    public partial class UnitP
+    public partial class UnitP : IComparable<UnitP>
     {
+        ///<summary><para>Compares the current instance against another UnitP one.</para></summary>
+        ///<param name="other">The other UnitP instance.</param>
+        public int CompareTo(UnitP other)
+        {
+            return
+            (
+                this.BaseTenExponent == other.BaseTenExponent ? 
+                (this.Value * this.UnitPrefix.Factor).CompareTo(other.Value * other.UnitPrefix.Factor) :
+                this.BaseTenExponent.CompareTo(other.BaseTenExponent)
+            );
+        }
+
+        ///<summary><para>Creates a new UnitP instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">String input.</param>
+        public static implicit operator UnitP(string input)
+        {
+            return new UnitP(input);
+        }
+
+        ///<summary><para>Creates a new UnitP instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Decimal input.</param>
+        public static implicit operator UnitP(decimal input)
+        {
+            return new UnitP(input);
+        }
+
+        ///<summary><para>Creates a new UnitP instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Units input.</param>
+        public static implicit operator UnitP(Units input)
+        {
+            return new UnitP(input);
+        }
+
         ///<summary>
         ///<para>Adds two UnitP variables by giving preference to the configuration of the first operand.</para>
         ///<para>Different unit types will trigger an error.</para>        

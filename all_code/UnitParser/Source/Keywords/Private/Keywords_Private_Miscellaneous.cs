@@ -25,7 +25,7 @@ namespace FlexibleParser
         //Class storing all the unit-related information. 
         //It includes the main numeric variables (Value, Prefix.Factor & BaseTenExponent) and, consequently,
         //is also the main class when dealing with managed operations (i.e., error-free-ly dealing with numbers of any size).
-        private class UnitInfo
+        internal class UnitInfo
         {
             public decimal Value { get; set; }
             public Units Unit { get; set; }

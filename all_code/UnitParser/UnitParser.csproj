@@ -28,8 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Release\UnitParser.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -41,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Constructors\Constructors_Additional.cs" />
-    <Compile Include="Source\Constructors\Constructors_Private.cs" />
+    <Compile Include="Source\Constructors\Private\Constructors_Private_Additional.cs" />
+    <Compile Include="Source\Constructors\Private\Constructors_Private_Main.cs" />
+    <Compile Include="Source\Constructors\Public\OtherParts\Constructors_Public_OtherParts_NumberParser.cs" />
     <Compile Include="Source\Keywords\Private\Keywords_Private_Prefixes.cs" />
     <Compile Include="Source\Keywords\Private\Keywords_Private_Miscellaneous.cs" />
     <Compile Include="Source\Keywords\Private\Keywords_Private_Units.cs" />
@@ -54,7 +54,7 @@
     <Compile Include="Source\Methods\Private\Methods_Private_FinalModifications.cs" />
     <Compile Include="Source\Methods\Private\Methods_Private_PublicCommon.cs" />
     <Compile Include="Source\Methods\Private\Methods_Private_Units.cs" />
-    <Compile Include="Source\Constructors\Constructors_Public.cs" />
+    <Compile Include="Source\Constructors\Public\Constructors_Public_Main.cs" />
     <Compile Include="Source\Errors.cs" />
     <Compile Include="Source\Keywords\Private\Keywords_Private_Main.cs" />
     <Compile Include="Source\Keywords\Private\Keywords_Private_Methods.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="Source\Operations\Private\Operations_Private_Units.cs" />
     <Compile Include="Source\Operations\Operations_Public.cs" />
     <Compile Include="Source\Operations\Private\Operations_Private_Values.cs" />
+    <Compile Include="Source\OtherParts\OtherParts_NumberParser.cs" />
     <Compile Include="Source\Parse\Compounds\Parse_Compounds_Methods.cs" />
     <Compile Include="Source\Parse\Parse_Main.cs" />
     <Compile Include="Source\Parse\Compounds\Parse_Compounds_Main.cs" />

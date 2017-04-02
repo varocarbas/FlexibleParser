@@ -200,14 +200,14 @@ namespace FlexibleParser
             return unitString;
         }
 
-        private static Units GetUnitFromString(string input)
+        private static Units GetUnitFromString(string input, ParseInfo parseInfo = null)
         {
             Units unit = GetUnitFromUnitSymbols(input);
 
             return
             (
-                unit != Units.None ? unit :
-                GetUnitFromUnitStrings(input)
+                unit != Units.None ? unit : 
+                GetUnitFromUnitStrings(input, parseInfo)
             );
         }
 
@@ -230,14 +230,29 @@ namespace FlexibleParser
             );
         }
   
-        private static Units GetUnitFromUnitStrings(string input)
+        private static Units GetUnitFromUnitStrings(string input, ParseInfo parseInfo)
         {
             string inputLower = input.ToLower();
-            return AllUnitStrings.FirstOrDefault
+
+            Units unit = AllUnitStrings.FirstOrDefault
             (
                 x => (x.Key.ToLower() == inputLower || GetUnitStringPlural(x.Key.ToLower()) == inputLower)
             )
             .Value;
+
+            if (parseInfo != null && unit != Units.None)
+            {
+                //To account for somehow unlikely scenarios where non-official abbreviations are 
+                //misinterpreted. For example, Gs misunderstood as grams rather than as gigasecond.
+                ParseInfo temp = CheckPrefixes(parseInfo);
+                if (temp.UnitInfo.Unit != Units.None)
+                {
+                    //The unit (+ prefix) will be adequately analysed somewhere else.
+                    return Units.None;
+                }
+            }
+
+            return unit;
         }
 
         //A proper plural determination isn't required. The outputs of this method are quite secondary and

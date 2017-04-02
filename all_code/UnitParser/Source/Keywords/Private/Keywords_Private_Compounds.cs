@@ -544,19 +544,6 @@ namespace FlexibleParser
                 }
             },
             {
-                UnitTypes.SpecificEnergy, new Compound[]
-                {
-                    new Compound
-                    (
-                        new List<CompoundPart>()
-                        {
-                            new CompoundPart(UnitTypes.Length, 2),
-                            new CompoundPart(UnitTypes.Time, -2)
-                        }
-                    )
-                }
-            },
-            {
                 UnitTypes.CatalyticActivity, new Compound[]
                 {
                     new Compound

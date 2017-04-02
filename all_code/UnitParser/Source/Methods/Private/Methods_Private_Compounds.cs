@@ -69,19 +69,19 @@ namespace FlexibleParser
             {
                 return GetCompoundUnitParts
                 (
-                    AllBasicCompounds[type][system], true, 
+                    AllBasicCompounds[type][system], true,
                     type, system, onePartCompound
                 );
             }
 
             return new List<UnitPart>();
         }
-        
+
         private static List<UnitPart> GetBasicCompoundUnitParts(Units unit, bool onePartCompound = false)
         {
             return GetCompoundUnitParts
             (
-                unit, true, UnitTypes.None, 
+                unit, true, UnitTypes.None,
                 UnitSystems.None, onePartCompound
             );
         }
@@ -261,7 +261,7 @@ namespace FlexibleParser
             if (unitInfo.System == UnitSystems.None)
             {
                 unitInfo.System = GetSystemFromUnit(unitInfo.Unit);
-            }               
+            }
 
             return
             (
@@ -310,7 +310,7 @@ namespace FlexibleParser
             foreach (UnitPart part in unitInfo.Parts)
             {
                 Units partUnit = part.Unit;
-                
+
                 UnitTypes partType = GetTypeFromUnit(partUnit);
                 UnitSystems system2 = GetSystemFromUnit(partUnit);
 
@@ -348,7 +348,7 @@ namespace FlexibleParser
                 (
                     new UnitPart
                     (
-                        basic.Unit, basic.PrefixFactor, 
+                        basic.Unit, basic.PrefixFactor,
                         sign * compoundPart.Exponent
                     )
                 );
@@ -381,7 +381,7 @@ namespace FlexibleParser
             }
 
             unitInfo.Unit = DefaultUnnamedUnits[unitInfo.System];
-            
+
             UnitSystems system2 = unitInfo.System;
             if (system2 == UnitSystems.None)
             {
@@ -513,7 +513,7 @@ namespace FlexibleParser
         {
             if (unitInfo.Parts.Count < 1) return unitInfo;
 
-            int newPos = 
+            int newPos =
             (
                 unitInfo.InitialPositions.Count > 0 ?
                 unitInfo.InitialPositions.Max(x => x.Value) : 0
@@ -535,7 +535,7 @@ namespace FlexibleParser
                 x => unitInfo.InitialPositions.First(y => y.Key == x).Value
             )
             .ThenByDescending(x => x.Exponent).ToList();
-            
+
             return unitInfo;
         }
 
@@ -567,7 +567,7 @@ namespace FlexibleParser
             {
                 UnitInfo infoPart = new UnitInfo
                 (
-                    0m, unitInfo.Parts[i].Unit, 
+                    0m, unitInfo.Parts[i].Unit,
                     unitInfo.Parts[i].Prefix, false
                 );
 
@@ -593,10 +593,10 @@ namespace FlexibleParser
         private static bool IsDividable(UnitInfo unitInfo)
         {
             unitInfo.Type = GetTypeFromUnitInfo(unitInfo);
-            
+
             return
             (
-                !AllNonDividableUnits.Contains(unitInfo.Unit) && 
+                !AllNonDividableUnits.Contains(unitInfo.Unit) &&
                 (
                     AllCompounds.ContainsKey(unitInfo.Type) ||
                     AllNonBasicCompounds.ContainsKey(unitInfo.Unit)
@@ -710,7 +710,7 @@ namespace FlexibleParser
             //Firstly, note that GetUnitPartsConversion might have affected the exponent. For example: in m4/L2,
             //both exponents have to be modified to reach the convertible m3/L. Secondly, bear in mind that
             //parts2 exponents are always positive.
-            
+
             int sign = unitInfo.Parts[i].Exponent / Math.Abs(unitInfo.Parts[i].Exponent);
             int exponent = sign * unitInfo.Parts[i].Exponent / parts2[0].Exponent;
             int outExponent = exponent;
@@ -805,7 +805,7 @@ namespace FlexibleParser
                 unitParts[0].Exponent = 1;
                 unitParts[1].Exponent = 1;
 
-                return unitParts;     
+                return unitParts;
             }
             else if (GetTypeFromUnitPart(unitParts[0]) == GetTypeFromUnitPart(unitParts[1]))
             {
@@ -833,7 +833,7 @@ namespace FlexibleParser
         }
         private static UnitInfo ExpandBasicCompoundToUnitPart(UnitInfo unitInfo, UnitInfo partInfo, int i)
         {
-            UnitTypes nonDividableType = 
+            UnitTypes nonDividableType =
             (
                 AllNonDividableUnits.Contains(unitInfo.Parts[i].Unit) ?
                 partInfo.Type : UnitTypes.None

@@ -31,6 +31,30 @@ namespace FlexibleParser
                 }
             }
 
+            return 
+            (
+                unitInfo.Error.Type == ErrorTypes.None ? unitInfo :
+                ParseValueAndUnitNoBlank(valueAndUnit)
+            );
+        }
+
+        private UnitInfo ParseValueAndUnitNoBlank(string valueAndUnit)
+        {
+            string valueString = string.Join
+            (
+                "", valueAndUnit.Trim().ToLower().TakeWhile
+                (
+                    x => char.IsDigit(x) || x == 'e' || 
+                    x == '-' || x == '+' || x == '.' || x == ','
+                )
+            );
+            UnitInfo unitInfo = ParseDecimal(valueString);
+
+            if (unitInfo.Error.Type == ErrorTypes.None)
+            {
+                unitInfo.TempString = valueAndUnit.Replace(valueString, "");
+            }
+
             return unitInfo;
         }
 
@@ -49,19 +73,26 @@ namespace FlexibleParser
 
         private UnitPConstructor GetUnitP2(UnitInfo unitInfo, string unitString)
         {
-            ParseInfo parseInfo = ParseInputs
+            ParseInfo parseInfo = 
             (
-                new ParseInfo(unitInfo, unitString)
+                unitInfo.Error.Type != ErrorTypes.None ?
+                new ParseInfo(unitInfo) : ParseInputs
+                (
+                    new ParseInfo(unitInfo, unitString)
+                )
             );
+
+            if (parseInfo.UnitInfo.Error.Type == ErrorTypes.None && parseInfo.UnitInfo.Unit == Units.None)
+            {
+                parseInfo.UnitInfo.Error = new ErrorInfo(ErrorTypes.InvalidUnit);
+            }
 
             return new UnitPConstructor
             (
-                unitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, parseInfo.UnitInfo.System,
-                (
-                    parseInfo.UnitInfo.Unit == Units.None ?
-                    ErrorTypes.InvalidUnit : ErrorTypes.None
-                ),
-                unitInfo.Error.ExceptionHandling, false, (unitInfo.Value != parseInfo.UnitInfo.Value)
+                unitString, parseInfo.UnitInfo, parseInfo.UnitInfo.Type, 
+                parseInfo.UnitInfo.System, parseInfo.UnitInfo.Error.Type, 
+                unitInfo.Error.ExceptionHandling, false, 
+                (unitInfo.Value != parseInfo.UnitInfo.Value)
             );
         }
 
@@ -106,11 +137,17 @@ namespace FlexibleParser
             public ErrorTypes ErrorType;
             public ExceptionHandlingTypes ExceptionHandling;
 
+            public UnitPConstructor(string originalUnitString, UnitInfo unitInfo) : this
+            (
+                originalUnitString, unitInfo, UnitTypes.None, 
+                UnitSystems.None, unitInfo.Error.Type 
+            )
+            { }
+
             public UnitPConstructor
             (
-                string originalUnitString, UnitInfo unitInfo,
-                UnitTypes unitType = UnitTypes.None, UnitSystems unitSystem = UnitSystems.None,
-                ErrorTypes errorType = ErrorTypes.None,
+                string originalUnitString, UnitInfo unitInfo, UnitTypes unitType, 
+                UnitSystems unitSystem = UnitSystems.None, ErrorTypes errorType = ErrorTypes.None,
                 ExceptionHandlingTypes exceptionHandling = ExceptionHandlingTypes.NeverTriggerException,
                 bool noPrefixImprovement = false, bool improveFinalValue = true
             )

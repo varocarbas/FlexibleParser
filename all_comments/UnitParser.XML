@@ -7,6 +7,39 @@
         <member name="T:FlexibleParser.UnitP">
             <summary><para>Basic UnitParser class containing all the information about units and values.</para></summary>
         </member>
+        <member name="M:FlexibleParser.UnitP.#ctor(System.Object)">
+            <summary>
+            <para>Initialises a new UnitP instance.</para>
+            <para>Automatically assigned values:</para>
+            <para>Unit = Units.Unitless</para>
+            <para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
+            <para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
+            </summary>
+            <param name="numberX">NumberParser's Number, NumberD, NumberO or NumberP variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.#ctor(System.Object,System.String,FlexibleParser.UnitP.ExceptionHandlingTypes,FlexibleParser.PrefixUsageTypes)">
+            <summary>
+            <para>Initialises a new UnitP instance.</para>
+            <para>Automatically assigned values:</para>
+            <para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
+            </summary>
+            <param name="numberX">NumberParser's Number, NumberD, NumberO or NumberP variable to be used.</param>
+            <param name="unitString">String containing the unit information to be parsed.</param>
+            <param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
+            <param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.#ctor(System.Object,FlexibleParser.Units,FlexibleParser.Prefix,FlexibleParser.UnitP.ExceptionHandlingTypes,FlexibleParser.PrefixUsageTypes)">
+            <summary>
+            <para>Initialises a new UnitP instance.</para>
+            <para>Automatically assigned values:</para>
+            <para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
+            </summary>
+            <param name="numberX">NumberParser's Number, NumberD, NumberO or NumberP variable to be used.</param>
+            <param name="unit">Member of the Units enum to be used.</param>
+            <param name="prefix">Prefix variable whose information will be used.</param>
+            <param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
+            <param name="prefixUsage">Member of the PrefixUsageTypes enum to be used.</param>
+        </member>
         <member name="F:FlexibleParser.UnitP.Unit">
             <summary><para>Member of the Units enum which best suits the current conditions.</para></summary>
         </member>
@@ -275,6 +308,22 @@
             <summary><para>Transfers all the base-ten exponent information to the Value field (if possible).</para></summary>  
             <param name="unitP">UnitP variable whose base-ten exponent will be removed.</param>  
         </member>
+        <member name="M:FlexibleParser.UnitP.CompareTo(FlexibleParser.UnitP)">
+            <summary><para>Compares the current instance against another UnitP one.</para></summary>
+            <param name="other">The other UnitP instance.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.op_Implicit(System.String)~FlexibleParser.UnitP">
+            <summary><para>Creates a new UnitP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.op_Implicit(System.Decimal)~FlexibleParser.UnitP">
+            <summary><para>Creates a new UnitP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Decimal input.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.op_Implicit(FlexibleParser.Units)~FlexibleParser.UnitP">
+            <summary><para>Creates a new UnitP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Units input.</param>
+        </member>
         <member name="M:FlexibleParser.UnitP.op_Addition(FlexibleParser.UnitP,FlexibleParser.UnitP)">
             <summary>
             <para>Adds two UnitP variables by giving preference to the configuration of the first operand.</para>
@@ -447,6 +496,10 @@
             <param name="type">Member of the ErrorTypes enum to be used.</param>
             <param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
         </member>
+        <member name="M:FlexibleParser.UnitP.ErrorInfo.op_Implicit(FlexibleParser.UnitP.ErrorTypes)~FlexibleParser.UnitP.ErrorInfo">
+            <summary><para>Creates a new ErrorInfo instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">ErrorTypes input.</param>
+        </member>
         <member name="T:FlexibleParser.UnitPart">
             <summary><para>Contains the main information associated with the constituent parts of each unit.</para></summary>
         </member>
@@ -464,6 +517,14 @@
         <member name="M:FlexibleParser.UnitPart.#ctor(FlexibleParser.UnitPart)">
             <summary><para>Initialises a new UnitPart instance.</para></summary>
             <param name="unitPart">UnitPart variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitPart.op_Implicit(System.String)~FlexibleParser.UnitPart">
+            <summary><para>Creates a new UnitPart instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitPart.op_Implicit(FlexibleParser.Units)~FlexibleParser.UnitPart">
+            <summary><para>Creates a new UnitPart instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Units input.</param>
         </member>
         <member name="P:FlexibleParser.UnitPart.Unit">
             <summary><para>Unit associated with the current part.</para></summary>
@@ -512,6 +573,18 @@
         <member name="M:FlexibleParser.Prefix.#ctor(FlexibleParser.Prefix)">
             <summary><para>Initialises a new Prefix instance.</para></summary>
             <param name="prefix">Prefix variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Prefix.CompareTo(FlexibleParser.Prefix)">
+            <summary><para>Compares the current instance against another Prefix one.</para></summary>
+            <param name="other">The other Prefix instance.</param>
+        </member>
+        <member name="M:FlexibleParser.Prefix.op_Implicit(FlexibleParser.PrefixUsageTypes)~FlexibleParser.Prefix">
+            <summary><para>Creates a new Prefix instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">PrefixUsageTypes input.</param>
+        </member>
+        <member name="M:FlexibleParser.Prefix.op_Implicit(System.Decimal)~FlexibleParser.Prefix">
+            <summary><para>Creates a new Prefix instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Decimal input.</param>
         </member>
         <member name="T:FlexibleParser.UnitSymbols">
             <summary>
@@ -1989,9 +2062,6 @@
         </member>
         <member name="F:FlexibleParser.UnitTypes.EnergyDensity">
             <summary><para>Associated with all the energy density units.</para></summary> 
-        </member>
-        <member name="F:FlexibleParser.UnitTypes.SpecificEnergy">
-            <summary><para>Associated with all the specific energy units.</para></summary> 
         </member>
         <member name="F:FlexibleParser.UnitTypes.SpecificVolume">
             <summary><para>Associated with all the specific volume units.</para></summary> 

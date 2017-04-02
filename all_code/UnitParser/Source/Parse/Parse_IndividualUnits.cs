@@ -31,7 +31,7 @@ namespace FlexibleParser
 
         private static ParseInfo PrefixAnalysis(ParseInfo parseInfo)
         {
-            parseInfo.UnitInfo.Unit = GetUnitFromString(parseInfo.InputToParse);
+            parseInfo.UnitInfo.Unit = GetUnitFromString(parseInfo.InputToParse, parseInfo);
 
             return 
             (
@@ -105,10 +105,14 @@ namespace FlexibleParser
                 );
                 if (remString == "") continue;
 
-                return AnalysePrefix
+                ParseInfo parseInfo2 = AnalysePrefix
                 (
                     parseInfo, prefixType, prefix, remString
                 );
+                if (parseInfo2.UnitInfo.Unit != Units.None)
+                {
+                    return parseInfo2;
+                }
             }
 
             return parseInfo;

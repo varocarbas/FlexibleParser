@@ -47,8 +47,25 @@ namespace FlexibleParser
             Exponent = unitPart.Exponent;
         }
 
-        internal UnitPart(Units unit, decimal prefixFactor, int exponent = 1)
-        : this(unit, new Prefix(prefixFactor), exponent) { }
+        internal UnitPart(Units unit, decimal prefixFactor, int exponent = 1) : this
+        (
+            unit, new Prefix(prefixFactor), exponent
+        ) 
+        { }
+
+        ///<summary><para>Creates a new UnitPart instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">String input.</param>
+        public static implicit operator UnitPart(string input)
+        {
+            return new UnitPart(input);
+        }
+
+        ///<summary><para>Creates a new UnitPart instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Units input.</param>
+        public static implicit operator UnitPart(Units input)
+        {
+            return new UnitPart(input);
+        }
 
         public static bool operator ==(UnitPart first, UnitPart second)
         {
@@ -64,8 +81,7 @@ namespace FlexibleParser
         {
             return
             (
-                object.Equals(other, null) ?
-                false :
+                object.Equals(other, null) ? false : 
                 UnitP.UnitPartsAreEqual(this, other)
             );
         }
@@ -79,7 +95,7 @@ namespace FlexibleParser
     }
 
     ///<summary><para>Contains the main information associated with unit prefixes.</para></summary>
-    public class Prefix
+    public class Prefix : IComparable<Prefix>
     {
         ///<summary><para>Name of the unit prefix.</para></summary>
         public readonly string Name = "None";
@@ -197,6 +213,27 @@ namespace FlexibleParser
                 UnitP.AllSIPrefixes.First(x => x.Value == factor).Key.ToString() :
                 UnitP.AllBinaryPrefixes.First(x => x.Value == factor).Key.ToString()
             );
+        }
+
+        ///<summary><para>Compares the current instance against another Prefix one.</para></summary>
+        ///<param name="other">The other Prefix instance.</param>
+        public int CompareTo(Prefix other)
+        {
+            return this.Factor.CompareTo(other.Factor);
+        }
+
+        ///<summary><para>Creates a new Prefix instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">PrefixUsageTypes input.</param>
+        public static implicit operator Prefix(PrefixUsageTypes input)
+        {
+            return new Prefix(input);
+        }
+
+        ///<summary><para>Creates a new Prefix instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Decimal input.</param>
+        public static implicit operator Prefix(decimal input)
+        {
+            return new Prefix(input);
         }
 
         public static bool operator ==(Prefix first, Prefix second)

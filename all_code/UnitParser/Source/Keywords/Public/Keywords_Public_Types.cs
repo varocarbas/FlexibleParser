@@ -121,8 +121,6 @@ namespace FlexibleParser
         AreaDensity,
         ///<summary><para>Associated with all the energy density units.</para></summary> 
         EnergyDensity,
-        ///<summary><para>Associated with all the specific energy units.</para></summary> 
-        SpecificEnergy,
         ///<summary><para>Associated with all the specific volume units.</para></summary> 
         SpecificVolume,
         ///<summary><para>Associated with all the volumetric flow rate units.</para></summary> 
