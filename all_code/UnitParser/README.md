@@ -74,6 +74,10 @@ The unit string parsing part is quite flexible, but there are some basic rules.
 - Only one division sign is expected. The parser understands that all what lies before/after it is the numerator/denominator.
 
 ```C#
+//Error not triggering an exception. 
+//The parser expects "1 m" or any other version including a separating blank space.
+unitP = new UnitP("1m"); 
+
 //1 W.
 unitP = new UnitP("1 J*J/s*J2*J-1*s*s-1");
 
