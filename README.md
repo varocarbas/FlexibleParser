@@ -6,7 +6,7 @@
 
 [https://customsolvers.com/unit_parser/](https://customsolvers.com/unit_parser/) (ES: [https://customsolvers.com/unit_parser_es/](https://customsolvers.com/unit_parser_es/)) -- [https://varocarbas.com/unit_parser_code/](https://varocarbas.com/unit_parser_code/) -- [NuGet package](https://www.nuget.org/packages/UnitParser/) -- [Video](https://www.youtube.com/watch?v=8LJptIg3Z4Y)
 
-##Introduction
+## Introduction
 The main class is called ```UnitP``` (```FlexibleParser``` namespace). It can be instantiated in many different ways.
 
 ```C#
@@ -37,7 +37,7 @@ unitP = new UnitP("1 N") * new UnitP("1 m");
 unitP = new UnitP("1 N") * new UnitP("1 m") * new UnitP("1 m"); 
 ```
 
-###Main Variable Information
+### Main Variable Information
 UnitP variables are defined according to various ```readonly``` fields populated at instantiation.
 
 ```Unit``` - Corresponding [Units](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/UnitParser/Source/Keywords/Public/Units/Keywords_Public_Units_Names.cs) member.<br>
@@ -48,7 +48,7 @@ UnitP variables are defined according to various ```readonly``` fields populated
 ```BaseTenExponent``` - Base-ten exponent used when dealing with too small/big values.<br>
 ```Error``` - Variable storing all the error- and exception-related information.
 
-##General Rules
+## General Rules
 
 All the functionalities are based upon the following ideas:
 - In case of incompatibility, the first element is always preferred.
@@ -67,7 +67,7 @@ unitP = new UnitP("1 Km");
 unitP = 999999999999999999999999999999999999.9 * new UnitP("9999999999999 St"); 
 ```
 
-##Unit String Parsing Format
+## Unit String Parsing Format
 
 The unit string parsing part is quite flexible, but there are some basic rules.
 - String multi-part units are expected to be exclusively formed by units, multiplication/division signs and integer exponents.
@@ -86,7 +86,7 @@ unitP = new UnitP("1 J*J/s*J2*J-1*s*s-1");
 unitP = new UnitP("1 J*J/(s*J2*s)*J*s");
 ```
 
-##Numeric Support
+## Numeric Support
 Formally, two numeric types are supported: ```decimal```, almost everywhere; and ```double```, only in multiplication/division with ```UnitP``` variables. Practically, ```UnitP``` variables implement a mixed system delivering ```decimal``` precision and beyond-```double```-range support. 
 
 ```C#
@@ -101,7 +101,7 @@ unitP = 0.0000000000000000000000000000000000000000000000001 * new UnitP(0.000000
 new UnitP("999999999999999999999 Ym") / double.MaxValue / double.MaxValue; 
 ```
 
-##Further Code Samples
+## Further Code Samples
 The [test application](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/Test/Parts/UnitParser.cs) includes a relevant number of descriptive code samples. 
 
 ## Authorship & Copyright
