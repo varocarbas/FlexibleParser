@@ -649,6 +649,27 @@
             <summary><para>Creates a new Prefix instance by relying on the most adequate constructor.</para></summary>
             <param name="input">Decimal input.</param>
         </member>
+        <member name="M:FlexibleParser.Prefix.op_Equality(FlexibleParser.Prefix,FlexibleParser.Prefix)">
+            <summary><para>Determines whether two Prefix instances are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Prefix.op_Inequality(FlexibleParser.Prefix,FlexibleParser.Prefix)">
+            <summary><para>Determines whether two Prefix instances are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Prefix.Equals(FlexibleParser.Prefix)">
+            <summary><para>Determines whether the current Prefix instance is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Prefix.Equals(System.Object)">
+            <summary><para>Determines whether the current Prefix instance is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Prefix.GetHashCode">
+            <summary><para>Returns the hash code for this Prefix instance.</para></summary>
+        </member>
         <member name="T:FlexibleParser.UnitSymbols">
             <summary>
             <para>Contains the primary symbols, abbreviations and string representations of all the supported units.</para>
@@ -3505,7 +3526,12 @@
             <para>By default, SI/binary prefixes may not be used with this unit.</para>            
             </summary>            
         </member>
-        <!-- Badly formed XML comment ignored for member "F:FlexibleParser.Units.Furlong" -->
+        <member name="F:FlexibleParser.Units.Furlong">
+            <summary>
+            <para>Furlong (fur). Imperial/USCS length unit.</para>
+            <para>By default, SI/binary prefixes may not be used with this unit.</para>            
+            </summary>
+        </member>
         <member name="F:FlexibleParser.Units.Link">
             <summary>
             <para>Link (li). Imperial/USCS length unit.</para>

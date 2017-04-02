@@ -120,7 +120,7 @@ namespace FlexibleParser
         ///</summary>            
         Chain,
         ///<summary>
-        ///<para>Furlong (fur). Imperial/USCS length unit.</par>
+        ///<para>Furlong (fur). Imperial/USCS length unit.</para>
         ///<para>By default, SI/binary prefixes may not be used with this unit.</para>            
         ///</summary>
         Furlong,

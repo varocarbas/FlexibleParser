@@ -247,16 +247,24 @@ namespace FlexibleParser
             return new Prefix(input);
         }
 
+        ///<summary><para>Determines whether two Prefix instances are equal.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator ==(Prefix first, Prefix second)
         {
             return UnitP.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether two Prefix instances are different.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator !=(Prefix first, Prefix second)
         {
             return !UnitP.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether the current Prefix instance is equal to other one.</para></summary>
+        ///<param name="other">Other variable.</param>
         public bool Equals(Prefix other)
         {
             return
@@ -267,11 +275,14 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether the current Prefix instance is equal to other one.</para></summary>
+        ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
             return Equals(obj as Prefix);
         }
 
+        ///<summary><para>Returns the hash code for this Prefix instance.</para></summary>
         public override int GetHashCode() { return 0; }
     }
 }
