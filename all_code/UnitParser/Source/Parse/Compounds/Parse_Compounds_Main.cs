@@ -320,15 +320,15 @@ namespace FlexibleParser
                 {
                     //Note that BasicUnit doesn't fully agree with the "basic unit" concept and that's why it might
                     //be a compound. 
-                    IEnumerable<UnitPart> compoundUnitParts = GetBasicCompoundUnitParts(unit2, true);
-                    if (compoundUnitParts.Count() == 1)
+                    List<UnitPart> compoundUnitParts = GetBasicCompoundUnitParts(unit2, true);
+                    if (compoundUnitParts.Count == 1)
                     {
                         //Only 1-unit-part versions are relevant. 
                         //This condition should always be met as far as all the compound basic units are expected to
                         //have a 1-unit-part version. For example: energy defined as an energy unit part. 
                         //This theoretically-never-met condition accounts for eventual hardcoding misconducts, like 
                         //faulty population of AllCompounds.
-                        return new UnitPart(compoundUnitParts.First());
+                        return new UnitPart(compoundUnitParts[0]);
                     }
                 }
                 else
@@ -345,12 +345,12 @@ namespace FlexibleParser
                 }
             }
 
-            IEnumerable<UnitPart> unitParts = GetBasicCompoundUnitParts(type, system, true);
+            List<UnitPart> unitParts = GetBasicCompoundUnitParts(type, system, true);
             return
             (
-                unitParts.Count() != 1 ? null :
+                unitParts.Count != 1 ? null :
                 //Type and system match a basic compound consisting in just one part (e.g., m2).
-                new UnitPart(unitParts.First()) 
+                new UnitPart(unitParts[0]) 
             );
         }
 
