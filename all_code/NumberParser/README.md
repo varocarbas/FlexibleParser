@@ -6,7 +6,7 @@
 
 [https://customsolvers.com/number_parser/](https://customsolvers.com/number_parser/) (ES: [https://customsolvers.com/number_parser_es/](https://customsolvers.com/number_parser_es/)) -- [https://varocarbas.com/number_parser_code/](https://varocarbas.com/number_parser_code/) -- [NuGet package](https://www.nuget.org/packages/NumberParser/) -- [Video](https://www.youtube.com/watch?v=hibR1gjuZmg)
 
-##Introduction
+## Introduction
 
 NumberParser (inside the ```FlexibleParser``` namespace) provides a common framework to deal with all the .NET numeric types. It relies on the following four classes (NumberX):
 - ```Number``` only supports the ```decimal``` type.
@@ -28,7 +28,7 @@ NumberO numberO = new NumberO(1.23m, new Type[] { typeof(int), typeof(char) });
 NumberP numberP = new NumberP("1.23", new ParseConfig(typeof(long)));
 ```
 
-##Common Features
+## Common Features
 
 All the NumberX classes have various characteristics in common.
 - Defined according to the fields ```Value``` (```decimal``` or ```dynamic```) and ```BaseTenExponent``` (```int```). All of them support ranges beyond [-1, 1] * 10^2147483647. 
@@ -57,11 +57,11 @@ NumberO numberO = new NumberO(123m, OtherTypes.IntegerTypes) / 0m;
 NumberP numberP = (NumberP)"1234e5678";
 ```
 
-##Math2 Class
+## Math2 Class
 
 This class includes all the NumberParser mathematical functionalities.
 
-###Custom Functionalities
+### Custom Functionalities
 
 - ```PowDecimal```/```SqrtDecimal``` whose ```decimal```-based algorithms are more precise than the ```System.Math``` versions. The whole [varocarbas.com Project 10](http://varocarbas.com/fractional_exponentiation) explains their underlying calculation approach. 
 - ```RoundExact```/```TruncateExact``` can deal with multiple rounding/truncating scenarios not supported by the native methods.
@@ -93,7 +93,7 @@ NumberD numberD = Math2.ApplyPolynomialFit
 NumberD numberD = Math2.Factorial(10);
 ```
 
-###Native Methods
+### Native Methods
 ```Math2``` also includes ```NumberD```-adapted versions of all the ```System.Math``` methods.
 
 ```C#
@@ -104,7 +104,7 @@ NumberD numberD = Math2.Pow(123.45, 6.789101112131415161718);
 NumberD numberD = Math2.Log(123.45m);
 ```
 
-##Further Code Samples
+## Further Code Samples
 The [test application](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/Test/Parts/NumberParser.cs) includes a relevant number of descriptive code samples. 
 
 ## Authorship & Copyright
