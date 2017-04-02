@@ -223,16 +223,24 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether two UnitP instances are equal.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator ==(UnitP first, UnitP second)
         {
             return NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether two UnitP instances are different.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator !=(UnitP first, UnitP second)
         {
             return !NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether the current UnitP instance is equal to other one.</para></summary>
+        ///<param name="other">Other variable.</param>
         public bool Equals(UnitP other)
         {
             return
@@ -241,11 +249,14 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether the current UnitP instance is equal to other one.</para></summary>
+        ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
             return Equals(obj as UnitP);
         }
 
+        ///<summary><para>Returns the hash code for this UnitP instance.</para></summary>
         public override int GetHashCode() 
         { 
             return 0; 

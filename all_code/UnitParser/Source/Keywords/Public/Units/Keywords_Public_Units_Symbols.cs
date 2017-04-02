@@ -43,7 +43,7 @@ namespace FlexibleParser
         public const string Pole = "pole";
         ///<summary><para>Chain symbol. Imperial/USCS length unit.</para></summary>            
         public const string Chain = "ch";
-        ///<summary><para>Furlong symbol. Imperial/USCS length unit.</par></summary>
+        ///<summary><para>Furlong symbol. Imperial/USCS length unit.</para></summary>
         public const string Furlong = "fur";
         ///<summary><para>Link symbol. Imperial/USCS length unit.</para></summary>
         public const string Link = "li";
@@ -547,7 +547,7 @@ namespace FlexibleParser
         public const string KilogramSquareMetre = "kg*m2";
 
         //--- Solid Angle
-        ///<summary><para>Steradian symbol. SI solid angle unit.</summary>                 
+        ///<summary><para>Steradian symbol. SI solid angle unit.</para></summary>                 
         public const string Steradian = "sr";
         ///<summary><para>Square degree abbreviation. Solid angle unit.</para></summary>                 
         public const string SquareDegree = "deg2";

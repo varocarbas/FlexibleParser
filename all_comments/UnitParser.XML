@@ -424,6 +424,27 @@
             <param name="first">Dividend.</param>
             <param name="second">Divisor.</param>
         </member>
+        <member name="M:FlexibleParser.UnitP.op_Equality(FlexibleParser.UnitP,FlexibleParser.UnitP)">
+            <summary><para>Determines whether two UnitP instances are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.op_Inequality(FlexibleParser.UnitP,FlexibleParser.UnitP)">
+            <summary><para>Determines whether two UnitP instances are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.Equals(FlexibleParser.UnitP)">
+            <summary><para>Determines whether the current UnitP instance is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.Equals(System.Object)">
+            <summary><para>Determines whether the current UnitP instance is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.GetHashCode">
+            <summary><para>Returns the hash code for this UnitP instance.</para></summary>
+        </member>
         <member name="P:FlexibleParser.UnitP.Value">
             <summary><para>Decimal variable storing the primary numeric information under the current conditions.</para></summary>
         </member>
@@ -496,6 +517,27 @@
             <param name="type">Member of the ErrorTypes enum to be used.</param>
             <param name="exceptionHandling">Member of the ExceptionHandlingTypes enum to be used.</param>
         </member>
+        <member name="M:FlexibleParser.UnitP.ErrorInfo.op_Equality(FlexibleParser.UnitP.ErrorInfo,FlexibleParser.UnitP.ErrorInfo)">
+            <summary><para>Determines whether two ErrorInfo instances are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.ErrorInfo.op_Inequality(FlexibleParser.UnitP.ErrorInfo,FlexibleParser.UnitP.ErrorInfo)">
+            <summary><para>Determines whether two ErrorInfo instances are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.ErrorInfo.Equals(FlexibleParser.UnitP.ErrorInfo)">
+            <summary><para>Determines whether the current ErrorInfo instance is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.ErrorInfo.Equals(System.Object)">
+            <summary><para>Determines whether the current ErrorInfo instance is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitP.ErrorInfo.GetHashCode">
+            <summary><para>Returns the hash code for this ErrorInfo instance.</para></summary>
+        </member>
         <member name="M:FlexibleParser.UnitP.ErrorInfo.op_Implicit(FlexibleParser.UnitP.ErrorTypes)~FlexibleParser.UnitP.ErrorInfo">
             <summary><para>Creates a new ErrorInfo instance by relying on the most adequate constructor.</para></summary>
             <param name="input">ErrorTypes input.</param>
@@ -525,6 +567,27 @@
         <member name="M:FlexibleParser.UnitPart.op_Implicit(FlexibleParser.Units)~FlexibleParser.UnitPart">
             <summary><para>Creates a new UnitPart instance by relying on the most adequate constructor.</para></summary>
             <param name="input">Units input.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitPart.op_Equality(FlexibleParser.UnitPart,FlexibleParser.UnitPart)">
+            <summary><para>Determines whether two UnitPart instances are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitPart.op_Inequality(FlexibleParser.UnitPart,FlexibleParser.UnitPart)">
+            <summary><para>Determines whether two UnitPart instances are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitPart.Equals(FlexibleParser.UnitPart)">
+            <summary><para>Determines whether the current UnitPart instance is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitPart.Equals(System.Object)">
+            <summary><para>Determines whether the current UnitPart instance is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.UnitPart.GetHashCode">
+            <summary><para>Returns the hash code for this UnitPart instance.</para></summary>
         </member>
         <member name="P:FlexibleParser.UnitPart.Unit">
             <summary><para>Unit associated with the current part.</para></summary>
@@ -640,7 +703,9 @@
         <member name="F:FlexibleParser.UnitSymbols.Chain">
             <summary><para>Chain symbol. Imperial/USCS length unit.</para></summary>            
         </member>
-        <!-- Badly formed XML comment ignored for member "F:FlexibleParser.UnitSymbols.Furlong" -->
+        <member name="F:FlexibleParser.UnitSymbols.Furlong">
+            <summary><para>Furlong symbol. Imperial/USCS length unit.</para></summary>
+        </member>
         <member name="F:FlexibleParser.UnitSymbols.Link">
             <summary><para>Link symbol. Imperial/USCS length unit.</para></summary>
         </member>
@@ -1274,7 +1339,9 @@
         <member name="F:FlexibleParser.UnitSymbols.KilogramSquareMetre">
             <summary><para>Kilogram square metre symbol. SI moment of inertia unit.</para></summary>  
         </member>
-        <!-- Badly formed XML comment ignored for member "F:FlexibleParser.UnitSymbols.Steradian" -->
+        <member name="F:FlexibleParser.UnitSymbols.Steradian">
+            <summary><para>Steradian symbol. SI solid angle unit.</para></summary>                 
+        </member>
         <member name="F:FlexibleParser.UnitSymbols.SquareDegree">
             <summary><para>Square degree abbreviation. Solid angle unit.</para></summary>                 
         </member>
@@ -1594,7 +1661,9 @@
         <member name="T:FlexibleParser.PrefixTypes">
             <summary><para>Types of unit prefixes.</para></summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:FlexibleParser.PrefixTypes.None" -->
+        <member name="F:FlexibleParser.PrefixTypes.None">
+            <summary><para>No unit prefix.</para></summary>
+        </member>
         <member name="F:FlexibleParser.PrefixTypes.SI">
             <summary>
             <para>Refers to all the International System of Units prefixes.</para>

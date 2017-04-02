@@ -115,16 +115,24 @@ namespace FlexibleParser
                 return outString;
             }
 
+            ///<summary><para>Determines whether two ErrorInfo instances are equal.</para></summary>
+            ///<param name="first">First operand.</param>
+            ///<param name="second">Second operand.</param>
             public static bool operator ==(ErrorInfo first, ErrorInfo second)
             {
                 return NoNullEquals(first, second);
             }
 
+            ///<summary><para>Determines whether two ErrorInfo instances are different.</para></summary>
+            ///<param name="first">First operand.</param>
+            ///<param name="second">Second operand.</param>
             public static bool operator !=(ErrorInfo first, ErrorInfo second)
             {
                 return !NoNullEquals(first, second);
             }
 
+            ///<summary><para>Determines whether the current ErrorInfo instance is equal to other one.</para></summary>
+            ///<param name="other">Other variable.</param>
             public bool Equals(ErrorInfo other)
             {
                 return
@@ -134,11 +142,14 @@ namespace FlexibleParser
                 );
             }
 
+            ///<summary><para>Determines whether the current ErrorInfo instance is equal to other one.</para></summary>
+            ///<param name="obj">Other variable.</param>
             public override bool Equals(object obj)
             {
                 return Equals(obj as ErrorInfo);
             }
 
+            ///<summary><para>Returns the hash code for this ErrorInfo instance.</para></summary>
             public override int GetHashCode() { return 0; }
 
             ///<summary><para>Creates a new ErrorInfo instance by relying on the most adequate constructor.</para></summary>

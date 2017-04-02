@@ -67,16 +67,24 @@ namespace FlexibleParser
             return new UnitPart(input);
         }
 
+        ///<summary><para>Determines whether two UnitPart instances are equal.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator ==(UnitPart first, UnitPart second)
         {
             return UnitP.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether two UnitPart instances are different.</para></summary>
+        ///<param name="first">First operand.</param>
+        ///<param name="second">Second operand.</param>
         public static bool operator !=(UnitPart first, UnitPart second)
         {
             return !UnitP.NoNullEquals(first, second);
         }
 
+        ///<summary><para>Determines whether the current UnitPart instance is equal to other one.</para></summary>
+        ///<param name="other">Other variable.</param>
         public bool Equals(UnitPart other)
         {
             return
@@ -86,11 +94,14 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Determines whether the current UnitPart instance is equal to other one.</para></summary>
+        ///<param name="obj">Other variable.</param>
         public override bool Equals(object obj)
         {
             return Equals(obj as UnitPart);
         }
 
+        ///<summary><para>Returns the hash code for this UnitPart instance.</para></summary>
         public override int GetHashCode() { return 0; }
     }
 

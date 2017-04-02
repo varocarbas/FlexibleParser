@@ -15,7 +15,7 @@ namespace FlexibleParser
     ///<summary><para>Types of unit prefixes.</para></summary>
     public enum PrefixTypes
     {
-        ///<summary><para>No unit prefix.</para>
+        ///<summary><para>No unit prefix.</para></summary>
         None = 0,
 
         ///<summary>
