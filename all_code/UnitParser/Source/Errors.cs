@@ -140,6 +140,13 @@ namespace FlexibleParser
             }
 
             public override int GetHashCode() { return 0; }
+
+            ///<summary><para>Creates a new ErrorInfo instance by relying on the most adequate constructor.</para></summary>
+            ///<param name="input">ErrorTypes input.</param>
+            public static implicit operator ErrorInfo(ErrorTypes input)
+            {
+                return new ErrorInfo(input);
+            }
         }
 
         //Called before starting unit conversions triggered by public methods.
