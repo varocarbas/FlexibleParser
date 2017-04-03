@@ -6,70 +6,60 @@ namespace FlexibleParser
 {
     public partial class NumberO
     {
-        private static List<NumberD> PopulateOthers(decimal value, int baseTenExponent, List<NumberD> others)
+        private static List<NumberD> PopulateOthers(decimal value, int baseTenExponent, IEnumerable<Type> types)
         {
-            if (others == null) return new List<NumberD>();
-
-            for (int i = others.Count - 1; i >= 0; i--)
-            {
-                if (others[i].Type == typeof(decimal) || others[i].Type == null)
-                {
-                    others.RemoveAt(i);
-                }
-                else
-                {
-                    others[i] = new NumberD(value, baseTenExponent, others[i].Type);
-                }
-            }
-
-            return others;
-        }
-
-        private static List<NumberD> GetOtherVersions(Type[] types)
-        {
-            List<NumberD> list = new List<NumberD>();
-            if (types == null || types.Length == 0) return list;
+            List<NumberD> outList = new List<NumberD>();
+            if (types == null) return outList;
 
             foreach (Type type in types)
             {
-                if (type != typeof(decimal) && Basic.AllNumericTypes.Contains(type))
-                {
-                    list.Add
-                    (
-                        new NumberD
-                        (
-                            Conversions.CastDynamicToType(0, type), 0, type
-                        )
-                    );
-                }
+                outList.Add
+                (
+                    new NumberD(value, baseTenExponent, type)
+                );
             }
 
-            return new List<NumberD>(list);
+            return outList;
         }
 
-        private static Type[] GetAssociatedTypes(OtherTypes otherType)
+        private static IEnumerable<Type> CheckOtherTypes(IEnumerable<Type> types)
         {
+            if (types == null || types.Count() == 0) yield break;
+
+            foreach (Type type in types)
+            {
+                if (type != null && type != typeof(decimal) && Basic.AllNumericTypes.Contains(type))
+                {
+                    yield return type;
+                }
+            }
+        }
+
+        private static IEnumerable<Type> GetAssociatedTypes(OtherTypes otherType)
+        {
+            Type[] types = null;
+
             if (otherType == OtherTypes.AllTypes)
             {
-                return Basic.AllNumericTypes;
+                types = Basic.AllNumericTypes;
             }
             else if (otherType == OtherTypes.MostCommonTypes)
             {
-                return new Type[] 
+                types = new Type[] 
                 { 
                     typeof(decimal), typeof(double), typeof(long), typeof(int)
                 };
             }
             else if (otherType == OtherTypes.DecimalTypes)
             {
-                return new Type[] 
+                types = new Type[] 
                 { 
                     typeof(decimal), typeof(double), typeof(float)
                 };
             }
             else if (otherType == OtherTypes.IntegerTypes)
             {
-                return new Type[] 
+                types = new Type[] 
                 { 
                     typeof(long), typeof(ulong), typeof(int), typeof(uint), typeof(short), 
                     typeof(ushort), typeof(sbyte), typeof(byte), typeof(char) 
@@ -77,7 +67,7 @@ namespace FlexibleParser
             }
             else if (otherType == OtherTypes.SignedTypes)
             {
-                return new Type[] 
+                types = new Type[] 
                 { 
                     typeof(decimal), typeof(double), typeof(float), typeof(long), typeof(int), 
                     typeof(short), typeof(sbyte)
@@ -85,14 +75,14 @@ namespace FlexibleParser
             }
             else if (otherType == OtherTypes.UnsignedTypes)
             {
-                return new Type[] 
+                types = new Type[] 
                 { 
                     typeof(ulong), typeof(uint), typeof(ushort), typeof(byte), typeof(char) 
                 };
             }
             else if (otherType == OtherTypes.BigTypes)
             {
-                return new Type[] 
+                types = new Type[] 
                 { 
                     typeof(decimal), typeof(double), typeof(float), typeof(long), typeof(ulong),
                     typeof(int), typeof(uint)
@@ -100,13 +90,18 @@ namespace FlexibleParser
             }
             else if (otherType == OtherTypes.SmallTypes)
             {
-                return new Type[]                 
+                types = new Type[]                 
                 { 
                     typeof(short), typeof(ushort), typeof(sbyte), typeof(byte), typeof(char)
                 };
             }
 
-            return null;
+            if (types == null) yield break;
+
+            foreach (Type type in types)
+            {
+                yield return type;
+            }
         }
     }
 

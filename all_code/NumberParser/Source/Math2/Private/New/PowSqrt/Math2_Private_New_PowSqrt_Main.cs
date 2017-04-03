@@ -209,11 +209,11 @@ namespace FlexibleParser
             Number nN = new Number(n);
             decimal n_1 = n - 1;
             Number n_1N = new Number(n_1);
-            Number valueN = Operations.NormaliseNumber(new Number(value));
+            Number valueN = new Number(value);
             Number[] fx = new Number[] 
             { 
                 new Number(valueN), 
-                Operations.NormaliseNumber(new Number(iniGuess)) 
+                new Number(iniGuess) 
             };
 
             decimal gap = 0m;

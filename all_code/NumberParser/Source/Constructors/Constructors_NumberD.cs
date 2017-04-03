@@ -132,14 +132,22 @@ namespace FlexibleParser
         }
 
         ///<summary><para>Initialises a new NumberD instance.</para></summary>
-        ///<param name="input">Variable whose information will be used. Only NumberD, Number, NumberO, NumberP and numeric variables are valid.</param>
+        ///<param name="input">Variable whose information will be used. Only NumberD, Number, NumberO, NumberP, numeric and UnitParser's UnitP variables are valid.</param>
         public NumberD(dynamic input)
         {
             Type type = ErrorInfoNumber.InputTypeIsValidNumericOrNumberX(input);
 
             if (type == null)
             {
-                Error = ErrorTypesNumber.InvalidInput;
+                Number number = OtherParts.GetNumberFromUnitP(input);
+
+                if (number.Error == ErrorTypesNumber.None)
+                {
+                    BaseTenExponent = number.BaseTenExponent;
+                    Value = number.Value;
+                    Type = typeof(decimal);
+                }
+                else Error = ErrorTypesNumber.InvalidInput;
             }
             else
             {
@@ -263,31 +271,23 @@ namespace FlexibleParser
         private static NumberD ExtractValueAndTypeInfo(dynamic value, int baseTenExponent, Type type)
         {
             Type typeValue = ErrorInfoNumber.InputTypeIsValidNumeric(value);
-
-            if (typeValue == null || !Basic.AllNumericTypes.Contains(type))
+            if (typeValue == null)
             {
                 return new NumberD(ErrorTypesNumber.InvalidInput);
             }
-            else
-            {
-                NumberD numberD = new NumberD(type);
-                if (typeValue == type)
-                {
-                    numberD.Value = value;
-                    numberD.BaseTenExponent = baseTenExponent;
 
-                    return numberD;
-                }
-                else
-                {
-                    numberD = Conversions.ConvertNumberToAny
+            return
+            (
+                typeValue == type ? new NumberD(value, baseTenExponent) :
+                Operations.VaryBaseTenExponent
+                (
+                    Conversions.ConvertNumberToAny
                     (
                         Conversions.ConvertAnyValueToDecimal(value), type
-                    );
-
-                    return Operations.VaryBaseTenExponent(numberD, baseTenExponent);
-                }
-            }
+                    ),
+                    baseTenExponent
+                )
+            );
         }
     }
 }

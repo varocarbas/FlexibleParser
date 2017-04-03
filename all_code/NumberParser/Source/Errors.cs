@@ -130,7 +130,7 @@ namespace FlexibleParser
             Type type = input.Value.GetType();
             if (type == typeof(double) || type == typeof(float))
             {
-                ErrorTypesNumber error = GetFloatingTypeError(input.Value);
+                ErrorTypesNumber error = GetFloatingTypeError(input.Value, type);
                 if (error != ErrorTypesNumber.None) return ErrorTypesNumber.InvalidInput;
             }
 
@@ -151,27 +151,20 @@ namespace FlexibleParser
             return number.Error;
         }
 
-        internal static ErrorTypesNumber GetFloatingTypeError(dynamic value)
+        internal static ErrorTypesNumber GetFloatingTypeError(dynamic value, Type type)
         {
             if (value == null) return ErrorTypesNumber.InvalidInput;
-            else
+
+            if (type == typeof(double))
             {
-                Type type = value.GetType();
-                if (type != typeof(double) && type != typeof(float))
+                if (double.IsInfinity(value) || double.IsNaN(value))
                 {
                     return ErrorTypesNumber.InvalidInput;
                 }
-                else if (type == typeof(double))
-                {
-                    if (double.IsInfinity(value) || double.IsNaN(value))
-                    {
-                        return ErrorTypesNumber.InvalidInput;
-                    }
-                }
-                else if (float.IsInfinity(value) || float.IsNaN(value))
-                {
-                    return ErrorTypesNumber.InvalidInput;
-                }
+            }
+            else if (float.IsInfinity(value) || float.IsNaN(value))
+            {
+                return ErrorTypesNumber.InvalidInput;
             }
 
             return ErrorTypesNumber.None;
@@ -198,29 +191,29 @@ namespace FlexibleParser
             Type type = (input == null ? null : input.GetType());
             if (type == null) return null;
 
-            Type[] targets = null;
             if (inputType == InputType.NumberClass)
             {
-                targets = Basic.AllNumberClassTypes;
+                return
+                (
+                    Basic.AllNumberClassTypes.Contains(type) ? type : null
+                );
             }
-            else
+
+            if (type == typeof(double) || type == typeof(float))
             {
-                if (type == typeof(double) || type == typeof(float))
+                if (GetFloatingTypeError(input, type) != ErrorTypesNumber.None)
                 {
-                    if (GetFloatingTypeError(input) != ErrorTypesNumber.None)
-                    {
-                        return null;
-                    }
-                }
-
-                targets = Basic.AllNumericTypes;
-                if (inputType == InputType.NumericAndNumberClass)
-                {
-                    targets = targets.Concat(Basic.AllNumberClassTypes).ToArray();
+                    return null;
                 }
             }
 
-            return (targets.Contains(type) ? type : null);
+            if (Basic.AllNumericTypes.Contains(type)) return type;
+
+            return
+            (
+                inputType == InputType.NumericAndNumberClass &&
+                Basic.AllNumberClassTypes.Contains(type) ? type : null
+            );
         }
 
         internal enum InputType { Numeric, NumberClass, NumericAndNumberClass }

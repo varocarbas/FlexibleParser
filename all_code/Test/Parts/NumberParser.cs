@@ -11,6 +11,7 @@ namespace Test
         {
             Console.WriteLine("-------------- NumberParser --------------");
             Console.WriteLine();
+            
             //------ There are 4 main classes (NumberX) which take care of different actions.
 
             //--- Number is the simplest and lightest one. 
@@ -36,7 +37,7 @@ namespace Test
             PrintSampleItem("Imp1", (Number)new NumberD(1234556789));
             PrintSampleItem("Imp2", (NumberO)new NumberP("123456.77"));
 
-            //--- Also to numeric types (Number/NumberD/NumberO) or to strings (NumberP). 
+            //--- All of them are also implicitly convertible to either numeric types (Number/NumberD/NumberO) or strings (NumberP). 
             PrintSampleItem("Imp3", (NumberD)1234556789);
             PrintSampleItem("Imp4", (NumberP)"555e123456");
 
@@ -55,18 +56,18 @@ namespace Test
             //------ Math2 contains NumberX-adapted versions of all the .NET System.Math methods. 
 
             //--- The expectations of the corresponding native method have to be met, otherwise an error would be triggered.
-            PrintSampleItem("Math1", Math2.Max(999, 1.234));
-            PrintSampleItem("Math2", Math2.Pow(new NumberD(5555555555, 500), 5.3));
+            PrintSampleItem("Math1", Math2.Max(999, 1.234)); //Valid scenario for Math.Max (int implicitly convertible to double).
+            PrintSampleItem("Math2", Math2.Pow(new NumberD(5555555555, 500), 5.3)); //Error. 5555555555*10^500 is outside the Math.Pow supported range. 
 
-            //--- If the target range is met, using the expected isn't always required.
-            PrintSampleItem("Math3", Math2.Log(new NumberD(20m, 3)));
-            PrintSampleItem("Math4", Math2.Sin(new NumberD('e')));
+            //--- If the target range is met, using the expected format isn't always required.
+            PrintSampleItem("Math3", Math2.Log(new NumberD(20m, 3))); //No error despite calling Math.Log with decimal when it expects double.
+            PrintSampleItem("Math4", Math2.Sin(new NumberD('e'))); //No error despite calling Math.Sin with char when it expects double.
 
 
-            //------ Math2 also includes other mathematical methods, which I developed completely from scratch. 
+            //------ Math2 also includes other mathematical methods which I developed completely from scratch. 
 
             //--- The PowDecimal/SqrtDecimal algorithms only rely on the decimal type and are more precise than the native versions.
-            //--- You can find more information about these algorithms in http://varocarbas.com/fractional_exponentiation/.
+            //--- You can find more information about these algorithms in https://varocarbas.com/fractional_exponentiation/.
             PrintSampleItem("Math5", Math2.PowDecimal(new Number(0.0000000000000001m), 1.234567895m));
             PrintSampleItem("Math6", Math2.SqrtDecimal(new Number(9999999999999999999, 500)));
 
@@ -80,6 +81,17 @@ namespace Test
             //-- Factorial calculates the factorial of any integer number up to 100000. 
             PrintSampleItem("Math10", Math2.Factorial(new NumberD(25)));
 
+
+            //------ Other FlexibleParser parts.
+            //All the FlexibleParser parts are independent among each other and only the corresponding DLL file needs to be referred.
+            //On the other, codes relying on various parts can take advantage of certain compatibility among their main classes. 
+
+            //--- UnitParser.
+            PrintSampleItem("UP1", new Number(new UnitP("12.3 MabA")));
+            PrintSampleItem("UP2", new NumberD(new UnitP(0.01m, SIPrefixes.Micro.ToString() + Units.Second.ToString())));
+            PrintSampleItem("UP3", new NumberP(new UnitP("Error")));
+           
+            
             Console.WriteLine();
             Console.WriteLine("------------------------------------------");
             Console.WriteLine();
@@ -90,9 +102,10 @@ namespace Test
         {
             Console.WriteLine
             (
-                sampleId + " - " +
+                sampleId + " -- "
+                + (numberX == null ? " " : numberX.GetType().ToString().Replace("FlexibleParser.", ""))
                 //Each ToString() method outputs what the given NumberX needs.
-                 numberX.ToString()
+                + " - " + numberX.ToString()
                 + Environment.NewLine
             );
         }

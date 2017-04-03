@@ -38,29 +38,29 @@ namespace FlexibleParser
             + " (" + OriginalString + ")" + Environment.NewLine + Config.ToString();
         }
 
-        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberP.</param>
+        ///<summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">String input.</param>
         public static implicit operator NumberP(string input)
         {
             return new NumberP(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberP.</param>
+        ///<summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Number input.</param>
         public static implicit operator NumberP(Number input)
         {
             return new NumberP(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberP.</param>
+        ///<summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">NumberD input.</param>
         public static implicit operator NumberP(NumberD input)
         {
             return new NumberP(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberP one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberP.</param>
+        ///<summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">NumberO input.</param>
         public static implicit operator NumberP(NumberO input)
         {
             return new NumberP(input);

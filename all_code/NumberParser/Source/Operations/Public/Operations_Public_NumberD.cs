@@ -37,106 +37,106 @@ namespace FlexibleParser
             );
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Decimal input.</param>
         public static implicit operator NumberD(decimal input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Double input.</param>
         public static implicit operator NumberD(double input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Float input.</param>
         public static implicit operator NumberD(float input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Long input.</param>
         public static implicit operator NumberD(long input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Ulong input.</param>
         public static implicit operator NumberD(ulong input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Int input.</param>
         public static implicit operator NumberD(int input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Uint input.</param>
         public static implicit operator NumberD(uint input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Short input.</param>
         public static implicit operator NumberD(short input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Ushort input.</param>
         public static implicit operator NumberD(ushort input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Byte input.</param>
         public static implicit operator NumberD(byte input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Sbyte input.</param>
         public static implicit operator NumberD(sbyte input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Char input.</param>
         public static implicit operator NumberD(char input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Number input.</param>
         public static implicit operator NumberD(Number input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">NumberO input.</param>
         public static implicit operator NumberD(NumberO input)
         {
             return new NumberD(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberD one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberD.</param>
+        ///<summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">NumberP input.</param>
         public static implicit operator NumberD(NumberP input)
         {
             return new NumberD(input);

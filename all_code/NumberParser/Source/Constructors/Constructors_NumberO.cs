@@ -13,7 +13,7 @@ namespace FlexibleParser
     {
         private decimal _Value;
         private int _BaseTenExponent;
-        private Type[] _OtherTypes;
+        private IEnumerable<Type> _OtherTypes;
         ///<summary><para>Decimal variable storing the primary value.</para></summary>
         public decimal Value
         {
@@ -24,8 +24,7 @@ namespace FlexibleParser
                 if (_Value == 0) BaseTenExponent = 0;
                 Others = PopulateOthers
                 (
-                    _Value, BaseTenExponent, 
-                    GetOtherVersions(_OtherTypes)
+                    _Value, BaseTenExponent, CheckOtherTypes(_OtherTypes)
                 )
                 .AsReadOnly();
             }
@@ -39,8 +38,7 @@ namespace FlexibleParser
                 _BaseTenExponent = value;
                 Others = PopulateOthers
                 (
-                    Value, _BaseTenExponent, 
-                    GetOtherVersions(_OtherTypes)
+                    Value, _BaseTenExponent, CheckOtherTypes(_OtherTypes)
                 )
                 .AsReadOnly();
             }
@@ -69,7 +67,7 @@ namespace FlexibleParser
         ///<summary><para>Initialises a new NumberO instance.</para></summary>
         ///<param name="numberO">NumberO variable whose information will be used.</param>
         ///<param name="otherTypes">Array containing the types to be considered.</param>
-        public NumberO(NumberO numberO, Type[] otherTypes)
+        public NumberO(NumberO numberO, IEnumerable<Type> otherTypes)
         {
             NumberD tempVar = Common.ExtractSameTypeNumberXInfo(numberO);
 
@@ -299,7 +297,7 @@ namespace FlexibleParser
         )
         { }
 
-        private NumberO(decimal value, int baseTenExponent, Type[] otherTypes, ErrorTypesNumber error)
+        private NumberO(decimal value, int baseTenExponent, IEnumerable<Type> otherTypes, ErrorTypesNumber error)
         {
             if (otherTypes == null) otherTypes = new Type[0];
 

@@ -44,20 +44,50 @@ namespace FlexibleParser
 
         private static NumberD PerformOperationTwoOperands(NumberD n1, NumberD n2, ExistingOperations operation)
         {
-            NumberD n12 = AdaptInputsToMathMethod(n1, GetTypesOperation(operation), operation);
-            if (n12.Error != ErrorTypesNumber.None) return new NumberD(n12.Error);
-
-            NumberD n22 = AdaptInputsToMathMethod(n2, new Type[] { n12.Type }, operation);
-            if (n22.Error != ErrorTypesNumber.None) return new NumberD(n22.Error);
+            NumberD[] ns = CheckTwoOperands
+            (
+                new NumberD[] { n1, n2 }, operation
+            );
+            if (ns[0].Error != ErrorTypesNumber.None) return ns[0];
 
             try
             {
-                return ApplyMethod2(n12, n22, operation);
+                return ApplyMethod2(ns[0], ns[1], operation);
             }
             catch
             {
                 return new NumberD(ErrorTypesNumber.NativeMethodError);
             }
+        }
+
+        private static NumberD[] CheckTwoOperands(NumberD[] ns, ExistingOperations operation)
+        {
+            ns = OrderTwoOperands(ns);
+
+            for (int i = 0; i < ns.Length; i++)
+            {
+                ns[i] = AdaptInputsToMathMethod
+                (
+                    ns[i], (i == 0 ? GetTypesOperation(operation) : new Type[] { ns[0].Type }), operation
+                );
+                if (ns[i].Error != ErrorTypesNumber.None)
+                {
+                    return new NumberD[] { new NumberD(ns[i].Error) };
+                }
+            }
+
+            return ns;
+        }
+
+        //When checking whether the input types are compatible with what the given System.Math method
+        //expects, the order might matter.
+        //Example: with double and int for a method expecting the same type, the double being analysed
+        //first provoke the conclusion to always be OK (i.e., int being a different type but implicitly
+        //convertible to double). On the other hand, if int was analysed first, it would be considered
+        //invalid because double isn't implicitly convertible to int.
+        private static NumberD[] OrderTwoOperands(NumberD[] ns)
+        {
+            return OrderByDecimalAndRange(ns).ToArray();
         }
 
         private static Type[] GetTypesOperation(ExistingOperations operation)
@@ -196,25 +226,8 @@ namespace FlexibleParser
                 return new NumberD(ErrorTypesNumber.InvalidInput);
             }
 
-            NumberD n2 = new NumberD(n);
-
-            if (!targets.Contains(n2.Type))
-            {
-                if (n2.Type != typeof(double) && operation != ExistingOperations.DivRem && operation != ExistingOperations.BigMul)
-                {
-                    //Except DivRem and BigMul, all the System.Math methods accept double as argument.
-                    n2.Value = Conversions.ConvertToDoubleInternal(n2.Value);
-                }
-                else return new NumberD(ErrorTypesNumber.NativeMethodError);
-            }
-            if (n2.Type != typeof(double) && operation != ExistingOperations.DivRem && operation != ExistingOperations.BigMul)
-            {
-                //Except DivRem and BigMul, all the System.Math methods accept double as argument.
-                if (!targets.Contains(n2.Type))
-                {
-                    n2.Value = Conversions.ConvertToDoubleInternal(n2.Value);
-                }
-            }
+            NumberD n2 = AdaptInputToMathMethod2(new NumberD(n), targets, operation);
+            if (n2.Error != ErrorTypesNumber.None) return n2;           
 
             if (n2.BaseTenExponent != 0) n2 = Operations.PassBaseTenToValue((NumberD)n2);
 
@@ -234,6 +247,65 @@ namespace FlexibleParser
             }
 
             return n2;
+        }
+
+        private static NumberD AdaptInputToMathMethod2(NumberD n2, Type[] targets, ExistingOperations operation)
+        {
+            if (!targets.Contains(n2.Type))
+            {
+                NumberD n3 = AdaptInputToMathMethodImplicit(n2, targets);
+                if (n3 != null) return n3;
+
+                if (n2.Type != typeof(double) && operation != ExistingOperations.DivRem && operation != ExistingOperations.BigMul)
+                {
+                    //Except DivRem and BigMul, all the System.Math methods accept double as argument.
+                    n2.Value = Conversions.ConvertToDoubleInternal(n2.Value);
+                }
+                else return new NumberD(ErrorTypesNumber.NativeMethodError);
+            }
+            if (n2.Type != typeof(double) && operation != ExistingOperations.DivRem && operation != ExistingOperations.BigMul)
+            {
+                //Except DivRem and BigMul, all the System.Math methods accept double as argument.
+                if (!targets.Contains(n2.Type))
+                {
+                    n2.Value = Conversions.ConvertToDoubleInternal(n2.Value);
+                }
+            }
+
+            return n2;
+        }
+
+        private static NumberD AdaptInputToMathMethodImplicit(NumberD n, Type[] targets)
+        {
+            if (!Basic.AllDecimalTypes.Contains(n.Type))
+            {
+                var target = OrderByDecimalAndRange(targets).First();
+                if (Basic.AllDecimalTypes.Contains(target))
+                {
+                    //n is an integer and one of the targets is decimal. This means that an implicit
+                    //conversion is possible and, consequently, no further analysis is required to
+                    //conclude that the current input scenario is valid.
+                    return Conversions.ConvertNumberToAny(n, target);
+                }
+            }
+
+            return null;
+        }
+
+        private static IEnumerable<NumberD> OrderByDecimalAndRange(IEnumerable<NumberD> ns)
+        {
+            return ns.OrderByDescending(x => Basic.AllDecimalTypes.Contains(x.Type)).ThenByDescending
+            (
+                x => Convert.ToDouble(Basic.AllNumberMinMaxs[x.Type][1]) - Convert.ToDouble(Basic.AllNumberMinMaxs[x.Type][0])
+            );
+        }
+
+        private static IEnumerable<Type> OrderByDecimalAndRange(IEnumerable<Type> ns)
+        {
+            return ns.OrderByDescending(x => Basic.AllDecimalTypes.Contains(x)).ThenByDescending
+            (
+                x => Convert.ToDouble(Basic.AllNumberMinMaxs[x][1]) - Convert.ToDouble(Basic.AllNumberMinMaxs[x][0])
+            );
         }
     }
 }

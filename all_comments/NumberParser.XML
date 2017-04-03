@@ -41,6 +41,10 @@
             <summary><para>Initialises a new Number instance.</para></summary>
             <param name="numberP">NumberP variable whose information will be used.</param>
         </member>
+        <member name="M:FlexibleParser.Number.#ctor(System.Object)">
+            <summary><para>Initialises a new Number instance.</para></summary>
+            <param name="unitP">UnitParser's UnitP variable to be used.</param>
+        </member>
         <member name="M:FlexibleParser.Number.CompareTo(FlexibleParser.Number)">
             <summary><para>Compares the current instance against another Number one.</para></summary>
             <param name="other">The other Number instance.</param>
@@ -57,64 +61,64 @@
             <param name="culture">Culture.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Decimal)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Decimal input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Double)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Double input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Single)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Float input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Int64)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Long input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.UInt64)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Ulong input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Int32)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Int input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.UInt32)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Uint input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Int16)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Short input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.UInt16)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Ushort input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Byte)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Byte input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.SByte)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Sbyte input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(System.Char)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Char input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(FlexibleParser.NumberD)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberD input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(FlexibleParser.NumberO)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberO input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Implicit(FlexibleParser.NumberP)~FlexibleParser.Number">
-            <summary><para>Converts the input variable into a Number one.</para></summary>
-            <param name="input">Variable to be converted to Number.</param>
+            <summary><para>Creates a new Number instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberP input.</param>
         </member>
         <member name="M:FlexibleParser.Number.op_Addition(FlexibleParser.Number,FlexibleParser.Number)">
             <summary><para>Adds two Number variables.</para></summary>
@@ -219,7 +223,7 @@
         </member>
         <member name="M:FlexibleParser.NumberD.#ctor(System.Object)">
             <summary><para>Initialises a new NumberD instance.</para></summary>
-            <param name="input">Variable whose information will be used. Only NumberD, Number, NumberO, NumberP and numeric variables are valid.</param>
+            <param name="input">Variable whose information will be used. Only NumberD, Number, NumberO, NumberP, numeric and UnitParser's UnitP variables are valid.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.CompareTo(FlexibleParser.NumberD)">
             <summary><para>Compares the current instance against another NumberD one.</para></summary>
@@ -237,64 +241,64 @@
             <param name="culture">Culture.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Decimal)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Decimal input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Double)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Double input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Single)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Float input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Int64)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Long input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.UInt64)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Ulong input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Int32)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Int input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.UInt32)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Uint input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Int16)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Short input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.UInt16)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Ushort input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Byte)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Byte input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.SByte)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Sbyte input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(System.Char)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Char input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(FlexibleParser.Number)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Number input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(FlexibleParser.NumberO)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberO input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Implicit(FlexibleParser.NumberP)~FlexibleParser.NumberD">
-            <summary><para>Converts the input variable into a NumberD one.</para></summary>
-            <param name="input">Variable to be converted to NumberD.</param>
+            <summary><para>Creates a new NumberD instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberP input.</param>
         </member>
         <member name="M:FlexibleParser.NumberD.op_Addition(FlexibleParser.NumberD,FlexibleParser.NumberD)">
             <summary><para>Adds two NumberD variables.</para></summary>
@@ -395,7 +399,7 @@
             <param name="numberO">NumberO variable whose information will be used.</param>
             <param name="otherType">Member of the OtherTypes enum determining the types to be considered.</param>
         </member>
-        <member name="M:FlexibleParser.NumberO.#ctor(FlexibleParser.NumberO,System.Type[])">
+        <member name="M:FlexibleParser.NumberO.#ctor(FlexibleParser.NumberO,System.Collections.Generic.IEnumerable{System.Type})">
             <summary><para>Initialises a new NumberO instance.</para></summary>
             <param name="numberO">NumberO variable whose information will be used.</param>
             <param name="otherTypes">Array containing the types to be considered.</param>
@@ -438,6 +442,10 @@
             <param name="baseTenExponent">Base-ten exponent to be used.</param>
             <param name="otherTypes">Array containing the types to be considered.</param>
         </member>
+        <member name="M:FlexibleParser.NumberO.#ctor(System.Object)">
+            <summary><para>Initialises a new NumberO instance.</para></summary>
+            <param name="unitP">UnitParser's UnitP variable to be used.</param>
+        </member>
         <member name="M:FlexibleParser.NumberO.CompareTo(FlexibleParser.NumberO)">
             <summary><para>Compares the current instance against another NumberO one.</para></summary>
             <param name="other">The other NumberO instance.</param>
@@ -454,64 +462,64 @@
             <param name="culture">Culture.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Decimal)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Decimal input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Double)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Double input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Single)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Float input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Int64)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Long input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.UInt64)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Ulong input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Int32)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Int input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.UInt32)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Uint input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Int16)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Short input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.UInt16)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Ushort input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Byte)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Byte input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.SByte)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Sbyte input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(System.Char)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Char input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(FlexibleParser.Number)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Number input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(FlexibleParser.NumberD)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberD input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Implicit(FlexibleParser.NumberP)~FlexibleParser.NumberO">
-            <summary><para>Converts the input variable into a NumberO one.</para></summary>
-            <param name="input">Variable to be converted to NumberO.</param>
+            <summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberP input.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.op_Addition(FlexibleParser.NumberO,FlexibleParser.NumberO)">
             <summary><para>Adds two NumberO variables.</para></summary>
@@ -631,6 +639,10 @@
             <summary><para>Initialises a new NumberP instance.</para></summary>
             <param name="numberO">NumberO variable whose information will be used.</param>   
         </member>
+        <member name="M:FlexibleParser.NumberP.#ctor(System.Object)">
+            <summary><para>Initialises a new NumberP instance.</para></summary>
+            <param name="unitP">UnitParser's UnitP variable to be used.</param>
+        </member>
         <member name="M:FlexibleParser.NumberP.CompareTo(FlexibleParser.NumberP)">
             <summary><para>Compares the current instance against another NumberP one.</para></summary>
             <param name="other">The other NumberP instance.</param>
@@ -647,20 +659,20 @@
             <param name="culture">Culture.</param>
         </member>
         <member name="M:FlexibleParser.NumberP.op_Implicit(System.String)~FlexibleParser.NumberP">
-            <summary><para>Converts the input variable into a NumberP one.</para></summary>
-            <param name="input">Variable to be converted to NumberP.</param>
+            <summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
         </member>
         <member name="M:FlexibleParser.NumberP.op_Implicit(FlexibleParser.Number)~FlexibleParser.NumberP">
-            <summary><para>Converts the input variable into a NumberP one.</para></summary>
-            <param name="input">Variable to be converted to NumberP.</param>
+            <summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Number input.</param>
         </member>
         <member name="M:FlexibleParser.NumberP.op_Implicit(FlexibleParser.NumberD)~FlexibleParser.NumberP">
-            <summary><para>Converts the input variable into a NumberP one.</para></summary>
-            <param name="input">Variable to be converted to NumberP.</param>
+            <summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberD input.</param>
         </member>
         <member name="M:FlexibleParser.NumberP.op_Implicit(FlexibleParser.NumberO)~FlexibleParser.NumberP">
-            <summary><para>Converts the input variable into a NumberP one.</para></summary>
-            <param name="input">Variable to be converted to NumberP.</param>
+            <summary><para>Creates a new NumberP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">NumberO input.</param>
         </member>
         <member name="M:FlexibleParser.NumberP.op_Addition(FlexibleParser.NumberP,FlexibleParser.NumberP)">
             <summary><para>Adds two NumberP variables.</para></summary>

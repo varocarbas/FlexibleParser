@@ -48,106 +48,106 @@ namespace FlexibleParser
             return output;
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Decimal input.</param>
         public static implicit operator NumberO(decimal input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Double input.</param>
         public static implicit operator NumberO(double input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Float input.</param>
         public static implicit operator NumberO(float input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Long input.</param>
         public static implicit operator NumberO(long input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Ulong input.</param>
         public static implicit operator NumberO(ulong input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Int input.</param>
         public static implicit operator NumberO(int input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Uint input.</param>
         public static implicit operator NumberO(uint input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Short input.</param>
         public static implicit operator NumberO(short input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Ushort input.</param>
         public static implicit operator NumberO(ushort input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Byte input.</param>
         public static implicit operator NumberO(byte input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Sbyte input.</param>
         public static implicit operator NumberO(sbyte input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Char input.</param>
         public static implicit operator NumberO(char input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">Number input.</param>
         public static implicit operator NumberO(Number input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">NumberD input.</param>
         public static implicit operator NumberO(NumberD input)
         {
             return new NumberO(input);
         }
 
-        ///<summary><para>Converts the input variable into a NumberO one.</para></summary>
-        ///<param name="input">Variable to be converted to NumberO.</param>
+        ///<summary><para>Creates a new NumberO instance by relying on the most adequate constructor.</para></summary>
+        ///<param name="input">NumberP input.</param>
         public static implicit operator NumberO(NumberP input)
         {
             return new NumberO(input);
