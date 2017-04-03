@@ -1,6 +1,6 @@
 # FlexibleParser        
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.192368.svg)](https://doi.org/10.5281/zenodo.192368) [![Build Status](https://travis-ci.org/varocarbas/FlexibleParser.svg?branch=master)](https://travis-ci.org/varocarbas/FlexibleParser)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.439945.svg)](https://doi.org/10.5281/zenodo.439945) [![Build Status](https://travis-ci.org/varocarbas/FlexibleParser.svg?branch=master)](https://travis-ci.org/varocarbas/FlexibleParser)
 
 
 FlexibleParser is a multi-purpose .NET parsing library based upon the following ideas:
@@ -19,7 +19,7 @@ It allows to easily deal with a wide variety of situations involving units of me
 Among its most salient features are: user-defined exception triggering and gracefully managing numeric values of any size.
 
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.192347.svg)](https://doi.org/10.5281/zenodo.192347) [NumberParser](https://customsolvers.com/number_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6174.19926), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/NumberParser.md), [code analysis](https://varocarbas.com/number_parser_code/))<br/>It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.439942.svg)](https://doi.org/10.5281/zenodo.439942) [NumberParser](https://customsolvers.com/number_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6302.28051), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/NumberParser.md), [code analysis](https://varocarbas.com/number_parser_code/))<br/>It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
 
 
 ## Authorship & Copyright
