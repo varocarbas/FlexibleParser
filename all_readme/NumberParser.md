@@ -40,10 +40,10 @@ Number number = new Number(12.3m, 456);
 Number numberD = 
 (
     new NumberD(123) < (NumberD)new Number(456) ?
-	//123 (int)
+    //123 (int)
     new NumberD(123.456, typeof(int)) :
     //123.456 (double)
-	new NumberD(123.456)
+    new NumberD(123.456)
 );
 
 //Error (ErrorTypesNumber.InvalidOperation) provoked when dividing by zero.
