@@ -46,6 +46,7 @@
     <Compile Include="Source\Constructors\Constructors_NumberD.cs" />
     <Compile Include="Source\Constructors\Constructors_NumberO.cs" />
     <Compile Include="Source\Constructors\Constructors_NumberP.cs" />
+    <Compile Include="Source\Constructors\OtherParts\Constructors_OtherParts_UnitParser.cs" />
     <Compile Include="Source\Conversions\Conversions_other.cs" />
     <Compile Include="Source\Conversions\Conversions_to_decimal.cs" />
     <Compile Include="Source\Conversions\Conversions_from_decimal.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Source\Operations\Public\Operations_Public_NumberO.cs" />
     <Compile Include="Source\Operations\Public\Operations_Public_NumberP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\OtherParts\OtherParts_UnitParser.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
