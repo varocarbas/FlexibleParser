@@ -1,0 +1,657 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DateParser</name>
+    </assembly>
+    <members>
+        <member name="M:FlexibleParser.DateP.CompareTo(FlexibleParser.DateP)">
+            <summary><para>Compares the current instance against another DateP one.</para></summary>
+            <param name="other">The other DateP instance.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_Implicit(System.DateTime)~FlexibleParser.DateP">
+            <summary><para>Creates a new DateP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">DateTime input.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_Implicit(System.String)~FlexibleParser.DateP">
+            <summary><para>Creates a new DateP instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_GreaterThan(FlexibleParser.DateP,FlexibleParser.DateP)">
+            <summary><para>Determines whether the first argument is greater than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_GreaterThanOrEqual(FlexibleParser.DateP,FlexibleParser.DateP)">
+            <summary><para>Determines whether the first argument is greater or equal than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_LessThan(FlexibleParser.DateP,FlexibleParser.DateP)">
+            <summary><para>Determines whether the first argument is smaller than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_LessThanOrEqual(FlexibleParser.DateP,FlexibleParser.DateP)">
+            <summary><para>Determines whether the first argument is smaller or equal than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_Equality(FlexibleParser.DateP,FlexibleParser.DateP)">
+            <summary><para>Determines whether two DateP variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.op_Inequality(FlexibleParser.DateP,FlexibleParser.DateP)">
+            <summary><para>Determines whether two DateP variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.Equals(FlexibleParser.DateP)">
+            <summary><para>Determines whether the current DateP variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.Equals(System.Object)">
+            <summary><para>Determines whether the current DateP variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetHashCode">
+            <summary><para>Returns the hash code for this DateP variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.CompareTo(FlexibleParser.CustomDateTimeFormat)">
+            <summary><para>Compares the current instance against another CustomDateTimeFormat one.</para></summary>
+            <param name="other">The other CustomDateTimeFormat instance.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.ToString">
+            <summary><para>Outputs an error or "[name] ([abbreviation]) -- UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.op_Implicit(FlexibleParser.DateTimeParts[])~FlexibleParser.CustomDateTimeFormat">
+            <summary><para>Creates a new CustomDateTimeFormat instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">DateTimeParts[] input.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.op_Implicit(System.String)~FlexibleParser.CustomDateTimeFormat">
+            <summary><para>Creates a new CustomDateTimeFormat instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.op_Equality(FlexibleParser.CustomDateTimeFormat,FlexibleParser.CustomDateTimeFormat)">
+            <summary><para>Determines whether two CustomDateTimeFormat variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.op_Inequality(FlexibleParser.CustomDateTimeFormat,FlexibleParser.CustomDateTimeFormat)">
+            <summary><para>Determines whether two CustomDateTimeFormat variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.Equals(FlexibleParser.CustomDateTimeFormat)">
+            <summary><para>Determines whether the current CustomDateTimeFormat variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.Equals(System.Object)">
+            <summary><para>Determines whether the current CustomDateTimeFormat variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.GetHashCode">
+            <summary><para>Returns the hash code for this CustomDateTimeFormat variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.Country.CompareTo(FlexibleParser.Country)">
+            <summary><para>Compares the current instance against another Country one.</para></summary>
+            <param name="other">The other Country instance.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.ToString">
+            <summary><para>Outputs an error or "[name] ([code]) -- [city/region]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.Country.op_Implicit(FlexibleParser.CountryEnum)~FlexibleParser.Country">
+            <summary><para>Creates a new Country instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">CountryEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.op_Implicit(System.String)~FlexibleParser.Country">
+            <summary><para>Creates a new Country instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.op_Implicit(System.TimeZoneInfo)~FlexibleParser.Country">
+            <summary><para>Creates a new Country instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.op_Equality(FlexibleParser.Country,FlexibleParser.Country)">
+            <summary><para>Determines whether two Country variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.op_Inequality(FlexibleParser.Country,FlexibleParser.Country)">
+            <summary><para>Determines whether two Country variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.Equals(FlexibleParser.Country)">
+            <summary><para>Determines whether the current Country variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.Equals(System.Object)">
+            <summary><para>Determines whether the current Country variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.GetHashCode">
+            <summary><para>Returns the hash code for this Country variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.Offset.CompareTo(FlexibleParser.Offset)">
+            <summary><para>Compares the current instance against another Offset one.</para></summary>
+            <param name="other">The other Offset instance.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.ToString">
+            <summary><para>Outputs an error or [sign][hours]:[minutes].</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(System.Decimal)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Decimal input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneOfficial)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneOfficial input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneOfficialEnum)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneOfficialEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneIANA)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneIANA input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneIANAEnum)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneIANAEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneConventional)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneConventional input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneConventionalEnum)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneConventionalEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneUTC)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneUTC input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneUTCEnum)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneUTCEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneWindows)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneWindows input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneWindowsEnum)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneWindowsEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneMilitary)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneMilitary input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Implicit(FlexibleParser.TimeZoneMilitaryEnum)~FlexibleParser.Offset">
+            <summary><para>Creates a new Offset instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneMilitaryEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_GreaterThan(FlexibleParser.Offset,FlexibleParser.Offset)">
+            <summary><para>Determines whether the first argument is greater than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_GreaterThanOrEqual(FlexibleParser.Offset,FlexibleParser.Offset)">
+            <summary><para>Determines whether the first argument is greater or equal than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_LessThan(FlexibleParser.Offset,FlexibleParser.Offset)">
+            <summary><para>Determines whether the first argument is smaller than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_LessThanOrEqual(FlexibleParser.Offset,FlexibleParser.Offset)">
+            <summary><para>Determines whether the first argument is smaller or equal than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Equality(FlexibleParser.Offset,FlexibleParser.Offset)">
+            <summary><para>Determines whether two Offset variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.op_Inequality(FlexibleParser.Offset,FlexibleParser.Offset)">
+            <summary><para>Determines whether two Offset variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.Equals(FlexibleParser.Offset)">
+            <summary><para>Determines whether the current Offset variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.Equals(System.Object)">
+            <summary><para>Determines whether the current Offset variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.GetHashCode">
+            <summary><para>Returns the hash code for this Offset variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.CompareTo(FlexibleParser.HourMinute)">
+            <summary><para>Compares the current instance against another HourMinute one.</para></summary>
+            <param name="other">The other HourMinute instance.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.ToString">
+            <summary><para>Outputs an error or [sign][hours]:[minutes].</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_Implicit(FlexibleParser.Offset)~FlexibleParser.HourMinute">
+            <summary><para>Creates a new HourMinute instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Offset input.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_Implicit(System.Decimal)~FlexibleParser.HourMinute">
+            <summary><para>Creates a new HourMinute instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Decimal input.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_GreaterThan(FlexibleParser.HourMinute,FlexibleParser.HourMinute)">
+            <summary><para>Determines whether the first argument is greater than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_GreaterThanOrEqual(FlexibleParser.HourMinute,FlexibleParser.HourMinute)">
+            <summary><para>Determines whether the first argument is greater or equal than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_LessThan(FlexibleParser.HourMinute,FlexibleParser.HourMinute)">
+            <summary><para>Determines whether the first argument is smaller than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_LessThanOrEqual(FlexibleParser.HourMinute,FlexibleParser.HourMinute)">
+            <summary><para>Determines whether the first argument is smaller or equal than the second one.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_Equality(FlexibleParser.HourMinute,FlexibleParser.HourMinute)">
+            <summary><para>Determines whether two HourMinute variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.op_Inequality(FlexibleParser.HourMinute,FlexibleParser.HourMinute)">
+            <summary><para>Determines whether two HourMinute variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.Equals(FlexibleParser.HourMinute)">
+            <summary><para>Determines whether the current HourMinute variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.Equals(System.Object)">
+            <summary><para>Determines whether the current HourMinute variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.GetHashCode">
+            <summary><para>Returns the hash code for this HourMinute variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.CompareTo(FlexibleParser.TimeZones)">
+            <summary><para>Compares the current instance against another TimeZones one.</para></summary>
+            <param name="other">The other TimeZones instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.ToString">
+            <summary><para>Outputs an error or "UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(System.String)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneOfficial)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneOfficial input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneOfficialEnum)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneOfficialEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneIANA)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneIANA input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneIANAEnum)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneIANAEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneConventional)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneConventional input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneConventionalEnum)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneConventionalEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneWindows)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneWindows input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneWindowsEnum)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneWindows input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneUTC)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneUTC input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneUTCEnum)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneUTCEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneMilitary)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneMilitary input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(FlexibleParser.TimeZoneMilitaryEnum)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimezoneMilitaryEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Implicit(System.TimeZoneInfo)~FlexibleParser.TimeZones">
+            <summary><para>Creates a new TimeZones instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Equality(FlexibleParser.TimeZones,FlexibleParser.TimeZones)">
+            <summary><para>Determines whether two TimeZones variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.op_Inequality(FlexibleParser.TimeZones,FlexibleParser.TimeZones)">
+            <summary><para>Determines whether two TimeZones variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.Equals(FlexibleParser.TimeZones)">
+            <summary><para>Determines whether the current TimeZones variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZones variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZones.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZones variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.CompareTo(FlexibleParser.TimeZonesCountry)">
+            <summary><para>Compares the current instance against another TimeZonesCountry one.</para></summary>
+            <param name="other">The other TimeZonesCountry instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.ToString">
+            <summary><para>Outputs an error or "[country] ([city/region])".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.op_Implicit(FlexibleParser.Country)~FlexibleParser.TimeZonesCountry">
+            <summary><para>Creates a new TimeZonesCountry instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">Country input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.op_Implicit(FlexibleParser.CountryEnum)~FlexibleParser.TimeZonesCountry">
+            <summary><para>Creates a new TimeZonesCountry instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">CountryEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.op_Implicit(System.String)~FlexibleParser.TimeZonesCountry">
+            <summary><para>Creates a new TimeZonesCountry instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.op_Equality(FlexibleParser.TimeZonesCountry,FlexibleParser.TimeZonesCountry)">
+            <summary><para>Determines whether two TimeZonesCountry variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.op_Inequality(FlexibleParser.TimeZonesCountry,FlexibleParser.TimeZonesCountry)">
+            <summary><para>Determines whether two TimeZonesCountry variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.Equals(FlexibleParser.TimeZonesCountry)">
+            <summary><para>Determines whether the current TimeZonesCountry variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZonesCountry variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZonesCountry variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.CompareTo(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Compares the current instance against another TimeZoneConventional one.</para></summary>
+            <param name="other">The other TimeZoneConventional instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.ToString">
+            <summary><para>Outputs an error or "[name] ([abbreviation]) -- UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.op_Implicit(FlexibleParser.TimeZoneConventionalEnum)~FlexibleParser.TimeZoneConventional">
+            <summary><para>Creates a new TimeZoneConventional instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneConventionalEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.op_Implicit(System.String)~FlexibleParser.TimeZoneConventional">
+            <summary><para>Creates a new TimeZoneConventional instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.op_Implicit(System.TimeZoneInfo)~FlexibleParser.TimeZoneConventional">
+            <summary><para>Creates a new TimeZoneConventional instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.op_Equality(FlexibleParser.TimeZoneConventional,FlexibleParser.TimeZoneConventional)">
+            <summary><para>Determines whether two TimeZoneConventional variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.op_Inequality(FlexibleParser.TimeZoneConventional,FlexibleParser.TimeZoneConventional)">
+            <summary><para>Determines whether two TimeZoneConventional variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.Equals(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Determines whether the current TimeZoneConventional variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZoneConventional variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZoneConventional variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.CompareTo(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Compares the current instance against another TimeZoneIANA one.</para></summary>
+            <param name="other">The other TimeZoneIANA instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.ToString">
+            <summary><para>Outputs an error or "[name] -- UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.op_Implicit(FlexibleParser.TimeZoneIANAEnum)~FlexibleParser.TimeZoneIANA">
+            <summary><para>Creates a new TimeZoneIANA instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneIANAEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.op_Implicit(System.String)~FlexibleParser.TimeZoneIANA">
+            <summary><para>Creates a new TimeZoneIANA instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.op_Implicit(System.TimeZoneInfo)~FlexibleParser.TimeZoneIANA">
+            <summary><para>Creates a new TimeZoneIANA instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.op_Equality(FlexibleParser.TimeZoneIANA,FlexibleParser.TimeZoneIANA)">
+            <summary><para>Determines whether two TimeZoneIANA variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.op_Inequality(FlexibleParser.TimeZoneIANA,FlexibleParser.TimeZoneIANA)">
+            <summary><para>Determines whether two TimeZoneIANA variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.Equals(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Determines whether the current TimeZoneIANA variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZoneIANA variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZoneIANA variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.CompareTo(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Compares the current instance against another TimeZoneMilitary one.</para></summary>
+            <param name="other">The other TimeZoneMilitary instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.ToString">
+            <summary><para>Outputs an error or "[name] ([abbreviation]) -- UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.op_Implicit(FlexibleParser.TimeZoneMilitaryEnum)~FlexibleParser.TimeZoneMilitary">
+            <summary><para>Creates a new TimeZoneMilitary instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneMilitaryEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.op_Implicit(System.String)~FlexibleParser.TimeZoneMilitary">
+            <summary><para>Creates a new TimeZoneMilitary instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.op_Implicit(System.TimeZoneInfo)~FlexibleParser.TimeZoneMilitary">
+            <summary><para>Creates a new TimeZoneMilitary instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.op_Equality(FlexibleParser.TimeZoneMilitary,FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Determines whether two TimeZoneMilitary variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.op_Inequality(FlexibleParser.TimeZoneMilitary,FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Determines whether two TimeZoneMilitary variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.Equals(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Determines whether the current TimeZoneMilitary variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZoneMilitary variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZoneMilitary variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.CompareTo(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Compares the current instance against another TimeZoneOfficial one.</para></summary>
+            <param name="other">The other TimeZoneOfficial instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.ToString">
+            <summary><para>Outputs an error or "[name] ([abbreviation]) -- UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.op_Implicit(FlexibleParser.TimeZoneOfficialEnum)~FlexibleParser.TimeZoneOfficial">
+            <summary><para>Creates a new TimeZoneOfficial instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneOfficialEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.op_Implicit(System.String)~FlexibleParser.TimeZoneOfficial">
+            <summary><para>Creates a new TimeZoneOfficial instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.op_Implicit(System.TimeZoneInfo)~FlexibleParser.TimeZoneOfficial">
+            <summary><para>Creates a new TimeZoneOfficial instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.op_Equality(FlexibleParser.TimeZoneOfficial,FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Determines whether two TimeZoneOfficial variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.op_Inequality(FlexibleParser.TimeZoneOfficial,FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Determines whether two TimeZoneOfficial variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.Equals(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Determines whether the current TimeZoneOfficial variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZoneOfficial variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZoneOfficial variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.CompareTo(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Compares the current instance against another TimeZoneUTC one.</para></summary>
+            <param name="other">The other TimeZoneUTC instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.ToString">
+            <summary><para>Outputs an error or "UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.op_Implicit(FlexibleParser.TimeZoneUTCEnum)~FlexibleParser.TimeZoneUTC">
+            <summary><para>Creates a new TimeZoneUTC instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneUTCEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.op_Implicit(System.String)~FlexibleParser.TimeZoneUTC">
+            <summary><para>Creates a new TimeZoneUTC instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.op_Implicit(System.TimeZoneInfo)~FlexibleParser.TimeZoneUTC">
+            <summary><para>Creates a new TimeZoneUTC instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.op_Equality(FlexibleParser.TimeZoneUTC,FlexibleParser.TimeZoneUTC)">
+            <summary><para>Determines whether two TimeZoneUTC variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.op_Inequality(FlexibleParser.TimeZoneUTC,FlexibleParser.TimeZoneUTC)">
+            <summary><para>Determines whether two TimeZoneUTC variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.Equals(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Determines whether the current TimeZoneUTC variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZoneUTC variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZoneUTC variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.CompareTo(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Compares the current instance against another TimeZoneWindows one.</para></summary>
+            <param name="other">The other TimeZoneWindows instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.ToString">
+            <summary><para>Outputs an error or "[name] -- UTC [offset]".</para> </summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.op_Implicit(FlexibleParser.TimeZoneWindowsEnum)~FlexibleParser.TimeZoneWindows">
+            <summary><para>Creates a new TimeZoneWindows instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneWindowsEnum input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.op_Implicit(System.String)~FlexibleParser.TimeZoneWindows">
+            <summary><para>Creates a new TimeZoneWindows instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">String input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.op_Implicit(System.TimeZoneInfo)~FlexibleParser.TimeZoneWindows">
+            <summary><para>Creates a new TimeZoneWindows instance by relying on the most adequate constructor.</para></summary>
+            <param name="input">TimeZoneInfo input.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.op_Equality(FlexibleParser.TimeZoneWindows,FlexibleParser.TimeZoneWindows)">
+            <summary><para>Determines whether two TimeZoneWindows variables are equal.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.op_Inequality(FlexibleParser.TimeZoneWindows,FlexibleParser.TimeZoneWindows)">
+            <summary><para>Determines whether two TimeZoneWindows variables are different.</para></summary>
+            <param name="first">First operand.</param>
+            <param name="second">Second operand.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.Equals(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Determines whether the current TimeZoneWindows variable is equal to other one.</para></summary>
+            <param name="other">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.Equals(System.Object)">
+            <summary><para>Determines whether the current TimeZoneWindows variable is equal to other one.</para></summary>
+            <param name="obj">Other variable.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.GetHashCode">
+            <summary><para>Returns the hash code for this TimeZoneWindows variable.</para></summary>
+        </member>
+    </members>
+</doc>

@@ -12,6 +12,9 @@ namespace Test
 
             //NumberParser tests.
             NumberParser.StartTest();
+
+            //DateParser tests.
+            DateParser.StartTest();
         }
     }
 }
