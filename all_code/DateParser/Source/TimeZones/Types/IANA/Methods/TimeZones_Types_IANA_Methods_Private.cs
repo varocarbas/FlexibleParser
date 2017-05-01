@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace FlexibleParser
+﻿namespace FlexibleParser
 {
     internal partial class TimeZoneIANAInternal
     {

@@ -1,154 +1,925 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FlexibleParser
+﻿namespace FlexibleParser
 {
+    ///<summary><para>All the IANA timezones.</para></summary>
     public enum TimeZoneIANAEnum
     {
+        ///<summary><para>None.</para></summary>
         None = 0,
-
-        Africa_Abidjan, Africa_Algiers, Africa_Cairo, Africa_El_Aaiun,
-        Africa_Ceuta, Africa_Lagos, Africa_Accra, Africa_Bissau,
-        Africa_Nairobi, Africa_Monrovia, Africa_Tripoli, Africa_Casablanca,
-        Africa_Maputo, Africa_Windhoek, Africa_Khartoum, Africa_Ndjamena,
-        Africa_Tunis, Africa_Johannesburg, Africa_Ouagadougou, Africa_Banjul,
-        Africa_Conakry, Africa_Bamako, Africa_Nouakchott, Atlantic_St_Helena,
-        Africa_Freetown, Africa_Dakar, Africa_Sao_Tome, Africa_Lome, Africa_Luanda,
-        Africa_Porto_Novo, Africa_Kinshasa, Africa_Bangui, Africa_Brazzaville,
-        Africa_Douala, Africa_Libreville, Africa_Malabo, Africa_Niamey,
-        Africa_Bujumbura, Africa_Gaborone, Africa_Lubumbashi, Africa_Maseru,
-        Africa_Blantyre, Africa_Kigali, Africa_Mbabane, Africa_Lusaka,
-        Africa_Harare, Africa_Djibouti, Africa_Asmera, Africa_Addis_Ababa,
-        Africa_Mogadishu, Africa_Juba, Africa_Dar_Es_Salaam, Africa_Kampala,
-
-        America_Argentina_Buenos_Aires, America_Argentina_Cordoba,
-        America_Argentina_Salta, America_Argentina_Jujuy,
-        America_Argentina_Tucuman, America_Argentina_Catamarca,
-        America_Argentina_La_Rioja, America_Argentina_San_Juan,
-        America_Argentina_Mendoza, America_Argentina_San_Luis,
-        America_Argentina_Rio_Gallegos, America_Argentina_Ushuaia,
-        America_Barbados, America_La_Paz, America_Kralendijk,
-        America_Noronha, America_Dominica, America_Grenada,
-        America_Guadeloupe, America_St_Kitts, America_St_Lucia,
-        America_Belem, America_Fortaleza, America_Recife,
-        America_Araguaina, America_Maceio, America_Bahia,
-        America_Sao_Paulo, America_Campo_Grande, America_Cuiaba,
-        America_Santarem, America_Porto_Velho, America_Boa_Vista,
-        America_Manaus, America_Eirunepe, America_Rio_Branco,
-        America_Nassau, America_Belize, America_St_Johns,
-        America_Halifax, America_Glace_Bay, America_Moncton,
-        America_Goose_Bay, America_Blanc_Sablon,
-        America_Toronto, America_Nipigon, America_Thunder_Bay,
-        America_Iqaluit, America_Pangnirtung, 
-        America_Winnipeg, America_Rainy_River, America_Resolute,
-        America_Rankin_Inlet, America_Regina, America_Swift_Current,
-        America_Edmonton, America_Cambridge_Bay, America_Yellowknife,
-        America_Inuvik, America_Creston, America_Dawson_Creek,
-        America_Fort_Nelson, America_Vancouver, America_Whitehorse,
-        America_Dawson, America_Santiago, America_Punta_Arenas,
-        America_Bogota, America_Costa_Rica, America_Havana,
-        America_Curacao, America_Santo_Domingo, America_Guayaquil,
-        America_Cayenne, America_Godthab, America_Danmarkshavn,
-        America_Scoresbysund, America_Thule, America_Guatemala,
-        America_Guyana, America_Tegucigalpa, America_Port_au_Prince,
-        America_Jamaica, America_Martinique, America_Montserrat,
+        ///<summary><para>Africa/Abidjan.</para></summary>
+        Africa_Abidjan,
+        ///<summary><para>Africa/Algiers.</para></summary>
+        Africa_Algiers,
+        ///<summary><para>Africa/Cairo.</para></summary>
+        Africa_Cairo,
+        ///<summary><para>Africa/El_Aaiun.</para></summary>
+        Africa_El_Aaiun,
+        ///<summary><para>Africa/Ceuta.</para></summary>
+        Africa_Ceuta,
+        ///<summary><para>Africa/Lagos.</para></summary>
+        Africa_Lagos,
+        ///<summary><para>Africa/Accra.</para></summary>
+        Africa_Accra,
+        ///<summary><para>Africa/Bissau.</para></summary>
+        Africa_Bissau,
+        ///<summary><para>Africa/Nairobi.</para></summary>
+        Africa_Nairobi,
+        ///<summary><para>Africa/Monrovia.</para></summary>
+        Africa_Monrovia,
+        ///<summary><para>Africa/Tripoli.</para></summary>
+        Africa_Tripoli,
+        ///<summary><para>Africa/Casablanca.</para></summary>
+        Africa_Casablanca,
+        ///<summary><para>Africa/Maputo.</para></summary>
+        Africa_Maputo,
+        ///<summary><para>Africa/Windhoek.</para></summary>
+        Africa_Windhoek,
+        ///<summary><para>Africa/Khartoum.</para></summary>
+        Africa_Khartoum,
+        ///<summary><para>Africa/Ndjamena.</para></summary>
+        Africa_Ndjamena,
+        ///<summary><para>Africa/Tunis.</para></summary>
+        Africa_Tunis,
+        ///<summary><para>Africa/Johannesburg.</para></summary>
+        Africa_Johannesburg,
+        ///<summary><para>Africa/Ouagadougou.</para></summary>
+        Africa_Ouagadougou,
+        ///<summary><para>Africa/Banjul.</para></summary>
+        Africa_Banjul,
+        ///<summary><para>Africa/Conakry.</para></summary>
+        Africa_Conakry,
+        ///<summary><para>Africa/Bamako.</para></summary>
+        Africa_Bamako,
+        ///<summary><para>Africa/Nouakchott.</para></summary>
+        Africa_Nouakchott,
+        ///<summary><para>Atlantic/St_Helena.</para></summary>
+        Atlantic_St_Helena,
+        ///<summary><para>Africa/Freetown.</para></summary>
+        Africa_Freetown,
+        ///<summary><para>Africa/Dakar.</para></summary>
+        Africa_Dakar,
+        ///<summary><para>Africa/Sao_Tome.</para></summary>
+        Africa_Sao_Tome,
+        ///<summary><para>Africa/Lome.</para></summary>
+        Africa_Lome,
+        ///<summary><para>Africa/Luanda.</para></summary>
+        Africa_Luanda,
+        ///<summary><para>Africa/Porto_Novo.</para></summary>
+        Africa_Porto_Novo,
+        ///<summary><para>Africa/Kinshasa.</para></summary>
+        Africa_Kinshasa,
+        ///<summary><para>Africa/Bangui.</para></summary>
+        Africa_Bangui,
+        ///<summary><para>Africa/Brazzaville.</para></summary>
+        Africa_Brazzaville,
+        ///<summary><para>Africa/Douala.</para></summary>
+        Africa_Douala,
+        ///<summary><para>Africa/Libreville.</para></summary>
+        Africa_Libreville,
+        ///<summary><para>Africa/Malabo.</para></summary>
+        Africa_Malabo,
+        ///<summary><para>Africa/Niamey.</para></summary>
+        Africa_Niamey,
+        ///<summary><para>Africa/Bujumbura.</para></summary>
+        Africa_Bujumbura,
+        ///<summary><para>Africa/Gaborone.</para></summary>
+        Africa_Gaborone,
+        ///<summary><para>Africa/Lubumbashi.</para></summary>
+        Africa_Lubumbashi,
+        ///<summary><para>Africa/Maseru.</para></summary>
+        Africa_Maseru,
+        ///<summary><para>Africa/Blantyre.</para></summary>
+        Africa_Blantyre,
+        ///<summary><para>Africa/Kigali.</para></summary>
+        Africa_Kigali,
+        ///<summary><para>Africa/Mbabane.</para></summary>
+        Africa_Mbabane,
+        ///<summary><para>Africa/Lusaka.</para></summary>
+        Africa_Lusaka,
+        ///<summary><para>Africa/Harare.</para></summary>
+        Africa_Harare,
+        ///<summary><para>Africa/Djibouti.</para></summary>
+        Africa_Djibouti,
+        ///<summary><para>Africa/Asmera.</para></summary>
+        Africa_Asmera,
+        ///<summary><para>Africa/Addis_Ababa.</para></summary>
+        Africa_Addis_Ababa,
+        ///<summary><para>Africa/Mogadishu.</para></summary>
+        Africa_Mogadishu,
+        ///<summary><para>Africa/Juba.</para></summary>
+        Africa_Juba,
+        ///<summary><para>Africa/Dar_Es_Salaam.</para></summary>
+        Africa_Dar_Es_Salaam,
+        ///<summary><para>Africa/Kampala.</para></summary>
+        Africa_Kampala,
+        ///<summary><para>America/Argentina/Buenos_Aires.</para></summary>
+        America_Argentina_Buenos_Aires,
+        ///<summary><para>America/Argentina/Cordoba.</para></summary>
+        America_Argentina_Cordoba,
+        ///<summary><para>America/Argentina/Salta.</para></summary>
+        America_Argentina_Salta,
+        ///<summary><para>America/Argentina/Jujuy.</para></summary>
+        America_Argentina_Jujuy,
+        ///<summary><para>America/Argentina/Tucuman.</para></summary>
+        America_Argentina_Tucuman,
+        ///<summary><para>America/Argentina/Catamarca.</para></summary>
+        America_Argentina_Catamarca,
+        ///<summary><para>America/Argentina/La_Rioja.</para></summary>
+        America_Argentina_La_Rioja,
+        ///<summary><para>America/Argentina/San_Juan.</para></summary>
+        America_Argentina_San_Juan,
+        ///<summary><para>America/Argentina/Mendoza.</para></summary>
+        America_Argentina_Mendoza,
+        ///<summary><para>America/Argentina/San_Luis.</para></summary>
+        America_Argentina_San_Luis,
+        ///<summary><para>America/Argentina/Rio_Gallegos.</para></summary>
+        America_Argentina_Rio_Gallegos,
+        ///<summary><para>America/Argentina/Ushuaia.</para></summary>
+        America_Argentina_Ushuaia,
+        ///<summary><para>America/Barbados.</para></summary>
+        America_Barbados,
+        ///<summary><para>America/La_Paz.</para></summary>
+        America_La_Paz,
+        ///<summary><para>America/Kralendijk.</para></summary>
+        America_Kralendijk,
+        ///<summary><para>America/Noronha.</para></summary>
+        America_Noronha,
+        ///<summary><para>America/Dominica.</para></summary>
+        America_Dominica,
+        ///<summary><para>America/Grenada.</para></summary>
+        America_Grenada,
+        ///<summary><para>America/Guadeloupe.</para></summary>
+        America_Guadeloupe,
+        ///<summary><para>America/St_Kitts.</para></summary>
+        America_St_Kitts,
+        ///<summary><para>America/St_Lucia.</para></summary>
+        America_St_Lucia,
+        ///<summary><para>America/Belem.</para></summary>
+        America_Belem,
+        ///<summary><para>America/Fortaleza.</para></summary>
+        America_Fortaleza,
+        ///<summary><para>America/Recife.</para></summary>
+        America_Recife,
+        ///<summary><para>America/Araguaina.</para></summary>
+        America_Araguaina,
+        ///<summary><para>America/Maceio.</para></summary>
+        America_Maceio,
+        ///<summary><para>America/Bahia.</para></summary>
+        America_Bahia,
+        ///<summary><para>America/Sao_Paulo.</para></summary>
+        America_Sao_Paulo,
+        ///<summary><para>America/Campo_Grande.</para></summary>
+        America_Campo_Grande,
+        ///<summary><para>America/Cuiaba.</para></summary>
+        America_Cuiaba,
+        ///<summary><para>America/Santarem.</para></summary>
+        America_Santarem,
+        ///<summary><para>America/Porto_Velho.</para></summary>
+        America_Porto_Velho,
+        ///<summary><para>America/Boa_Vista.</para></summary>
+        America_Boa_Vista,
+        ///<summary><para>America/Manaus.</para></summary>
+        America_Manaus,
+        ///<summary><para>America/Eirunepe.</para></summary>
+        America_Eirunepe,
+        ///<summary><para>America/Rio_Branco.</para></summary>
+        America_Rio_Branco,
+        ///<summary><para>America/Nassau.</para></summary>
+        America_Nassau,
+        ///<summary><para>America/Belize.</para></summary>
+        America_Belize,
+        ///<summary><para>America/St_Johns.</para></summary>
+        America_St_Johns,
+        ///<summary><para>America/Halifax.</para></summary>
+        America_Halifax,
+        ///<summary><para>America/Glace_Bay.</para></summary>
+        America_Glace_Bay,
+        ///<summary><para>America/Moncton.</para></summary>
+        America_Moncton,
+        ///<summary><para>America/Goose_Bay.</para></summary>
+        America_Goose_Bay,
+        ///<summary><para>America/Blanc_Sablon.</para></summary>
+        America_Blanc_Sablon,
+        ///<summary><para>America/Toronto.</para></summary>
+        America_Toronto,
+        ///<summary><para>America/Nipigon.</para></summary>
+        America_Nipigon,
+        ///<summary><para>America/Thunder_Bay.</para></summary>
+        America_Thunder_Bay,
+        ///<summary><para>America/Iqaluit.</para></summary>
+        America_Iqaluit,
+        ///<summary><para>America/Pangnirtung.</para></summary>
+        America_Pangnirtung,
+        ///<summary><para>America/Winnipeg.</para></summary>
+        America_Winnipeg,
+        ///<summary><para>America/Rainy_River.</para></summary>
+        America_Rainy_River,
+        ///<summary><para>America/Resolute.</para></summary>
+        America_Resolute,
+        ///<summary><para>America/Rankin_Inlet.</para></summary>
+        America_Rankin_Inlet,
+        ///<summary><para>America/Regina.</para></summary>
+        America_Regina,
+        ///<summary><para>America/Swift_Current.</para></summary>
+        America_Swift_Current,
+        ///<summary><para>America/Edmonton.</para></summary>
+        America_Edmonton,
+        ///<summary><para>America/Cambridge_Bay.</para></summary>
+        America_Cambridge_Bay,
+        ///<summary><para>America/Yellowknife.</para></summary>
+        America_Yellowknife,
+        ///<summary><para>America/Inuvik.</para></summary>
+        America_Inuvik,
+        ///<summary><para>America/Creston.</para></summary>
+        America_Creston,
+        ///<summary><para>America/Dawson_Creek.</para></summary>
+        America_Dawson_Creek,
+        ///<summary><para>America/Fort_Nelson.</para></summary>
+        America_Fort_Nelson,
+        ///<summary><para>America/Vancouver.</para></summary>
+        America_Vancouver,
+        ///<summary><para>America/Whitehorse.</para></summary>
+        America_Whitehorse,
+        ///<summary><para>America/Dawson.</para></summary>
+        America_Dawson,
+        ///<summary><para>America/Santiago.</para></summary>
+        America_Santiago,
+        ///<summary><para>America/Punta_Arenas.</para></summary>
+        America_Punta_Arenas,
+        ///<summary><para>America/Bogota.</para></summary>
+        America_Bogota,
+        ///<summary><para>America/Costa_Rica.</para></summary>
+        America_Costa_Rica,
+        ///<summary><para>America/Havana.</para></summary>
+        America_Havana,
+        ///<summary><para>America/Curacao.</para></summary>
+        America_Curacao,
+        ///<summary><para>America/Santo_Domingo.</para></summary>
+        America_Santo_Domingo,
+        ///<summary><para>America/Guayaquil.</para></summary>
+        America_Guayaquil,
+        ///<summary><para>America/Cayenne.</para></summary>
+        America_Cayenne,
+        ///<summary><para>America/Godthab.</para></summary>
+        America_Godthab,
+        ///<summary><para>America/Danmarkshavn.</para></summary>
+        America_Danmarkshavn,
+        ///<summary><para>America/Scoresbysund.</para></summary>
+        America_Scoresbysund,
+        ///<summary><para>America/Thule.</para></summary>
+        America_Thule,
+        ///<summary><para>America/Guatemala.</para></summary>
+        America_Guatemala,
+        ///<summary><para>America/Guyana.</para></summary>
+        America_Guyana,
+        ///<summary><para>America/Tegucigalpa.</para></summary>
+        America_Tegucigalpa,
+        ///<summary><para>America/Port_au_Prince.</para></summary>
+        America_Port_au_Prince,
+        ///<summary><para>America/Jamaica.</para></summary>
+        America_Jamaica,
+        ///<summary><para>America/Martinique.</para></summary>
+        America_Martinique,
+        ///<summary><para>America/Montserrat.</para></summary>
+        America_Montserrat,
+        ///<summary><para>America/Mexico_City.</para></summary>
         America_Mexico_City,
-        America_Cancun, America_Merida, America_Monterrey,
-        America_Matamoros, America_Mazatlan, America_Chihuahua,
-        America_Ojinaga, America_Hermosillo, America_Tijuana,
-        America_Bahia_Banderas, America_Managua, America_Panama,
-        America_Port_of_Spain, America_St_Vincent, America_Tortola,
-        America_St_Thomas, America_New_York, America_Detroit,
+        ///<summary><para>America/Cancun.</para></summary>
+        America_Cancun,
+        ///<summary><para>America/Merida.</para></summary>
+        America_Merida,
+        ///<summary><para>America/Monterrey.</para></summary>
+        America_Monterrey,
+        ///<summary><para>America/Matamoros.</para></summary>
+        America_Matamoros,
+        ///<summary><para>America/Mazatlan.</para></summary>
+        America_Mazatlan,
+        ///<summary><para>America/Chihuahua.</para></summary>
+        America_Chihuahua,
+        ///<summary><para>America/Ojinaga.</para></summary>
+        America_Ojinaga,
+        ///<summary><para>America/Hermosillo.</para></summary>
+        America_Hermosillo,
+        ///<summary><para>America/Tijuana.</para></summary>
+        America_Tijuana,
+        ///<summary><para>America/Bahia_Banderas.</para></summary>
+        America_Bahia_Banderas,
+        ///<summary><para>America/Managua.</para></summary>
+        America_Managua,
+        ///<summary><para>America/Panama.</para></summary>
+        America_Panama,
+        ///<summary><para>America/Port_of_Spain.</para></summary>
+        America_Port_of_Spain,
+        ///<summary><para>America/St_Vincent.</para></summary>
+        America_St_Vincent,
+        ///<summary><para>America/Tortola.</para></summary>
+        America_Tortola,
+        ///<summary><para>America/St_Thomas.</para></summary>
+        America_St_Thomas,
+        ///<summary><para>America/New_York.</para></summary>
+        America_New_York,
+        ///<summary><para>America/Detroit.</para></summary>
+        America_Detroit,
+        ///<summary><para>America/Kentucky/Monticello.</para></summary>
         America_Kentucky_Monticello,
-        America_Indiana_Indianapolis, America_Indiana_Vincennes,
-        America_Indiana_Winamac, America_Indiana_Marengo,
-        America_Indiana_Petersburg, America_Indiana_Vevay,
-        America_Chicago, America_Indiana_Tell_City,
-        America_Indiana_Knox, America_Menominee, America_North_Dakota_Center,
-        America_North_Dakota_New_Salem, America_North_Dakota_Beulah,
-        America_Denver, America_Boise, America_Phoenix, America_Los_Angeles,
-        America_Anchorage, America_Juneau, America_Sitka, America_Metlakatla,
-        America_Yakutat, America_Nome, America_Adak, America_Montevideo,
-        America_Caracas, America_Lima, America_Miquelon, America_Puerto_Rico,
-        America_Asuncion, America_Paramaribo, America_El_Salvador,
-        America_Grand_Turk, America_Santa_Isabel, America_Coral_Harbour,
-        America_Cayman, America_Montreal, America_Louisville,
-        America_Antigua, America_Aruba, America_St_Barthelemy,
-
-        Antarctica_Casey, Antarctica_Davis, Antarctica_DumontDUrville,
-        Antarctica_Mawson, Antarctica_Palmer, Antarctica_Rothera,
-        Antarctica_Syowa, Antarctica_Vostok, Antarctica_Macquarie, 
+        ///<summary><para>America/Indiana/Indianapolis.</para></summary>
+        America_Indiana_Indianapolis,
+        ///<summary><para>America/Indiana/Vincennes.</para></summary>
+        America_Indiana_Vincennes,
+        ///<summary><para>America/Indiana/Winamac.</para></summary>
+        America_Indiana_Winamac,
+        ///<summary><para>America/Indiana/Marengo.</para></summary>
+        America_Indiana_Marengo,
+        ///<summary><para>America/Indiana/Petersburg.</para></summary>
+        America_Indiana_Petersburg,
+        ///<summary><para>America/Indiana/Vevay.</para></summary>
+        America_Indiana_Vevay,
+        ///<summary><para>America/Chicago.</para></summary>
+        America_Chicago,
+        ///<summary><para>America/Indiana/Tell_City.</para></summary>
+        America_Indiana_Tell_City,
+        ///<summary><para>America/Indiana/Knox.</para></summary>
+        America_Indiana_Knox,
+        ///<summary><para>America/Menominee.</para></summary>
+        America_Menominee,
+        ///<summary><para>America/North_Dakota/Center.</para></summary>
+        America_North_Dakota_Center,
+        ///<summary><para>America/North_Dakota/New_Salem.</para></summary>
+        America_North_Dakota_New_Salem,
+        ///<summary><para>America/North_Dakota/Beulah.</para></summary>
+        America_North_Dakota_Beulah,
+        ///<summary><para>America/Denver.</para></summary>
+        America_Denver,
+        ///<summary><para>America/Boise.</para></summary>
+        America_Boise,
+        ///<summary><para>America/Phoenix.</para></summary>
+        America_Phoenix,
+        ///<summary><para>America/Los_Angeles.</para></summary>
+        America_Los_Angeles,
+        ///<summary><para>America/Anchorage.</para></summary>
+        America_Anchorage,
+        ///<summary><para>America/Juneau.</para></summary>
+        America_Juneau,
+        ///<summary><para>America/Sitka.</para></summary>
+        America_Sitka,
+        ///<summary><para>America/Metlakatla.</para></summary>
+        America_Metlakatla,
+        ///<summary><para>America/Yakutat.</para></summary>
+        America_Yakutat,
+        ///<summary><para>America/Nome.</para></summary>
+        America_Nome,
+        ///<summary><para>America/Adak.</para></summary>
+        America_Adak,
+        ///<summary><para>America/Montevideo.</para></summary>
+        America_Montevideo,
+        ///<summary><para>America/Caracas.</para></summary>
+        America_Caracas,
+        ///<summary><para>America/Lima.</para></summary>
+        America_Lima,
+        ///<summary><para>America/Miquelon.</para></summary>
+        America_Miquelon,
+        ///<summary><para>America/Puerto_Rico.</para></summary>
+        America_Puerto_Rico,
+        ///<summary><para>America/Asuncion.</para></summary>
+        America_Asuncion,
+        ///<summary><para>America/Paramaribo.</para></summary>
+        America_Paramaribo,
+        ///<summary><para>America/El_Salvador.</para></summary>
+        America_El_Salvador,
+        ///<summary><para>America/Grand_Turk.</para></summary>
+        America_Grand_Turk,
+        ///<summary><para>America/Santa_Isabel.</para></summary>
+        America_Santa_Isabel,
+        ///<summary><para>America/Coral_Harbour.</para></summary>
+        America_Coral_Harbour,
+        ///<summary><para>America/Cayman.</para></summary>
+        America_Cayman,
+        ///<summary><para>America/Montreal.</para></summary>
+        America_Montreal,
+        ///<summary><para>America/Louisville.</para></summary>
+        America_Louisville,
+        ///<summary><para>America/Antigua.</para></summary>
+        America_Antigua,
+        ///<summary><para>America/Aruba.</para></summary>
+        America_Aruba,
+        ///<summary><para>America/St_Barthelemy.</para></summary>
+        America_St_Barthelemy,
+        ///<summary><para>Antarctica/Casey.</para></summary>
+        Antarctica_Casey,
+        ///<summary><para>Antarctica/Davis.</para></summary>
+        Antarctica_Davis,
+        ///<summary><para>Antarctica/DumontDUrville.</para></summary>
+        Antarctica_DumontDUrville,
+        ///<summary><para>Antarctica/Mawson.</para></summary>
+        Antarctica_Mawson,
+        ///<summary><para>Antarctica/Palmer.</para></summary>
+        Antarctica_Palmer,
+        ///<summary><para>Antarctica/Rothera.</para></summary>
+        Antarctica_Rothera,
+        ///<summary><para>Antarctica/Syowa.</para></summary>
+        Antarctica_Syowa,
+        ///<summary><para>Antarctica/Vostok.</para></summary>
+        Antarctica_Vostok,
+        ///<summary><para>Antarctica/Macquarie.</para></summary>
+        Antarctica_Macquarie,
+        ///<summary><para>Antarctica/McMurdo.</para></summary>
         Antarctica_McMurdo,
-
-        Asia_Dubai, Asia_Kabul, Asia_Yerevan, Asia_Dhaka, Asia_Brunei,
-        Asia_Thimphu, Asia_Shanghai, Asia_Urumqi, Asia_Nicosia,
-        Asia_Famagusta, Asia_Tbilisi, Asia_Hong_Kong, Asia_Jakarta,
-        Asia_Pontianak, Asia_Makassar, Asia_Jayapura, Asia_Pyongyang,
-        Asia_Seoul, Asia_Almaty, Asia_Qyzylorda, Asia_Aqtobe, Asia_Aqtau,
-        Asia_Atyrau, Asia_Oral, Asia_Beirut, Asia_Colombo, Asia_Jerusalem,
-        Asia_Baghdad, Asia_Tehran, Asia_Amman, Asia_Tokyo,
-        Asia_Bishkek, Asia_Ulaanbaatar, Asia_Hovd,
-        Asia_Choibalsan, Asia_Macau, Asia_Kuala_Lumpur, Asia_Kuching,
-        Asia_Kathmandu, Asia_Manila, Asia_Karachi, Asia_Gaza, Asia_Hebron,
-        Asia_Qatar, Asia_Yekaterinburg, Asia_Omsk, Asia_Novosibirsk,
-        Asia_Barnaul, Asia_Tomsk, Asia_Novokuznetsk, Asia_Krasnoyarsk,
-        Asia_Irkutsk, Asia_Chita, Asia_Yakutsk, Asia_Khandyga,
-        Asia_Vladivostok, Asia_Ust_Nera, Asia_Magadan, Asia_Sakhalin,
-        Asia_Srednekolymsk, Asia_Kamchatka, Asia_Anadyr, Asia_Riyadh,
-        Asia_Singapore, Asia_Damascus, Asia_Samarkand,
-        Asia_Dili, Asia_Ashgabat, Asia_Tashkent, Asia_Bangkok,
-        Asia_Dushanbe, Asia_Taipei, Asia_Baku, Asia_Bahrain, Asia_Kuwait,
-        Asia_Aden, Asia_Muscat, Asia_Ekaterinburg, Asia_Calcutta,
-        Asia_Rangoon, Asia_Phnom_Penh, Asia_Saigon, Asia_Vientiane,
-
-        Atlantic_Bermuda, Atlantic_Cape_Verde, Atlantic_Stanley, Atlantic_Canary,
-        Atlantic_South_Georgia, Atlantic_Reykjavik, Atlantic_Madeira,
-        Atlantic_Azores, Atlantic_Faeroe,
-
-        Australia_Lord_Howe, Australia_Hobart, Australia_Currie,
-        Australia_Melbourne, Australia_Sydney, Australia_Broken_Hill,
-        Australia_Brisbane, Australia_Lindeman, Australia_Adelaide,
-        Australia_Darwin, Australia_Perth, Australia_Eucla,
-
-        Etc_GMT, Etc_GMT_Plus_1, Etc_GMT_Plus_10, Etc_GMT_Plus_11, Etc_GMT_Plus_12,
-        Etc_GMT_Plus_2, Etc_GMT_Plus_3, Etc_GMT_Plus_4, Etc_GMT_Plus_5, Etc_GMT_Plus_6,
-        Etc_GMT_Plus_7, Etc_GMT_Plus_8, Etc_GMT_Plus_9, Etc_GMT_Minus_1, Etc_GMT_Minus_10,
-        Etc_GMT_Minus_11, Etc_GMT_Minus_12, Etc_GMT_Minus_13, Etc_GMT_Minus_14,
-        Etc_GMT_Minus_2, Etc_GMT_Minus_3, Etc_GMT_Minus_4, Etc_GMT_Minus_5, Etc_GMT_Minus_6,
-        Etc_GMT_Minus_7, Etc_GMT_Minus_8, Etc_GMT_Minus_9, Etc_Greenwich,
-        Etc_Universal, Etc_UTC, MST7MDT, PST8PDT,
-
-        Europe_Andorra, Europe_Tirane, Europe_Vienna, Europe_Brussels,
-        Europe_Sofia, Europe_Minsk, Europe_Zurich, Europe_Prague,
-        Europe_Berlin, Europe_Copenhagen, Europe_Tallinn, Europe_Madrid,
-        Europe_Paris, Europe_London, Europe_Helsinki, Europe_Gibraltar,
-        Europe_Athens, Europe_Budapest, Europe_Dublin, Europe_Rome,
-        Europe_Vilnius, Europe_Luxembourg, Europe_Riga, Europe_Monaco,
-        Europe_Chisinau, Europe_Malta, Europe_Amsterdam, Europe_Oslo,
-        Europe_Warsaw, Europe_Lisbon, Europe_Bucharest, Europe_Belgrade,
-        Europe_Kaliningrad, Europe_Moscow, Europe_Simferopol,
-        Europe_Volgograd, Europe_Kirov, Europe_Astrakhan, Europe_Saratov,
-        Europe_Ulyanovsk, Europe_Samara, Europe_Stockholm, Europe_Istanbul,
-        Europe_Kiev, Europe_Uzhgorod, Europe_Zaporozhye, Europe_Guernsey,
-        Europe_Isle_Of_Man, Europe_Jersey, Europe_Vaduz, Europe_Busingen,
-        Europe_Longyearbyen, Europe_San_Marino, Europe_Vatican,
-        Europe_Podgorica, Europe_Ljubljana, Europe_Bratislava,
-        Europe_Sarajevo, Europe_Zagreb, Europe_Skopje, Europe_Mariehamn,
-
-        Indian_Cocos, Indian_Christmas, Indian_Chagos, Indian_Mauritius,
-        Indian_Maldives, Indian_Reunion, Indian_Mahe, Indian_Kerguelen,
-        Indian_Comoro, Indian_Antananarivo, Indian_Mayotte,
-
-        Pacific_Pago_Pago, Pacific_Rarotonga, Pacific_Easter, Pacific_Galapagos,
-        Pacific_Fiji, Pacific_Kosrae,
-        Pacific_Guam, Pacific_Noumea, Pacific_Norfolk, Pacific_Tarawa,
-        Pacific_Enderbury, Pacific_Kiritimati, Pacific_Majuro, Pacific_Kwajalein,
-        Pacific_Nauru, Pacific_Niue, Pacific_Auckland, Pacific_Chatham,
-        Pacific_Tahiti, Pacific_Marquesas, Pacific_Gambier, Pacific_Port_Moresby,
-        Pacific_Bougainville, Pacific_Pitcairn, Pacific_Palau, Pacific_Guadalcanal,
-        Pacific_Funafuti, Pacific_Fakaofo, Pacific_Tongatapu, Pacific_Wake,
-        Pacific_Efate, Pacific_Honolulu, Pacific_Wallis, Pacific_Apia,
-        Pacific_Midway, Pacific_Johnston, America_Marigot, America_Lower_Princes,
-        Pacific_Truk, Pacific_Saipan, Pacific_Ponape
+        ///<summary><para>Asia/Dubai.</para></summary>
+        Asia_Dubai,
+        ///<summary><para>Asia/Kabul.</para></summary>
+        Asia_Kabul,
+        ///<summary><para>Asia/Yerevan.</para></summary>
+        Asia_Yerevan,
+        ///<summary><para>Asia/Dhaka.</para></summary>
+        Asia_Dhaka,
+        ///<summary><para>Asia/Brunei.</para></summary>
+        Asia_Brunei,
+        ///<summary><para>Asia/Thimphu.</para></summary>
+        Asia_Thimphu,
+        ///<summary><para>Asia/Shanghai.</para></summary>
+        Asia_Shanghai,
+        ///<summary><para>Asia/Urumqi.</para></summary>
+        Asia_Urumqi,
+        ///<summary><para>Asia/Nicosia.</para></summary>
+        Asia_Nicosia,
+        ///<summary><para>Asia/Famagusta.</para></summary>
+        Asia_Famagusta,
+        ///<summary><para>Asia/Tbilisi.</para></summary>
+        Asia_Tbilisi,
+        ///<summary><para>Asia/Hong_Kong.</para></summary>
+        Asia_Hong_Kong,
+        ///<summary><para>Asia/Jakarta.</para></summary>
+        Asia_Jakarta,
+        ///<summary><para>Asia/Pontianak.</para></summary>
+        Asia_Pontianak,
+        ///<summary><para>Asia/Makassar.</para></summary>
+        Asia_Makassar,
+        ///<summary><para>Asia/Jayapura.</para></summary>
+        Asia_Jayapura,
+        ///<summary><para>Asia/Pyongyang.</para></summary>
+        Asia_Pyongyang,
+        ///<summary><para>Asia/Seoul.</para></summary>
+        Asia_Seoul,
+        ///<summary><para>Asia/Almaty.</para></summary>
+        Asia_Almaty,
+        ///<summary><para>Asia/Qyzylorda.</para></summary>
+        Asia_Qyzylorda,
+        ///<summary><para>Asia/Aqtobe.</para></summary>
+        Asia_Aqtobe,
+        ///<summary><para>Asia/Aqtau.</para></summary>
+        Asia_Aqtau,
+        ///<summary><para>Asia/Atyrau.</para></summary>
+        Asia_Atyrau,
+        ///<summary><para>Asia/Oral.</para></summary>
+        Asia_Oral,
+        ///<summary><para>Asia/Beirut.</para></summary>
+        Asia_Beirut,
+        ///<summary><para>Asia/Colombo.</para></summary>
+        Asia_Colombo,
+        ///<summary><para>Asia/Jerusalem.</para></summary>
+        Asia_Jerusalem,
+        ///<summary><para>Asia/Baghdad.</para></summary>
+        Asia_Baghdad,
+        ///<summary><para>Asia/Tehran.</para></summary>
+        Asia_Tehran,
+        ///<summary><para>Asia/Amman.</para></summary>
+        Asia_Amman,
+        ///<summary><para>Asia/Tokyo.</para></summary>
+        Asia_Tokyo,
+        ///<summary><para>Asia/Bishkek.</para></summary>
+        Asia_Bishkek,
+        ///<summary><para>Asia/Ulaanbaatar.</para></summary>
+        Asia_Ulaanbaatar,
+        ///<summary><para>Asia/Hovd.</para></summary>
+        Asia_Hovd,
+        ///<summary><para>Asia/Choibalsan.</para></summary>
+        Asia_Choibalsan,
+        ///<summary><para>Asia/Macau.</para></summary>
+        Asia_Macau,
+        ///<summary><para>Asia/Kuala_Lumpur.</para></summary>
+        Asia_Kuala_Lumpur,
+        ///<summary><para>Asia/Kuching.</para></summary>
+        Asia_Kuching,
+        ///<summary><para>Asia/Kathmandu.</para></summary>
+        Asia_Kathmandu,
+        ///<summary><para>Asia/Manila.</para></summary>
+        Asia_Manila,
+        ///<summary><para>Asia/Karachi.</para></summary>
+        Asia_Karachi,
+        ///<summary><para>Asia/Gaza.</para></summary>
+        Asia_Gaza,
+        ///<summary><para>Asia/Hebron.</para></summary>
+        Asia_Hebron,
+        ///<summary><para>Asia/Qatar.</para></summary>
+        Asia_Qatar,
+        ///<summary><para>Asia/Yekaterinburg.</para></summary>
+        Asia_Yekaterinburg,
+        ///<summary><para>Asia/Omsk.</para></summary>
+        Asia_Omsk,
+        ///<summary><para>Asia/Novosibirsk.</para></summary>
+        Asia_Novosibirsk,
+        ///<summary><para>Asia/Barnaul.</para></summary>
+        Asia_Barnaul,
+        ///<summary><para>Asia/Tomsk.</para></summary>
+        Asia_Tomsk,
+        ///<summary><para>Asia/Novokuznetsk.</para></summary>
+        Asia_Novokuznetsk,
+        ///<summary><para>Asia/Krasnoyarsk.</para></summary>
+        Asia_Krasnoyarsk,
+        ///<summary><para>Asia/Irkutsk.</para></summary>
+        Asia_Irkutsk,
+        ///<summary><para>Asia/Chita.</para></summary>
+        Asia_Chita,
+        ///<summary><para>Asia/Yakutsk.</para></summary>
+        Asia_Yakutsk,
+        ///<summary><para>Asia/Khandyga.</para></summary>
+        Asia_Khandyga,
+        ///<summary><para>Asia/Vladivostok.</para></summary>
+        Asia_Vladivostok,
+        ///<summary><para>Asia/Ust_Nera.</para></summary>
+        Asia_Ust_Nera,
+        ///<summary><para>Asia/Magadan.</para></summary>
+        Asia_Magadan,
+        ///<summary><para>Asia/Sakhalin.</para></summary>
+        Asia_Sakhalin,
+        ///<summary><para>Asia/Srednekolymsk.</para></summary>
+        Asia_Srednekolymsk,
+        ///<summary><para>Asia/Kamchatka.</para></summary>
+        Asia_Kamchatka,
+        ///<summary><para>Asia/Anadyr.</para></summary>
+        Asia_Anadyr,
+        ///<summary><para>Asia/Riyadh.</para></summary>
+        Asia_Riyadh,
+        ///<summary><para>Asia/Singapore.</para></summary>
+        Asia_Singapore,
+        ///<summary><para>Asia/Damascus.</para></summary>
+        Asia_Damascus,
+        ///<summary><para>Asia/Samarkand.</para></summary>
+        Asia_Samarkand,
+        ///<summary><para>Asia/Dili.</para></summary>
+        Asia_Dili,
+        ///<summary><para>Asia/Ashgabat.</para></summary>
+        Asia_Ashgabat,
+        ///<summary><para>Asia/Tashkent.</para></summary>
+        Asia_Tashkent,
+        ///<summary><para>Asia/Bangkok.</para></summary>
+        Asia_Bangkok,
+        ///<summary><para>Asia/Dushanbe.</para></summary>
+        Asia_Dushanbe,
+        ///<summary><para>Asia/Taipei.</para></summary>
+        Asia_Taipei,
+        ///<summary><para>Asia/Baku.</para></summary>
+        Asia_Baku,
+        ///<summary><para>Asia/Bahrain.</para></summary>
+        Asia_Bahrain,
+        ///<summary><para>Asia/Kuwait.</para></summary>
+        Asia_Kuwait,
+        ///<summary><para>Asia/Aden.</para></summary>
+        Asia_Aden,
+        ///<summary><para>Asia/Muscat.</para></summary>
+        Asia_Muscat,
+        ///<summary><para>Asia/Ekaterinburg.</para></summary>
+        Asia_Ekaterinburg,
+        ///<summary><para>Asia/Calcutta.</para></summary>
+        Asia_Calcutta,
+        ///<summary><para>Asia/Rangoon.</para></summary>
+        Asia_Rangoon,
+        ///<summary><para>Asia/Phnom_Penh.</para></summary>
+        Asia_Phnom_Penh,
+        ///<summary><para>Asia/Saigon.</para></summary>
+        Asia_Saigon,
+        ///<summary><para>Asia/Vientiane.</para></summary>
+        Asia_Vientiane,
+        ///<summary><para>Atlantic/Bermuda.</para></summary>
+        Atlantic_Bermuda,
+        ///<summary><para>Atlantic/Cape_Verde.</para></summary>
+        Atlantic_Cape_Verde,
+        ///<summary><para>Atlantic/Stanley.</para></summary>
+        Atlantic_Stanley,
+        ///<summary><para>Atlantic/Canary.</para></summary>
+        Atlantic_Canary,
+        ///<summary><para>Atlantic/South_Georgia.</para></summary>
+        Atlantic_South_Georgia,
+        ///<summary><para>Atlantic/Reykjavik.</para></summary>
+        Atlantic_Reykjavik,
+        ///<summary><para>Atlantic/Madeira.</para></summary>
+        Atlantic_Madeira,
+        ///<summary><para>Atlantic/Azores.</para></summary>
+        Atlantic_Azores,
+        ///<summary><para>Atlantic/Faeroe.</para></summary>
+        Atlantic_Faeroe,
+        ///<summary><para>Australia/Lord_Howe.</para></summary>
+        Australia_Lord_Howe,
+        ///<summary><para>Australia/Hobart.</para></summary>
+        Australia_Hobart,
+        ///<summary><para>Australia/Currie.</para></summary>
+        Australia_Currie,
+        ///<summary><para>Australia/Melbourne.</para></summary>
+        Australia_Melbourne,
+        ///<summary><para>Australia/Sydney.</para></summary>
+        Australia_Sydney,
+        ///<summary><para>Australia/Broken_Hill.</para></summary>
+        Australia_Broken_Hill,
+        ///<summary><para>Australia/Brisbane.</para></summary>
+        Australia_Brisbane,
+        ///<summary><para>Australia/Lindeman.</para></summary>
+        Australia_Lindeman,
+        ///<summary><para>Australia/Adelaide.</para></summary>
+        Australia_Adelaide,
+        ///<summary><para>Australia/Darwin.</para></summary>
+        Australia_Darwin,
+        ///<summary><para>Australia/Perth.</para></summary>
+        Australia_Perth,
+        ///<summary><para>Australia/Eucla.</para></summary>
+        Australia_Eucla,
+        ///<summary><para>Etc/GMT.</para></summary>
+        Etc_GMT,
+        ///<summary><para>Etc/GMT+1.</para></summary>
+        Etc_GMT_Plus_1,
+        ///<summary><para>Etc/GMT+10.</para></summary>
+        Etc_GMT_Plus_10,
+        ///<summary><para>Etc/GMT+11.</para></summary>
+        Etc_GMT_Plus_11,
+        ///<summary><para>Etc/GMT+12.</para></summary>
+        Etc_GMT_Plus_12,
+        ///<summary><para>Etc/GMT+2.</para></summary>
+        Etc_GMT_Plus_2,
+        ///<summary><para>Etc/GMT+3.</para></summary>
+        Etc_GMT_Plus_3,
+        ///<summary><para>Etc/GMT+4.</para></summary>
+        Etc_GMT_Plus_4,
+        ///<summary><para>Etc/GMT+5.</para></summary>
+        Etc_GMT_Plus_5,
+        ///<summary><para>Etc/GMT+6.</para></summary>
+        Etc_GMT_Plus_6,
+        ///<summary><para>Etc/GMT+7.</para></summary>
+        Etc_GMT_Plus_7,
+        ///<summary><para>Etc/GMT+8.</para></summary>
+        Etc_GMT_Plus_8,
+        ///<summary><para>Etc/GMT+9.</para></summary>
+        Etc_GMT_Plus_9,
+        ///<summary><para>Etc/GMT-1.</para></summary>
+        Etc_GMT_Minus_1,
+        ///<summary><para>Etc/GMT-10.</para></summary>
+        Etc_GMT_Minus_10,
+        ///<summary><para>Etc/GMT-11.</para></summary>
+        Etc_GMT_Minus_11,
+        ///<summary><para>Etc/GMT-12.</para></summary>
+        Etc_GMT_Minus_12,
+        ///<summary><para>Etc/GMT-13.</para></summary>
+        Etc_GMT_Minus_13,
+        ///<summary><para>Etc/GMT-14.</para></summary>
+        Etc_GMT_Minus_14,
+        ///<summary><para>Etc/GMT-2.</para></summary>
+        Etc_GMT_Minus_2,
+        ///<summary><para>Etc/GMT-3.</para></summary>
+        Etc_GMT_Minus_3,
+        ///<summary><para>Etc/GMT-4.</para></summary>
+        Etc_GMT_Minus_4,
+        ///<summary><para>Etc/GMT-5.</para></summary>
+        Etc_GMT_Minus_5,
+        ///<summary><para>Etc/GMT-6.</para></summary>
+        Etc_GMT_Minus_6,
+        ///<summary><para>Etc/GMT-7.</para></summary>
+        Etc_GMT_Minus_7,
+        ///<summary><para>Etc/GMT-8.</para></summary>
+        Etc_GMT_Minus_8,
+        ///<summary><para>Etc/GMT-9.</para></summary>
+        Etc_GMT_Minus_9,
+        ///<summary><para>Etc/Greenwich.</para></summary>
+        Etc_Greenwich,
+        ///<summary><para>Etc/Universal.</para></summary>
+        Etc_Universal,
+        ///<summary><para>Etc/UTC.</para></summary>
+        Etc_UTC,
+        ///<summary><para>MST7MDT.</para></summary>
+        MST7MDT,
+        ///<summary><para>PST8PDT.</para></summary>
+        PST8PDT,
+        ///<summary><para>Europe/Andorra.</para></summary>
+        Europe_Andorra,
+        ///<summary><para>Europe/Tirane.</para></summary>
+        Europe_Tirane,
+        ///<summary><para>Europe/Vienna.</para></summary>
+        Europe_Vienna,
+        ///<summary><para>Europe/Brussels.</para></summary>
+        Europe_Brussels,
+        ///<summary><para>Europe/Sofia.</para></summary>
+        Europe_Sofia,
+        ///<summary><para>Europe/Minsk.</para></summary>
+        Europe_Minsk,
+        ///<summary><para>Europe/Zurich.</para></summary>
+        Europe_Zurich,
+        ///<summary><para>Europe/Prague.</para></summary>
+        Europe_Prague,
+        ///<summary><para>Europe/Berlin.</para></summary>
+        Europe_Berlin,
+        ///<summary><para>Europe/Copenhagen.</para></summary>
+        Europe_Copenhagen,
+        ///<summary><para>Europe/Tallinn.</para></summary>
+        Europe_Tallinn,
+        ///<summary><para>Europe/Madrid.</para></summary>
+        Europe_Madrid,
+        ///<summary><para>Europe/Paris.</para></summary>
+        Europe_Paris,
+        ///<summary><para>Europe/London.</para></summary>
+        Europe_London,
+        ///<summary><para>Europe/Helsinki.</para></summary>
+        Europe_Helsinki,
+        ///<summary><para>Europe/Gibraltar.</para></summary>
+        Europe_Gibraltar,
+        ///<summary><para>Europe/Athens.</para></summary>
+        Europe_Athens,
+        ///<summary><para>Europe/Budapest.</para></summary>
+        Europe_Budapest,
+        ///<summary><para>Europe/Dublin.</para></summary>
+        Europe_Dublin,
+        ///<summary><para>Europe/Rome.</para></summary>
+        Europe_Rome,
+        ///<summary><para>Europe/Vilnius.</para></summary>
+        Europe_Vilnius,
+        ///<summary><para>Europe/Luxembourg.</para></summary>
+        Europe_Luxembourg,
+        ///<summary><para>Europe/Riga.</para></summary>
+        Europe_Riga,
+        ///<summary><para>Europe/Monaco.</para></summary>
+        Europe_Monaco,
+        ///<summary><para>Europe/Chisinau.</para></summary>
+        Europe_Chisinau,
+        ///<summary><para>Europe/Malta.</para></summary>
+        Europe_Malta,
+        ///<summary><para>Europe/Amsterdam.</para></summary>
+        Europe_Amsterdam,
+        ///<summary><para>Europe/Oslo.</para></summary>
+        Europe_Oslo,
+        ///<summary><para>Europe/Warsaw.</para></summary>
+        Europe_Warsaw,
+        ///<summary><para>Europe/Lisbon.</para></summary>
+        Europe_Lisbon,
+        ///<summary><para>Europe/Bucharest.</para></summary>
+        Europe_Bucharest,
+        ///<summary><para>Europe/Belgrade.</para></summary>
+        Europe_Belgrade,
+        ///<summary><para>Europe/Kaliningrad.</para></summary>
+        Europe_Kaliningrad,
+        ///<summary><para>Europe/Moscow.</para></summary>
+        Europe_Moscow,
+        ///<summary><para>Europe/Simferopol.</para></summary>
+        Europe_Simferopol,
+        ///<summary><para>Europe/Volgograd.</para></summary>
+        Europe_Volgograd,
+        ///<summary><para>Europe/Kirov.</para></summary>
+        Europe_Kirov,
+        ///<summary><para>Europe/Astrakhan.</para></summary>
+        Europe_Astrakhan,
+        ///<summary><para>Europe/Saratov.</para></summary>
+        Europe_Saratov,
+        ///<summary><para>Europe/Ulyanovsk.</para></summary>
+        Europe_Ulyanovsk,
+        ///<summary><para>Europe/Samara.</para></summary>
+        Europe_Samara,
+        ///<summary><para>Europe/Stockholm.</para></summary>
+        Europe_Stockholm,
+        ///<summary><para>Europe/Istanbul.</para></summary>
+        Europe_Istanbul,
+        ///<summary><para>Europe/Kiev.</para></summary>
+        Europe_Kiev,
+        ///<summary><para>Europe/Uzhgorod.</para></summary>
+        Europe_Uzhgorod,
+        ///<summary><para>Europe/Zaporozhye.</para></summary>
+        Europe_Zaporozhye,
+        ///<summary><para>Europe/Guernsey.</para></summary>
+        Europe_Guernsey,
+        ///<summary><para>Europe/Isle_Of_Man.</para></summary>
+        Europe_Isle_Of_Man,
+        ///<summary><para>Europe/Jersey.</para></summary>
+        Europe_Jersey,
+        ///<summary><para>Europe/Vaduz.</para></summary>
+        Europe_Vaduz,
+        ///<summary><para>Europe/Busingen.</para></summary>
+        Europe_Busingen,
+        ///<summary><para>Europe/Longyearbyen.</para></summary>
+        Europe_Longyearbyen,
+        ///<summary><para>Europe/San_Marino.</para></summary>
+        Europe_San_Marino,
+        ///<summary><para>Europe/Vatican.</para></summary>
+        Europe_Vatican,
+        ///<summary><para>Europe/Podgorica.</para></summary>
+        Europe_Podgorica,
+        ///<summary><para>Europe/Ljubljana.</para></summary>
+        Europe_Ljubljana,
+        ///<summary><para>Europe/Bratislava.</para></summary>
+        Europe_Bratislava,
+        ///<summary><para>Europe/Sarajevo.</para></summary>
+        Europe_Sarajevo,
+        ///<summary><para>Europe/Zagreb.</para></summary>
+        Europe_Zagreb,
+        ///<summary><para>Europe/Skopje.</para></summary>
+        Europe_Skopje,
+        ///<summary><para>Europe/Mariehamn.</para></summary>
+        Europe_Mariehamn,
+        ///<summary><para>Indian/Cocos.</para></summary>
+        Indian_Cocos,
+        ///<summary><para>Indian/Christmas.</para></summary>
+        Indian_Christmas,
+        ///<summary><para>Indian/Chagos.</para></summary>
+        Indian_Chagos,
+        ///<summary><para>Indian/Mauritius.</para></summary>
+        Indian_Mauritius,
+        ///<summary><para>Indian/Maldives.</para></summary>
+        Indian_Maldives,
+        ///<summary><para>Indian/Reunion.</para></summary>
+        Indian_Reunion,
+        ///<summary><para>Indian/Mahe.</para></summary>
+        Indian_Mahe,
+        ///<summary><para>Indian/Kerguelen.</para></summary>
+        Indian_Kerguelen,
+        ///<summary><para>Indian/Comoro.</para></summary>
+        Indian_Comoro,
+        ///<summary><para>Indian/Antananarivo.</para></summary>
+        Indian_Antananarivo,
+        ///<summary><para>Indian/Mayotte.</para></summary>
+        Indian_Mayotte,
+        ///<summary><para>Pacific/Pago_Pago.</para></summary>
+        Pacific_Pago_Pago,
+        ///<summary><para>Pacific/Rarotonga.</para></summary>
+        Pacific_Rarotonga,
+        ///<summary><para>Pacific/Easter.</para></summary>
+        Pacific_Easter,
+        ///<summary><para>Pacific/Galapagos.</para></summary>
+        Pacific_Galapagos,
+        ///<summary><para>Pacific/Fiji.</para></summary>
+        Pacific_Fiji,
+        ///<summary><para>Pacific/Kosrae.</para></summary>
+        Pacific_Kosrae,
+        ///<summary><para>Pacific/Guam.</para></summary>
+        Pacific_Guam,
+        ///<summary><para>Pacific/Noumea.</para></summary>
+        Pacific_Noumea,
+        ///<summary><para>Pacific/Norfolk.</para></summary>
+        Pacific_Norfolk,
+        ///<summary><para>Pacific/Tarawa.</para></summary>
+        Pacific_Tarawa,
+        ///<summary><para>Pacific/Enderbury.</para></summary>
+        Pacific_Enderbury,
+        ///<summary><para>Pacific/Kiritimati.</para></summary>
+        Pacific_Kiritimati,
+        ///<summary><para>Pacific/Majuro.</para></summary>
+        Pacific_Majuro,
+        ///<summary><para>Pacific/Kwajalein.</para></summary>
+        Pacific_Kwajalein,
+        ///<summary><para>Pacific/Nauru.</para></summary>
+        Pacific_Nauru,
+        ///<summary><para>Pacific/Niue.</para></summary>
+        Pacific_Niue,
+        ///<summary><para>Pacific/Auckland.</para></summary>
+        Pacific_Auckland,
+        ///<summary><para>Pacific/Chatham.</para></summary>
+        Pacific_Chatham,
+        ///<summary><para>Pacific/Tahiti.</para></summary>
+        Pacific_Tahiti,
+        ///<summary><para>Pacific/Marquesas.</para></summary>
+        Pacific_Marquesas,
+        ///<summary><para>Pacific/Gambier.</para></summary>
+        Pacific_Gambier,
+        ///<summary><para>Pacific/Port_Moresby.</para></summary>
+        Pacific_Port_Moresby,
+        ///<summary><para>Pacific/Bougainville.</para></summary>
+        Pacific_Bougainville,
+        ///<summary><para>Pacific/Pitcairn.</para></summary>
+        Pacific_Pitcairn,
+        ///<summary><para>Pacific/Palau.</para></summary>
+        Pacific_Palau,
+        ///<summary><para>Pacific/Guadalcanal.</para></summary>
+        Pacific_Guadalcanal,
+        ///<summary><para>Pacific/Funafuti.</para></summary>
+        Pacific_Funafuti,
+        ///<summary><para>Pacific/Fakaofo.</para></summary>
+        Pacific_Fakaofo,
+        ///<summary><para>Pacific/Tongatapu.</para></summary>
+        Pacific_Tongatapu,
+        ///<summary><para>Pacific/Wake.</para></summary>
+        Pacific_Wake,
+        ///<summary><para>Pacific/Efate.</para></summary>
+        Pacific_Efate,
+        ///<summary><para>Pacific/Honolulu.</para></summary>
+        Pacific_Honolulu,
+        ///<summary><para>Pacific/Wallis.</para></summary>
+        Pacific_Wallis,
+        ///<summary><para>Pacific/Apia.</para></summary>
+        Pacific_Apia,
+        ///<summary><para>Pacific/Midway.</para></summary>
+        Pacific_Midway,
+        ///<summary><para>Pacific/Johnston.</para></summary>
+        Pacific_Johnston,
+        ///<summary><para>America/Marigot.</para></summary>
+        America_Marigot,
+        ///<summary><para>America/Lower_Princes.</para></summary>
+        America_Lower_Princes,
+        ///<summary><para>Pacific/Truk.</para></summary>
+        Pacific_Truk,
+        ///<summary><para>Pacific/Saipan.</para></summary>
+        Pacific_Saipan,
+        ///<summary><para>Pacific/Ponape.</para></summary>
+        Pacific_Ponape
     }
 }

@@ -74,11 +74,11 @@
     <Compile Include="Source\TimeZones\Country\TimeZones_Country_Methods.cs" />
     <Compile Include="Source\TimeZones\Country\TimeZones_Country_Hardcoding.cs" />
     <Compile Include="Source\TimeZones\Country\TimeZones_Country_Operations.cs" />
-    <Compile Include="Source\TimeZones\Methods\Public\TimeZones_Methods_Public_Others.cs" />
+    <Compile Include="Source\TimeZones\Methods\TimeZones_Methods_Public.cs" />
     <Compile Include="Source\TimeZones\Operations\Private\TimeZones_Operations_Private_Others.cs" />
     <Compile Include="Source\TimeZones\Operations\Public\TimeZones_Operations_Public_HourMinute.cs" />
     <Compile Include="Source\TimeZones\Operations\Public\TimeZones_Operations_Public_Offset.cs" />
-    <Compile Include="Source\TimeZones\Methods\Private\TimeZones_Methods_Private.cs" />
+    <Compile Include="Source\TimeZones\Methods\TimeZones_Methods_Private.cs" />
     <Compile Include="Source\TimeZones\Types\Conventional\TimeZones_Types_Conventional_Constructors.cs" />
     <Compile Include="Source\TimeZones\Types\Conventional\TimeZones_Types_Conventional_Hardcoding.cs" />
     <Compile Include="Source\TimeZones\Types\Conventional\TimeZones_Types_Conventional_Methods.cs" />

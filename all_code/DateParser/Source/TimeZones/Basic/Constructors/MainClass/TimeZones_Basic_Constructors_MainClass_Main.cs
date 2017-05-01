@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace FlexibleParser
 {
+    ///<summary><para>Errors triggered by timezone-related classes.</para></summary>
     public enum ErrorTimeZoneEnum
     {
+        ///<summary><para>None.</para></summary>
         None = 0,
-        InvalidOffset, InvalidTimeZone
+        ///<summary><para>Invalid offset.</para></summary>
+        InvalidOffset,
+        ///<summary><para>Invalid timezone.</para></summary>
+        InvalidTimeZone
     }
 
     public partial class TimeZones

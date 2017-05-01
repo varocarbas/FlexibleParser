@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace FlexibleParser
@@ -369,7 +368,7 @@ namespace FlexibleParser
                 CountryEnum.Barbados, CountryEnum.British_Virgin_Islands, CountryEnum.Caribbean_Netherlands,
                 CountryEnum.Curaçao, CountryEnum.Dominica, CountryEnum.Dominican_Republic,
                 CountryEnum.Grenada, CountryEnum.Guadeloupe, CountryEnum.Martinique, CountryEnum.Montserrat,
-                CountryEnum.Puerto_Rico, CountryEnum.Saint_Barthélemy, CountryEnum.Saint_Kitts_and_Nevis,
+                CountryEnum.Puerto_Rico, CountryEnum.Saint_Barthelemy, CountryEnum.Saint_Kitts_and_Nevis,
                 CountryEnum.Saint_Lucia, CountryEnum.Saint_Martin, CountryEnum.Saint_Vincent_and_the_Grenadines,
                 CountryEnum.Sint_Maarten, CountryEnum.Trinidad_and_Tobago, CountryEnum.Turks_and_Caicos_Islands,
                 CountryEnum.United_States_Virgin_Islands

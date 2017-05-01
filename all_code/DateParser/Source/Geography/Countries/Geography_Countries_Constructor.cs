@@ -4,9 +4,12 @@ using System.Collections.ObjectModel;
 
 namespace FlexibleParser
 {
+    ///<summary><para>Errors triggered by the Country class.</para></summary>
     public enum ErrorCountryEnum
     {
+        ///<summary><para>None.</para></summary>
         None = 0,
+        ///<summary><para>Invalid country.</para></summary>
         InvalidCountry
     };
 

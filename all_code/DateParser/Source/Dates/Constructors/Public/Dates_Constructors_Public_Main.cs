@@ -1,25 +1,101 @@
 ﻿using System;
-using System.Globalization;
 
 namespace FlexibleParser
 {
-    public enum DateTimeParts 
+    ///<summary><para>All the months.</para></summary>
+    public enum Months
     {
+        ///<summary><para>None.</para></summary>
         None = 0,
-        Year, Month, Week, Day, Hour, Minute, Second, Millisecond
-    }
-    
-    public enum DateParts
-    {
-        None = 0,
-        Year, Month, Week, Day
+        ///<summary><para>January.</para></summary>
+        January = 1,
+        ///<summary><para>February.</para></summary>
+        February = 2,
+        ///<summary><para>March.</para></summary>
+        March = 3,
+        ///<summary><para>April.</para></summary>
+        April = 4,
+        ///<summary><para>May.</para></summary>
+        May = 5,
+        ///<summary><para>June.</para></summary>
+        June = 6,
+        ///<summary><para>July.</para></summary>
+        July = 7,
+        ///<summary><para>August.</para></summary>
+        August = 8,
+        ///<summary><para>September.</para></summary>
+        September = 9,
+        ///<summary><para>October.</para></summary>
+        October = 10,
+        ///<summary><para>November.</para></summary>
+        November = 11,
+        ///<summary><para>December.</para></summary>
+        December = 12
     }
 
+    ///<summary><para>All the date/time parts.</para></summary>
+    public enum DateTimeParts 
+    {
+        ///<summary><para>None.</para></summary>
+        None = 0,
+        ///<summary><para>Year.</para></summary>
+        Year,
+        ///<summary><para>Month.</para></summary>
+        Month,
+        ///<summary><para>Week.</para></summary>
+        Week,
+        ///<summary><para>Day.</para></summary>
+        Day,
+        ///<summary><para>Hour.</para></summary>
+        Hour,
+        ///<summary><para>Minute.</para></summary>
+        Minute,
+        ///<summary><para>Second.</para></summary>
+        Second,
+        ///<summary><para>Millisecond.</para></summary>
+        Millisecond
+    }
+
+    ///<summary><para>All the date parts.</para></summary>
+    public enum DateParts
+    {
+        ///<summary><para>None.</para></summary>
+        None = 0,
+        ///<summary><para>Year.</para></summary>
+        Year,
+        ///<summary><para>Month.</para></summary>
+        Month,
+        ///<summary><para>Week.</para></summary>
+        Week,
+        ///<summary><para>Day.</para></summary>
+        Day
+    }
+
+    ///<summary><para>All the time parts.</para></summary>
     public enum TimeParts
     {
+        ///<summary><para>None.</para></summary>
         None = 0,
-        Hour, Minute, Second, Millisecond
+        ///<summary><para>Hour.</para></summary>
+        Hour,
+        ///<summary><para>Minute.</para></summary>
+        Minute,
+        ///<summary><para>Second.</para></summary>
+        Second,
+        ///<summary><para>Millisecond.</para></summary>
+        Millisecond
     }
+
+    ///<summary><para>Errors triggered by DateP and related classes.</para></summary>
+    public enum ErrorDateEnum
+    {
+        ///<summary><para>None.</para></summary>
+        None = 0,
+        ///<summary><para>Parse error.</para></summary>
+        ParseError,
+        ///<summary><para>Invalid input.</para></summary>
+        InvalidInput
+    } 
 
     public partial class DateP
     {
@@ -307,10 +383,4 @@ namespace FlexibleParser
             NoUpdates = false;
         }
     }
-
-    public enum ErrorDateEnum 
-    { 
-        None = 0, 
-        ParseError, InvalidInput 
-    } 
 }

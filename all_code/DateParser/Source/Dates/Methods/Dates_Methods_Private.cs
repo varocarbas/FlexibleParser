@@ -36,6 +36,48 @@ namespace FlexibleParser
             );
         }
 
+        //This function performs all the final actions which are common to the main public ToString() methods.
+        public static string ToStringFinal(string outputSofar, DateP dateP)
+        {
+            if (dateP.Error != ErrorDateEnum.None)
+            {
+                return
+                (
+                    dateP.Error == ErrorDateEnum.InvalidInput ?
+                    "Invalid input" : "Parse error"
+                );
+            }
+
+            return outputSofar +
+            (
+                dateP.TimeZoneOffset == null ? "" : " " +
+                OffsetInternal.OffsetToString(dateP.TimeZoneOffset, true)
+            );
+        }
+
+        //Method performing all the actions required by the public non-static AdaptTimeToTimezone overloads.
+        public static DateP AdaptTimeToTimezoneTypes(dynamic input, DateP dateP, bool isEnum = false)
+        {
+            if
+            (
+                (isEnum && TimeZonesInternal.EnumIsNothing(input)) ||
+                (!isEnum && (input == null || input.Offset == null))
+            )
+            { return dateP; }
+
+            dynamic input2 =
+            (
+                !isEnum ? input : TimeZonesInternal.GetTimeZoneClassFromEnum
+                (
+                    input, input.GetType()
+                )
+            );
+
+            dateP.TimeZoneOffset = input2.Offset;
+
+            return dateP;
+        }
+
         //Method used by the public static methods to perform a preliminary validity check of the input variable.
         public static bool InputIsOK(dynamic input)
         {
