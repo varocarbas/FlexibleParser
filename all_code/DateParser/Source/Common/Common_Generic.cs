@@ -11,7 +11,8 @@ namespace FlexibleParser
             {
                 TimeZoneOfficial.Populated, TimeZoneIANA.Populated,
                 TimeZoneConventional.Populated, TimeZoneUTC.Populated,
-                TimeZoneWindows.Populated, TimeZoneMilitary.Populated
+                TimeZoneWindows.Populated, TimeZoneMilitary.Populated,
+                TimeZonesCountry.Populated
             };
 
             for (int i = 1; i < dumbArray.Length; i++)

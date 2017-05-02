@@ -7,7 +7,7 @@ namespace FlexibleParser
     ///<summary><para>Class dealing with all the country-related timezones.</para></summary>
     public partial class TimeZonesCountry
     {
-        private static bool Populated = TimeZonesInternal.StartTimezones();
+        internal static bool Populated = TimeZonesInternal.StartTimezones();
 
         ///<summary><para>Country variable associated with the current instance.</para></summary>
         public readonly Country Country;
