@@ -63,15 +63,15 @@ namespace FlexibleParser
             return TimeZones.FromWindowsOnlyEnumCommon(windows, MainType);
         }
 
-        ///<summary><para>Returns a list with all the TimeZoneIANA variables associated with the input military timezone.<para></summary>
-        ///<param name="militar">TimeZoneMilitar variable to be considered.</param>
+        ///<summary><para>Returns a list with all the TimeZoneIANA variables associated with the input military timezone.</para></summary>
+        ///<param name="military">TimeZoneMilitar variable to be considered.</param>
         public static ReadOnlyCollection<TimeZoneIANA> FromMilitary(TimeZoneMilitary military)
         {
             return TimeZones.FromMilitaryCommon(military, MainType);
         }
 
         ///<summary><para>Returns a list with all the TimeZoneIANAEnum variables associated with the input military timezone.</para></summary>
-        ///<param name="militar">TimeZoneMilitar variable to be considered.</param>
+        ///<param name="military">TimeZoneMilitar variable to be considered.</param>
         public static ReadOnlyCollection<TimeZoneIANAEnum> FromMilitaryOnlyEnum(TimeZoneMilitary military)
         {
             return TimeZones.FromMilitaryOnlyEnumCommon(military, MainType);

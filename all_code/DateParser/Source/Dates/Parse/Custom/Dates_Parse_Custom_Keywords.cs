@@ -22,10 +22,5 @@ namespace FlexibleParser
             { "hour", DateTimeInternalParts.Hour }, { "minute", DateTimeInternalParts.Minute },
             { "millisecond", DateTimeInternalParts.Millisecond }, { "second", DateTimeInternalParts.Second }
         };
-
-        private static string[] Separators = new string[]
-        {
-            "-", "/", ".", " ", ":"
-        };
     }
 }

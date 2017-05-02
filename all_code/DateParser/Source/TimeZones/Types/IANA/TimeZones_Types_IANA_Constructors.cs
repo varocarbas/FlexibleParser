@@ -5,7 +5,7 @@ namespace FlexibleParser
     ///<summary><para>Class dealing with IANA timezones.</para></summary>
     public partial class TimeZoneIANA : TimeZoneType
     {
-        private static bool Populated = TimeZonesInternal.StartTimezones();
+        internal static bool Populated = TimeZonesInternal.StartTimezones();
         
         ///<summary><para>Initialises a new TimeZoneIANA instance.</para></summary>
         ///<param name="iana">TimeZoneIANA variable associated with the current instance.</param>

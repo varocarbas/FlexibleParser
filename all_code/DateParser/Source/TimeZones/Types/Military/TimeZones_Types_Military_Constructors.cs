@@ -5,7 +5,7 @@ namespace FlexibleParser
     ///<summary><para>Class dealing with military timezones.</para></summary>
     public partial class TimeZoneMilitary : TimeZoneType
     {
-        private static bool Populated = TimeZonesInternal.StartTimezones();
+        internal static bool Populated = TimeZonesInternal.StartTimezones();
 
         ///<summary><para>Initialises a new TimeZoneMilitary instance.</para></summary>
         ///<param name="military">TimeZoneMilitary variable associated with the current instance.</param>
@@ -27,7 +27,7 @@ namespace FlexibleParser
         public TimeZoneMilitary(string input) : base(input, typeof(TimeZoneMilitaryEnum)) { }
 
         ///<summary><para>Initialises a new TimeZoneMilitary instance.</para></summary>
-        ///<param name="military">TimeZoneMilitaryEnum variable to be used.</param>
+        ///<param name="militaryEnum">TimeZoneMilitaryEnum variable to be used.</param>
         public TimeZoneMilitary(TimeZoneMilitaryEnum militaryEnum) : base
         (
             TimeZonesInternal.AllNames[militaryEnum], TimeZonesInternal.GetEnumItemAbbreviation

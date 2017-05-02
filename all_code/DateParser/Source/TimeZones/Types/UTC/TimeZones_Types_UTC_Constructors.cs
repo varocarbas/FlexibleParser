@@ -2,9 +2,10 @@
 
 namespace FlexibleParser
 {
+    ///<summary><para>Class dealing with UTC timezones.</para></summary>
     public partial class TimeZoneUTC : TimeZoneType
     {
-        private static bool Populated = TimeZonesInternal.StartTimezones();
+        internal static bool Populated = TimeZonesInternal.StartTimezones();
 
         ///<summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
         ///<param name="utc">TimeZoneUTC variable whose information will be used.</param>

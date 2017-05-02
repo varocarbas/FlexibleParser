@@ -5,6 +5,21 @@ namespace FlexibleParser
 {
     internal partial class Common
     {
+        public static void JustToAvoidCompilerWarnings()
+        {
+            dynamic dumbArray = new dynamic[]
+            {
+                TimeZoneOfficial.Populated, TimeZoneIANA.Populated,
+                TimeZoneConventional.Populated, TimeZoneUTC.Populated,
+                TimeZoneWindows.Populated, TimeZoneMilitary.Populated
+            };
+
+            for (int i = 1; i < dumbArray.Length; i++)
+            {
+                if (dumbArray[i] == dumbArray[i - 1]) break;
+            }
+        }
+
         public static bool DecimalOffsetIsValid(decimal decimalOffset)
         {
             foreach (TimeZoneUTCEnum utc in Enum.GetValues(typeof(TimeZoneUTCEnum)))
