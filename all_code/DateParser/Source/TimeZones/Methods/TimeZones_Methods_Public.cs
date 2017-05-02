@@ -6,6 +6,7 @@ namespace FlexibleParser
 {
     public partial class Offset
     {
+        ///<summary><para>Returns an Offset list with all the valid timezone offsets.</para></summary>
         public static ReadOnlyCollection<Offset> GetAllValid()
         {
             List<Offset> outList = new List<Offset>();
@@ -18,6 +19,7 @@ namespace FlexibleParser
             return outList.AsReadOnly();
         }
 
+        ///<summary><para>Returns the TimeZoneUTC variable associated with the current instance.</para></summary>
         public TimeZoneUTC ToUTC()
         {
             return TimeZoneUTCInternal.GetTimeZoneUTCFromDecimalOffset
@@ -29,6 +31,7 @@ namespace FlexibleParser
 
     public partial class HourMinute
     {
+        ///<summary><para>Returns a HourMinute list with all the valid timezone offsets.</para></summary>
         public static ReadOnlyCollection<HourMinute> GetAllValid()
         {
             List<HourMinute> outList = new List<HourMinute>();
@@ -41,6 +44,7 @@ namespace FlexibleParser
             return outList.AsReadOnly();
         }
 
+        ///<summary><para>Returns the decimal version of the offset associated with the current instance.</para></summary>
         public decimal ToDecimal()
         {
             return HourMinuteInternal.GetDecimalFromHourMinute(this);

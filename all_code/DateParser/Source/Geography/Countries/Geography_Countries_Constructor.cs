@@ -13,20 +13,30 @@ namespace FlexibleParser
         InvalidCountry
     };
 
+    ///<summary><para>Class dealing with all the country-related information.</para></summary>
     public partial class Country
     {
+        ///<summary><para>CountryEnum variable associated with the country.</para></summary>
         public readonly CountryEnum Value;
+        ///<summary><para>Country code.</para></summary>
         public readonly string Code;
+        ///<summary><para>Country name.</para></summary>
         public readonly string Name;
+        ///<summary><para>Alternative names of the country.</para></summary>
         public readonly ReadOnlyCollection<string> AlternativeNames;
+        ///<summary><para>Error associated with the current instance.</para></summary>
         public readonly ErrorCountryEnum Error;
 
-        private Country(Country country) : this
+        ///<summary><para>Initialises a new Country instance.</para></summary>
+        ///<param name="country">Country variable whose information will be used.</param>
+        public Country(Country country) : this
         (
             country == null ? CountryEnum.None : country.Value
         )
         { }
 
+        ///<summary><para>Initialises a new Country instance.</para></summary>
+        ///<param name="codeOrCountryName">Code or country name to be parsed.</param>
         public Country(string codeOrCountryName)
         {
             CountryInternal.GetCodeCountry(codeOrCountryName);
@@ -38,10 +48,12 @@ namespace FlexibleParser
 
             Value = CountryInternal.CodeCountry.Value;
             Code = CountryInternal.CodeCountry.Key;
-            Name = GetNameFromEnum(Value);
+            Name = CountryInternal.GetNameFromEnum(Value);
             AlternativeNames = CountryInternal.GetAlternativeNames(Value).AsReadOnly();
         }
 
+        ///<summary><para>Initialises a new Country instance.</para></summary>
+        ///<param name="value">CountryEnum variable to be used.</param>
         public Country(CountryEnum value)
         {
             CountryInternal.GetCodeCountry(value);
@@ -53,7 +65,7 @@ namespace FlexibleParser
 
             Value = CountryInternal.CodeCountry.Value;
             Code = CountryInternal.CodeCountry.Key;
-            Name = GetNameFromEnum(Value);
+            Name = CountryInternal.GetNameFromEnum(Value);
             AlternativeNames = CountryInternal.GetAlternativeNames(Value).AsReadOnly();
         }
     }

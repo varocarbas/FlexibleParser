@@ -2,15 +2,25 @@
 
 namespace FlexibleParser
 {
+    ///<summary><para>Abstract class with six implementations: TimeZoneOfficial, TimeZoneIANA, TimeZoneConventional, TimeZoneUTC, TimeZoneWindows, TimeZoneMilitary.</para></summary>
     public abstract class TimeZoneType
     {
+        ///<summary><para>Name of the timezone.</para></summary>
         public readonly string Name;
+        ///<summary><para>Official abbreviation of the timezone.</para></summary>
         public readonly string Abbreviation;
+        ///<summary><para>Offset variable associated with the timezone.</para></summary>
         public readonly Offset Offset;
+        ///<summary><para>Enum variable associated with the timezone.</para></summary>
         public readonly dynamic Value;
+        ///<summary><para>TimeZoneInfo variable associated with the timezone.</para></summary>
         public readonly TimeZoneInfo TimeZoneInfo;
+        ///<summary><para>Error associated with the current instance.</para></summary>
         public readonly ErrorTimeZoneEnum Error;
 
+        ///<summary><para>Initialises a new TimeZoneType instance.</para></summary>
+        ///<param name="input">Timezone-related information to be parsed.</param>
+        ///<param name="type">Type associated with the current timezone.</param>
         public TimeZoneType(string input, Type type)
         {
             TemporaryVariables temp = TimeZonesInternal.GetGlobalValuesFromString(input, type);

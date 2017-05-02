@@ -4,6 +4,71 @@
         <name>DateParser</name>
     </assembly>
     <members>
+        <member name="T:FlexibleParser.DateTimeFormat">
+            <summary><para>Abstract class with two implementations: CustomDateTimeFormat and StandardDateTimeFormat.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateTimeFormat.FormatProvider">
+            <summary><para>DateTimeFormatInfo variable associated with the current instance.</para></summary>
+        </member>
+        <member name="T:FlexibleParser.DateP">
+            <summary><para>Class dealing with all the functionalities extracting date/time information from strings.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToOffset(FlexibleParser.Offset)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input offset.</para></summary>
+            <param name="offset">Offset variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneOfficialEnum)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="officialEnum">TimeZoneOfficialEnum variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneIANAEnum)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="ianaEnum">TimeZoneIANAEnum variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneConventionalEnum)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="conventionalEnum">TimeZoneConventionalEnum variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneUTCEnum)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="utcEnum">TimeZoneUTCEnum variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneWindowsEnum)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="windowsEnum">TimeZoneWindowsEnum variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZoneMilitaryEnum)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="militaryEnum">TimeZoneMilitaryEnum variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.AdaptTimeToTimezone(FlexibleParser.TimeZones)">
+            <summary><para>Modifies the time/date of the associated DateTime variable to match the input timezone.</para></summary>
+            <param name="timezones">TimeZones variable whose information will be used.</param>
+        </member>
         <member name="M:FlexibleParser.DateP.CompareTo(FlexibleParser.DateP)">
             <summary><para>Compares the current instance against another DateP one.</para></summary>
             <param name="other">The other DateP instance.</param>
@@ -57,6 +122,128 @@
         <member name="M:FlexibleParser.DateP.GetHashCode">
             <summary><para>Returns the hash code for this DateP variable.</para></summary>
         </member>
+        <member name="F:FlexibleParser.DateP.InitialInput">
+            <summary><para>Input string containing the date/time information to be parsed.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.DateP.Format">
+            <summary><para>CustomDateTimeFormat/StandardDateTimeFormat variable to be used.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.DateP.Error">
+            <summary><para>Error associated with the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.DateP.#ctor(FlexibleParser.DateP,FlexibleParser.Offset)">
+            <summary><para>Initialises a new DateP instance.</para></summary>
+            <param name="dateP">DateP variable whose information will be used.</param>
+            <param name="offset">Offset variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.#ctor(System.DateTime,FlexibleParser.Offset)">
+            <summary><para>Initialises a new DateP instance.</para></summary>
+            <param name="dateTime">DateTime variable whose information will be used.</param>
+            <param name="offset">Offset variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.#ctor(System.String,FlexibleParser.Offset)">
+            <summary><para>Initialises a new DateP instance.</para></summary>
+            <param name="inputString">String containing the date/time information to be parsed.</param>
+            <param name="offset">Offset variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.#ctor(System.String,FlexibleParser.DateTimeFormat,FlexibleParser.Offset)">
+            <summary><para>Initialises a new DateP instance.</para></summary>
+            <param name="inputString">String containing the date/time information to be parsed.</param>
+            <param name="dateTimeFormat">CustomDateTimeFormat/StandardDateTimeFormat variable to be used.</param>
+            <param name="offset">Offset variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetCustomKeywordFromDatePart(FlexibleParser.DateParts)">
+            <summary><para>Returns the string variable which is associated with the DateParts input in the CustomDateTimeFormat pattern.</para></summary>
+            <param name="part">DateParts variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetCustomKeywordFromTimePart(FlexibleParser.TimeParts)">
+            <summary><para>Returns the string variable which is associated with the TimeParts input in the CustomDateTimeFormat pattern.</para></summary>
+            <param name="part">TimeParts variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetCustomKeywordFromDateTimePart(FlexibleParser.DateTimeParts)">
+            <summary><para>Returns the string variable which is associated with the DateTimeParts input in the CustomDateTimeFormat pattern.</para></summary>
+            <param name="part">DateTimeParts variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetDateTimePartFromCustomKeyword(System.String)">
+            <summary><para>Returns the DateTimeParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+            <param name="keyword">String variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetDatePartFromCustomKeyword(System.String)">
+            <summary><para>Returns the DateParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+            <param name="keyword">String variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetTimePartFromCustomKeyword(System.String)">
+            <summary><para>Returns the TimeParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+            <param name="keyword">String variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.GetDateTimePartFromCustomKeywordInternal(System.String)">
+            <summary><para>Returns the DateTimeParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+            <param name="keyword">String variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.ToString">
+            <summary><para>Returns the string representation of the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.DateP.ToStringStandard">
+            <summary><para>Returns the string representation of the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.DateP.ToStringStandard(FlexibleParser.StandardDateTimeFormat)">
+            <summary><para>Returns the string representation of the current instance.</para></summary>
+            <param name="standardFormat">StandardDateTimeFormat variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.DateP.ToStringCustom(FlexibleParser.CustomDateTimeFormat)">
+            <summary><para>Returns the string representation of the current instance.</para></summary>
+            <param name="customFormat">CustomDateTimeFormat variable to be used.</param>
+        </member>
+        <member name="P:FlexibleParser.DateP.Value">
+            <summary><para>DateTime variable associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Year">
+            <summary><para>Year of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Month">
+            <summary><para>Month of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Week">
+            <summary><para>Day of the week of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Day">
+            <summary><para>Day of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Hour">
+            <summary><para>Hour of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Minute">
+            <summary><para>Minute of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Second">
+            <summary><para>Second of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Millisecond">
+            <summary><para>Millisecond of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.TimeZoneOffset">
+            <summary><para>Offset of the timezone associated with the current instance.</para></summary>
+        </member>
+        <member name="T:FlexibleParser.CustomDateTimeFormat">
+            <summary><para>Implementation of the DateTimeFormat class which deals with the custom approaches of this library.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.#ctor(System.String)">
+            <summary><para>Initialises a new CustomDateTimeFormat instance.</para></summary>
+            <param name="pattern">Pattern to use when extracting date/time information from strings.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.#ctor(System.String,System.Globalization.DateTimeFormatInfo)">
+            <summary><para>Initialises a new CustomDateTimeFormat instance.</para></summary>
+            <param name="pattern">Pattern to use when extracting date/time information from strings.</param>
+            <param name="formatProvider">DateTimeFormatInfo variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.#ctor(FlexibleParser.DateTimeParts[])">
+            <summary><para>Initialises a new CustomDateTimeFormat instance.</para></summary>
+            <param name="patternParts">Date/time elements defining the separator-agnostic pattern to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.CustomDateTimeFormat.#ctor(FlexibleParser.CustomDateTimeFormat)">
+            <summary><para>Initialises a new CustomDateTimeFormat instance.</para></summary>
+            <param name="customDateTimeFormat">CustomDateTimeFormat variable whose information will be used.</param>
+        </member>
         <member name="M:FlexibleParser.CustomDateTimeFormat.CompareTo(FlexibleParser.CustomDateTimeFormat)">
             <summary><para>Compares the current instance against another CustomDateTimeFormat one.</para></summary>
             <param name="other">The other CustomDateTimeFormat instance.</param>
@@ -92,6 +279,85 @@
         </member>
         <member name="M:FlexibleParser.CustomDateTimeFormat.GetHashCode">
             <summary><para>Returns the hash code for this CustomDateTimeFormat variable.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.CustomDateTimeFormat.Pattern">
+            <summary><para>Pattern determining how date/time information is stored in a string variable.</para></summary>
+        </member>
+        <member name="T:FlexibleParser.StandardDateTimeFormat">
+            <summary>
+            <para>Implementation of the DateTimeFormat class which deals with the default .NET approach.</para>
+            <para>The public variables of this class emulate the arguments of the parsing methods of the .NET date variables.</para>
+            </summary>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor">
+            <summary>
+            <para>Initialises a new StandardTimeFormat instance.</para>
+            <para>It takes all the information from CultureInfo.CurrentCulture.DateTimeFormat.</para>    
+            </summary>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.String,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="pattern">Pattern to be used.</param>
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.String[],System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="patterns">Patterns to be used.</param>
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.Globalization.DateTimeFormatInfo,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="formatProvider">DateTimeFormatInfo variable to be used.</param>
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.Globalization.DateTimeStyles,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="dateTimeStyle">DateTimeStyles variable to be used.</param>
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.String,System.Globalization.DateTimeStyles,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="pattern">Pattern to be used.</param>
+            <param name="dateTimeStyle">DateTimeStyles variable to be used.</param>       
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.String[],System.Globalization.DateTimeStyles,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="patterns">Patterns to be used.</param>
+            <param name="dateTimeStyle">DateTimeStyles variable to be used.</param>       
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.String[],System.Globalization.DateTimeFormatInfo,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="patterns">Patterns to be used.</param>
+            <param name="formatProvider">DateTimeFormatInfo variable to be used.</param>
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.Globalization.DateTimeFormatInfo,System.Globalization.DateTimeStyles,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="formatProvider">DateTimeFormatInfo variable to be used.</param>
+            <param name="dateTimeStyle">DateTimeStyles variable to be used.</param> 
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(System.String[],System.Globalization.DateTimeFormatInfo,System.Globalization.DateTimeStyles,System.Boolean)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="patterns">Patterns to be used.</param>
+            <param name="formatProvider">DateTimeFormatInfo variable to be used.</param>
+            <param name="dateTimeStyle">DateTimeStyles variable to be used.</param> 
+            <param name="useParseExact">Flag indicating whether it should behave as a \"ParseExact\" method or not.</param>
+        </member>
+        <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(FlexibleParser.StandardDateTimeFormat)">
+            <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
+            <param name="standardDateTimeFormat">StandardDateTimeFormat variable whose information will be used.</param>
+        </member>
+        <member name="P:FlexibleParser.StandardDateTimeFormat.DateTimeStyle">
+            <summary><para>DateTimeStyles variable associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.StandardDateTimeFormat.Patterns">
+            <summary><para>String patterns associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.StandardDateTimeFormat.UseParseExact">
+            <summary><para>Flag which indicates the parsing behaviour of the current instance (i.e., Parse or ParseExact method).</para></summary>
         </member>
         <member name="T:FlexibleParser.Months">
             <summary><para>All the months.</para></summary>
@@ -2859,6 +3125,36 @@
         <member name="F:FlexibleParser.ErrorCountryEnum.InvalidCountry">
             <summary><para>Invalid country.</para></summary>
         </member>
+        <member name="T:FlexibleParser.Country">
+            <summary><para>Class dealing with all the country-related information.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Country.Value">
+            <summary><para>CountryEnum variable associated with the country.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Country.Code">
+            <summary><para>Country code.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Country.Name">
+            <summary><para>Country name.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Country.AlternativeNames">
+            <summary><para>Alternative names of the country.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Country.Error">
+            <summary><para>Error associated with the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.Country.#ctor(FlexibleParser.Country)">
+            <summary><para>Initialises a new Country instance.</para></summary>
+            <param name="country">Country variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.#ctor(System.String)">
+            <summary><para>Initialises a new Country instance.</para></summary>
+            <param name="codeOrCountryName">Code or country name to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.Country.#ctor(FlexibleParser.CountryEnum)">
+            <summary><para>Initialises a new Country instance.</para></summary>
+            <param name="value">CountryEnum variable to be used.</param>
+        </member>
         <member name="M:FlexibleParser.Country.CompareTo(FlexibleParser.Country)">
             <summary><para>Compares the current instance against another Country one.</para></summary>
             <param name="other">The other Country instance.</param>
@@ -2898,6 +3194,64 @@
         </member>
         <member name="M:FlexibleParser.Country.GetHashCode">
             <summary><para>Returns the hash code for this Country variable.</para></summary>
+        </member>
+        <member name="T:FlexibleParser.Offset">
+            <summary><para>Class dealing with both the decimal and hour-minute versions of the timezone offsets.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Offset.DecimalOffset">
+            <summary><para>Decimal version of the current offset.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Offset.HourMinute">
+            <summary><para>HourMinute version of the current offset.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.Offset.Error">
+            <summary><para>Error associated with the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(System.Decimal)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="supportedDecimalOffset">Decimal version of the supported timezone offset to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.HourMinute)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="hourMinute">HourMinute version of the supported timezone offset to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.Offset)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="offset">Offset variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="official">TimeZoneOfficial variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="iana">TimeZoneIANA variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="conventional">TimeZoneConventional variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="utc">TimeZoneUTC variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="windows">TimeZoneWindows variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="military">TimeZoneMilitary variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.#ctor(System.TimeZoneInfo)">
+            <summary><para>Initialises a new Offset instance.</para></summary>
+            <param name="timeZoneInfo">TimeZoneInfo variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.Offset.GetAllValid">
+            <summary><para>Returns an Offset list with all the valid timezone offsets.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.Offset.ToUTC">
+            <summary><para>Returns the TimeZoneUTC variable associated with the current instance.</para></summary>
         </member>
         <member name="M:FlexibleParser.Offset.CompareTo(FlexibleParser.Offset)">
             <summary><para>Compares the current instance against another Offset one.</para></summary>
@@ -2998,6 +3352,41 @@
         </member>
         <member name="M:FlexibleParser.Offset.GetHashCode">
             <summary><para>Returns the hash code for this Offset variable.</para></summary>
+        </member>
+        <member name="T:FlexibleParser.HourMinute">
+            <summary><para>Class dealing with hour-minute version of the timezone offsets.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.HourMinute.Hour">
+            <summary><para>Hour of the hour-minute offset.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.HourMinute.Minute">
+            <summary><para>Minute of the hour-minute offset.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.HourMinute.Error">
+            <summary><para>Error associated with the current offset.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.#ctor(FlexibleParser.HourMinute)">
+            <summary><para>Initialises a new HourMinute instance.</para></summary>
+            <param name="hourMinute">HourMinute variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.#ctor(FlexibleParser.Offset)">
+            <summary><para>Initialises a new HourMinute instance.</para></summary>
+            <param name="offset">Offset variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.#ctor(System.Decimal)">
+            <summary><para>Initialises a new HourMinute instance.</para></summary>
+            <param name="supportedDecimalOffset">Decimal version of the supported timezone offset to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.#ctor(System.Int32,System.Int32)">
+            <summary><para>Initialises a new HourMinute instance.</para></summary>
+            <param name="hourSupportedOffset">Hour of a supported hour-minute offset.</param>
+            <param name="minuteSupportedOffset">Minute of a supported hour-minute offset.</param>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.GetAllValid">
+            <summary><para>Returns a HourMinute list with all the valid timezone offsets.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.HourMinute.ToDecimal">
+            <summary><para>Returns the decimal version of the offset associated with the current instance.</para></summary>
         </member>
         <member name="M:FlexibleParser.HourMinute.CompareTo(FlexibleParser.HourMinute)">
             <summary><para>Compares the current instance against another HourMinute one.</para></summary>
@@ -3151,6 +3540,9 @@
         <member name="M:FlexibleParser.TimeZones.GetHashCode">
             <summary><para>Returns the hash code for this TimeZones variable.</para></summary>
         </member>
+        <member name="T:FlexibleParser.TimeZonesCountry">
+            <summary><para>Class dealing with all the country-related timezones.</para></summary>
+        </member>
         <member name="M:FlexibleParser.TimeZonesCountry.CompareTo(FlexibleParser.TimeZonesCountry)">
             <summary><para>Compares the current instance against another TimeZonesCountry one.</para></summary>
             <param name="other">The other TimeZonesCountry instance.</param>
@@ -3190,6 +3582,111 @@
         </member>
         <member name="M:FlexibleParser.TimeZonesCountry.GetHashCode">
             <summary><para>Returns the hash code for this TimeZonesCountry variable.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZonesCountry.Country">
+            <summary><para>Country variable associated with the current instance.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZonesCountry.CityOrRegion">
+            <summary><para>City/region associated with the current instance.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZonesCountry.StandardDaylightTimezones">
+            <summary><para>All the standard/daylight timezones associated with the current country.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZonesCountry.Error">
+            <summary><para>Error associated with the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.#ctor(System.String)">
+            <summary><para>Initialises a new TimeZonesCountry instance.</para></summary>
+            <param name="countryRegionOrCity">Country, region or city information to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZonesCountry.#ctor(FlexibleParser.Country)">
+            <summary><para>Initialises a new TimeZonesCountry instance.</para></summary>
+            <param name="country">Country variable whose information will be used.</param>
+        </member>
+        <member name="T:FlexibleParser.TimeZoneConventional">
+            <summary><para>Class dealing with conventional timezones.</para></summary>
+        </member>
+        <member name="T:FlexibleParser.TimeZoneType">
+            <summary><para>Abstract class with six implementations: TimeZoneOfficial, TimeZoneIANA, TimeZoneConventional, TimeZoneUTC, TimeZoneWindows, TimeZoneMilitary.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Name">
+            <summary><para>Name of the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Abbreviation">
+            <summary><para>Official abbreviation of the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Offset">
+            <summary><para>Offset variable associated with the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Value">
+            <summary><para>Enum variable associated with the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.TimeZoneInfo">
+            <summary><para>TimeZoneInfo variable associated with the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Error">
+            <summary><para>Error associated with the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneType.#ctor(System.String,System.Type)">
+            <summary><para>Initialises a new TimeZoneType instance.</para></summary>
+            <param name="input">Timezone-related information to be parsed.</param>
+            <param name="type">Type associated with the current timezone.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.#ctor(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Initialises a new TimeZoneConventional instance.</para></summary>
+            <param name="conventional">TimeZoneConventional variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.#ctor(System.TimeZoneInfo)">
+            <summary><para>Initialises a new TimeZoneConventional instance.</para></summary>
+            <param name="timeZoneInfo">TimeZoneInfo variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.#ctor(System.String)">
+            <summary><para>Initialises a new TimeZoneConventional instance.</para></summary>
+            <param name="input">Conventional timezone information to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.#ctor(FlexibleParser.TimeZoneConventionalEnum)">
+            <summary><para>Initialises a new TimeZoneConventional instance.</para></summary>
+            <param name="conventionalEnum">TimeZoneConventionalEnum variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromOfficial(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns a list with all the TimeZoneConventional variables associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromOfficialOnlyEnum(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns a list with all the TimeZoneConventionalEnum variables associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromIANA(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns a list with all the TimeZoneConventional variables associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromIANAOnlyEnum(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns a list with all the TimeZoneConventionalEnum variables associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromUTC(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns a list with all the TimeZoneConventional variables associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromUTCOnlyEnum(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns a list with all the TimeZoneConventionalEnum variables associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromWindows(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns a list with all the TimeZoneConventional variables associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromWindowsOnlyEnum(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns a list with all the TimeZoneConventionalEnum variables associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromMilitary(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns a list with all the TimeZoneConventional variables associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneConventional.FromMilitaryOnlyEnum(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns a list with all the TimeZoneConventionalEnum variables associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
         </member>
         <member name="M:FlexibleParser.TimeZoneConventional.CompareTo(FlexibleParser.TimeZoneConventional)">
             <summary><para>Compares the current instance against another TimeZoneConventional one.</para></summary>
@@ -5028,6 +5525,62 @@
         <member name="F:FlexibleParser.TimeZoneIANAEnum.Pacific_Ponape">
             <summary><para>Pacific/Ponape.</para></summary>
         </member>
+        <member name="T:FlexibleParser.TimeZoneIANA">
+            <summary><para>Class dealing with IANA timezones.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.#ctor(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Initialises a new TimeZoneIANA instance.</para></summary>
+            <param name="iana">TimeZoneIANA variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.#ctor(System.TimeZoneInfo)">
+            <summary><para>Initialises a new TimeZoneIANA instance.</para></summary>
+            <param name="timeZoneInfo">TimeZoneInfo variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.#ctor(System.String)">
+            <summary><para>Initialises a new TimeZoneIANA instance.</para></summary>
+            <param name="input">IANA timezone information to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.#ctor(FlexibleParser.TimeZoneIANAEnum)">
+            <summary><para>Initialises a new TimeZoneConventional instance.</para></summary>
+            <param name="ianaEnum">TimeZoneIANAEnum variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromOfficial(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns a list with all the TimeZoneIANA variables associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromOfficialOnlyEnum(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns a list with all the TimeZoneIANAEnum variables associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromConventional(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns a list with all the TimeZoneIANA variables associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromConventionalOnlyEnum(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns a list with all the TimeZoneIANAEnum variables associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromUTC(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns a list with all the TimeZoneIANA variables associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromUTCOnlyEnum(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns a list with all the TimeZoneIANAEnum variables associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromWindows(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns a list with all the TimeZoneIANA variables associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneIANA.FromWindowsOnlyEnum(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns a list with all the TimeZoneIANAEnum variables associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FlexibleParser.TimeZoneIANA.FromMilitary(FlexibleParser.TimeZoneMilitary)" -->
+        <member name="M:FlexibleParser.TimeZoneIANA.FromMilitaryOnlyEnum(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns a list with all the TimeZoneIANAEnum variables associated with the input military timezone.</para></summary>
+            <param name="militar">TimeZoneMilitar variable to be considered.</param>
+        </member>
         <member name="M:FlexibleParser.TimeZoneIANA.CompareTo(FlexibleParser.TimeZoneIANA)">
             <summary><para>Compares the current instance against another TimeZoneIANA one.</para></summary>
             <param name="other">The other TimeZoneIANA instance.</param>
@@ -5068,6 +5621,41 @@
         <member name="M:FlexibleParser.TimeZoneIANA.GetHashCode">
             <summary><para>Returns the hash code for this TimeZoneIANA variable.</para></summary>
         </member>
+        <member name="T:FlexibleParser.TimeZoneMilitary">
+            <summary><para>Class dealing with military timezones.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromOfficial(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns the TimeZoneMilitary variable associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromOfficialOnlyEnum(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns the TimeZoneMilitaryEnum variable associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromConventional(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns the TimeZoneMilitary variable associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromConventionalOnlyEnum(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns the TimeZoneMilitaryEnum variable associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromUTC(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns the TimeZoneMilitary variable associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromUTCOnlyEnum(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns the TimeZoneMilitaryEnum variable associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromWindows(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns the TimeZoneMilitary variable associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.FromWindowsOnlyEnum(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns the TimeZoneMilitaryEnum variable associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
         <member name="M:FlexibleParser.TimeZoneMilitary.CompareTo(FlexibleParser.TimeZoneMilitary)">
             <summary><para>Compares the current instance against another TimeZoneMilitary one.</para></summary>
             <param name="other">The other TimeZoneMilitary instance.</param>
@@ -5107,6 +5695,22 @@
         </member>
         <member name="M:FlexibleParser.TimeZoneMilitary.GetHashCode">
             <summary><para>Returns the hash code for this TimeZoneMilitary variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.#ctor(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Initialises a new TimeZoneMilitary instance.</para></summary>
+            <param name="military">TimeZoneMilitary variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.#ctor(System.TimeZoneInfo)">
+            <summary><para>Initialises a new TimeZoneMilitary instance.</para></summary>
+            <param name="timeZoneInfo">TimeZoneInfo variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.#ctor(System.String)">
+            <summary><para>Initialises a new TimeZoneMilitary instance.</para></summary>
+            <param name="input">Military timezone information to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneMilitary.#ctor(FlexibleParser.TimeZoneMilitaryEnum)">
+            <summary><para>Initialises a new TimeZoneMilitary instance.</para></summary>
+            <param name="military">TimeZoneMilitaryEnum variable to be used.</param>
         </member>
         <member name="T:FlexibleParser.TimeZoneOfficialEnum">
             <summary><para>All the official timezones.</para></summary>
@@ -5630,6 +6234,9 @@
         <member name="F:FlexibleParser.TimeZoneOfficialEnum.Yekaterinburg_Time">
             <summary><para>Yekaterinburg Time (YEKT) -- UTC +05:00.</para></summary>
         </member>
+        <member name="T:FlexibleParser.TimeZoneOfficial">
+            <summary><para>Class dealing with official timezones.</para></summary>
+        </member>
         <member name="M:FlexibleParser.TimeZoneOfficial.CompareTo(FlexibleParser.TimeZoneOfficial)">
             <summary><para>Compares the current instance against another TimeZoneOfficial one.</para></summary>
             <param name="other">The other TimeZoneOfficial instance.</param>
@@ -5669,6 +6276,62 @@
         </member>
         <member name="M:FlexibleParser.TimeZoneOfficial.GetHashCode">
             <summary><para>Returns the hash code for this TimeZoneOfficial variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.#ctor(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Initialises a new TimeZoneOfficial instance.</para></summary>
+            <param name="official">TimeZoneOfficial variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.#ctor(System.TimeZoneInfo)">
+            <summary><para>Initialises a new TimeZoneOfficial instance.</para></summary>
+            <param name="timeZoneInfo">TimeZoneInfo variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.#ctor(System.String)">
+            <summary><para>Initialises a new TimeZoneOfficial instance.</para></summary>
+            <param name="input">Official timezone information to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.#ctor(FlexibleParser.TimeZoneOfficialEnum)">
+            <summary><para>Initialises a new TimeZoneOfficial instance.</para></summary>
+            <param name="officialEnum">TimeZoneOfficialEnum variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromIANA(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns a list with all the TimeZoneOfficial variables associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromIANAOnlyEnum(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns a list with all the TimeZoneOfficialEnum variables associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromConventional(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns a list with all the TimeZoneOfficial variables associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromConventionalOnlyEnum(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns a list with all the TimeZoneOfficialEnum variables associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromUTC(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns a list with all the TimeZoneOfficial variables associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromUTCOnlyEnum(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns a list with all the TimeZoneOfficialEnum variables associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromWindows(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns a list with all the TimeZoneOfficial variables associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromWindowsOnlyEnum(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns a list with all the TimeZoneOfficialEnum variables associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromMilitary(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns a list with all the TimeZoneOfficial variables associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneOfficial.FromMilitaryOnlyEnum(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns a list with all the TimeZoneOfficialEnum variables associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
         </member>
         <member name="T:FlexibleParser.TimeZoneMilitaryEnum">
             <summary><para>All the military timezones.</para></summary>
@@ -5751,6 +6414,46 @@
         <member name="F:FlexibleParser.TimeZoneMilitaryEnum.Zulu">
             <summary><para>Zulu (Z) -- UTC +00:00.</para></summary>
         </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromOfficial(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns the TimeZoneUTC variable associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromOfficialOnlyEnum(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns the TimeZoneUTCEnum variable associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromIANA(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns the TimeZoneUTC variable associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromIANAOnlyEnum(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns the TimeZoneUTCEnum variable associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromConventional(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns the TimeZoneUTC variable associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromConventionalOnlyEnum(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns the TimeZoneUTCEnum variable associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromWindows(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns the TimeZoneUTC variable associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromWindowsOnlyEnum(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Returns the TimeZoneUTCEnum variable associated with the input Windows timezone.</para></summary>
+            <param name="windows">TimeZoneWindows variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromMilitary(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns the TimeZoneUTC variable associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.FromMilitaryOnlyEnum(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns the TimeZoneUTCEnum variable associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
+        </member>
         <member name="M:FlexibleParser.TimeZoneUTC.CompareTo(FlexibleParser.TimeZoneUTC)">
             <summary><para>Compares the current instance against another TimeZoneUTC one.</para></summary>
             <param name="other">The other TimeZoneUTC instance.</param>
@@ -5790,6 +6493,22 @@
         </member>
         <member name="M:FlexibleParser.TimeZoneUTC.GetHashCode">
             <summary><para>Returns the hash code for this TimeZoneUTC variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.#ctor(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+            <param name="utc">TimeZoneUTC variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.#ctor(System.TimeZoneInfo)">
+            <summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+            <param name="timeZoneInfo">TimeZoneInfo variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.#ctor(System.String)">
+            <summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+            <param name="input">UTC timezone information to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneUTC.#ctor(FlexibleParser.TimeZoneUTCEnum)">
+            <summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+            <param name="utcEnum">TimeZoneUTCEnum variable to be used.</param>
         </member>
         <member name="T:FlexibleParser.TimeZoneUTCEnum">
             <summary><para>All the UTC timezones.</para></summary>
@@ -5959,6 +6678,62 @@
         </member>
         <member name="M:FlexibleParser.TimeZoneWindows.GetHashCode">
             <summary><para>Returns the hash code for this TimeZoneWindows variable.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.#ctor(FlexibleParser.TimeZoneWindows)">
+            <summary><para>Initialises a new TimeZoneWindows instance.</para></summary>
+            <param name="windows">TimeZoneWindows variable whose information will be used.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.#ctor(System.TimeZoneInfo)">
+            <summary><para>Initialises a new TimeZoneWindows instance.</para></summary>
+            <param name="timeZoneInfo">TimeZoneInfo variable associated with the current instance.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.#ctor(System.String)">
+            <summary><para>Initialises a new TimeZoneWindows instance.</para></summary>
+            <param name="input">Windows timezone information to be parsed.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.#ctor(FlexibleParser.TimeZoneWindowsEnum)">
+            <summary><para>Initialises a new TimeZoneWindows instance.</para></summary>
+            <param name="windowsEnum">TimeZoneWindowsEnum variable to be used.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromOfficial(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns the TimeZoneWindows variable associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromOfficialOnlyEnum(FlexibleParser.TimeZoneOfficial)">
+            <summary><para>Returns the TimeZoneWindowsEnum variable associated with the input official timezone.</para></summary>
+            <param name="official">TimeZoneOfficial variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromIANA(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns the TimeZoneWindows variable associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromIANAOnlyEnum(FlexibleParser.TimeZoneIANA)">
+            <summary><para>Returns the TimeZoneWindowsEnum variable associated with the input IANA timezone.</para></summary>
+            <param name="iana">TimeZoneIANA variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromConventional(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns the TimeZoneWindows variable associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromConventionalOnlyEnum(FlexibleParser.TimeZoneConventional)">
+            <summary><para>Returns the TimeZoneWindowsEnum variable associated with the input conventional timezone.</para></summary>
+            <param name="conventional">TimeZoneConventional variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromUTC(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns the TimeZoneWindows variable associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromUTCOnlyEnum(FlexibleParser.TimeZoneUTC)">
+            <summary><para>Returns the TimeZoneWindowsEnum variable associated with the input UTC timezone.</para></summary>
+            <param name="utc">TimeZoneUTC variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromMilitary(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns the TimeZoneWindows variable associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneWindows.FromMilitaryOnlyEnum(FlexibleParser.TimeZoneMilitary)">
+            <summary><para>Returns the TimeZoneWindowsEnum variable associated with the input military timezone.</para></summary>
+            <param name="military">TimeZoneMilitary variable to be considered.</param>
         </member>
         <member name="T:FlexibleParser.TimeZoneWindowsEnum">
             <summary><para>All the Windows timezones.</para></summary>

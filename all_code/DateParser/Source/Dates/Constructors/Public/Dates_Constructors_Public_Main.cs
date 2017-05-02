@@ -95,17 +95,22 @@ namespace FlexibleParser
         ParseError,
         ///<summary><para>Invalid input.</para></summary>
         InvalidInput
-    } 
+    }
 
+    ///<summary><para>Class dealing with all the functionalities extracting date/time information from strings.</para></summary>
     public partial class DateP
     {
+        ///<summary><para>Input string containing the date/time information to be parsed.</para></summary>
         public readonly string InitialInput;
+        ///<summary><para>CustomDateTimeFormat/StandardDateTimeFormat variable to be used.</para></summary>
         public readonly DateTimeFormat Format;
+        ///<summary><para>Error associated with the current instance.</para></summary>
         public readonly ErrorDateEnum Error;
         
         private bool NoUpdates;
         
         private DateTime _Value { get; set; }
+        ///<summary><para>DateTime variable associated with the current instance.</para></summary>
         public DateTime Value
         {
             get { return _Value; }
@@ -126,6 +131,7 @@ namespace FlexibleParser
         }
 
         private int _Year { get; set; }
+        ///<summary><para>Year of the date associated with the current instance.</para></summary>
         public int Year
         {
             get { return _Year; }
@@ -139,7 +145,6 @@ namespace FlexibleParser
                 if (temp != null)
                 {
                     _Year = temp.Vars[0];
-
                     if (!NoUpdates)
                     {
                         Value = temp.Vars[1];
@@ -149,6 +154,7 @@ namespace FlexibleParser
         }
 
         private Months _Month { get; set; }
+        ///<summary><para>Month of the date associated with the current instance.</para></summary>
         public Months Month
         {
             get { return _Month; }
@@ -172,6 +178,7 @@ namespace FlexibleParser
         }
 
         private DayOfWeek _Week { get; set; }
+        ///<summary><para>Day of the week of the date associated with the current instance.</para></summary>
         public DayOfWeek Week
         {
             get { return _Week; }
@@ -195,6 +202,7 @@ namespace FlexibleParser
         }
 
         private int _Day { get; set; }
+        ///<summary><para>Day of the date associated with the current instance.</para></summary>
         public int Day
         {
             get { return _Day; }
@@ -218,6 +226,7 @@ namespace FlexibleParser
         }
 
         private int _Hour { get; set; }
+        ///<summary><para>Hour of the time associated with the current instance.</para></summary>
         public int Hour
         {
             get { return _Hour; }
@@ -241,6 +250,7 @@ namespace FlexibleParser
         }
 
         private int _Minute { get; set; }
+        ///<summary><para>Minute of the time associated with the current instance.</para></summary>
         public int Minute
         {
             get { return _Minute; }
@@ -264,6 +274,7 @@ namespace FlexibleParser
         }
 
         private int _Second { get; set; }
+        ///<summary><para>Second of the time associated with the current instance.</para></summary>
         public int Second
         {
             get { return _Second; }
@@ -287,6 +298,7 @@ namespace FlexibleParser
         }
 
         private int _Millisecond { get; set; }
+        ///<summary><para>Millisecond of the time associated with the current instance.</para></summary>
         public int Millisecond
         {
             get { return _Millisecond; }
@@ -310,6 +322,7 @@ namespace FlexibleParser
         }
 
         private Offset _TimeZoneOffset { get; set; }
+        ///<summary><para>Offset of the timezone associated with the current instance.</para></summary>
         public Offset TimeZoneOffset
         {
             get { return _TimeZoneOffset; }
@@ -327,6 +340,9 @@ namespace FlexibleParser
             }
         }
 
+        ///<summary><para>Initialises a new DateP instance.</para></summary>
+        ///<param name="dateP">DateP variable whose information will be used.</param>
+        ///<param name="offset">Offset variable to be used.</param>
         public DateP(DateP dateP, Offset offset = null) : this
         (
             (
@@ -337,6 +353,9 @@ namespace FlexibleParser
         ) 
         { }
 
+        ///<summary><para>Initialises a new DateP instance.</para></summary>
+        ///<param name="dateTime">DateTime variable whose information will be used.</param>
+        ///<param name="offset">Offset variable to be used.</param>
         public DateP(DateTime dateTime, Offset offset = null)
         {
             DatePInternal datePInternal = new DatePInternal(dateTime);
@@ -348,8 +367,15 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Initialises a new DateP instance.</para></summary>
+        ///<param name="inputString">String containing the date/time information to be parsed.</param>
+        ///<param name="offset">Offset variable to be used.</param>
         public DateP(string inputString, Offset offset = null) : this(inputString, null, offset) { }
 
+        ///<summary><para>Initialises a new DateP instance.</para></summary>
+        ///<param name="inputString">String containing the date/time information to be parsed.</param>
+        ///<param name="dateTimeFormat">CustomDateTimeFormat/StandardDateTimeFormat variable to be used.</param>
+        ///<param name="offset">Offset variable to be used.</param>
         public DateP(string inputString, DateTimeFormat dateTimeFormat, Offset offset = null)
         {
             if (inputString == null || inputString.Trim().Length < 1)

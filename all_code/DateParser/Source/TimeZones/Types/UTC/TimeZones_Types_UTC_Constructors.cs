@@ -6,21 +6,39 @@ namespace FlexibleParser
     {
         private static bool Populated = TimeZonesInternal.StartTimezones();
 
+        ///<summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+        ///<param name="utc">TimeZoneUTC variable whose information will be used.</param>
+        public TimeZoneUTC(TimeZoneUTC utc) : this
+        (
+            (TimeZoneUTCEnum)
+            (
+                utc == null || utc.Error != ErrorTimeZoneEnum.None ? 
+                TimeZoneUTCEnum.None : utc.Value
+            )
+        ) 
+        { }
+
+        ///<summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+        ///<param name="timeZoneInfo">TimeZoneInfo variable associated with the current instance.</param>
         public TimeZoneUTC(TimeZoneInfo timeZoneInfo) : base(timeZoneInfo, typeof(TimeZoneUTCEnum)) { }
 
+        ///<summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+        ///<param name="input">UTC timezone information to be parsed.</param>
         public TimeZoneUTC(string input) : base(input, typeof(TimeZoneUTCEnum)) { }
 
-        public TimeZoneUTC(TimeZoneUTCEnum utc) : base
+        ///<summary><para>Initialises a new TimeZoneUTC instance.</para></summary>
+        ///<param name="utcEnum">TimeZoneUTCEnum variable to be used.</param>
+        public TimeZoneUTC(TimeZoneUTCEnum utcEnum) : base
         (
-            TimeZonesInternal.AllNames[utc], TimeZonesInternal.GetEnumItemAbbreviation
+            TimeZonesInternal.AllNames[utcEnum], TimeZonesInternal.GetEnumItemAbbreviation
             (
-                utc, typeof(TimeZoneUTCEnum)
+                utcEnum, typeof(TimeZoneUTCEnum)
             ),
             TimeZonesInternal.GetEnumItemOffset
             (
-                utc, typeof(TimeZoneUTCEnum)
-            ), 
-            utc
+                utcEnum, typeof(TimeZoneUTCEnum)
+            ),
+            utcEnum
         )
         { }
     }

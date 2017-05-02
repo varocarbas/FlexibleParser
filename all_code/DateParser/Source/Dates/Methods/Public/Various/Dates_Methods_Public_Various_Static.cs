@@ -4,6 +4,8 @@ namespace FlexibleParser
 {
     public partial class DateP
     {
+        ///<summary><para>Returns the string variable which is associated with the DateParts input in the CustomDateTimeFormat pattern.</para></summary>
+        ///<param name="part">DateParts variable to be used.</param>
         public static string GetCustomKeywordFromDatePart(DateParts part)
         {
             return
@@ -15,6 +17,8 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Returns the string variable which is associated with the TimeParts input in the CustomDateTimeFormat pattern.</para></summary>
+        ///<param name="part">TimeParts variable to be used.</param>
         public static string GetCustomKeywordFromTimePart(TimeParts part)
         {
             return
@@ -26,6 +30,8 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Returns the string variable which is associated with the DateTimeParts input in the CustomDateTimeFormat pattern.</para></summary>
+        ///<param name="part">DateTimeParts variable to be used.</param>
         public static string GetCustomKeywordFromDateTimePart(DateTimeParts part)
         {
             return
@@ -38,6 +44,8 @@ namespace FlexibleParser
             );
         }
 
+        ///<summary><para>Returns the DateTimeParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+        ///<param name="keyword">String variable to be used.</param>
         public static DateTimeParts GetDateTimePartFromCustomKeyword(string keyword)
         {
             return
@@ -50,7 +58,8 @@ namespace FlexibleParser
             );  
         }
 
-
+        ///<summary><para>Returns the DateParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+        ///<param name="keyword">String variable to be used.</param>
         public static DateParts GetDatePartFromCustomKeyword(string keyword)
         {
             if (!DatesInternal.InputIsOK(keyword))
@@ -68,6 +77,8 @@ namespace FlexibleParser
             .Key;
         }
 
+        ///<summary><para>Returns the TimeParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+        ///<param name="keyword">String variable to be used.</param>
         public static TimeParts GetTimePartFromCustomKeyword(string keyword)
         {
             if (!DatesInternal.InputIsOK(keyword))
@@ -85,6 +96,8 @@ namespace FlexibleParser
             .Key;
         }
 
+        ///<summary><para>Returns the DateTimeParts variable which is associated with the string input in the CustomDateTimeFormat pattern.</para></summary>
+        ///<param name="keyword">String variable to be used.</param>
         private static DateTimeParts GetDateTimePartFromCustomKeywordInternal(string keyword)
         {
             if (!DatesInternal.InputIsOK(keyword))
