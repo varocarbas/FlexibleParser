@@ -12,7 +12,6 @@ namespace FlexibleParser
         //https://www.timeanddate.com/.
         //NOTE: some of the members of the TimeZoneOfficialEnum refer to obsolete or currently-not-used-in-any-country timezones.
         //That's why the associated dictionary doesn't account for all the items of the aforementioned enum.
-
         public static void PopulateMainDictionary()
         {
             CountryOfficials_Temp = new Dictionary<CountryEnum, List<KeyValuePair<TimeZoneOfficial, TimeZoneOfficial>>>();

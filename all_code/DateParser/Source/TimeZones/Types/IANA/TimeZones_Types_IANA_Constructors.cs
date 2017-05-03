@@ -13,7 +13,8 @@ namespace FlexibleParser
         (
             (TimeZoneIANAEnum)
             (
-                iana == null || iana.Error != ErrorTimeZoneEnum.None ? TimeZoneIANAEnum.None : iana.Value
+                iana == null || iana.Error != ErrorTimeZoneEnum.None ? 
+                TimeZoneIANAEnum.None : iana.Value
             )
         ) 
         { }
@@ -30,15 +31,7 @@ namespace FlexibleParser
         ///<param name="ianaEnum">TimeZoneIANAEnum variable to be used.</param>
         public TimeZoneIANA(TimeZoneIANAEnum ianaEnum) : base
         (
-            TimeZonesInternal.AllNames[ianaEnum], TimeZonesInternal.GetEnumItemAbbreviation
-            (
-                ianaEnum, typeof(TimeZoneIANAEnum)
-            ),
-            TimeZonesInternal.GetEnumItemOffset
-            (
-                ianaEnum, typeof(TimeZoneIANAEnum)
-            ),
-            ianaEnum
+            ianaEnum, typeof(TimeZoneIANAEnum)
         )
         { }
     }

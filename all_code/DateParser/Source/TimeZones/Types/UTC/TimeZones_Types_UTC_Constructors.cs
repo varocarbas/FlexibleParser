@@ -31,15 +31,7 @@ namespace FlexibleParser
         ///<param name="utcEnum">TimeZoneUTCEnum variable to be used.</param>
         public TimeZoneUTC(TimeZoneUTCEnum utcEnum) : base
         (
-            TimeZonesInternal.AllNames[utcEnum], TimeZonesInternal.GetEnumItemAbbreviation
-            (
-                utcEnum, typeof(TimeZoneUTCEnum)
-            ),
-            TimeZonesInternal.GetEnumItemOffset
-            (
-                utcEnum, typeof(TimeZoneUTCEnum)
-            ),
-            utcEnum
+            utcEnum, typeof(TimeZoneUTCEnum)
         )
         { }
     }

@@ -31,15 +31,7 @@ namespace FlexibleParser
         ///<param name="windowsEnum">TimeZoneWindowsEnum variable to be used.</param>
         public TimeZoneWindows(TimeZoneWindowsEnum windowsEnum) : base
         (
-            TimeZonesInternal.AllNames[windowsEnum], TimeZonesInternal.GetEnumItemAbbreviation
-            (
-                windowsEnum, typeof(TimeZoneWindowsEnum)
-            ),
-            TimeZonesInternal.GetEnumItemOffset
-            (
-                windowsEnum, typeof(TimeZoneWindowsEnum)
-            ),
-            windowsEnum
+            windowsEnum, typeof(TimeZoneWindowsEnum)
         )
         { }
     }

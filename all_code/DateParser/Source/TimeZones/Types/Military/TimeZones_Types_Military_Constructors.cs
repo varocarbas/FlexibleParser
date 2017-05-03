@@ -13,7 +13,8 @@ namespace FlexibleParser
         (
             (TimeZoneMilitaryEnum)
             (
-                military == null || military.Error != ErrorTimeZoneEnum.None ? TimeZoneMilitaryEnum.None : military.Value
+                military == null || military.Error != ErrorTimeZoneEnum.None ? 
+                TimeZoneMilitaryEnum.None : military.Value
             )
         ) 
         { }
@@ -30,15 +31,7 @@ namespace FlexibleParser
         ///<param name="militaryEnum">TimeZoneMilitaryEnum variable to be used.</param>
         public TimeZoneMilitary(TimeZoneMilitaryEnum militaryEnum) : base
         (
-            TimeZonesInternal.AllNames[militaryEnum], TimeZonesInternal.GetEnumItemAbbreviation
-            (
-                militaryEnum, typeof(TimeZoneMilitaryEnum)
-            ),
-            TimeZonesInternal.GetEnumItemOffset
-            (
-                militaryEnum, typeof(TimeZoneMilitaryEnum)
-            ),
-            militaryEnum
+            militaryEnum, typeof(TimeZoneMilitaryEnum)
         )
         { } 
     }

@@ -36,13 +36,27 @@ namespace FlexibleParser
                 IANATimeZones = new TimeZoneIANAEnum[] { TimeZoneIANAEnum.None };
                 return;
             }
+
             ConventionalName = name;
-            ConventionalTimeZones = TimeZoneConventionalInternal.GetConventionalTimezonesFromString(ConventionalName);
             UTCTimeZone = timezoneUTC;
             OfficialTimeZones = TimeZoneOfficialInternal.GetOfficialTimezonesFromUTC(UTCTimeZone);
-            IANATimeZones = ianaZones;
             WindowsTimeZone = windowsZone;
             MilitaryTimeZone = TimeZoneMilitaryInternal.GetMilitaryTimeZoneFromUTC(UTCTimeZone);
+
+            if 
+            (
+                windowsZone == TimeZoneWindowsEnum.Mid_Atlantic_Standard_Time || 
+                windowsZone == TimeZoneWindowsEnum.Kamchatka_Standard_Time
+            )
+            {
+                ConventionalTimeZones = new TimeZoneConventionalEnum[] { };
+                IANATimeZones = new TimeZoneIANAEnum[] { };
+            }
+            else
+            {
+                ConventionalTimeZones = TimeZoneConventionalInternal.GetConventionalTimezonesFromString(ConventionalName);
+                IANATimeZones = ianaZones;
+            }
         }
 
         //This constructor is exclusively meant to be used with unmapped (i.e., with a Windows timezone equivalence) UTC timezones.
@@ -127,11 +141,15 @@ namespace FlexibleParser
             {
                 foreach (var item in Enum.GetValues(type))
                 {
-                    yield return new KeyValuePair<dynamic, string>
+                    yield return
                     (
-                        item, TimeZonesInternal.GetEnumItemName
+                        EnumIsNothing(item) ? new KeyValuePair<dynamic, string>
                         (
-                            item, type
+                            item, "None"
+                        ) 
+                        : new KeyValuePair<dynamic, string>
+                        (
+                            item, GetEnumItemName(item, type)
                         )
                     );
                 }
@@ -1271,6 +1289,14 @@ namespace FlexibleParser
             );
 
             AddTimezoneMappingItem();
+            AddTimezoneMappingItem
+            (
+                "Mid-Atlantic Standard Time", -2m, TimeZoneWindowsEnum.Mid_Atlantic_Standard_Time
+            );
+            AddTimezoneMappingItem
+            (
+                "Kamchatka Standard Time", 12m, TimeZoneWindowsEnum.Kamchatka_Standard_Time
+            );
             AddUnmappedUTC();
 
 

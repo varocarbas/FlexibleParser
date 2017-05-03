@@ -27,8 +27,8 @@
             (
                 (
                     standardFormat.Patterns == null || standardFormat.Patterns.Length < 1 ?
-                    this.Value.ToString(standardFormat.FormatProvider) :
-                    this.Value.ToString(standardFormat.Patterns[0])
+                    Value.ToString(standardFormat.FormatProvider) :
+                    Value.ToString(standardFormat.Patterns[0])
                 ),
                 this
             );
@@ -42,7 +42,7 @@
             (
                 (
                     customFormat == null ? ToString() :
-                    DatesInternal.ToStringCustomFormat(this.Value, customFormat)
+                    DatesInternal.ToStringCustomFormat(Value, customFormat)
                 ),
                 this
             );

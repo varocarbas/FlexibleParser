@@ -24,7 +24,7 @@ namespace FlexibleParser
         {
             return TimeZoneUTCInternal.GetTimeZoneUTCFromDecimalOffset
             (
-                this.DecimalOffset
+                DecimalOffset
             );
         }
     }

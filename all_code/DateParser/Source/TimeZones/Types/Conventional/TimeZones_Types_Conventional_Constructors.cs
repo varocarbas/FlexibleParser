@@ -31,15 +31,7 @@ namespace FlexibleParser
         ///<param name="conventionalEnum">TimeZoneConventionalEnum variable to be used.</param>
         public TimeZoneConventional(TimeZoneConventionalEnum conventionalEnum) : base
         (
-            TimeZonesInternal.AllNames[conventionalEnum], TimeZonesInternal.GetEnumItemAbbreviation
-            (
-                conventionalEnum, typeof(TimeZoneConventionalEnum)
-            ),
-            TimeZonesInternal.GetEnumItemOffset
-            (
-                conventionalEnum, typeof(TimeZoneConventionalEnum)
-            ),
-            conventionalEnum
+            conventionalEnum, typeof(TimeZoneConventionalEnum)
         )
         { }
     }

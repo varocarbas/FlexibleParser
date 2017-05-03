@@ -8,7 +8,7 @@ namespace FlexibleParser
     {
         private static Dictionary<string, string> WindowsSpecialReplace = new Dictionary<string, string>()
         {
-             { "(Mexico)", "Mexico" }, { "-", "_" }
+             { "(Mexico)", "Mexico" }, { "-", "_" }, { "Mid ", "Mid-" }
         };
 
         private static Dictionary<string, string> WindowsSpecialIndividualReplace = new Dictionary<string, string>()

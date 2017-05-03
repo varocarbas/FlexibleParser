@@ -16,7 +16,7 @@ namespace FlexibleParser
             { "Brussels", "Brussels, Copenhagen, Madrid, Paris" }, { "Sarajevo", "Sarajevo, Skopje, Warsaw, Zagreb" }, 
             { "Athens", "Athens, Bucharest" }, { "Gaza", "Gaza, Hebron" }, { "Harare", "Harare, Pretoria" },
             { "Helsinki", "Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius" }, { "Kuwait", "Kuwait, Riyadh" },
-            { "Moscow", "Moscow, St. Petersburg, Volgogradh" }, { "Abu Dhabi", "Abu Dhabi, Muscat" },
+            { "Moscow", "Moscow, St. Petersburg, Volgograd" }, { "Abu Dhabi", "Abu Dhabi, Muscat" },
             { "Astrakhan", "Astrakhan, Ulyanovsk" }, { "Izhevsk", "Izhevsk, Samara" },
             { "Ashgabat", "Ashgabat, Tashkent" }, { "Islamabad", "Islamabad, Karachi" },
             { "Chennai", "Chennai, Kolkata, Mumbai, New Delhi" }, { "Yangon", "Yangon (Rangoon)" },

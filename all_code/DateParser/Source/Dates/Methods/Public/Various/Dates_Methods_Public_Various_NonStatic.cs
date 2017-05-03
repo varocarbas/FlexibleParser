@@ -8,7 +8,7 @@
         {
             if (offset == null) return this;
 
-            this.TimeZoneOffset = offset;
+            TimeZoneOffset = offset;
 
             return this;
         }

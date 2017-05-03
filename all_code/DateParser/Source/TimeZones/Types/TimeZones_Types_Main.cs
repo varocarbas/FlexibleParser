@@ -83,12 +83,25 @@ namespace FlexibleParser
             }
         }
 
-        internal TimeZoneType(string name, string abbreviation, Offset offset, dynamic value)
+        internal TimeZoneType(dynamic enumItem, Type type)
         {
-            Name = name;
-            Abbreviation = abbreviation;
-            Offset = offset;
-            Value = value;
+            if (TimeZonesInternal.EnumIsNothing(enumItem))
+            {
+                Value = enumItem;
+                Error = ErrorTimeZoneEnum.InvalidTimeZone;
+                return;
+            }
+
+            Name = TimeZonesInternal.AllNames[enumItem];
+            Abbreviation = TimeZonesInternal.GetEnumItemAbbreviation
+            (
+                enumItem, type
+            );
+            Offset = TimeZonesInternal.GetEnumItemOffset
+            (
+                enumItem, type
+            );
+            Value = enumItem;
             TimeZoneInfo = TimeZoneTypeInternal.GetTimeZoneInfo(Value);
 
             if (Offset == null)

@@ -11,7 +11,7 @@ namespace FlexibleParser
             if (input == null) return "None";
             
             string input2 = Common.PerformFirstStringChecks(input);
-            if (input2.Length < 1 || input2 == "none"|| !TimeZonesInternal.TimeZoneEnumTypes.Contains(type))
+            if (input2.Length < 1 || input2 == "none"|| !TimeZoneEnumTypes.Contains(type))
             {
                 return "None";
             }
@@ -140,17 +140,17 @@ namespace FlexibleParser
         {
             if (type == typeof(TimeZoneOfficialEnum))
             {
-                return TimeZonesInternal.CorrectOfficialSpecial(outString, fromEnum);
+                return CorrectOfficialSpecial(outString, fromEnum);
             }
 
             if (type == typeof(TimeZoneConventionalEnum))
             {
-                return TimeZonesInternal.CorrectConventionalSpecial(outString, fromEnum);
+                return CorrectConventionalSpecial(outString, fromEnum);
             }
 
             if (type == typeof(TimeZoneWindowsEnum))
             {
-                return TimeZonesInternal.CorrectWindowsSpecial(outString, fromEnum);
+                return CorrectWindowsSpecial(outString, fromEnum);
             }
 
             return outString;

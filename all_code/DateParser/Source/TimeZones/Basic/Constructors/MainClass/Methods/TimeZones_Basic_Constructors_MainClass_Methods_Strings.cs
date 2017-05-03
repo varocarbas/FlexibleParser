@@ -95,7 +95,7 @@ namespace FlexibleParser
 
         internal static dynamic AnalyseEnumNames(string input2, Type target = null)
         {
-            input2 = TimeZonesInternal.CorrectEnumString
+            input2 = CorrectEnumString
             (
                 input2, typeof(TimeZoneWindowsEnum), false
             );
@@ -106,6 +106,17 @@ namespace FlexibleParser
                 new List<Type>() { target }
             );
 
+            var temp = CheckInputAsAWhole(input2, types);
+            if (temp != null) return temp;
+
+            return CheckInputWords(input2, types);
+        }
+
+        //The timezone-type-enum values show the exact name of the given timezone, but some characters have
+        //to be replaced. This method tries to directly parse the input (i.e., a perfect match is expected)
+        //after performing the corresponding replacements.
+        private static dynamic CheckInputAsAWhole(string input2, List<Type> types)
+        {
             foreach (Type type in types)
             {
                 dynamic output = ParseStringToEnum(input2, type);
@@ -113,6 +124,56 @@ namespace FlexibleParser
             }
 
             return null;
+        }
+
+        //CheckInputAsAWhole might not detect many input scenarios despite being clearly associated with a 
+        //specific timezone. That's why this slower word-by-word approach has also to be used.
+        private static dynamic CheckInputWords(string input2, List<Type> types)
+        {
+            string[] words2 = Common.GetWordsInString
+            (
+                Common.PerformFirstStringChecks(input2)
+            );
+
+            foreach (Type type in types)
+            {
+                foreach (var item in Enum.GetValues(type))
+                {
+                    if (EnumIsNothing(item)) continue;
+
+                    string[] itemWords = Common.GetWordsInString
+                    (
+                        Common.PerformFirstStringChecks(item.ToString())
+                    );
+
+                    var remainings = itemWords.Except(words2);
+                    if (remainings.Count() == 0) return item;
+                    if (remainings.Count() < 3)
+                    {
+                        if (CheckInputWordsRemainingIsOK(remainings))
+                        {
+                            return item;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static string[] OKToRemain = new string[]
+        {
+            "the", "of", "at", "in", "for", "a", "an", "or", "on", "with"
+        };
+
+        private static bool CheckInputWordsRemainingIsOK(IEnumerable<string> remainings)
+        {
+            foreach (string remaining in remainings)
+            {
+                if (!OKToRemain.Contains(remaining)) return false;
+            }
+
+            return true;
         }
 
         private static dynamic ParseStringToEnum(string input2, Type type)

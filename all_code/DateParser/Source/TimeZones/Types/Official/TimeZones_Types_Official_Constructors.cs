@@ -13,7 +13,8 @@ namespace FlexibleParser
         (
             (TimeZoneOfficialEnum)
             (
-                official == null || official.Error != ErrorTimeZoneEnum.None ? TimeZoneOfficialEnum.None : official.Value
+                official == null || official.Error != ErrorTimeZoneEnum.None ? 
+                TimeZoneOfficialEnum.None : official.Value
             )
         ) 
         { }
@@ -30,15 +31,7 @@ namespace FlexibleParser
         ///<param name="officialEnum">TimeZoneOfficialEnum variable to be used.</param>
         public TimeZoneOfficial(TimeZoneOfficialEnum officialEnum) : base
         (
-            TimeZonesInternal.AllNames[officialEnum], TimeZonesInternal.GetEnumItemAbbreviation
-            (
-                officialEnum, typeof(TimeZoneOfficialEnum)
-            ),
-            TimeZonesInternal.GetEnumItemOffset
-            (
-                officialEnum, typeof(TimeZoneOfficialEnum)
-            ), 
-            officialEnum
+            officialEnum, typeof(TimeZoneOfficialEnum)
         )
         { }
     }

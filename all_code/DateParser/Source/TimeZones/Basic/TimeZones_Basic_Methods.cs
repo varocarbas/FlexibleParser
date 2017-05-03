@@ -19,7 +19,6 @@ namespace FlexibleParser
                 return utc;
             }
 
-
             string output = timeZone.Name;
             if (timeZone.Abbreviation != null)
             {
@@ -185,42 +184,42 @@ namespace FlexibleParser
         {
             if (type == typeof(TimeZoneOfficialEnum))
             {
-                return TimeZonesInternal.AllTimezonesInternal.Where
+                return AllTimezonesInternal.Where
                 (
                     x => x.OfficialTimeZones.Any(y => y == input)
                 );
             }
             else if (type == typeof(TimeZoneIANAEnum))
             {
-                return TimeZonesInternal.AllTimezonesInternal.Where
+                return AllTimezonesInternal.Where
                 (
                     x => x.IANATimeZones.Any(y => y == input)
                 );
             }
             else if (type == typeof(TimeZoneConventionalEnum))
             {
-                return TimeZonesInternal.AllTimezonesInternal.Where
+                return AllTimezonesInternal.Where
                 (
                     x => x.ConventionalTimeZones.Any(y => y == input)
                 );
             }
             else if (type == typeof(TimeZoneUTCEnum))
             {
-                return TimeZonesInternal.AllTimezonesInternal.Where
+                return AllTimezonesInternal.Where
                 (
                     x => x.UTCTimeZone == input
                 );
             }
             else if (type == typeof(TimeZoneWindowsEnum))
             {
-                return TimeZonesInternal.AllTimezonesInternal.Where
+                return AllTimezonesInternal.Where
                 (
                     x => x.WindowsTimeZone == input
                 );
             }
             else if (type == typeof(TimeZoneMilitaryEnum))
             {
-                return TimeZonesInternal.AllTimezonesInternal.Where
+                return AllTimezonesInternal.Where
                 (
                     x => x.MilitaryTimeZone == input
                 );
@@ -233,10 +232,7 @@ namespace FlexibleParser
         //expected types (i.e., different than "None" items of main-type-timezone enums).
         internal static string GetEnumItemName(dynamic input, Type type)
         {
-            return CorrectEnumString
-            (
-                input.ToString(), type
-            );
+            return CorrectEnumString(input.ToString(), type);
         }
 
         //Both arguments of GetEnumItemAbbreviation are expected to be valid members of the 

@@ -39,7 +39,7 @@ namespace FlexibleParser
         //Non-alphanumeric characters which aren't required to understand any string-parsing scenario. 
         private static string[] redundants = new string[]
         {
-            ".", ",", ";", "!", "?", "@", "#", "%", "'", "\"", 
+            ".", ",", ";", "!", "?", "@", "#", "%", "\"", 
             "=", "(", ")", "[", "]", "{", "}", "<", ">"
         };
 
