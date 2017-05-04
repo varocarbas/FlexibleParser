@@ -15,7 +15,7 @@ namespace FlexibleParser
             {
                 return RemoveIANAOtherCountries
                 (
-                    ((ReadOnlyCollection<TimeZoneIANAEnum>)input).ToList(), targets
+                    ((ReadOnlyCollection<TimeZoneIANA>)input).ToList(), targets
                 )
                 .AsReadOnly();
             }
@@ -23,7 +23,7 @@ namespace FlexibleParser
             {
                 return RemoveOfficialOtherCountries
                 (
-                    ((ReadOnlyCollection<TimeZoneOfficialEnum>)input).ToList(), targets
+                    ((ReadOnlyCollection<TimeZoneOfficial>)input).ToList(), targets
                 )
                 .AsReadOnly();
             }
@@ -31,47 +31,46 @@ namespace FlexibleParser
             return input;
         }
 
-        private static List<TimeZoneIANAEnum> RemoveIANAOtherCountries(List<TimeZoneIANAEnum> enums, CountryEnum[] targets)
+        private static List<TimeZoneIANA> RemoveIANAOtherCountries(List<TimeZoneIANA> items, CountryEnum[] targets)
         {
-            for (int i = enums.Count - 1; i >= 0; i--)
+            for (int i = items.Count - 1; i >= 0; i--)
             {
-                TimeZoneIANAEnum iana = enums[i];
-                if (!TimeZoneIANAInternal.TimeZoneIANACountries.ContainsKey(iana))
+                TimeZoneIANAEnum item2 = items[i].Value;
+                if (!TimeZoneIANAInternal.TimeZoneIANACountries.ContainsKey(item2))
                 {
                     continue;
                 }
 
-                if (targets.Intersect(TimeZoneIANAInternal.TimeZoneIANACountries[iana]).Count() == 0)
+                if(targets.Intersect(TimeZoneIANAInternal.TimeZoneIANACountries[item2]).Count() == 0)
                 {
-                    enums.RemoveAt(i);
+                    items.RemoveAt(i);
                 }
             }
 
-            return enums;
+            return items;
         }
 
-        private static List<TimeZoneOfficialEnum> RemoveOfficialOtherCountries(List<TimeZoneOfficialEnum> enums, CountryEnum[] targets)
+        private static List<TimeZoneOfficial> RemoveOfficialOtherCountries(List<TimeZoneOfficial> items, CountryEnum[] targets)
         {
-            for (int i = enums.Count - 1; i >= 0; i--)
+            for (int i = items.Count - 1; i >= 0; i--)
             {
-                TimeZoneOfficialEnum official = enums[i];
                 var temp = TimeZonesCountryInternal.CountryOfficials.Where
                 (
                     x => x.Value.FirstOrDefault
                     (
-                        y => y.Key.Value == official || y.Value.Value == official
+                        y => y.Key.Value == items[i] || y.Value.Value == items[i]
                     )
                     .Value != null
                 )
-                .Select(x => x.Key).ToList();
+                .Select(x => x.Key);
 
                 if (targets.Intersect(temp).Count() == 0)
                 {
-                    enums.RemoveAt(i);
+                    items.RemoveAt(i);
                 }
             }
 
-            return enums;
+            return items;
         }
 
 

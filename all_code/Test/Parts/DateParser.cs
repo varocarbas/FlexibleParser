@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using FlexibleParser;
 using System.Globalization;
@@ -37,18 +36,19 @@ namespace Test
             PrintSampleItem("Ini3", new Country("ES").ToString());
             PrintSampleItem("Ini4", new DateP(DateTime.Now).ToString());
 
-            //--- All of them are implicitly convertible to 1-argument constructors.
+            //--- All of them are implicitly convertible to their 1-argument constructors.
             PrintSampleItem("Ini5", ((Offset)(-5m)).ToString());
             PrintSampleItem("Ini6", ((Country)"ES").ToString());
             PrintSampleItem("Ini7", ((DateP)DateTime.Now).ToString());
 
-            //--- All the errors are managed internally (no exceptions) and communicated via simple enum.
+            //--- All the errors are managed internally (no exceptions) and communicated to the user via simple enum.
             PrintSampleItem("Ini8", new Offset(50m));
             PrintSampleItem("Ini9", (Country)CountryEnum.None);
 
-            //------ DateP is the main class dealing with date/time(-parsing) actions.
+			
+            //------ DateP is the main class dealing with date/time functionalities.
 
-            //--- It can be instantiated by relying on standard .NET formats or in custom ones.
+            //--- It can be instantiated by relying on standard .NET formats or on custom ones.
             PrintSampleItem("Date1", new DateP("2-1-2001", new StandardDateTimeFormat(new CultureInfo("en-US").DateTimeFormat)));
             PrintSampleItem("Date2", new DateP("2-1-2001", new CustomDateTimeFormat("day-month-year")));
             PrintSampleItem("Date3", new DateP(DateTime.Now, TimeZoneUTCEnum.Minus_12));
@@ -63,7 +63,7 @@ namespace Test
                  )
             );
          
-            //--- All the modifications of the DateP's global properties are inmediately updated in the associated DateTime value. 
+            //--- All the modifications of the DateP's global properties are inmediately updated in the associated DateTime instance. 
             PrintSampleItem("Date5", new DateP("2-1-2001 14:30", -1m) { TimeZoneOffset = 5m });
             PrintSampleItem
             (
@@ -81,13 +81,17 @@ namespace Test
                 "Date10", new DateP("30-4-2017 14:30", 1m).AdaptTimeToTimezone(TimeZoneIANAEnum.America_Aruba)
             );
 
-            //------ The part dealing with timezones includes lots of information.
+			
+            //------ DateParser contains a relevant amount of information about time zones.
 
-            //--- There are quite a few ways to manage a relevant number of features and classifications.
+            //--- There are multiple classifications and many user-friendly ways to easily manage all this information.
             PrintSampleItem("TZ1", (TimeZones)"+1");
             PrintSampleItem
             (
-                "TZ2", new TimeZoneOfficial(((TimeZoneOfficial)TimeZoneOfficialEnum.Greenwich_Mean_Time).Abbreviation)
+                "TZ2", new TimeZoneOfficial
+                (
+                    ((TimeZoneOfficial)TimeZoneOfficialEnum.Greenwich_Mean_Time).Abbreviation
+                )
             );
             PrintSampleItem
             (
@@ -97,11 +101,12 @@ namespace Test
                 )
                 .Id
             );
+			
             //--- All these classes are also compatible with DateP and with other secondary ones.
             PrintSampleItem("TZ4", new DateP("1-1-2001 10:00", ((TimeZoneMilitary)"B").Offset));
             PrintSampleItem("TZ5", new HourMinute((Offset)10.5m));
 
-            //--- There are a relevant amount of geographical information too.
+            //--- It also includes a relevant amount of geographical information.
             PrintSampleItem("TZ6", new Country("es"));
             PrintSampleItem("TZ7", new TimeZonesCountry(CountryEnum.Andorra));
             PrintSampleItem("TZ8", new TimeZonesCountry("bristol"));
@@ -116,9 +121,7 @@ namespace Test
         {
             Console.WriteLine
             (
-                sampleId + " -- "
-                + input.ToString()
-                + Environment.NewLine
+                sampleId + " -- " + input.ToString() + Environment.NewLine
             );
         }
     }
