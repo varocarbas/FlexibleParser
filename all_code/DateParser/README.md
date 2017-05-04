@@ -2,7 +2,7 @@
 
 [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/DateParser/Source)
 
-[https://customsolvers.com/date_parser/](https://customsolvers.com/date_parser/) (ES: [https://customsolvers.com/date_parser_es/](https://customsolvers.com/date_parser_es/))
+[https://customsolvers.com/date_parser/](https://customsolvers.com/date_parser/) (ES: [https://customsolvers.com/date_parser_es/](https://customsolvers.com/date_parser_es/)) -- [NuGet package](https://www.nuget.org/packages/DateParser/)
 
 ## Introduction
 
@@ -66,7 +66,7 @@ dateP.Week = DayOfWeek.Friday;
 dateP.TimeZoneOffset = 3m;
 ```
 
-## Timezones
+## Time zones
 
 DateParser supports 6 different types of time zones, each of them is defined by a main class and an enum:
 - [```TimeZoneOfficial```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Official/TimeZones_Types_Official_Constructors.cs)/[```TimeZoneOfficialEnum```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Official/Hardcoding/TimeZones_Types_Official_Hardcoding_Main.cs). 
