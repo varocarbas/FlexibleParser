@@ -2,7 +2,7 @@
 
 [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/DateParser/Source)
 
-[https://customsolvers.com/date_parser/](https://customsolvers.com/date_parser/) (ES: [https://customsolvers.com/date_parser_es/](https://customsolvers.com/date_parser_es/))
+[https://customsolvers.com/date_parser/](https://customsolvers.com/date_parser/) (ES: [https://customsolvers.com/date_parser_es/](https://customsolvers.com/date_parser_es/)) -- [NuGet package](https://www.nuget.org/packages/DateParser/)
 
 ## Introduction
 
