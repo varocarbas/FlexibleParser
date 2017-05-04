@@ -69,15 +69,16 @@ dateP.TimeZoneOffset = 3m;
 ## Timezones
 
 DateParser supports 6 different types of time zones, each of them is defined by a main class and an enum:
-- ```TimeZoneOfficial```/```TimeZoneOfficialEnum```. 
-- ```TimeZoneIANA```/```TimeZoneIANAEnum```. 
-- ```TimeZoneConventional```/```TimeZoneConventionalEnum```. 
-- ```TimeZoneUTC```/```TimeZoneUTCEnum```. 
-- ```TimeZoneWindows```/```TimeZoneMilitaryEnum```.
+- [```TimeZoneOfficial```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Official/TimeZones_Types_Official_Constructors.cs)/[```TimeZoneOfficialEnum```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Official/Hardcoding/TimeZones_Types_Official_Hardcoding_Main.cs). 
+- [```TimeZoneIANA```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/IANA/TimeZones_Types_IANA_Constructors.cs)/[```TimeZoneIANAEnum```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/IANA/Hardcoding/TimeZones_Types_IANA_Hardcoding_Main.cs).
+- [```TimeZoneConventional```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Conventional/TimeZones_Types_Conventional_Constructors.cs)/[```TimeZoneConventionalEnum```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Conventional/TimeZones_Types_Conventional_Hardcoding.cs).
+- [```TimeZoneUTC```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/UTC/TimeZones_Types_UTC_Constructors.cs)/[```TimeZoneUTCEnum```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/UTC/TimeZones_Types_UTC_Hardcoding.cs).
+- [```TimeZoneWindows```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Windows/TimeZones_Types_Windows_Constructors.cs)/[```TimeZoneWindowsEnum```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Windows/TimeZones_Types_Windows_Hardcoding.cs).
+- [```TimeZoneMilitary```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Military/TimeZones_Types_Military_Constructors.cs)/[```TimeZoneMilitaryEnum```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Types/Military/TimeZones_Types_Military_Hardcoding.cs).
 
 There are also two other classes dealing with various time zones at the same time:
-- ```TimeZones```. 
-- ```TimeZonesCountry```. 
+- [```TimeZones```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Basic/Constructors/MainClass/TimeZones_Basic_Constructors_MainClass_Main.cs). 
+- [```TimeZonesCountry```](https://github.com/varocarbas/FlexibleParser/blob/master/all_code/DateParser/Source/TimeZones/Country/TimeZones_Country_Constructors.cs). 
 
 
 ```C#
