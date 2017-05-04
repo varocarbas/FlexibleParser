@@ -114,11 +114,9 @@ namespace FlexibleParser
             )
             .Key;
 
-            return
-            (
-                temp2 == TimeZoneIANAEnum.None ? null : 
-                TimeZoneIANAInternal.TimeZoneIANACountries[temp2]
-            );
+            if (temp2 == TimeZoneIANAEnum.None) return null;
+
+            return TimeZoneIANAInternal.TimeZoneIANACountries[temp2].First();
         }
 
         private static bool ThresholdIsMet(string[] words2, string[] target, decimal threshold)

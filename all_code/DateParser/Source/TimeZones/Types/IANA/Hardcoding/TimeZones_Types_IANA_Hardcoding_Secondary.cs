@@ -11,7 +11,7 @@ namespace FlexibleParser
         internal static Dictionary<TimeZoneIANAEnum, CountryEnum[]> TimeZoneIANACountries;
         internal static Dictionary<TimeZoneIANAEnum, IEnumerable<IANACityRegionEnum>> TimeZoneIANAAreas;
 
-        internal static void PopulateTimeZoneIANA()
+        internal static void PopulateMain()
         {
             PopulateCountriesDictionary();
 

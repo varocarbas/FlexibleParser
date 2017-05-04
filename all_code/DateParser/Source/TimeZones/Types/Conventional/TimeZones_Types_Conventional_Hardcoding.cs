@@ -380,12 +380,12 @@ namespace FlexibleParser
             );
         }
 
-        internal static void PopulateTimeZoneConventional()
+        internal static void PopulateMain()
         {
-            PopulateTimeZoneConventionalAbbreviations();
+            PopulateAbbreviations();
         }
 
-        private static void PopulateTimeZoneConventionalAbbreviations()
+        private static void PopulateAbbreviations()
         {
             TimeZoneConventionalAbbreviations = new Dictionary<TimeZoneConventionalEnum, string>()
             {

@@ -274,11 +274,11 @@ namespace FlexibleParser
         Line_Islands_Standard_Time
     }
 
-    public partial class TimeZoneWindows
+    internal partial class TimeZoneWindowsInternal
     {
         internal static Dictionary<TimeZoneWindowsEnum, string> TimeZoneWindowsNames;
 
-        internal static void PopulateTimeZoneWindows()
+        internal static void PopulateMain()
         {
             Dictionary<string, string> replacements = new Dictionary<string, string>()
             {

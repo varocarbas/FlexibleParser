@@ -202,7 +202,7 @@ namespace FlexibleParser
 
             countries = new CountryEnum[] 
             { 
-                CountryEnum.Federated_States_Of_Micronesia
+                CountryEnum.Federated_States_of_Micronesia
             };
 
             officials = new List<KeyValuePair<TimeZoneOfficial, TimeZoneOfficial>>()

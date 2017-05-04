@@ -266,7 +266,7 @@ namespace FlexibleParser
         {
             TemporaryVariables outVars = new TemporaryVariables();
 
-            if (type == typeof(TimeZoneOfficial))
+            if (type == typeof(TimeZoneOfficialEnum))
             {
                 outVars.Vars.Add
                 (
@@ -285,7 +285,7 @@ namespace FlexibleParser
                 );
             }
 
-            if (type == typeof(TimeZoneIANA))
+            if (type == typeof(TimeZoneIANAEnum))
             {
                 outVars.Vars.Add
                 (
@@ -298,7 +298,10 @@ namespace FlexibleParser
                 (
                     new List<TimeZoneIANA>
                     (
-                        match.IANATimeZones.OrderBy(x => x.ToString()).Select(x => new TimeZoneIANA(x))
+                        match.IANATimeZones.OrderBy(x => x.ToString()).Select
+                        (
+                            x => new TimeZoneIANA(x)
+                        )
                     )
                     .AsReadOnly()
                 );
@@ -308,7 +311,11 @@ namespace FlexibleParser
             {
                 outVars.Vars.Add
                 (
-                    new List<TimeZoneConventionalEnum>() { match.ConventionalTimeZones.First() }.AsReadOnly()
+                    new List<TimeZoneConventional>()
+                    {
+                        match.ConventionalTimeZones.First()
+                    }
+                    .AsReadOnly()
                 );
             }
             else
@@ -317,15 +324,18 @@ namespace FlexibleParser
                 (
                     new List<TimeZoneConventional>
                     (
-                        match.ConventionalTimeZones.OrderBy(x => x.ToString()).Select(x => new TimeZoneConventional(x))
+                        match.ConventionalTimeZones.OrderBy(x => x.ToString()).Select
+                        (
+                            x => new TimeZoneConventional(x)
+                        )
                     )
                     .AsReadOnly()
                 );
             }
 
-            outVars.Vars.Add(match.WindowsTimeZone);
-            outVars.Vars.Add(match.UTCTimeZone);
-            outVars.Vars.Add(match.MilitaryTimeZone);
+            outVars.Vars.Add((TimeZoneWindows)match.WindowsTimeZone);
+            outVars.Vars.Add((TimeZoneUTC)match.UTCTimeZone);
+            outVars.Vars.Add((TimeZoneMilitary)match.MilitaryTimeZone);
 
             return outVars;
         }

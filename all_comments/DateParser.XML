@@ -131,36 +131,6 @@
         <member name="F:FlexibleParser.DateP.Error">
             <summary><para>Error associated with the current instance.</para></summary>
         </member>
-        <member name="P:FlexibleParser.DateP.Value">
-            <summary><para>DateTime variable associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Year">
-            <summary><para>Year of the date associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Month">
-            <summary><para>Month of the date associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Week">
-            <summary><para>Day of the week of the date associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Day">
-            <summary><para>Day of the date associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Hour">
-            <summary><para>Hour of the time associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Minute">
-            <summary><para>Minute of the time associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Second">
-            <summary><para>Second of the time associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.Millisecond">
-            <summary><para>Millisecond of the time associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.DateP.TimeZoneOffset">
-            <summary><para>Offset of the timezone associated with the current instance.</para></summary>
-        </member>
         <member name="M:FlexibleParser.DateP.#ctor(FlexibleParser.DateP,FlexibleParser.Offset)">
             <summary><para>Initialises a new DateP instance.</para></summary>
             <param name="dateP">DateP variable whose information will be used.</param>
@@ -224,11 +194,38 @@
             <summary><para>Returns the string representation of the current instance.</para></summary>
             <param name="customFormat">CustomDateTimeFormat variable to be used.</param>
         </member>
+        <member name="P:FlexibleParser.DateP.Value">
+            <summary><para>DateTime variable associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Year">
+            <summary><para>Year of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Month">
+            <summary><para>Month of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Week">
+            <summary><para>Day of the week of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Day">
+            <summary><para>Day of the date associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Hour">
+            <summary><para>Hour of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Minute">
+            <summary><para>Minute of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Second">
+            <summary><para>Second of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.Millisecond">
+            <summary><para>Millisecond of the time associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.DateP.TimeZoneOffset">
+            <summary><para>Offset of the timezone associated with the current instance.</para></summary>
+        </member>
         <member name="T:FlexibleParser.CustomDateTimeFormat">
             <summary><para>Implementation of the DateTimeFormat class which deals with the custom approaches of this library.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.CustomDateTimeFormat.Pattern">
-            <summary><para>Pattern determining how date/time information is stored in a string variable.</para></summary>
         </member>
         <member name="M:FlexibleParser.CustomDateTimeFormat.#ctor(System.String)">
             <summary><para>Initialises a new CustomDateTimeFormat instance.</para></summary>
@@ -283,20 +280,14 @@
         <member name="M:FlexibleParser.CustomDateTimeFormat.GetHashCode">
             <summary><para>Returns the hash code for this CustomDateTimeFormat variable.</para></summary>
         </member>
+        <member name="P:FlexibleParser.CustomDateTimeFormat.Pattern">
+            <summary><para>Pattern determining how date/time information is stored in a string variable.</para></summary>
+        </member>
         <member name="T:FlexibleParser.StandardDateTimeFormat">
             <summary>
             <para>Implementation of the DateTimeFormat class which deals with the default .NET approach.</para>
             <para>The public variables of this class emulate the arguments of the parsing methods of the .NET date variables.</para>
             </summary>
-        </member>
-        <member name="P:FlexibleParser.StandardDateTimeFormat.DateTimeStyle">
-            <summary><para>DateTimeStyles variable associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.StandardDateTimeFormat.Patterns">
-            <summary><para>String patterns associated with the current instance.</para></summary>
-        </member>
-        <member name="P:FlexibleParser.StandardDateTimeFormat.UseParseExact">
-            <summary><para>Flag which indicates the parsing behaviour of the current instance (i.e., Parse or ParseExact method).</para></summary>
         </member>
         <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor">
             <summary>
@@ -358,6 +349,15 @@
         <member name="M:FlexibleParser.StandardDateTimeFormat.#ctor(FlexibleParser.StandardDateTimeFormat)">
             <summary><para>Initialises a new StandardTimeFormat instance.</para></summary>
             <param name="standardDateTimeFormat">StandardDateTimeFormat variable whose information will be used.</param>
+        </member>
+        <member name="P:FlexibleParser.StandardDateTimeFormat.DateTimeStyle">
+            <summary><para>DateTimeStyles variable associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.StandardDateTimeFormat.Patterns">
+            <summary><para>String patterns associated with the current instance.</para></summary>
+        </member>
+        <member name="P:FlexibleParser.StandardDateTimeFormat.UseParseExact">
+            <summary><para>Flag which indicates the parsing behaviour of the current instance (i.e., Parse or ParseExact method).</para></summary>
         </member>
         <member name="T:FlexibleParser.Months">
             <summary><para>All the months.</para></summary>
@@ -701,7 +701,7 @@
         <member name="F:FlexibleParser.CountryEnum.Falkland_Islands">
             <summary><para>Falkland Islands (FK).</para></summary>
         </member>
-        <member name="F:FlexibleParser.CountryEnum.Federated_States_Of_Micronesia">
+        <member name="F:FlexibleParser.CountryEnum.Federated_States_of_Micronesia">
             <summary><para>Federated States of Micronesia (FM).</para></summary>
         </member>
         <member name="F:FlexibleParser.CountryEnum.Faroe_Islands">
@@ -770,7 +770,7 @@
         <member name="F:FlexibleParser.CountryEnum.Hong_Kong">
             <summary><para>Hong Kong (HK).</para></summary>
         </member>
-        <member name="F:FlexibleParser.CountryEnum.Heard_Island_And_McDonald_Islands">
+        <member name="F:FlexibleParser.CountryEnum.Heard_Island_and_McDonald_Islands">
             <summary><para>Heard Island and McDonald Islands (HM).</para></summary>
         </member>
         <member name="F:FlexibleParser.CountryEnum.Honduras">
@@ -801,7 +801,7 @@
             <summary><para>India (IN).</para></summary>
         </member>
         <member name="F:FlexibleParser.CountryEnum.Kosovo">
-            <summary><para>Kosovo ().</para></summary>
+            <summary><para>Kosovo.</para></summary>
         </member>
         <member name="F:FlexibleParser.CountryEnum.British_Indian_Ocean_Territory">
             <summary><para>British Indian Ocean Territory (IO).</para></summary>
@@ -3661,8 +3661,11 @@
             <summary><para>Error associated with the current instance.</para></summary>
         </member>
         <member name="M:FlexibleParser.TimeZonesCountry.#ctor(System.String)">
-            <summary><para>Initialises a new TimeZonesCountry instance.</para></summary>
-            <param name="countryRegionOrCity">Country, region or city information to be parsed.</param>
+            <summary>
+            <para>Initialises a new TimeZonesCountry instance.</para>
+            <para>It recognises all the country names/codes and the cities listed in https://github.com/David-Haim/CountriesToCitiesJSON/blob/master/countriesToCities.json.</para>
+            </summary>
+            <param name="countryOrCity">Country or city information to be parsed.</param>
         </member>
         <member name="M:FlexibleParser.TimeZonesCountry.#ctor(FlexibleParser.Country)">
             <summary><para>Initialises a new TimeZonesCountry instance.</para></summary>
@@ -3670,6 +3673,32 @@
         </member>
         <member name="T:FlexibleParser.TimeZoneConventional">
             <summary><para>Class dealing with conventional timezones.</para></summary>
+        </member>
+        <member name="T:FlexibleParser.TimeZoneType">
+            <summary><para>Abstract class with six implementations: TimeZoneOfficial, TimeZoneIANA, TimeZoneConventional, TimeZoneUTC, TimeZoneWindows, TimeZoneMilitary.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Name">
+            <summary><para>Name of the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Abbreviation">
+            <summary><para>Official abbreviation of the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Offset">
+            <summary><para>Offset variable associated with the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Value">
+            <summary><para>Enum variable associated with the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.TimeZoneInfo">
+            <summary><para>TimeZoneInfo variable associated with the timezone.</para></summary>
+        </member>
+        <member name="F:FlexibleParser.TimeZoneType.Error">
+            <summary><para>Error associated with the current instance.</para></summary>
+        </member>
+        <member name="M:FlexibleParser.TimeZoneType.#ctor(System.String,System.Type)">
+            <summary><para>Initialises a new TimeZoneType instance.</para></summary>
+            <param name="input">Timezone-related information to be parsed.</param>
+            <param name="type">Type associated with the current timezone.</param>
         </member>
         <member name="M:FlexibleParser.TimeZoneConventional.#ctor(FlexibleParser.TimeZoneConventional)">
             <summary><para>Initialises a new TimeZoneConventional instance.</para></summary>
@@ -6455,32 +6484,6 @@
         </member>
         <member name="F:FlexibleParser.TimeZoneMilitaryEnum.Zulu">
             <summary><para>Zulu (Z) -- UTC +00:00.</para></summary>
-        </member>
-        <member name="T:FlexibleParser.TimeZoneType">
-            <summary><para>Abstract class with six implementations: TimeZoneOfficial, TimeZoneIANA, TimeZoneConventional, TimeZoneUTC, TimeZoneWindows, TimeZoneMilitary.</para></summary>
-        </member>
-        <member name="F:FlexibleParser.TimeZoneType.Name">
-            <summary><para>Name of the timezone.</para></summary>
-        </member>
-        <member name="F:FlexibleParser.TimeZoneType.Abbreviation">
-            <summary><para>Official abbreviation of the timezone.</para></summary>
-        </member>
-        <member name="F:FlexibleParser.TimeZoneType.Offset">
-            <summary><para>Offset variable associated with the timezone.</para></summary>
-        </member>
-        <member name="F:FlexibleParser.TimeZoneType.Value">
-            <summary><para>Enum variable associated with the timezone.</para></summary>
-        </member>
-        <member name="F:FlexibleParser.TimeZoneType.TimeZoneInfo">
-            <summary><para>TimeZoneInfo variable associated with the timezone.</para></summary>
-        </member>
-        <member name="F:FlexibleParser.TimeZoneType.Error">
-            <summary><para>Error associated with the current instance.</para></summary>
-        </member>
-        <member name="M:FlexibleParser.TimeZoneType.#ctor(System.String,System.Type)">
-            <summary><para>Initialises a new TimeZoneType instance.</para></summary>
-            <param name="input">Timezone-related information to be parsed.</param>
-            <param name="type">Type associated with the current timezone.</param>
         </member>
         <member name="T:FlexibleParser.TimeZoneUTC">
             <summary><para>Class dealing with UTC timezones.</para></summary>

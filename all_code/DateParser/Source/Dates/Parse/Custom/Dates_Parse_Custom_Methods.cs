@@ -140,12 +140,15 @@ namespace FlexibleParser
                 if (((string)input).FirstOrDefault(x => !char.IsNumber(x)) != '\0')
                 {
                     input_int = GetMonthFromName(input, formatInfo);
-                    if (input_int < 1) return null;
+                    if (input_int < 1 || part != DateTimeInternalParts.Month)
+                    {
+                        return null;
+                    }
                 }
                 else input_int = Convert.ToInt32(input);
             }
 
-            return DatesInternal.AddPartToDate
+            return AddPartToDate
             (
                 input_int, part, varSoFar, formatInfo
             );

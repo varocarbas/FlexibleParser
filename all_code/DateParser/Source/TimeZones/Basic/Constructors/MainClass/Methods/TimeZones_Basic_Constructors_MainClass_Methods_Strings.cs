@@ -65,7 +65,7 @@ namespace FlexibleParser
             {
                 var item2 = AnalyseAbbreviation(input2, i);
 
-                if (item2 != null) return item2;
+                if (!EnumIsNothing(item2)) return item2;
             }
 
             return null;

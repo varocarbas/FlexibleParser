@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FlexibleParser
@@ -90,12 +91,12 @@ namespace FlexibleParser
             return TimeZoneMilitaryEnum.None;
         }
 
-        public static string GetAbbreviationFromMilitaryTimeZone(TimeZoneMilitaryEnum timezoneMilitary)
+        public static string GetAbbreviationFromMilitaryTimeZone(TimeZoneMilitaryEnum military)
         {
             return 
             (
-                timezoneMilitary == TimeZoneMilitaryEnum.None ? "" :
-                timezoneMilitary.ToString().Substring(0, 1)
+                military == TimeZoneMilitaryEnum.None ? 
+                "" : MilitaryAbbreviations[military]
             );
         }
 
@@ -110,17 +111,40 @@ namespace FlexibleParser
             );
         }
 
+        //Curiously, relying on dynamic rather than on the corresponding type (TimeZoneMilitaryEnum)
+        //reduces the number of type casts.
+        private static Dictionary<dynamic, string> MilitaryAbbreviations;
+
+        internal static void PopulateMain()
+        {
+            PopulateAbbreviations();
+        }
+
+        private static void PopulateAbbreviations()
+        {
+            MilitaryAbbreviations = Enum.GetNames
+            (
+                typeof(TimeZoneMilitaryEnum)
+            )
+            .Where(x => x != "None").ToDictionary
+            (
+                x => Enum.Parse(typeof(TimeZoneMilitaryEnum), x), x => x.Substring(0, 1)
+            );
+        }
+
         internal static TimeZoneMilitaryEnum GetMilitaryTimeZoneFromAbbreviation(string abbreviation)
         {
             if (abbreviation == null) return TimeZoneMilitaryEnum.None;
             abbreviation = abbreviation.Trim().ToUpper();
 
-            var outName = Enum.GetNames(typeof(TimeZoneMilitaryEnum)).FirstOrDefault(x => x.StartsWith(abbreviation));
+            var temp = MilitaryAbbreviations.FirstOrDefault
+            (
+                x => x.Value == abbreviation
+            );
 
             return
             (
-                outName == null ? TimeZoneMilitaryEnum.None :
-                (TimeZoneMilitaryEnum)Enum.Parse(typeof(TimeZoneMilitaryEnum), outName)
+                temp.Value == null ? TimeZoneMilitaryEnum.None : temp.Key
             );
         }
     }

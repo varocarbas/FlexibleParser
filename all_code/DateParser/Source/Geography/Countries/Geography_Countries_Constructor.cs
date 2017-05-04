@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace FlexibleParser
 {
@@ -47,7 +45,10 @@ namespace FlexibleParser
             }
 
             Value = CountryInternal.CodeCountry.Value;
-            Code = CountryInternal.CodeCountry.Key;
+            Code = 
+            (
+                CountryInternal.CodeCountry.Key == "" ? null : CountryInternal.CodeCountry.Key
+            );
             Name = CountryInternal.GetNameFromEnum(Value);
             AlternativeNames = CountryInternal.GetAlternativeNames(Value).AsReadOnly();
         }
@@ -64,7 +65,10 @@ namespace FlexibleParser
             }
 
             Value = CountryInternal.CodeCountry.Value;
-            Code = CountryInternal.CodeCountry.Key;
+            Code =
+            (
+                CountryInternal.CodeCountry.Key == "" ? null : CountryInternal.CodeCountry.Key
+            );
             Name = CountryInternal.GetNameFromEnum(Value);
             AlternativeNames = CountryInternal.GetAlternativeNames(Value).AsReadOnly();
         }

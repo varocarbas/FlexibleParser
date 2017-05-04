@@ -123,10 +123,7 @@ namespace FlexibleParser
 
         private static TemporaryVariables GetGlobalValuesValid(dynamic input, Type type, IEnumerable<TimeZonesMainMap> matches)
         {
-            return GetGlobalValuesCommon
-            (
-                matches.First(), type
-            );
+            return GetGlobalValuesCommon(matches.First(), type);
         }
 
         //The argument of GetGlobalValues is expected to be a valid member of one of the valid types 

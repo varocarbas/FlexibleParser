@@ -94,9 +94,10 @@ namespace FlexibleParser
                 PopulateEnumToClassMap();
                 GetAllNoneItems();
                 GetAllNames();
-                TimeZoneWindows.PopulateTimeZoneWindows();
-                TimeZoneIANAInternal.PopulateTimeZoneIANA();
-                TimeZoneConventionalInternal.PopulateTimeZoneConventional();
+                TimeZoneWindowsInternal.PopulateMain();
+                TimeZoneIANAInternal.PopulateMain();
+                TimeZoneConventionalInternal.PopulateMain();
+                TimeZoneMilitaryInternal.PopulateMain();
                 PopulateTimezoneMappingMain();
 
                 TimeZonesCountryInternal.PopulateMainDictionary();

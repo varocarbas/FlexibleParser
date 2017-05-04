@@ -154,7 +154,7 @@ namespace FlexibleParser
         ///<summary><para>Falkland Islands (FK).</para></summary>
         Falkland_Islands,
         ///<summary><para>Federated States of Micronesia (FM).</para></summary>
-        Federated_States_Of_Micronesia,
+        Federated_States_of_Micronesia,
         ///<summary><para>Faroe Islands (FO).</para></summary>
         Faroe_Islands,
         ///<summary><para>France (FR).</para></summary>
@@ -200,7 +200,7 @@ namespace FlexibleParser
         ///<summary><para>Hong Kong (HK).</para></summary>
         Hong_Kong,
         ///<summary><para>Heard Island and McDonald Islands (HM).</para></summary>
-        Heard_Island_And_McDonald_Islands,
+        Heard_Island_and_McDonald_Islands,
         ///<summary><para>Honduras (HN).</para></summary>
         Honduras,
         ///<summary><para>Croatia (HR).</para></summary>
@@ -219,7 +219,7 @@ namespace FlexibleParser
         Isle_of_Man,
         ///<summary><para>India (IN).</para></summary>
         India,
-        ///<summary><para>Kosovo ().</para></summary>
+        ///<summary><para>Kosovo.</para></summary>
         Kosovo,
         ///<summary><para>British Indian Ocean Territory (IO).</para></summary>
         British_Indian_Ocean_Territory,
@@ -565,7 +565,7 @@ namespace FlexibleParser
             {
                 return new List<string>() { "Republic of Macedonia", "FYROM", "FYR Macedonia" };
             }
-            else if (country == CountryEnum.Federated_States_Of_Micronesia)
+            else if (country == CountryEnum.Federated_States_of_Micronesia)
             {
                 return new List<string>() { "Micronesia" };
             }
@@ -699,8 +699,10 @@ namespace FlexibleParser
             string[] nameWords = Common.GetWordsInString(name2);
             if (nameWords.Length != words2.Length) return false;
 
-            int commonCount = nameWords.Intersect(words2).Count();
-            return (commonCount == words2.Length);  
+            return 
+            (
+                nameWords.Except(words2).Count() == 0
+            );
         }
 
         //Due to the big amount of hardcoded information stored via global variables, minimising memory usage
@@ -746,7 +748,7 @@ namespace FlexibleParser
                 { "EC", CountryEnum.Ecuador }, { "EE", CountryEnum.Estonia }, { "EG", CountryEnum.Egypt }, 
                 { "EH", CountryEnum.Western_Sahara }, { "ER", CountryEnum.Eritrea }, { "ES", CountryEnum.Spain },
                 { "ET", CountryEnum.Ethiopia }, { "FI", CountryEnum.Finland }, { "FJ", CountryEnum.Fiji }, 
-                { "FK", CountryEnum.Falkland_Islands }, { "FM", CountryEnum.Federated_States_Of_Micronesia }, 
+                { "FK", CountryEnum.Falkland_Islands }, { "FM", CountryEnum.Federated_States_of_Micronesia }, 
                 { "FO", CountryEnum.Faroe_Islands }, { "FR", CountryEnum.France }, { "GA", CountryEnum.Gabon }, 
                 { "GB", CountryEnum.United_Kingdom }, { "GD", CountryEnum.Grenada }, { "GE", CountryEnum.Georgia },
                 { "GF", CountryEnum.French_Guiana },  { "GG", CountryEnum.Guernsey }, { "GH", CountryEnum.Ghana },
@@ -754,7 +756,7 @@ namespace FlexibleParser
                 { "GN", CountryEnum.Guinea }, { "GP", CountryEnum.Guadeloupe }, { "GQ", CountryEnum.Equatorial_Guinea },
                 { "GR", CountryEnum.Greece }, { "GS", CountryEnum.South_Georgia_and_the_South_Sandwich_Islands },
                 { "GT", CountryEnum.Guatemala }, { "GU", CountryEnum.Guam }, { "GW", CountryEnum.Guinea_Bissau },
-                { "GY", CountryEnum.Guyana }, { "HK", CountryEnum.Hong_Kong }, { "HM", CountryEnum.Heard_Island_And_McDonald_Islands },
+                { "GY", CountryEnum.Guyana }, { "HK", CountryEnum.Hong_Kong }, { "HM", CountryEnum.Heard_Island_and_McDonald_Islands },
                 { "HN", CountryEnum.Honduras }, { "HR", CountryEnum.Croatia }, { "HT", CountryEnum.Haiti }, 
                 { "HU", CountryEnum.Hungary }, { "ID", CountryEnum.Indonesia }, { "IE", CountryEnum.Ireland },
                 { "IL", CountryEnum.Israel }, { "IM", CountryEnum.Isle_of_Man }, { "IN", CountryEnum.India },

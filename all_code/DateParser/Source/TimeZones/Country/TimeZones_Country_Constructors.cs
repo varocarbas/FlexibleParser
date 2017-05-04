@@ -18,11 +18,14 @@ namespace FlexibleParser
         ///<summary><para>Error associated with the current instance.</para></summary>
         public readonly ErrorTimeZoneEnum Error;
 
-        ///<summary><para>Initialises a new TimeZonesCountry instance.</para></summary>
-        ///<param name="countryRegionOrCity">Country, region or city information to be parsed.</param>
-        public TimeZonesCountry(string countryRegionOrCity) : this
+        ///<summary>
+        ///<para>Initialises a new TimeZonesCountry instance.</para>
+        ///<para>It recognises all the country names/codes and the cities listed in https://github.com/David-Haim/CountriesToCitiesJSON/blob/master/countriesToCities.json.</para>
+        ///</summary>
+        ///<param name="countryOrCity">Country or city information to be parsed.</param>
+        public TimeZonesCountry(string countryOrCity) : this
         (
-            TimeZonesCountryInternal.GetCountryFromString(countryRegionOrCity)
+            TimeZonesCountryInternal.GetCountryFromString(countryOrCity)
         ) 
         { }
 
