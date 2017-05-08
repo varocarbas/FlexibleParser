@@ -5,8 +5,6 @@ namespace FlexibleParser
     ///<summary><para>Class dealing with military timezones.</para></summary>
     public partial class TimeZoneMilitary : TimeZoneType
     {
-        internal static bool Populated = TimeZonesInternal.StartTimezones();
-
         ///<summary><para>Initialises a new TimeZoneMilitary instance.</para></summary>
         ///<param name="military">TimeZoneMilitary variable associated with the current instance.</param>
         public TimeZoneMilitary(TimeZoneMilitary military) : this

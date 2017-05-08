@@ -5,8 +5,6 @@ namespace FlexibleParser
     ///<summary><para>Class dealing with official timezones.</para></summary>
     public partial class TimeZoneOfficial : TimeZoneType
     {
-        internal static bool Populated = TimeZonesInternal.StartTimezones();
-
         ///<summary><para>Initialises a new TimeZoneOfficial instance.</para></summary>
         ///<param name="official">TimeZoneOfficial variable whose information will be used.</param>
         public TimeZoneOfficial(TimeZoneOfficial official) : this

@@ -7,8 +7,6 @@ namespace FlexibleParser
     ///<summary><para>Class dealing with all the country-related timezones.</para></summary>
     public partial class TimeZonesCountry
     {
-        internal static bool Populated = TimeZonesInternal.StartTimezones();
-
         ///<summary><para>Country variable associated with the current instance.</para></summary>
         public readonly Country Country;
         ///<summary><para>City/region associated with the current instance.</para></summary>
@@ -39,8 +37,11 @@ namespace FlexibleParser
                 return;
             }
 
+            TimeZonesInternal.StartTimezones();
+
             Country = country.Value;
             CityOrRegion = TimeZonesCountryInternal.CityOrRegion;
+            TimeZonesCountryInternal.CityOrRegion = null;
 
             if (TimeZonesCountryInternal.CountryOfficials.ContainsKey(Country.Value))
             {

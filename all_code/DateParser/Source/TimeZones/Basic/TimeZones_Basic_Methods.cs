@@ -262,76 +262,42 @@ namespace FlexibleParser
             return null;
         }
 
-        private static TemporaryVariables GetGlobalValuesCommon(TimeZonesMainMap match, Type type)
+        private static TemporaryVariables GetGlobalValuesCommon(TimeZonesMainMap match)
         {
             TemporaryVariables outVars = new TemporaryVariables();
 
-            if (type == typeof(TimeZoneOfficialEnum))
-            {
-                outVars.Vars.Add
+            outVars.Vars.Add
+            (
+                new List<TimeZoneOfficial>
                 (
-                    new List<TimeZoneOfficial>() { match.OfficialTimeZones.First() }.AsReadOnly()
-                );
-            }
-            else
-            {
-                outVars.Vars.Add
-                (
-                    new List<TimeZoneOfficial>
-                    (
-                        match.OfficialTimeZones.OrderBy(x => x.ToString()).Select(x => new TimeZoneOfficial(x))
-                    )
-                    .AsReadOnly()
-                );
-            }
+                    match.OfficialTimeZones.OrderBy(x => x.ToString()).Select(x => new TimeZoneOfficial(x))
+                )
+                .AsReadOnly()
+            );
 
-            if (type == typeof(TimeZoneIANAEnum))
-            {
-                outVars.Vars.Add
+            outVars.Vars.Add
+            (
+                new List<TimeZoneIANA>
                 (
-                    new List<TimeZoneIANA>() { match.IANATimeZones.First() }.AsReadOnly()
-                );
-            }
-            else
-            {
-                outVars.Vars.Add
-                (
-                    new List<TimeZoneIANA>
+                    match.IANATimeZones.OrderBy(x => x.ToString()).Select
                     (
-                        match.IANATimeZones.OrderBy(x => x.ToString()).Select
-                        (
-                            x => new TimeZoneIANA(x)
-                        )
+                        x => new TimeZoneIANA(x)
                     )
-                    .AsReadOnly()
-                );
-            }
+                )
+                .AsReadOnly()
+            );
 
-            if (type == typeof(TimeZoneConventionalEnum))
-            {
-                outVars.Vars.Add
+            outVars.Vars.Add
+            (
+                new List<TimeZoneConventional>
                 (
-                    new List<TimeZoneConventional>()
-                    {
-                        match.ConventionalTimeZones.First()
-                    }
-                    .AsReadOnly()
-                );
-            }
-            else
-            {
-                outVars.Vars.Add
-                (
-                    new List<TimeZoneConventional>
+                    match.ConventionalTimeZones.OrderBy(x => x.ToString()).Select
                     (
-                        match.ConventionalTimeZones.OrderBy(x => x.ToString()).Select
-                        (
-                            x => new TimeZoneConventional(x)
-                        )
+                        x => new TimeZoneConventional(x)
                     )
-                    .AsReadOnly()
-                );
-            }
+                )
+                .AsReadOnly()
+            );
 
             outVars.Vars.Add((TimeZoneWindows)match.WindowsTimeZone);
             outVars.Vars.Add((TimeZoneUTC)match.UTCTimeZone);

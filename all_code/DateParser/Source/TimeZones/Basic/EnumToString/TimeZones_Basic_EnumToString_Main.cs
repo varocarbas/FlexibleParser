@@ -11,7 +11,7 @@ namespace FlexibleParser
             if (input == null) return "None";
             
             string input2 = Common.PerformFirstStringChecks(input);
-            if (input2.Length < 1 || input2 == "none"|| !TimeZoneEnumTypes.Contains(type))
+            if (input2 == null || input2.Length < 1 || input2 == "none"|| !TimeZoneEnumTypes.Contains(type))
             {
                 return "None";
             }

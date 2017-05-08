@@ -26,6 +26,7 @@ namespace FlexibleParser
             if (input == null) return null;
 
             string input2 = Common.PerformFirstStringChecks(input);
+            if (input2 == null) return null;
 
             if (input2.Length == 1)
             {

@@ -73,32 +73,6 @@ namespace FlexibleParser
             return items;
         }
 
-
-        public static CountryEnum[] GetAssociatedCountries(dynamic input, Type type)
-        {
-            if (type == typeof(TimeZoneIANAEnum))
-            {
-                return TimeZoneIANAInternal.TimeZoneIANACountries[(TimeZoneIANAEnum)input];
-            }
-            else if (type == typeof(TimeZoneOfficialEnum))
-            {
-                TimeZoneOfficial input2 = (TimeZoneOfficial)input;
-                var temp = TimeZonesCountryInternal.CountryOfficials.Where
-                (
-                    x => x.Value.FirstOrDefault
-                    (
-                        y => y.Key == input2 || y.Value == input2
-                    )
-                    .Value != null
-                )
-                .Select(x => x.Key).ToArray();
-
-                return (temp.Count() == 0 ? null : temp);
-            }
-
-            return null;
-        }
-
         //The argument of GetGlobalValues is expected to be a valid member of one of the valid types 
         //(i.e., different than "None" items of main-type-timezone enums).
         private static TemporaryVariables GetGlobalValues(dynamic input)
@@ -116,13 +90,9 @@ namespace FlexibleParser
 
             return
             (
-                matches.Count() < 1 ? new TemporaryVariables(input, type) : GetGlobalValuesValid(input, type, matches)
+                matches.Count() < 1 ? new TemporaryVariables(input, type) :
+                GetGlobalValuesCommon(matches.First())
             );
-        }
-
-        private static TemporaryVariables GetGlobalValuesValid(dynamic input, Type type, IEnumerable<TimeZonesMainMap> matches)
-        {
-            return GetGlobalValuesCommon(matches.First(), type);
         }
 
         //The argument of GetGlobalValues is expected to be a valid member of one of the valid types 

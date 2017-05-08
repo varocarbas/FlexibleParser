@@ -11,7 +11,7 @@ namespace FlexibleParser
             return Common.PerformComparison(this, other, typeof(TimeZonesCountry));
         }
 
-        ///<summary><para>Outputs an error or "[country] ([city/region])".</para> </summary>
+        ///<summary><para>Outputs an error or "[country] ([code])".</para> </summary>
         public override string ToString()
         {
             return TimeZonesCountryInternal.TimeZonesCountryToString(this);

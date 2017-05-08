@@ -3613,7 +3613,7 @@
             <param name="other">The other TimeZonesCountry instance.</param>
         </member>
         <member name="M:FlexibleParser.TimeZonesCountry.ToString">
-            <summary><para>Outputs an error or "[country] ([city/region])".</para> </summary>
+            <summary><para>Outputs an error or "[country] ([code])".</para> </summary>
         </member>
         <member name="M:FlexibleParser.TimeZonesCountry.op_Implicit(FlexibleParser.Country)~FlexibleParser.TimeZonesCountry">
             <summary><para>Creates a new TimeZonesCountry instance by relying on the most adequate constructor.</para></summary>

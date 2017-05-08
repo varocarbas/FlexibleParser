@@ -48,6 +48,8 @@ namespace FlexibleParser
         ///<param name="input">Timezone information to be parsed.</param>
         public TimeZones(string input) 
         {
+            TimeZonesInternal.StartTimezones();
+
             TemporaryVariables temp = TimeZonesInternal.GetGlobalValuesFromString(input);
             if (temp == null)
             {
@@ -114,27 +116,10 @@ namespace FlexibleParser
                 return;
             }
 
-            CountryEnum[] targets = TimeZonesInternal.GetAssociatedCountries(input.Value, type);
-
             int i = 0;
-            Official =
-            (
-                targets == null ? temp.Vars[i] : TimeZonesInternal.RemoveOtherCountryItems
-                (
-                    temp.Vars[i], typeof(TimeZoneOfficialEnum), targets
-                )
-            );
-            
+            Official = temp.Vars[i];
             i++;
-            IANA =
-            (
-                targets == null ? temp.Vars[i] : TimeZonesInternal.RemoveOtherCountryItems
-                (
-                    temp.Vars[i], typeof(TimeZoneIANAEnum), targets
-                )
-            );
-            
-
+            IANA = temp.Vars[i];
             i++;
             Conventional = temp.Vars[i];
             i++;

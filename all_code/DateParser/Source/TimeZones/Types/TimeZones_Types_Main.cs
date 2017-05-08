@@ -23,6 +23,8 @@ namespace FlexibleParser
         ///<param name="type">Type associated with the current timezone.</param>
         public TimeZoneType(string input, Type type)
         {
+            TimeZonesInternal.StartTimezones();
+
             TemporaryVariables temp = TimeZonesInternal.GetGlobalValuesFromString(input, type);
             if (temp == null || temp.Vars[3].GetType() != type)
             {
@@ -48,6 +50,8 @@ namespace FlexibleParser
 
         internal TimeZoneType(TimeZoneInfo timeZoneInfo, Type type)
         {
+            TimeZonesInternal.StartTimezones();
+
             TimeZoneWindowsEnum windows = TimeZoneWindowsInternal.GetEnumFromTimeZoneInfo(timeZoneInfo);
 
             Name = TimeZonesInternal.AllNames[windows];

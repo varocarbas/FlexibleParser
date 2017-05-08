@@ -30,7 +30,6 @@ namespace FlexibleParser
             Country country = new Country(input2);
             if (country.Value != CountryEnum.None) return country.Value;
 
-
             var temp = AnalyseCitiesAreas
             (
                 Common.GetWordsInString(input2)
