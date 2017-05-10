@@ -1,6 +1,6 @@
 # FlexibleParser        
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.439945.svg)](https://doi.org/10.5281/zenodo.439945) [![Build Status](https://travis-ci.org/varocarbas/FlexibleParser.svg?branch=master)](https://travis-ci.org/varocarbas/FlexibleParser)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.573742.svg)](https://doi.org/10.5281/zenodo.573742) [![Build Status](https://travis-ci.org/varocarbas/FlexibleParser.svg?branch=master)](https://travis-ci.org/varocarbas/FlexibleParser)
 
 
 FlexibleParser is a multi-purpose .NET parsing library based upon the following ideas:
