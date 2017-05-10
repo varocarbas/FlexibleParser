@@ -19,10 +19,12 @@ It allows to easily deal with a wide variety of situations involving units of me
 Among its most salient features are: user-defined exception triggering and gracefully managing numeric values of any size.
 
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.439942.svg)](https://doi.org/10.5281/zenodo.439942) [NumberParser](https://customsolvers.com/number_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6302.28051), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/NumberParser.md), [code analysis](https://varocarbas.com/number_parser_code/))<br/>It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.439942.svg)](https://doi.org/10.5281/zenodo.439942) [NumberParser](https://customsolvers.com/number_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6302.28051), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/NumberParser.md), [code analysis](https://varocarbas.com/number_parser_code/))<br/>
+It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
 
 
-[DateParser](https://customsolvers.com/date_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/DateParser/Source), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/DateParser.md))<br/>It enhances the default .NET date/time support, mostly via improving the usability of its main type and accounting for a big amount of additional time zone information.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.573734.svg)](https://doi.org/10.5281/zenodo.573734) [DateParser](https://customsolvers.com/date_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/releases/tag/DateParser_1.0.6337.38019), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/DateParser.md))<br/>
+It enhances the default .NET date/time support, mostly via improving the usability of its main type and accounting for a big amount of additional time zone information.
 
 
 ## Authorship & Copyright
