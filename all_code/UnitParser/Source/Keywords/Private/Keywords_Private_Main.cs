@@ -6,7 +6,7 @@ namespace FlexibleParser
 {
     public partial class UnitP
     {
-        //Main classiffication for all the units (type, system and conversion factor).
+        //Main classification for all the units (type, system and conversion factor).
         //This dictionary represents an easily-modifiable container of well-structured unit information.
         //After using all this information to create more specific/efficient collections, GetAllMain() deletes it.
         private static Dictionary<UnitTypes, Dictionary<UnitSystems, Dictionary<Units, decimal>>> AllUnits = 
