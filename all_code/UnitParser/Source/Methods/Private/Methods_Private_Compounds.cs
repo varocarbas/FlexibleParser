@@ -869,7 +869,6 @@ namespace FlexibleParser
         {
             //The prefix of the original unit is added to the first unit part.
             bool firstTime = true;
-            UnitSystems basicSystem = AllBasicSystems[unitInfo.System];
             List<UnitPart> newParts = new List<UnitPart>();
 
             foreach (UnitPart part in compoundUnitParts)
