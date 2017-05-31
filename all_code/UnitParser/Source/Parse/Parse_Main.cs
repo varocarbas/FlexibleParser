@@ -91,16 +91,13 @@ namespace FlexibleParser
             //ValidCompound isn't used when parsing individual units.
             public StringBuilder ValidCompound { get; set; }
 
-            public ParseInfo() : this(null) { }
+            public ParseInfo() : this((UnitInfo)null) { }
 
-            public ParseInfo(UnitInfo unitInfo)
+            public ParseInfo(UnitInfo unitInfo, string inputToParse = "")
             {
                 UnitInfo = new UnitInfo(unitInfo);
-                InputToParse = "";
+                InputToParse = inputToParse;
             }
-
-            public ParseInfo(UnitInfo unitInfo, string inputToParse = "") :
-            this(new ParseInfo(unitInfo), inputToParse) { }
             
             public ParseInfo(ParseInfo parseInfo, string inputToParse = "")
             {
