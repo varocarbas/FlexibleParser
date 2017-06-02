@@ -202,7 +202,7 @@ namespace FlexibleParser
                 IsWrong = true;
             }
 
-            public NumberInternal(dynamic value, int exponent = 0)
+            public NumberInternal(decimal value, int exponent = 0)
             {
                 Value = value;
                 Exponent = exponent;
