@@ -1,8 +1,8 @@
 # NumberParser
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.439942.svg)](https://doi.org/10.5281/zenodo.439942)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.803390.svg)](https://doi.org/10.5281/zenodo.803390)
 
-[Last release](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.6302.28051) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source)
+[Last release](https://github.com/varocarbas/FlexibleParser/releases/tag/NumberParser_1.0.8.0) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/NumberParser/Source)
 
 [https://customsolvers.com/number_parser/](https://customsolvers.com/number_parser/) (ES: [https://customsolvers.com/number_parser_es/](https://customsolvers.com/number_parser_es/)) -- [https://varocarbas.com/number_parser_code/](https://varocarbas.com/number_parser_code/) -- [NuGet package](https://www.nuget.org/packages/NumberParser/) -- [Video](https://www.youtube.com/watch?v=hibR1gjuZmg)
 

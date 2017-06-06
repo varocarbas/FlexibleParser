@@ -1,8 +1,8 @@
 # DateParser
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.573734.svg)](https://doi.org/10.5281/zenodo.573734)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.803399.svg)](https://doi.org/10.5281/zenodo.803399)
 
-[Last release](https://github.com/varocarbas/FlexibleParser/releases/tag/DateParser_1.0.6337.38019) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/DateParser/Source)
+[Last release](https://github.com/varocarbas/FlexibleParser/releases/tag/DateParser_1.0.7.0) -- [Master source code](https://github.com/varocarbas/FlexibleParser/tree/master/all_code/DateParser/Source)
 
 [https://customsolvers.com/date_parser/](https://customsolvers.com/date_parser/) (ES: [https://customsolvers.com/date_parser_es/](https://customsolvers.com/date_parser_es/)) -- [NuGet package](https://www.nuget.org/packages/DateParser/) -- [Video](https://www.youtube.com/watch?v=E2JT2w66uyc)
 
