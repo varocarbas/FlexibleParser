@@ -36,10 +36,10 @@ namespace FlexibleParser
 
         private static UnitInfo RemoveUnitPartPrefixes(UnitInfo unitInfo)
         {
-            if (unitInfo.Parts.Count < 2 || !IsUnnamedUnit(unitInfo.Unit))
+            if (unitInfo.Parts.Count == 0 || (unitInfo.Parts.Count < 2 && unitInfo.Parts[0].Exponent == 1) || !IsUnnamedUnit(unitInfo.Unit))
             {
-                //The only cases with (uncompensated) prefixes in some unit parts which
-                //might reach this point are multi-part unnamed compounds.
+                //The only cases with (uncompensated) prefixes in some unit parts which might reach 
+                //this point are (multi-part or with-other-than-1-exponent) unnamed compounds.
                 return unitInfo;
             }
 
