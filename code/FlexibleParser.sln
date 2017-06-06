@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{329F7AC8-D2D5-4BFE-8FEF-3387152DF32E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberParser", "NumberParser\NumberParser.csproj", "{7B07EEB7-8504-4B0D-8733-065D3CCE70AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateParser", "DateParser\DateParser.csproj", "{A29B0988-BAC0-4283-82BC-A6C166056231}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		{329F7AC8-D2D5-4BFE-8FEF-3387152DF32E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{329F7AC8-D2D5-4BFE-8FEF-3387152DF32E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{329F7AC8-D2D5-4BFE-8FEF-3387152DF32E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B07EEB7-8504-4B0D-8733-065D3CCE70AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B07EEB7-8504-4B0D-8733-065D3CCE70AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B07EEB7-8504-4B0D-8733-065D3CCE70AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B07EEB7-8504-4B0D-8733-065D3CCE70AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29B0988-BAC0-4283-82BC-A6C166056231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29B0988-BAC0-4283-82BC-A6C166056231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29B0988-BAC0-4283-82BC-A6C166056231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29B0988-BAC0-4283-82BC-A6C166056231}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
