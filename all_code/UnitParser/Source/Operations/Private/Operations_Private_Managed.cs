@@ -48,12 +48,10 @@ namespace FlexibleParser
 
         private static UnitInfo PerformManagedOperationAddition(UnitInfo firstInfo, UnitInfo secondInfo, Operations operation)
         {   
-            //After being normalised, the operands might require further modifications.
-            UnitInfo[] normalised = GetOperandsAddition(firstInfo, secondInfo, operation);
-
             return PerformManagedOperationNormalisedValues
             (
-                firstInfo, normalised, operation
+                //After being normalised, the operands might require further modifications.
+                firstInfo, GetOperandsAddition(firstInfo, secondInfo, operation), operation
             );
         }
 
@@ -259,15 +257,13 @@ namespace FlexibleParser
 
         private static UnitInfo PerformManagedOperationNormalisedValues(UnitInfo outInfo, UnitInfo[] normalisedInfos, Operations operation)
         {
-            outInfo =
+            return
             (
                 normalisedInfos.Length == 1 ?
                 //There is just one operand when the difference between both of them is too big.
-                outInfo = normalisedInfos[0] :
+                normalisedInfos[0] :
                 PerformManagedOperationTwoOperands(outInfo, normalisedInfos, operation)
             );
-
-            return outInfo;
         }
 
         private static UnitInfo PerformManagedOperationTwoOperands(UnitInfo outInfo, UnitInfo[] normalisedInfos, Operations operation)
