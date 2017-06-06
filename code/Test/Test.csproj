@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NumberParser, Version=1.0.6193.23233, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\NumberParser.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,9 +40,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnitParser">
+      <HintPath>.\UnitParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parts\UnitParser.cs" />
+    <Compile Include="Parts\NumberParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,9 +53,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnitParser\UnitParser.csproj">
-      <Project>{66ed39c1-c01c-43f1-85a1-f1a4b5422f7f}</Project>
-      <Name>UnitParser</Name>
+    <ProjectReference Include="..\NumberParser\NumberParser.csproj">
+      <Project>{7b07eeb7-8504-4b0d-8733-065d3cce70ab}</Project>
+      <Name>NumberParser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

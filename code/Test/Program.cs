@@ -7,8 +7,8 @@ namespace Test
     {
         private static void Main(string[] args)
         {
-            //UnitParser tests.
-            UnitParser.StartTest();
+            //NumberParser tests.
+            NumberParser.StartTest();
         }
     }
 }
