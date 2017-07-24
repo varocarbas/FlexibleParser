@@ -76,7 +76,7 @@ namespace FlexibleParser
         ///<param name="number">Number variable whose information will be used.</param>    
         public NumberP(Number number)
         {
-            Number tempVar = Common.ExtractSameTypeNumberXInfo(number);
+            Number tempVar = Common.ExtractDynamicToNumber(number);
 
             if (tempVar.Error != ErrorTypesNumber.None)
             {
@@ -94,7 +94,7 @@ namespace FlexibleParser
         ///<param name="numberD">NumberD variable whose information will be used.</param>   
         public NumberP(NumberD numberD)
         {
-            NumberD tempVar = Common.ExtractSameTypeNumberXInfo(numberD);
+            NumberD tempVar = Common.ExtractDynamicToNumberD(numberD);
 
             if (tempVar.Error != ErrorTypesNumber.None)
             {
@@ -112,7 +112,7 @@ namespace FlexibleParser
         ///<param name="numberO">NumberO variable whose information will be used.</param>   
         public NumberP(NumberO numberO)
         {
-            Number tempVar = Common.ExtractSameTypeNumberXInfo(numberO);
+            Number tempVar = Common.ExtractDynamicToNumber(numberO);
 
             if (tempVar.Error != ErrorTypesNumber.None)
             {
@@ -128,7 +128,7 @@ namespace FlexibleParser
 
         internal NumberP(Number number, string originalString, ParseConfig config)
         {
-            Number tempVar = Common.ExtractSameTypeNumberXInfo(number);
+            Number tempVar = Common.ExtractDynamicToNumber(number);
 
             if (tempVar.Error != ErrorTypesNumber.None)
             {

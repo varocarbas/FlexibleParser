@@ -67,7 +67,7 @@ namespace FlexibleParser
         //Returns all the types whose ranges are equal or smaller than int.
         public static Type[] GetSmallIntegers()
         {
-            return Basic.AllNumericTypes.Where
+            return AllNumericTypes.Where
             (
                 x => x != typeof(long) && x != typeof(ulong) &&
                 x != typeof(uint) && !AllDecimalTypes.Contains(x)
@@ -94,20 +94,20 @@ namespace FlexibleParser
 
             if (type == typeof(double) || type == typeof(float))
             {
-                value = new NumberD(Conversions.ConvertToDoubleInternal(input.Value)).Value;
+                value = Conversions.ConvertToDoubleInternal(input.Value);
                 minMax = new dynamic[]
                 {
-                    Convert.ToDouble(Basic.AllNumberMinMaxPositives[type][0]),
-                    Convert.ToDouble(Basic.AllNumberMinMaxPositives[type][1])
+                    Convert.ToDouble(AllNumberMinMaxPositives[type][0]),
+                    Convert.ToDouble(AllNumberMinMaxPositives[type][1])
                 };
             }
             else
             {
-                value = new Number(Conversions.ConvertToDecimalInternal(input.Value)).Value;
+                value = Conversions.ConvertToDecimalInternal(input.Value);
                 minMax = new dynamic[]
                 {
-                    Convert.ToDecimal(Basic.AllNumberMinMaxPositives[type][0]),
-                    Convert.ToDecimal(Basic.AllNumberMinMaxPositives[type][1])
+                    Convert.ToDecimal(AllNumberMinMaxPositives[type][0]),
+                    Convert.ToDecimal(AllNumberMinMaxPositives[type][1])
                 };
             }
 

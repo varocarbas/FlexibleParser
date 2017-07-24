@@ -39,7 +39,7 @@ namespace FlexibleParser
             return outNumber;
         }
 
-        private static Number AdaptValueToTargetRange(Number outNumber, Type target, decimal[] minMax)
+        private static Number AdaptValueToTargetRange(NumberD outNumber, Type target, decimal[] minMax)
         {
             if (outNumber.Value == 0) return outNumber;
 

@@ -55,20 +55,20 @@ namespace FlexibleParser
         {
             Type type = value.GetType();
             Number outNumber = new Number();
-            if (value == Conversions.CastDynamicToType(0, type))
+            if (value == CastDynamicToType(0, type))
             {
                 return outNumber;
             }
 
-            dynamic step = Conversions.CastDynamicToType(10, type);
+            dynamic step = CastDynamicToType(10, type);
 
             dynamic[] minMax = new dynamic[] 
             {
-                Conversions.CastDynamicToType
+                CastDynamicToType
                 (
                     Basic.AllNumberMinMaxPositives[typeof(decimal)][0], type
                 ), 
-                Conversions.CastDynamicToType
+                CastDynamicToType
                 (
                     Basic.AllNumberMinMaxPositives[typeof(decimal)][1], type
                 )

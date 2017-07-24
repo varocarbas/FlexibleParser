@@ -27,28 +27,31 @@ namespace FlexibleParser
             return null;
         }
 
-        //This method expects numberX to be a NumberD or NumberP variable.
-        public static Number ExtractDynamicToDecimalInfo(dynamic numberX)
+        public static Number ExtractDynamicToNumber(dynamic numberX)
         {
             if (numberX == null) return new Number(ErrorTypesNumber.InvalidInput);
+            if (numberX.Error != ErrorTypesNumber.None) return new Number(numberX.Error);
+
+            Type type = numberX.GetType();
 
             return
             (
-                numberX.Error != ErrorTypesNumber.None ? new Number(numberX.Error) :
+                type == typeof(Number) || type == typeof(NumberO) ?
+                new Number(numberX.Value, numberX.BaseTenExponent) :
                 Conversions.ConvertNumberDToNumber(numberX)
             );
         }
 
-        public static NumberD ExtractSameTypeNumberXInfo(dynamic numberX)
+        public static NumberD ExtractDynamicToNumberD(dynamic numberX)
         {
-            if (numberX == null) return new Number(ErrorTypesNumber.InvalidInput);
+            if (numberX == null) return new NumberD(ErrorTypesNumber.InvalidInput);
             if (numberX.Error != ErrorTypesNumber.None) return new NumberD(numberX.Error);
 
-            NumberD numberD = new NumberD();
-            numberD.Value = numberX.Value;
-            numberD.BaseTenExponent = numberX.BaseTenExponent;
-            
-            return numberD;
+            return new NumberD()
+            {
+                Value = numberX.Value,
+                BaseTenExponent = numberX.BaseTenExponent
+            };
         }
     }
 }

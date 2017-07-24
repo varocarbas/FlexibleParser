@@ -27,7 +27,7 @@ namespace FlexibleParser
                     if (_Value == 0) BaseTenExponent = 0;
                 }
 
-                if(Type != type) Type = type;
+                if (Type != type) Type = type;
             }
         }  
         ///<summary><para>Base-ten exponent complementing the primary value.</para></summary>

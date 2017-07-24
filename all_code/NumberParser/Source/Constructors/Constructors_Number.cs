@@ -43,106 +43,73 @@ namespace FlexibleParser
             Value = value;
         }
 
+		private ErrorTypesNumber PopulateNumberX(dynamic numberX)
+		{
+			Number tempVar = Common.ExtractDynamicToNumber(numberX);
+			if (tempVar.Error != ErrorTypesNumber.None)
+			{
+				return tempVar.Error;
+			}
+
+			BaseTenExponent = tempVar.BaseTenExponent;
+			Value = tempVar.Value;
+
+			return ErrorTypesNumber.None;
+		}
+
         ///<summary><para>Initialises a new Number instance.</para></summary>
         ///<param name="number">Number variable whose information will be used.</param>
         public Number(Number number)
         {
-            NumberD tempVar = Common.ExtractSameTypeNumberXInfo(number);
-
-            if (tempVar.Error != ErrorTypesNumber.None)
-            {
-                Error = tempVar.Error;
-            }
-            else
-            {
-                BaseTenExponent = tempVar.BaseTenExponent;
-                Value = tempVar.Value;
-            }
+			Error = PopulateNumberX(number);
         }
 
         ///<summary><para>Initialises a new Number instance.</para></summary>
         ///<param name="numberD">NumberD variable whose information will be used.</param>
         public Number(NumberD numberD)
         {
-            Number tempVar = Common.ExtractDynamicToDecimalInfo(numberD);
-
-            if (tempVar.Error != ErrorTypesNumber.None)
-            {
-                Error = tempVar.Error;
-            }
-            else
-            {
-                BaseTenExponent = tempVar.BaseTenExponent;
-                Value = tempVar.Value;
-            }
+			Error = PopulateNumberX(numberD);
         }
 
         ///<summary><para>Initialises a new Number instance.</para></summary>
         ///<param name="numberO">NumberO variable whose information will be used.</param>
-        public Number(NumberO numberO)
-        {
-            NumberD tempVar = Common.ExtractSameTypeNumberXInfo(numberO);
-
-            if (tempVar.Error != ErrorTypesNumber.None)
-            {
-                Error = tempVar.Error;
-            }
-            else
-            {
-                BaseTenExponent = tempVar.BaseTenExponent;
-                Value = tempVar.Value;
-            }
-        }
+		public Number(NumberO numberO)
+		{
+			Error = PopulateNumberX(numberO);
+		}
 
         ///<summary><para>Initialises a new Number instance.</para></summary>
         ///<param name="numberP">NumberP variable whose information will be used.</param>
         public Number(NumberP numberP)
         {
-            Number tempVar = Common.ExtractDynamicToDecimalInfo(numberP);
-
-            if (tempVar.Error != ErrorTypesNumber.None)
-            {
-                Error = tempVar.Error;
-            }
-            else
-            {
-                BaseTenExponent = tempVar.BaseTenExponent;
-                Value = tempVar.Value;
-            }
+			Error = PopulateNumberX(numberP);
         }
+
+		private ErrorTypesNumber PopulateDoubleFloat(dynamic value)
+		{
+			Number tempVar = Conversions.ConvertAnyValueToDecimal(value);
+			if (tempVar.Error != ErrorTypesNumber.None)
+			{
+				//double/float variable can trigger an error (e.g., NaN or infinity).
+				return tempVar.Error;
+			}
+
+			//BaseTenExponent needs also to be considered because the float/double ranges are
+			//bigger than the decimal one. 
+			BaseTenExponent = tempVar.BaseTenExponent;
+			Value = tempVar.Value;
+
+			return ErrorTypesNumber.None;
+		}
 
         internal Number(double value)
         {
-            Number tempVar = Conversions.ConvertAnyValueToDecimal(value);
-
-            if (tempVar.Error != ErrorTypesNumber.None)
-            {
-                //The double type can deliver erroneous values (e.g., NaN or infinity) which are stored as errors.
-                Error = tempVar.Error;
-            }
-            else
-            {
-                //BaseTenExponent needs also to be considered because the double range is bigger than the decimal one. 
-                BaseTenExponent = tempVar.BaseTenExponent;
-                Value = tempVar.Value;
-            }
+			Error = PopulateDoubleFloat(value);
         }
 
         internal Number(float value)
         {
-            Number tempVar = Conversions.ConvertAnyValueToDecimal(value);
-
-            if (tempVar.Error != ErrorTypesNumber.None)
-            {
-                //The float type can deliver erroneous values (e.g., NaN or infinity) which are stored as errors.
-                Error = tempVar.Error;
-            }
-            else
-            {
-                //BaseTenExponent needs also to be considered because the float range is bigger than the decimal one. 
-                BaseTenExponent = tempVar.BaseTenExponent;
-                Value = tempVar.Value;
-            }
+			Error = PopulateDoubleFloat(value);
         }
 
         internal Number(long value)

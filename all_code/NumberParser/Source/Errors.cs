@@ -99,7 +99,7 @@ namespace FlexibleParser
         internal static ErrorTypesNumber GetOperationError(dynamic first, dynamic second, ExistingOperations operation)
         {
             ErrorTypesNumber error = GetOperandsError(first, second);
-            if(error != ErrorTypesNumber.None) return error;
+            if (error != ErrorTypesNumber.None) return error;
 
             return
             (

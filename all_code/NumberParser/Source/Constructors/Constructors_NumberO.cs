@@ -69,7 +69,7 @@ namespace FlexibleParser
         ///<param name="otherTypes">Array containing the types to be considered.</param>
         public NumberO(NumberO numberO, IEnumerable<Type> otherTypes)
         {
-            NumberD tempVar = Common.ExtractSameTypeNumberXInfo(numberO);
+            NumberD tempVar = Common.ExtractDynamicToNumberD(numberO);
 
             if (tempVar.Error != ErrorTypesNumber.None) Error = tempVar.Error;
             else
@@ -80,7 +80,11 @@ namespace FlexibleParser
                 if (otherTypes != null) _OtherTypes = otherTypes;
                 else
                 {
-                    Others = new List<NumberD>(numberO.Others.ToList()).AsReadOnly();
+                    Others = new List<NumberD>
+                    (
+                        numberO.Others.ToList()
+                    )
+					.AsReadOnly();
                 }
                 BaseTenExponent = tempVar.BaseTenExponent;
                 Value = tempVar.Value;
@@ -91,7 +95,7 @@ namespace FlexibleParser
         ///<param name="number">Number variable whose information will be used.</param>
         public NumberO(Number number)
         {
-            NumberD tempVar = Common.ExtractSameTypeNumberXInfo(number);
+            NumberD tempVar = Common.ExtractDynamicToNumberD(number);
             
             if (tempVar.Error != ErrorTypesNumber.None)
             {
@@ -108,7 +112,7 @@ namespace FlexibleParser
         ///<param name="numberD">NumberD variable whose information will be used.</param>
         public NumberO(NumberD numberD)
         {
-            Number tempVar = Common.ExtractDynamicToDecimalInfo(numberD);
+            Number tempVar = Common.ExtractDynamicToNumber(numberD);
 
             if (tempVar.Error != ErrorTypesNumber.None)
             {
@@ -125,7 +129,7 @@ namespace FlexibleParser
         ///<param name="numberP">NumberP variable whose information will be used.</param>
         public NumberO(NumberP numberP)
         {
-            Number tempVar = Common.ExtractDynamicToDecimalInfo(numberP);
+            Number tempVar = Common.ExtractDynamicToNumber(numberP);
 
             if (tempVar.Error != ErrorTypesNumber.None)
             {
