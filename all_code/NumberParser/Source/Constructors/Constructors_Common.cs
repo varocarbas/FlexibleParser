@@ -27,6 +27,8 @@ namespace FlexibleParser
 			return null;
 		}
 
+		//This method expects numberX to be a valid NumberX type 
+		//(i.e., Number, NumberD, NumberO or NumberP).
 		public static Number ExtractDynamicToNumber(dynamic numberX)
 		{
 			if (numberX == null) return new Number(ErrorTypesNumber.InvalidInput);
@@ -42,6 +44,8 @@ namespace FlexibleParser
 			);
 		}
 
+		//This method expects numberX to be a valid NumberX type 
+		//(i.e., Number, NumberD, NumberO or NumberP).
 		public static NumberD ExtractDynamicToNumberD(dynamic numberX)
 		{
 			if (numberX == null) return new NumberD(ErrorTypesNumber.InvalidInput);

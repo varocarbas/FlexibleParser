@@ -66,7 +66,7 @@ namespace FlexibleParser
 
 		///<summary><para>Initialises a new NumberO instance.</para></summary>
 		///<param name="numberO">NumberO variable whose information will be used.</param>
-		///<param name="otherTypes">Array containing the types to be considered.</param>
+		///<param name="otherTypes">Collection containing the types to be considered.</param>
 		public NumberO(NumberO numberO, IEnumerable<Type> otherTypes)
 		{
 			NumberD tempVar = Common.ExtractDynamicToNumberD(numberO);
@@ -75,9 +75,12 @@ namespace FlexibleParser
 			else
 			{
 				//To avoid problems with the automatic actions triggered by some setters, it is better 
-				//to always assign values in this order (i.e., first _OtherTypes/Others,  then BaseTenExponent
+				//to always assign values in this order (i.e., first _OtherTypes/Others, then BaseTenExponent
 				//and finally Value).
-				if (otherTypes != null) _OtherTypes = otherTypes;
+				if (otherTypes != null)
+				{
+					_OtherTypes = AssignOtherTypes(otherTypes);
+				}
 				else
 				{
 					Others = new List<NumberD>
@@ -161,8 +164,8 @@ namespace FlexibleParser
 
 		///<summary><para>Initialises a new NumberO instance.</para></summary>
 		///<param name="value">Main value to be used.</param>
-		///<param name="otherTypes">Array containing the types to be considered.</param>
-		public NumberO(decimal value, Type[] otherTypes) : this
+		///<param name="otherTypes">Collection containing the types to be considered.</param>
+		public NumberO(decimal value, IEnumerable<Type> otherTypes) : this
 		(
 			value, 0, otherTypes, ErrorTypesNumber.None
 		)
@@ -181,8 +184,9 @@ namespace FlexibleParser
 		///<summary><para>Initialises a new NumberO instance.</para></summary>
 		///<param name="value">Main value to be used.</param>
 		///<param name="baseTenExponent">Base-ten exponent to be used.</param>
-		///<param name="otherTypes">Array containing the types to be considered.</param>
-		public NumberO(decimal value, int baseTenExponent, Type[] otherTypes) : this
+		///<param name="otherTypes">Collection containing the types to be considered.</param>
+		public NumberO(decimal value, int baseTenExponent, IEnumerable<Type> otherTypes)
+			: this
 		(
 			value, baseTenExponent, otherTypes, ErrorTypesNumber.None
 		)
@@ -303,7 +307,10 @@ namespace FlexibleParser
 
 		private NumberO(decimal value, int baseTenExponent, IEnumerable<Type> otherTypes, ErrorTypesNumber error)
 		{
-			if (otherTypes == null) otherTypes = new Type[0];
+			if (otherTypes == null)
+			{
+				otherTypes = AssignOtherTypes(new List<Type>());
+			}
 
 			_OtherTypes = otherTypes;
 			BaseTenExponent = baseTenExponent;

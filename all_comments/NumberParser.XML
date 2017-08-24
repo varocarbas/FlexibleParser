@@ -402,7 +402,7 @@
         <member name="M:FlexibleParser.NumberO.#ctor(FlexibleParser.NumberO,System.Collections.Generic.IEnumerable{System.Type})">
             <summary><para>Initialises a new NumberO instance.</para></summary>
             <param name="numberO">NumberO variable whose information will be used.</param>
-            <param name="otherTypes">Array containing the types to be considered.</param>
+            <param name="otherTypes">Collection containing the types to be considered.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.#ctor(FlexibleParser.Number)">
             <summary><para>Initialises a new NumberO instance.</para></summary>
@@ -425,10 +425,10 @@
             <param name="value">Main value to be used.</param>
             <param name="otherType">Member of the OtherTypes enum determining the types to be considered.</param>
         </member>
-        <member name="M:FlexibleParser.NumberO.#ctor(System.Decimal,System.Type[])">
+        <member name="M:FlexibleParser.NumberO.#ctor(System.Decimal,System.Collections.Generic.IEnumerable{System.Type})">
             <summary><para>Initialises a new NumberO instance.</para></summary>
             <param name="value">Main value to be used.</param>
-            <param name="otherTypes">Array containing the types to be considered.</param>
+            <param name="otherTypes">Collection containing the types to be considered.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.#ctor(System.Decimal,System.Int32,FlexibleParser.OtherTypes)">
             <summary><para>Initialises a new NumberO instance.</para></summary>
@@ -436,11 +436,11 @@
             <param name="baseTenExponent">Base-ten exponent to be used.</param>
             <param name="otherType">Member of the OtherTypes enum determining the types to be considered.</param>
         </member>
-        <member name="M:FlexibleParser.NumberO.#ctor(System.Decimal,System.Int32,System.Type[])">
+        <member name="M:FlexibleParser.NumberO.#ctor(System.Decimal,System.Int32,System.Collections.Generic.IEnumerable{System.Type})">
             <summary><para>Initialises a new NumberO instance.</para></summary>
             <param name="value">Main value to be used.</param>
             <param name="baseTenExponent">Base-ten exponent to be used.</param>
-            <param name="otherTypes">Array containing the types to be considered.</param>
+            <param name="otherTypes">Collection containing the types to be considered.</param>
         </member>
         <member name="M:FlexibleParser.NumberO.#ctor(System.Object)">
             <summary><para>Initialises a new NumberO instance.</para></summary>
@@ -620,24 +620,24 @@
         </member>
         <member name="M:FlexibleParser.NumberP.#ctor(System.String,FlexibleParser.ParseConfig)">
             <summary><para>Initialises a new NumberP instance.</para></summary>
-            <param name="input">String variable whose contents will be parsed.</param>     
+            <param name="input">String variable whose contents will be parsed.</param>	  
             <param name="config">ParseConfig variable whose information will be used.</param>   
         </member>
         <member name="M:FlexibleParser.NumberP.#ctor(FlexibleParser.NumberP)">
             <summary><para>Initialises a new NumberP instance.</para></summary>
-            <param name="numberP">NumberP variable whose information will be used.</param>     
+            <param name="numberP">NumberP variable whose information will be used.</param>	  
         </member>
         <member name="M:FlexibleParser.NumberP.#ctor(FlexibleParser.Number)">
             <summary><para>Initialises a new NumberP instance.</para></summary>
-            <param name="number">Number variable whose information will be used.</param>    
+            <param name="number">Number variable whose information will be used.</param>	   
         </member>
         <member name="M:FlexibleParser.NumberP.#ctor(FlexibleParser.NumberD)">
             <summary><para>Initialises a new NumberP instance.</para></summary>
-            <param name="numberD">NumberD variable whose information will be used.</param>   
+            <param name="numberD">NumberD variable whose information will be used.</param>	
         </member>
         <member name="M:FlexibleParser.NumberP.#ctor(FlexibleParser.NumberO)">
             <summary><para>Initialises a new NumberP instance.</para></summary>
-            <param name="numberO">NumberO variable whose information will be used.</param>   
+            <param name="numberO">NumberO variable whose information will be used.</param>	
         </member>
         <member name="M:FlexibleParser.NumberP.#ctor(System.Object)">
             <summary><para>Initialises a new NumberP instance.</para></summary>
@@ -746,7 +746,7 @@
             </summary>
         </member>
         <member name="F:FlexibleParser.ParseConfig.Target">
-            <summary><para>Numeric type targeted by the parsing actions. Its default value is decimal.</para></summary>        
+            <summary><para>Numeric type targeted by the parsing actions. Its default value is decimal.</para></summary>		  
         </member>
         <member name="M:FlexibleParser.ParseConfig.ToString">
             <summary>

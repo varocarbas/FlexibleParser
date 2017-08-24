@@ -84,24 +84,47 @@ namespace FlexibleParser
 
 			while (true)
 			{
-				if (number.Value == targetValue || (increase && number.Value > targetValue) || (!increase && number.Value < targetValue))
-				{
-					number.Value *= sign;
-
-					return number;
-				}
-
-				if (increase)
-				{
-					number.Value *= 10;
-					number.BaseTenExponent -= 1;
-				}
+				if (number.Value == targetValue) break;
 				else
 				{
-					number.Value /= 10;
-					number.BaseTenExponent += 1;
+					if (increase)
+					{
+						if 
+						(
+							number.Value > Basic.AllNumberMinMaxPositives
+							[
+								typeof(decimal)
+							]
+							[1] / 10m
+						)
+						{ break; }
+
+						number.Value *= 10;
+						number.BaseTenExponent--;
+						if (number.Value > targetValue) break;
+					}
+					else
+					{
+						if
+						(
+							number.Value < Basic.AllNumberMinMaxPositives
+							[
+								typeof(decimal)
+							]
+							[0] * 10m
+						)
+						{ break; }
+
+						number.Value /= 10;
+						number.BaseTenExponent++;
+						if (number.Value < targetValue) break;
+					}
 				}
 			}
+
+			number.Value *= sign;
+
+			return number;
 		}
 
 		//This method expects the input decimal value to lie within the MinMax value of the given type,
