@@ -45,7 +45,7 @@ namespace FlexibleParser
 			return null;
 		}
 
-		internal static ErrorTypesNumber ApplyPolynomialFitError(Polynomial coefficients, Number xValue)
+		internal static ErrorTypesNumber ApplyPolynomialFitError(Polynomial coefficients, NumberD xValue)
 		{
 			ErrorTypesNumber error = ErrorTypesNumber.None;
 
