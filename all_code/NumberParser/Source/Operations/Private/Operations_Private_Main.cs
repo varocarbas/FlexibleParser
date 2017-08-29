@@ -76,7 +76,19 @@ namespace FlexibleParser
                 {
                     return new Number(first2.Value % second2.Value);
                 }
-                numberOut = first2 - (Number)Math2.Floor(first2 / second2) * second2;
+                
+				numberOut = PerformArithmeticOperation
+				(
+					first2, MultiplyInternal
+					(
+						(Number)Math2.Floor
+						(
+							DivideInternal(first2, second2)
+						), 
+						second2
+					), 
+					ExistingOperations.Subtraction, false
+				);
             }
             else
             {

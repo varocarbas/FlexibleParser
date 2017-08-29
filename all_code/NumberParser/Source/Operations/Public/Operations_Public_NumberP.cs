@@ -123,11 +123,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator >(NumberP first, NumberP second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.Greater
-            )
-            .Value == 1m;
+			return Operations.CompareDynamic(first, second) == 1;
         }
 
         ///<summary><para>Determines whether a NumberP variable is greater or equal than other.</para></summary>
@@ -135,11 +131,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator >=(NumberP first, NumberP second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.GreaterOrEqual
-            )
-            .Value == 1m;
+			return Operations.CompareDynamic(first, second) >= 0;
         }
 
         ///<summary><para>Determines whether a NumberP variable is smaller than other.</para></summary>
@@ -147,11 +139,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator <(NumberP first, NumberP second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.Smaller
-            )
-            .Value == 1m;
+			return Operations.CompareDynamic(first, second) == -1;
         }
 
         ///<summary><para>Determines whether a NumberP variable is smaller or equal than other.</para></summary>
@@ -159,11 +147,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator <=(NumberP first, NumberP second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.SmallerOrEqual
-            )
-            .Value == 1m;
+			return Operations.CompareDynamic(first, second) <= 0;
         }
 
         ///<summary><para>Determines whether two NumberP variables are equal.</para></summary>

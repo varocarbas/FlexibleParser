@@ -10,6 +10,9 @@ namespace FlexibleParser
         //This method is called from CompareTo of Number/NumberO instances.
         public static int CompareDecimal(dynamic thisVar, dynamic other)
         {
+			int tempInt = ComparePreanalysis(thisVar, other);
+			if (tempInt != -2) return tempInt;
+
             return
             (
                 thisVar.BaseTenExponent == other.BaseTenExponent ?
@@ -22,6 +25,9 @@ namespace FlexibleParser
         //It always relies on the same common type (i.e., decimal) to avoid different-type-Value problems.
         public static int CompareDynamic(dynamic thisVar, dynamic other)
         {
+			int tempInt = ComparePreanalysis(thisVar, other);
+			if (tempInt != -2) return tempInt;
+
             NumberD[] adapted = ComparedInstancesToDecimal(thisVar, other);
 
             return
@@ -46,5 +52,31 @@ namespace FlexibleParser
                 new NumberD(other.Value, other.BaseTenExponent, typeof(decimal))
             };
         }
+
+		private static int ComparePreanalysis(dynamic thisVar, dynamic other)
+		{
+			if (thisVar == null || other == null)
+			{
+				if (thisVar == other) return 0;
+
+				return (thisVar == null ? -1 : 1);
+			}
+
+			if 
+			(
+				thisVar.Error != ErrorTypesNumber.None || 
+				other.Error != ErrorTypesNumber.None
+			)
+			{
+				if (thisVar.Error == other.Error) return 0;
+
+				return 
+				(
+					other.Error != ErrorTypesNumber.None ? -1 : 1
+				);
+			}
+
+			return -2;
+		}
     }
 }

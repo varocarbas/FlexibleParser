@@ -18,7 +18,11 @@ namespace FlexibleParser
         {
             return
             (
-                new Number(unitP.UnitPrefix.Factor) * new Number(unitP.Value, unitP.BaseTenExponent)
+                Operations.MultiplyInternal
+				( 
+					new Number(unitP.UnitPrefix.Factor), 
+					new Number(unitP.Value, unitP.BaseTenExponent)
+				)
             );
         }
     }

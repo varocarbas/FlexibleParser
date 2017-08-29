@@ -65,7 +65,9 @@ namespace FlexibleParser
 
             return 
             (
-                type == null ? input : AbsInternalValue(new NumberD(input))
+                type == null ? 
+				new NumberD(ErrorTypesNumber.InvalidInput) : 
+				AbsInternalValue(new NumberD(input))
             );
         }
 

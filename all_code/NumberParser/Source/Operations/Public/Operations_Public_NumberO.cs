@@ -210,11 +210,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator >(NumberO first, NumberO second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.Greater
-            )
-            .Value == 1m;
+			return Operations.CompareDecimal(first, second) == 1;
         }
 
         ///<summary><para>Determines whether a NumberO variable is greater or equal than other.</para></summary>
@@ -222,11 +218,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator >=(NumberO first, NumberO second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.GreaterOrEqual
-            )
-            .Value == 1m;
+			return Operations.CompareDecimal(first, second) >= 0;
         }
 
         ///<summary><para>Determines whether a NumberO variable is smaller than other.</para></summary>
@@ -234,11 +226,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator <(NumberO first, NumberO second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.Smaller
-            )
-            .Value == 1m;
+			return Operations.CompareDecimal(first, second) == -1;
         }
 
         ///<summary><para>Determines whether a NumberO variable is smaller or equal than other.</para></summary>
@@ -246,11 +234,7 @@ namespace FlexibleParser
         ///<param name="second">Second operand.</param>
         public static bool operator <=(NumberO first, NumberO second)
         {
-            return Operations.PerformOtherOperation
-            (
-                first, second, ExistingOperations.SmallerOrEqual
-            )
-            .Value == 1m;
+			return Operations.CompareDecimal(first, second) <= 0;
         }
 
         ///<summary><para>Determines whether two NumberO variables are equal.</para></summary>

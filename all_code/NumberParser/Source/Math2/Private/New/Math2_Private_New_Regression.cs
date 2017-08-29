@@ -128,15 +128,51 @@ namespace FlexibleParser
 
             for (int i = 0; i < xValues.Length; i++)
             {
-                NumberD curX2 = new NumberD(xValues[i] * xValues[i]);
+                NumberD curX2 = new NumberD
+				(
+					Operations.MultiplyInternal(xValues[i], xValues[i])
+				);
 
-                leastSquares.sumX1 = leastSquares.sumX1 + xValues[i];
-                leastSquares.sumX2 = leastSquares.sumX2 + curX2;
-                leastSquares.sumX12 = leastSquares.sumX12 + (xValues[i] * curX2);
-                leastSquares.sumX1Y = leastSquares.sumX1Y + (xValues[i] * yValues[i]);
-                leastSquares.sumX22 = leastSquares.sumX22 + (curX2 * curX2);
-                leastSquares.sumX2Y = leastSquares.sumX2Y + (curX2 * yValues[i]);
-                leastSquares.sumY = leastSquares.sumY + yValues[i];
+                leastSquares.sumX1 = Operations.AddInternal
+				(
+					leastSquares.sumX1, xValues[i]
+				);
+				leastSquares.sumX2 = Operations.AddInternal
+				(
+					leastSquares.sumX2, curX2
+				);
+                leastSquares.sumX12 = Operations.AddInternal
+				(
+					leastSquares.sumX12, Operations.MultiplyInternal
+					(
+						xValues[i], curX2
+					)
+				);
+                leastSquares.sumX1Y = Operations.AddInternal
+				(
+					leastSquares.sumX1Y, Operations.MultiplyInternal
+					(
+						xValues[i], yValues[i]
+					)
+				);
+				leastSquares.sumX22 = Operations.AddInternal
+				(
+					leastSquares.sumX22, Operations.MultiplyInternal
+					(
+						curX2, curX2
+					)
+				);
+				leastSquares.sumX2Y = Operations.AddInternal
+				(
+					leastSquares.sumX2Y, Operations.MultiplyInternal
+					(
+						curX2, yValues[i]
+					)
+				);
+				leastSquares.sumY = Operations.AddInternal
+				(
+					leastSquares.sumY, yValues[i]
+				);
             }
 
             //a/b arrays emulating the matrix storing the least square outputs, as defined by:
