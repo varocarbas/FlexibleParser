@@ -72,7 +72,7 @@ namespace FlexibleParser
 
 				return 
 				(
-					other.Error != ErrorTypesNumber.None ? -1 : 1
+					thisVar.Error != ErrorTypesNumber.None ? -1 : 1
 				);
 			}
 
