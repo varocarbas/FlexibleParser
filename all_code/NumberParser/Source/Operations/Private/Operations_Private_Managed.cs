@@ -497,7 +497,7 @@ namespace FlexibleParser
                 return new NumberD(ErrorTypesNumber.InvalidOperation);
             }
 
-            if (showUser && output.Value < 1m)
+            if (showUser && output.Value < 1)
             {
                 //The opposite to passing to value, but what is expected anyway.
                 return NormaliseNumber(input);
