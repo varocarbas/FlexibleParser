@@ -6,14 +6,6 @@ namespace FlexibleParser
 {
     public partial class NumberO
     {
-		private static IEnumerable<Type> AssignOtherTypes(IEnumerable<Type> types)
-		{
-			foreach (Type type in types)
-			{
-				yield return type;
-			}
-		}
-
         private static List<NumberD> PopulateOthers(decimal value, int baseTenExponent, IEnumerable<Type> types)
         {
             List<NumberD> outList = new List<NumberD>();

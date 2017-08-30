@@ -79,7 +79,7 @@ namespace FlexibleParser
 				//and finally Value).
 				if (otherTypes != null)
 				{
-					_OtherTypes = AssignOtherTypes(otherTypes);
+					_OtherTypes = CheckOtherTypes(otherTypes);
 				}
 				else
 				{
@@ -185,8 +185,7 @@ namespace FlexibleParser
 		///<param name="value">Main value to be used.</param>
 		///<param name="baseTenExponent">Base-ten exponent to be used.</param>
 		///<param name="otherTypes">Collection containing the types to be considered.</param>
-		public NumberO(decimal value, int baseTenExponent, IEnumerable<Type> otherTypes)
-			: this
+		public NumberO(decimal value, int baseTenExponent, IEnumerable<Type> otherTypes) : this
 		(
 			value, baseTenExponent, otherTypes, ErrorTypesNumber.None
 		)
@@ -307,12 +306,7 @@ namespace FlexibleParser
 
 		private NumberO(decimal value, int baseTenExponent, IEnumerable<Type> otherTypes, ErrorTypesNumber error)
 		{
-			if (otherTypes == null)
-			{
-				otherTypes = AssignOtherTypes(new List<Type>());
-			}
-
-			_OtherTypes = otherTypes;
+			_OtherTypes = CheckOtherTypes(otherTypes);
 			BaseTenExponent = baseTenExponent;
 			Value = value;
 			Error = error;
