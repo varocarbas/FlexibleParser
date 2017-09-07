@@ -94,7 +94,7 @@ namespace FlexibleParser
 		///<param name="type">Type to be assigned to the dynamic Value property. Only numeric types are valid.</param>
 		public NumberD(dynamic value, Type type)
 		{
-			NumberD numberD = Basic.ExtractValueAndTypeInfo(value, 0, type);
+			NumberD numberD = ExtractValueAndTypeInfo(value, 0, type);
 
 			if (numberD.Error != ErrorTypesNumber.None)
 			{
@@ -114,7 +114,7 @@ namespace FlexibleParser
 		///<param name="type">Type to be assigned to the dynamic Value property. Only numeric types are valid.</param>
 		public NumberD(dynamic value, int baseTenExponent, Type type)
 		{
-			NumberD numberD = Basic.ExtractValueAndTypeInfo
+			NumberD numberD = ExtractValueAndTypeInfo
 			(
 				value, baseTenExponent, type
 			);
@@ -247,7 +247,7 @@ namespace FlexibleParser
 
 		private NumberD(dynamic value, int baseTenExponent, Type type, bool assignType)
 		{
-			NumberD numberD = Basic.ExtractValueAndTypeInfo
+			NumberD numberD = ExtractValueAndTypeInfo
 			(
 				value, baseTenExponent, type
 			);
@@ -267,5 +267,27 @@ namespace FlexibleParser
 				}
 			}
 		}
+
+        private static NumberD ExtractValueAndTypeInfo(dynamic value, int baseTenExponent, Type type)
+        {
+            Type typeValue = ErrorInfoNumber.InputTypeIsValidNumeric(value);
+            if (typeValue == null)
+            {
+                return new NumberD(ErrorTypesNumber.InvalidInput);
+            }
+
+            return
+            (
+                typeValue == type ? new NumberD(value, baseTenExponent) :
+                Operations.VaryBaseTenExponent
+                (
+                    Conversions.ConvertNumberToAny
+                    (
+                        Conversions.ConvertAnyValueToDecimal(value), type
+                    ),
+                    baseTenExponent
+                )
+            );
+        }
 	}
 }

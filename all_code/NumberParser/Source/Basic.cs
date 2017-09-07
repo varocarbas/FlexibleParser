@@ -113,27 +113,5 @@ namespace FlexibleParser
 
 			return (value >= minMax[0] && value <= minMax[1]);
 		}
-
-        public static NumberD ExtractValueAndTypeInfo(dynamic value, int baseTenExponent, Type type)
-        {
-            Type typeValue = ErrorInfoNumber.InputTypeIsValidNumeric(value);
-            if (typeValue == null)
-            {
-                return new NumberD(ErrorTypesNumber.InvalidInput);
-            }
-
-            return
-            (
-                typeValue == type ? new NumberD(value, baseTenExponent) :
-                Operations.VaryBaseTenExponent
-                (
-                    Conversions.ConvertNumberToAny
-                    (
-                        Conversions.ConvertAnyValueToDecimal(value), type
-                    ),
-                    baseTenExponent
-                )
-            );
-        }
 	}
 }
