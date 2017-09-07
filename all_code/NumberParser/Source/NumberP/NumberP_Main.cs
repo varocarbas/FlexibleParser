@@ -147,7 +147,7 @@ namespace FlexibleParser
 
         private static NumberD ParseToSpecificType(string input, ParseConfig config)
         {
-            if (config.Target == typeof(double))
+            if (config.Target == typeof(decimal))
             {
                 decimal value = 0m;
                 if (decimal.TryParse(input, config.NumberStyle, config.Culture, out value))
