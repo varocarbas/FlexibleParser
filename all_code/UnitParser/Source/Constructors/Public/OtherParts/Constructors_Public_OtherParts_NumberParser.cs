@@ -37,8 +37,6 @@ namespace FlexibleParser
 
         ///<summary>
         ///<para>Initialises a new UnitP instance.</para>
-        ///<para>Automatically assigned values:</para>
-        ///<para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
         ///</summary>
         ///<param name="numberX">NumberParser's Number, NumberD, NumberO or NumberP variable to be used.</param>
         ///<param name="unitString">String containing the unit information to be parsed.</param>
@@ -70,10 +68,7 @@ namespace FlexibleParser
         }
 
         ///<summary>
-        ///<para>Initialises a new UnitP instance.</para>
-        ///<para>Initialises a new UnitP instance.</para>
-        ///<para>Automatically assigned values:</para>		
-        ///<para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>        
+        ///<para>Initialises a new UnitP instance.</para>       
         ///</summary>
         ///<param name="numberX">NumberParser's Number, NumberD, NumberO or NumberP variable to be used.</param>
         ///<param name="unit">Member of the Units enum to be used.</param>
