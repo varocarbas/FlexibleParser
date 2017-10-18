@@ -14,13 +14,13 @@ namespace FlexibleParser
         {
             UnitP.UnitInfo outInfo = new UnitP.UnitInfo(0, exceptionHandling, prefixUsage);
 
-            if (numberX == null || !OtherParts.NumberXTypes.Contains((string)numberX.GetType().ToString()) || numberX.Error.ToString() != "None")
+            if (numberX == null || !NumberXTypes.Contains((string)numberX.GetType().ToString()) || numberX.Error.ToString() != "None")
             {
                 outInfo.Error = UnitP.ErrorTypes.NumericError;
             }
             else
             {
-                OtherParts.NumberInternal temp = OtherParts.ConvertAnyValueToDecimal(numberX.Value);
+                NumberInternal temp = ConvertAnyValueToDecimal(numberX.Value);
 
                 if (temp.IsWrong) outInfo.Error = UnitP.ErrorTypes.NumericError;
                 else

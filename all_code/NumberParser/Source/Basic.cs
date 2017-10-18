@@ -9,6 +9,8 @@ namespace FlexibleParser
 		//Positive min./max. values for all the supported numeric types to behave accurately. 
 		//This is useful when dealing with NumberX variables, to determine the points where BaseTenExponent
 		//has to be brought into picture to complement Value.
+        //Note that the main purpose of this collection is to set lower/upper precision limits for each type; an
+        //issue which is mostly relevant for the .NET decimal type.
 		public static Dictionary<Type, dynamic[]> AllNumberMinMaxPositives = new Dictionary<Type, dynamic[]>()
 		{
 			{ typeof(decimal), new dynamic[] { 1e-28m, 79228162514264337593543950335m } },
@@ -92,24 +94,18 @@ namespace FlexibleParser
 			dynamic value = null;
 			dynamic[] minMax = null;
 
-			if (type == typeof(double) || type == typeof(float))
+            value = 
+            (
+                (type == typeof(double) || type == typeof(float)) ? 
+                Conversions.ConvertToDoubleInternal(input.Value) : 
+                Conversions.ConvertToDecimalInternal(input.Value)
+            );
+
+            minMax = new dynamic[]
 			{
-				value = Conversions.ConvertToDoubleInternal(input.Value);
-				minMax = new dynamic[]
-				{
-					Convert.ToDouble(AllNumberMinMaxPositives[type][0]),
-					Convert.ToDouble(AllNumberMinMaxPositives[type][1])
-				};
-			}
-			else
-			{
-				value = Conversions.ConvertToDecimalInternal(input.Value);
-				minMax = new dynamic[]
-				{
-					Convert.ToDecimal(AllNumberMinMaxPositives[type][0]),
-					Convert.ToDecimal(AllNumberMinMaxPositives[type][1])
-				};
-			}
+				Convert.ToDecimal(AllNumberMinMaxs[type][0]),
+				Convert.ToDecimal(AllNumberMinMaxs[type][1])
+			};
 
 			return (value >= minMax[0] && value <= minMax[1]);
 		}
