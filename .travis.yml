@@ -1,7 +1,0 @@
-language: csharp
-solution: all_code/FlexibleParser.sln
-notifications:
-  email: false
-before_install:
-  - sudo rm -rf /etc/apt/sources.list.d/rwky-redis.list
-  - sudo add-apt-repository ppa:chris-lea/redis-server -y
