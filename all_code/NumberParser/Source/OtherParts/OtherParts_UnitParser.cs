@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace FlexibleParser
 {
+	//File including all the required resources to extract the main information of UnitP (i.e., the main UnitParser class)
+	//variables without including a proper definition of that class.
 	internal partial class OtherParts
 	{
 		public static Number GetNumberFromUnitP(dynamic unitP)

@@ -5,7 +5,7 @@ using System.Linq;
 namespace FlexibleParser
 {
     //File including all the required resources to extract the main information of NumberX (i.e., the NumberParser classes
-    //Number, NumberD, NumberO and NumberP) variables without referring those classes at all.
+    //Number, NumberD, NumberO and NumberP) variables without including proper definitions of those classes.
     internal partial class OtherParts
     {
         internal static UnitP.UnitInfo GetUnitInfoFromNumberX
