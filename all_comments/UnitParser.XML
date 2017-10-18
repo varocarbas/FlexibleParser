@@ -20,8 +20,6 @@
         <member name="M:FlexibleParser.UnitP.#ctor(System.Object,System.String,FlexibleParser.UnitP.ExceptionHandlingTypes,FlexibleParser.PrefixUsageTypes)">
             <summary>
             <para>Initialises a new UnitP instance.</para>
-            <para>Automatically assigned values:</para>
-            <para>PrefixUsage = PrefixUsageTypes.DefaultUsage</para>
             </summary>
             <param name="numberX">NumberParser's Number, NumberD, NumberO or NumberP variable to be used.</param>
             <param name="unitString">String containing the unit information to be parsed.</param>
@@ -31,8 +29,6 @@
         <member name="M:FlexibleParser.UnitP.#ctor(System.Object,FlexibleParser.Units,FlexibleParser.Prefix,FlexibleParser.UnitP.ExceptionHandlingTypes,FlexibleParser.PrefixUsageTypes)">
             <summary>
             <para>Initialises a new UnitP instance.</para>
-            <para>Automatically assigned values:</para>
-            <para>Error.ExceptionHandling = ExceptionHandlingTypes.NeverTriggerException</para>
             </summary>
             <param name="numberX">NumberParser's Number, NumberD, NumberO or NumberP variable to be used.</param>
             <param name="unit">Member of the Units enum to be used.</param>
