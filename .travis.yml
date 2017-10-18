@@ -1,4 +1,7 @@
 language: csharp
 solution: all_code/FlexibleParser.sln
 notifications:
- email: false
+  email: false
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install libxml-checker-perl libdbd-pg-perl libperl-critic-perl libdevel-cover-perl
