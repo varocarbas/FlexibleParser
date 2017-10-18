@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace FlexibleParser
 {
+    //File including all the required resources to extract the main information of NumberX (i.e., the NumberParser classes
+    //Number, NumberD, NumberO and NumberP) variables without referring those classes at all.
     internal partial class OtherParts
     {
         internal static UnitP.UnitInfo GetUnitInfoFromNumberX
@@ -28,7 +30,7 @@ namespace FlexibleParser
                     try
                     {
                         outInfo.Value = temp.Value;
-                        outInfo.BaseTenExponent += numberX.BaseTenExponent;
+                        outInfo.BaseTenExponent = temp.Exponent + numberX.BaseTenExponent;
                     }
                     catch
                     {
