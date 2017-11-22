@@ -22,7 +22,7 @@ Among its most salient features are: user-defined exception triggering and grace
 It provides a common framework for all the .NET numeric types. Main features: exceptions managed internally; beyond-double-range support; custom mathematical functionalities.
 
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.803399.svg)](https://doi.org/10.5281/zenodo.803399) [DateParser](https://customsolvers.com/date_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/releases/tag/DateParser_1.0.7.0), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/DateParser.md))<br/>
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.803399.svg)](https://doi.org/10.5281/zenodo.803399) [DateParser](https://customsolvers.com/date_parser/) ([last release](https://github.com/varocarbas/FlexibleParser/releases/tag/DateParser_1.0.7.0), [readme file](https://github.com/varocarbas/FlexibleParser/blob/master/all_readme/DateParser.md), [code analysis](https://varocarbas.com/date_parser_code/))<br/>
 It enhances the default .NET date/time support, mostly via improving the usability of its main type and accounting for a big amount of additional time zone information.
 
 
