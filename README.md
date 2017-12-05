@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.803400.svg)](https://doi.org/10.5281/zenodo.803400) 
 
-FlexibleParser is a multi-purpose .NET parsing library based upon the following ideas:
+FlexibleParser is a group of multi-purpose .NET parsing libraries based upon the following ideas:
 
 - Intuitive, adaptable and easy to use.
 - Pragmatic, but aiming for the maximum accuracy and correctness.
