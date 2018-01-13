@@ -1,0 +1,4 @@
+language: csharp
+solution: all_code/FlexibleParser.sln
+notifications:
+  email: false
