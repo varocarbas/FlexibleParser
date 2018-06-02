@@ -9,6 +9,8 @@ FlexibleParser is a group of multi-purpose .NET parsing libraries based upon the
 - Overall compatible and easily automatable. 
 - Formed by independent DLLs managing specific situations.
 
+For more information about how to use them outside Windows, take a look at [this repository](https://github.com/varocarbas/FlexibleParser_NonWindows).
+
 ## Parts
 
 At the moment, FlexibleParser is formed by the following independent parts:
