@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FlexibleParser
+﻿namespace FlexibleParser
 {
     //All the methods in this file pursue the same goal: returning an accurate enough
     //first guess allowing the Newton-Raphson method (GetNRoot) to calculate the n root

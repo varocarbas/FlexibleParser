@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FlexibleParser
+﻿namespace FlexibleParser
 {
     internal partial class CountryInternal
     {

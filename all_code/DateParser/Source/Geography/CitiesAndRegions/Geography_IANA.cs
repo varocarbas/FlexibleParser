@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FlexibleParser
+﻿namespace FlexibleParser
 {
     ///<summary><para>All the cities and regions associated with IANA timezones.</para></summary>
     public enum IANACityRegionEnum

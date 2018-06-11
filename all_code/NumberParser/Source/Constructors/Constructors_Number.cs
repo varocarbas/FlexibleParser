@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FlexibleParser
+﻿namespace FlexibleParser
 {
 	///<summary>
 	///<para>Number is the simplest and lightest NumberX class.</para>
